@@ -1,0 +1,132 @@
+@use '../abstracts' as *;
+@use '../themes' as *;
+
+button {
+  font-family: $secondary-font;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.2rem 0.6rem;
+  transition: 0.2s;
+}
+
+.signup-button {
+  font-weight: 600;
+  font-family: $secondary-font;
+  background-color: transparent;
+  color: $app-accent;
+  border: 2px solid $app-accent;
+  border-radius: 5px;
+  @include on-hover {
+    color: hover-color($app-accent, 10);
+    border-color: hover-color($app-accent, 10);
+  }
+  &:active {
+    color: hover-color($app-accent, 10);
+    border-color: hover-color($app-accent, 10);
+  }
+}
+
+.login-button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  color: $login-btn;
+  @include on-hover {
+    color: hover-color($login-btn, 10);
+    border-color: hover-color($login-btn, 10);
+  }
+  &:active {
+    color: hover-color($login-btn, 10);
+    border-color: hover-color($login-btn, 10);
+  }
+}
+
+.hamburger {
+  @include media($from: 'md') {
+    display: none;
+  }
+  -webkit-tap-highlight-color: transparent;
+  padding: 0;
+  display: inline-block;
+  cursor: pointer;
+  transition-property: opacity, filter;
+  transition-duration: 0.15s;
+  transition-timing-function: linear;
+  font: inherit;
+  color: inherit;
+  text-transform: none;
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  overflow: visible;
+}
+.hamburger:hover {
+  opacity: 0.7;
+}
+.hamburger.is-active:hover {
+  opacity: 0.7;
+}
+.hamburger.is-active .hamburger-inner,
+.hamburger.is-active .hamburger-inner::before,
+.hamburger.is-active .hamburger-inner::after {
+  background-color: $menu-burger-button;
+}
+
+.hamburger-box {
+  width: 2rem;
+  height: 1.5rem;
+  display: inline-block;
+  position: relative;
+}
+
+.hamburger-inner {
+  display: block;
+  top: 50%;
+}
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+  width: 2rem;
+  height: 3px;
+  background-color: $menu-burger-button;
+  border-radius: 8px;
+  position: absolute;
+  transition-property: transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
+.hamburger-inner::before,
+.hamburger-inner::after {
+  content: '';
+  display: block;
+}
+.hamburger-inner::before {
+  top: -8px;
+}
+.hamburger-inner::after {
+  bottom: -8px;
+}
+
+.hamburger--3dy .hamburger-box {
+  perspective: 80px;
+}
+
+.hamburger--3dy .hamburger-inner {
+  transition: transform 0.15s cubic-bezier(0.645, 0.045, 0.355, 1),
+    background-color 0s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.hamburger--3dy .hamburger-inner::before,
+.hamburger--3dy .hamburger-inner::after {
+  transition: transform 0s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.hamburger--3dy.is-active .hamburger-inner {
+  background-color: transparent !important;
+  transform: rotateX(-180deg);
+}
+.hamburger--3dy.is-active .hamburger-inner::before {
+  transform: translate3d(0, 8px, 0) rotate(45deg);
+}
+.hamburger--3dy.is-active .hamburger-inner::after {
+  transform: translate3d(0, -8px, 0) rotate(-45deg);
+}

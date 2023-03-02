@@ -1,0 +1,88 @@
+@use '../abstracts' as *;
+@use '../themes' as *;
+
+h1,
+h2,
+h3,
+h4,
+p,
+a {
+  -webkit-tap-highlight-color: transparent;
+  margin: 0;
+  text-decoration: none;
+  font-family: $primary-font;
+  transition: 0.2s;
+}
+
+a,
+button {
+  cursor: pointer;
+  text-decoration: none;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+li {
+  list-style: none;
+}
+
+//Nav Menu
+.footer-label {
+  font-style: normal;
+  font-weight: 500;
+  line-height: 12px;
+  color: $menu-label;
+}
+
+.menu--link {
+  color: $menu-link;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 20px;
+  letter-spacing: -0.025em;
+  @include flexCenter(row, 0);
+  justify-content: space-between;
+  @include on-hover {
+    color: hover-color($menu-link, 30);
+  }
+  &:active {
+    color: hover-color($menu-link, 30);
+  }
+}
+
+.footer-link {
+  color: $footer-link;
+  text-decoration: underline;
+  text-underline-offset: 0.1rem;
+  font-weight: 500;
+  font-size: 1rem;
+  @include on-hover {
+    color: hover-color($footer-link, 30);
+  }
+  &:active {
+    color: hover-color($footer-link, 30);
+  }
+}
+
+.footer-copy {
+  color: $footer-copyright;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.navbar-link {
+  font-family: $secondary-font;
+  color: $nav-link;
+  font-weight: 500;
+  font-size: 0.9rem;
+  @include on-hover {
+    color: hover-color($nav-link, 30);
+  }
+  &:active {
+    color: hover-color($nav-link, 30);
+  }
+  &.active {
+    color: hover-color($nav-link, 30);
+  }
+}
