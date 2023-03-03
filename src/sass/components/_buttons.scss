@@ -41,6 +41,28 @@ button {
   }
 }
 
+.start-content-button {
+  font-weight: 600;
+  font-size: 0.9rem;
+  font-family: $secondary-font;
+  background-color: $app-accent;
+  color: $page-bg;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem 2rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  @include media($from: 'md') {
+    font-size: 1rem;
+  }
+  @include on-hover {
+    background-color: hover-color($app-accent, 5);
+  }
+  &:active {
+    background-color: hover-color($app-accent, 5);
+  }
+}
+
 .hamburger {
   @include media($from: 'md') {
     display: none;

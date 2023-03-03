@@ -1,2 +1,28 @@
 @use '../abstracts' as *;
 @use '../themes' as *;
+
+.home-wrapper {
+  width: 100%;
+  .home-start-wrapper {
+    padding: 1rem 1rem;
+    @include flexCenter(row, 0);
+    justify-content: space-between;
+    @include media($from: 'md') {
+      padding: 1rem 3rem;
+    }
+    .home-start-content-wrapper {
+      @include flexCenter(column, 0.5rem);
+      align-items: flex-start;
+    }
+    .home-start-banner-wrapper {
+      display: none;
+      max-width: 35rem;
+      min-width: 26rem;
+      width: 100%;
+      @include media($from: 'md') {
+        display: block;
+        padding: 1rem 3rem;
+      }
+    }
+  }
+}
