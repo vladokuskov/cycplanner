@@ -1,8 +1,14 @@
 import Head from 'next/head';
 
 import Banner from '@/assets/home/home-banner.svg';
+import { useState } from 'react';
 
 export default function Home() {
+  const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
+
+  const handleHover = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setIsInfoOpen(event.type === 'mouseenter');
+  };
   return (
     <>
       <Head>
@@ -43,15 +49,20 @@ export default function Home() {
                   className="events-info-button"
                   title="How it works?"
                   aria-label="How it works?"
+                  onMouseEnter={handleHover}
+                  onMouseLeave={handleHover}
                   tabIndex={0}
                 >
                   ?
                 </button>
-                <p className="events-info-title">
-                  The nearest events are within a radius of 40 km
-                </p>
+                {isInfoOpen ? (
+                  <p className="events-info-title">
+                    The nearest events are within a radius of 40 km
+                  </p>
+                ) : null}
               </div>
             </div>
+            <div className="home-events-filter-wrapper"></div>
           </div>
         </div>
       </main>

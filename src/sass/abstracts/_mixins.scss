@@ -81,3 +81,13 @@
     opacity: 1;
   }
 }
+
+@keyframes smoothShow {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

@@ -115,3 +115,28 @@ li {
     font-size: 1.1rem;
   }
 }
+
+.home-events-title {
+  color: $home-title;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2.9rem;
+  line-height: 48px;
+}
+
+.events-info-title {
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  width: 100%;
+  width: 100%;
+  max-width: 100%;
+  min-width: 12rem;
+  text-align: center;
+  padding: 0.1rem 0.3rem;
+  border-radius: 10px;
+  color: $home-info;
+  background-color: $home-info-bg;
+  margin-right: 1rem;
+  animation: smoothShow 250ms;
+}

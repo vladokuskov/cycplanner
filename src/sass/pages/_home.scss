@@ -25,4 +25,25 @@
       }
     }
   }
+  .home-events-wrapper {
+    padding: 1rem;
+    width: 100%;
+    .home-events-header {
+      width: 100%;
+      @include flexCenter(column, 0);
+      align-items: flex-start;
+      .home-events-title-wrapper {
+        @include flexCenter(column, 0);
+        @include media($from: 'sm') {
+          flex-direction: row;
+          align-items: flex-start;
+          gap: 0.5rem;
+        }
+        .home-events-info-wrapper {
+          width: 100%;
+          position: relative;
+        }
+      }
+    }
+  }
 }

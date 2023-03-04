@@ -63,6 +63,22 @@ button {
   }
 }
 
+.events-info-button {
+  border-radius: 100%;
+  border: none;
+  background-color: $home-info-bg;
+  color: $home-info;
+  padding: 0;
+  width: 1.2rem;
+  height: 1.2rem;
+  @include on-hover {
+    background-color: hover-color($home-info-bg, -20);
+  }
+  &:active {
+    background-color: hover-color($home-info-bg, -20);
+  }
+}
+
 .hamburger {
   @include media($from: 'md') {
     display: none;
