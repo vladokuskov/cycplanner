@@ -30,8 +30,12 @@
     width: 100%;
     .home-events-header {
       width: 100%;
-      @include flexCenter(column, 0);
+      @include flexCenter(column, 1rem);
       align-items: flex-start;
+      @include media($from: 'md') {
+        flex-direction: row;
+        justify-content: space-between;
+      }
       .home-events-title-wrapper {
         @include flexCenter(column, 0);
         @include media($from: 'sm') {

@@ -1,14 +1,11 @@
 import Head from 'next/head';
 
 import Banner from '@/assets/home/home-banner.svg';
-import { useState } from 'react';
+
+import EventFilter from '@/components/eventFilter';
+import EventsInfo from '@/components/home/eventsInfo';
 
 export default function Home() {
-  const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
-
-  const handleHover = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setIsInfoOpen(event.type === 'mouseenter');
-  };
   return (
     <>
       <Head>
@@ -44,25 +41,9 @@ export default function Home() {
           <div className="home-events-header">
             <div className="home-events-title-wrapper">
               <h2 className="home-events-title section-title">EVENTS</h2>
-              <div className="home-events-info-wrapper">
-                <button
-                  className="events-info-button"
-                  title="How it works?"
-                  aria-label="How it works?"
-                  onMouseEnter={handleHover}
-                  onMouseLeave={handleHover}
-                  tabIndex={0}
-                >
-                  ?
-                </button>
-                {isInfoOpen ? (
-                  <p className="events-info-title">
-                    The nearest events are within a radius of 40 km
-                  </p>
-                ) : null}
-              </div>
+              <EventsInfo />
             </div>
-            <div className="home-events-filter-wrapper"></div>
+            <EventFilter />
           </div>
         </div>
       </main>

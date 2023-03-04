@@ -125,6 +125,7 @@ li {
 }
 
 .events-info-title {
+  z-index: 1001;
   position: absolute;
   top: 0;
   left: 1.5rem;
@@ -139,4 +140,8 @@ li {
   background-color: $home-info-bg;
   margin-right: 1rem;
   animation: smoothShow 250ms;
+  span {
+    font-weight: 600;
+    color: hover-color($home-info, -10);
+  }
 }

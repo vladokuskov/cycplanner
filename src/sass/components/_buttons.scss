@@ -79,6 +79,21 @@ button {
   }
 }
 
+.location-find-button {
+  border-radius: 10px;
+  border: none;
+  width: 2.5rem;
+  height: 2rem;
+  padding: 0;
+  margin: 0;
+  @include on-hover {
+    background-color: hover-color($input-bg, -2);
+  }
+  &:active {
+    background-color: hover-color($input-bg, -2);
+  }
+}
+
 .hamburger {
   @include media($from: 'md') {
     display: none;
