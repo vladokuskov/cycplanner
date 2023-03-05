@@ -83,9 +83,15 @@ const Geocoder = ({ updateGeoPoint, geoPoint }: Props) => {
 
   let geoResult;
 
-  const handleResult = (point: GeoPoint) => {
-    updateGeoPoint(point);
+  const handleResult = (point: {
+    latitude: number;
+    longitude: number;
+    address: string;
+  }) => {
+    updateGeoPoint({ latitude: point.latitude, longitude: point.longitude });
     setLocationStatus(LocationStatus.idle);
+    setGeocoderValue(point.address);
+    setHasUserTyped(false);
     setIsResultsOpen(false);
   };
 
@@ -104,6 +110,7 @@ const Geocoder = ({ updateGeoPoint, geoPoint }: Props) => {
                   handleResult({
                     latitude: item.properties.lat,
                     longitude: item.properties.lon,
+                    address: item.properties.formatted,
                   })
                 }
               >
