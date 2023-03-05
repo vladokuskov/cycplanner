@@ -4,18 +4,11 @@ const nextConfig = {
   env: {
     BASE_URL: process.env.BASE_URL,
   },
-  webpack: (config) => {
+  webpack(config) {
     config.module.rules.push({
-      test: /\.svg$/,
-      use: [
-        {
-          loader: '@svgr/webpack',
-          options: {
-            svgo: false, // disable SVGO optimizations
-          },
-        },
-        'url-loader',
-      ],
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
     });
 
     return config;

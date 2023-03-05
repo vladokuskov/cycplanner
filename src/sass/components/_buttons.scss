@@ -85,12 +85,22 @@ button {
   width: 2.5rem;
   height: 2rem;
   padding: 0;
-  margin: 0;
+  background-color: $input-bg;
+  color: $input-icon;
+  @include flexCenter(row, 0);
   @include on-hover {
     background-color: hover-color($input-bg, -2);
+    color: hover-color($input-icon, -10);
   }
   &:active {
     background-color: hover-color($input-bg, -2);
+    color: hover-color($input-icon, -10);
+  }
+  &.founded {
+    color: $filter-founded;
+  }
+  &.error {
+    color: $filter-error;
   }
 }
 

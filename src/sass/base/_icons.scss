@@ -93,3 +93,58 @@
   -webkit-animation: spin 0.7s ease-in-out infinite;
   margin-right: 0.5rem;
 }
+
+.location-icon {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(var(--ggs, 1));
+  width: 10px;
+  height: 10px;
+  border: 2px solid transparent;
+  box-shadow: 0 0 0 2px, inset 0 0 0 10px;
+  border-radius: 100px;
+}
+.location-icon::after,
+.location-icon::before {
+  content: '';
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  border-radius: 3px;
+}
+.location-icon::before {
+  border-left: 4px solid;
+  border-right: 4px solid;
+  width: 18px;
+  height: 2px;
+  left: -6px;
+  top: 2px;
+}
+.location-icon::after {
+  width: 2px;
+  height: 18px;
+  border-top: 4px solid;
+  border-bottom: 4px solid;
+  left: 2px;
+  top: -6px;
+}
+
+.location-fetching-icon,
+.location-fetching-icon::before {
+  display: block;
+  box-sizing: border-box;
+  height: 4px;
+}
+.location-fetching-icon {
+  position: relative;
+  transform: scale(var(--ggs, 1));
+  width: 18px;
+}
+.location-fetching-icon::before {
+  content: '';
+  position: absolute;
+  border-radius: 4px;
+  background: currentColor;
+  animation: loadbar 2s cubic-bezier(0, 0, 0.58, 1) infinite;
+}

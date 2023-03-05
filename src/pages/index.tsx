@@ -2,7 +2,7 @@ import Head from 'next/head';
 
 import Banner from '@/assets/home/home-banner.svg';
 
-import EventFilter from '@/components/eventFilter';
+import EventFilter from '@/components/event-filter/eventFilter';
 import EventsInfo from '@/components/home/eventsInfo';
 
 export default function Home() {

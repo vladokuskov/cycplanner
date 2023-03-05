@@ -50,4 +50,38 @@ input {
       padding-right: 0.5rem;
     }
   }
+  .geocoder-results-wrapper {
+    position: absolute;
+    top: 2.2rem;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px -1px rgba(0, 0, 0, 0.09);
+    .geocoder-result-wrapper {
+      @include flexCenter(column, 0);
+      width: 100%;
+      border-bottom: 1px solid $result-border;
+      &:last-child {
+        border-bottom: none;
+      }
+      .geocoder-result-button {
+        padding: 1rem 1rem;
+        width: 100%;
+        background-color: $input-bg;
+        color: $input-text;
+        border: none;
+        border-radius: 8px;
+        @include on-hover {
+          background-color: hover-color($input-bg, -5);
+        }
+        &:active,
+        &:focus {
+          background-color: hover-color($input-bg, -5);
+          color: hover-color($input-text, -10);
+        }
+        &.active {
+          background-color: hover-color($app-accent, 15);
+        }
+      }
+    }
+  }
 }

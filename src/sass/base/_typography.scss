@@ -145,3 +145,12 @@ li {
     color: hover-color($home-info, -10);
   }
 }
+
+.filter-label {
+  font-family: $primary-font;
+  color: $filter-label;
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 12px;
+  margin-left: 0.5rem;
+}
