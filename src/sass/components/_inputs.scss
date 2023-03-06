@@ -99,13 +99,14 @@ li {
 .range-options-wrapper {
   z-index: 0;
   position: absolute;
-  top: 3.5rem;
+  top: 3.6rem;
   width: 100%;
   @include flexCenter(column, 0);
   border-radius: 10px;
   background-color: transparent;
   box-shadow: 0px 5px 15px -1px rgba(0, 0, 0, 0.09);
   .range-option-wrapper {
+    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     text-align: center;
     width: 100%;

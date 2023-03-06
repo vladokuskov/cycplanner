@@ -17,12 +17,18 @@ const EventFilter = () => {
 
   const [initialDate, setInitialDate] = useState(new Date());
 
+  const [selectedRange, setSelectedRange] = useState<number>(40);
+
   const updateDate = (date: Date) => {
     setInitialDate(date);
   };
 
   const updateGeoPoint = (point: GeoPoint) => {
     setGeoPoint(point);
+  };
+
+  const updateRange = (range: number) => {
+    setSelectedRange(range);
   };
 
   return (
@@ -35,7 +41,7 @@ const EventFilter = () => {
       </div>
       <div className="filter-selectors-wrapper">
         <DatePicker updateDate={updateDate} initialDate={initialDate} />
-        <RangePicker />
+        <RangePicker updateRange={updateRange} selectedRange={selectedRange} />
       </div>
     </div>
   );

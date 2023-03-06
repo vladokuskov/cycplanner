@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const RangePicker = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState<number | null>(40);
+interface Props {
+  updateRange: (range: number) => void;
+  selectedRange: number;
+}
 
+const RangePicker = ({ updateRange, selectedRange }: Props) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
 
   const handleOptionClick = (option: number) => {
-    setSelectedOption(option);
+    updateRange(option);
     setIsOpen(false);
   };
   const options = [15, 40, 70, 100, 200];
@@ -34,7 +37,7 @@ const RangePicker = () => {
         name="RangePicker"
         className="selector-range-button"
       >
-        <span>{selectedOption + ` km`}</span>
+        <span>{selectedRange + ` km`}</span>
         <span className="range-button--icon">
           <i className={isOpen ? 'arrow-up' : 'arrow-down'} />
         </span>

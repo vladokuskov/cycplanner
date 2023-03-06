@@ -27,5 +27,21 @@
       align-items: flex-start;
       position: relative;
     }
+    .react-datepicker {
+      background-color: $input-bg;
+      font-family: $secondary-font;
+      border: 1px solid $footer-border;
+      border-radius: 8px;
+      .react-datepicker__day--selected {
+        background-color: $input-icon;
+      }
+      .react-datepicker__triangle {
+        display: none;
+      }
+      .react-datepicker__header {
+        background-color: hover-color($input-bg, 4);
+        border-radius: 8px 8px 0 0;
+      }
+    }
   }
 }
