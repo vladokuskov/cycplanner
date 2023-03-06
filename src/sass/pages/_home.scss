@@ -37,6 +37,7 @@
         justify-content: space-between;
       }
       .home-events-title-wrapper {
+        width: 100%;
         @include flexCenter(column, 0);
         @include media($from: 'sm') {
           flex-direction: row;

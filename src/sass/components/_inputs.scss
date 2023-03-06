@@ -9,6 +9,14 @@ input {
   letter-spacing: -0.02rem;
 }
 
+li {
+  font-family: $secondary-font;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: 0.2s;
+  letter-spacing: -0.02rem;
+}
+
 .location-geocoder-wrapper {
   min-width: 14rem;
   width: 100%;
@@ -56,6 +64,8 @@ input {
     width: 100%;
     border-radius: 8px;
     box-shadow: 0px 5px 15px -1px rgba(0, 0, 0, 0.09);
+    background-color: $input-bg;
+    z-index: 1;
     .geocoder-result-wrapper {
       @include flexCenter(column, 0);
       width: 100%;
@@ -82,6 +92,40 @@ input {
           background-color: hover-color($app-accent, 15);
         }
       }
+    }
+  }
+}
+
+.range-options-wrapper {
+  z-index: 0;
+  position: absolute;
+  top: 3.5rem;
+  width: 100%;
+  @include flexCenter(column, 0);
+  border-radius: 10px;
+  background-color: transparent;
+  box-shadow: 0px 5px 15px -1px rgba(0, 0, 0, 0.09);
+  .range-option-wrapper {
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid $result-border;
+    background-color: $input-bg;
+    padding: 0.6rem 0.1rem;
+    &:first-child {
+      border-radius: 8px 8px 0 0;
+    }
+    &:last-child {
+      border-bottom: none;
+      border-radius: 0 0 8px 8px;
+    }
+    @include on-hover {
+      background-color: hover-color($input-bg, -5);
+    }
+    &:active,
+    &:focus {
+      background-color: hover-color($input-bg, -5);
+      color: hover-color($input-text, -10);
     }
   }
 }

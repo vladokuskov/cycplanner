@@ -5,11 +5,27 @@
   margin-top: 0.5rem;
   width: 100%;
   @include flexCenter(column, 0.5rem);
+  align-items: flex-start;
+  @include media($from: 'md') {
+    align-items: center;
+  }
   .filter-location-wrapper {
+    width: 100%;
     @include flexCenter(column, 0.3rem);
     align-items: flex-start;
     .filter-location-content {
       @include flexCenter(row, 0.5rem);
+    }
+  }
+  .filter-selectors-wrapper {
+    width: 100%;
+    @include flexCenter(row, 1rem);
+    justify-content: flex-start;
+    align-items: flex-end;
+    .selectors-range-wrapper {
+      @include flexCenter(column, 0.3rem);
+      align-items: flex-start;
+      position: relative;
     }
   }
 }
