@@ -1,3 +1,5 @@
+![Commits](https://img.shields.io/github/commit-activity/m/swappnet/cycplanner)
+
 # CycPlanner
 
 CycPlanner is a web application that allows users to create, organize, and join cycling events in their area. This project was created using React, Next.js, and Firebase.
