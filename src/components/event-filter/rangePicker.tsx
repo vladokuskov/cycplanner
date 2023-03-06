@@ -36,6 +36,8 @@ const RangePicker = ({ updateRange, selectedRange }: Props) => {
         onClick={() => setIsOpen(!isOpen)}
         name="RangePicker"
         className="selector-range-button"
+        title="Select range of search"
+        aria-label="Select range of search"
       >
         <span>{selectedRange + ` km`}</span>
         <span className="range-button--icon">
