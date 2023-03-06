@@ -24,6 +24,11 @@ button {
 
 li {
   list-style: none;
+  font-family: $secondary-font;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: 0.2s;
+  letter-spacing: -0.02rem;
 }
 
 //Nav Menu
@@ -117,11 +122,15 @@ li {
 }
 
 .home-events-title {
+  width: 100%;
   color: $home-title;
   font-style: normal;
   font-weight: 600;
   font-size: 2.9rem;
   line-height: 48px;
+  @include media($from: 'sm') {
+    width: auto;
+  }
 }
 
 .events-info-title {
@@ -131,7 +140,7 @@ li {
   left: 1.5rem;
   width: 100%;
   width: 100%;
-  max-width: 100%;
+  max-width: 10rem;
   min-width: 12rem;
   text-align: center;
   padding: 0.1rem 0.3rem;

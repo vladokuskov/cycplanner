@@ -1,5 +1,9 @@
-import { useState, useEffect } from 'react';
 import Geocoder from './geocoder';
+import DatePicker from './datePicker';
+import RangePicker from './rangePicker';
+
+import { useAppDispatch, useAppSelector } from '@/store/redux-hooks';
+import { updateDate, updateGeoPoint, updateRange } from '@/store/filterReducer';
 
 export interface GeoPoint {
   latitude: number;
@@ -7,22 +11,30 @@ export interface GeoPoint {
 }
 
 const EventFilter = () => {
-  const [geoPoint, setGeoPoint] = useState<GeoPoint>({
-    latitude: 51.509865,
-    longitude: -0.118092,
-  });
+  const dispatch = useAppDispatch();
 
-  const updateGeoPoint = (point: GeoPoint) => {
-    setGeoPoint(point);
+  const geoPoint = useAppSelector((state) => state.filterReducer.geoPoint);
+  const initialDate = useAppSelector((state) => state.filterReducer.date);
+  const selectedRange = useAppSelector((state) => state.filterReducer.range);
+
+  const changeDate = (date: Date) => {
+    dispatch(updateDate(date));
+  };
+
+  const changeGeoPoint = (point: GeoPoint) => {
+    dispatch(updateGeoPoint(point));
+  };
+
+  const changeRange = (range: number) => {
+    dispatch(updateRange(range));
   };
 
   return (
     <div className="filter-wrapper">
-      <div className="filter-location-wrapper">
-        <label htmlFor="geocoder" className="filter-label">
-          Location
-        </label>
-        <Geocoder updateGeoPoint={updateGeoPoint} geoPoint={geoPoint} />
+      <Geocoder changeGeoPoint={changeGeoPoint} geoPoint={geoPoint} />
+      <div className="filter-selectors-wrapper">
+        <DatePicker changeDate={changeDate} initialDate={initialDate} />
+        <RangePicker changeRange={changeRange} selectedRange={selectedRange} />
       </div>
     </div>
   );

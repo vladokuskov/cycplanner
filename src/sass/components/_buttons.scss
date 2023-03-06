@@ -72,10 +72,10 @@ button {
   width: 1.2rem;
   height: 1.2rem;
   @include on-hover {
-    background-color: hover-color($home-info-bg, -20);
+    background-color: hover-color($home-info-bg, -5);
   }
   &:active {
-    background-color: hover-color($home-info-bg, -20);
+    background-color: hover-color($home-info-bg, -5);
   }
 }
 
@@ -101,6 +101,76 @@ button {
   }
   &.error {
     color: $filter-error;
+  }
+}
+
+.date-selector-button {
+  min-width: 7.5rem;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  padding: 0.5rem;
+  background-color: $input-bg;
+  color: $input-text;
+  @include flexCenter(row, 0.1rem);
+  justify-content: space-between;
+  @include on-hover {
+    background-color: hover-color($input-bg, -2);
+    color: hover-color($input-text, -10);
+    .selector-date-icon {
+      color: hover-color($input-icon, -10);
+    }
+  }
+  &:active {
+    background-color: hover-color($input-bg, -2);
+    color: hover-color($input-text, -10);
+  }
+}
+
+.selector-range-button {
+  min-width: 7rem;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  padding: 0.5rem;
+  background-color: $input-bg;
+  color: $input-text;
+  @include flexCenter(row, 0.2rem);
+  justify-content: space-between;
+  .range-button--icon {
+    color: $input-icon;
+    @include flexCenter(row, 0.1rem);
+  }
+  @include on-hover {
+    background-color: hover-color($input-bg, -2);
+    color: hover-color($input-text, -10);
+    .range-button--icon {
+      color: hover-color($input-icon, -10);
+    }
+  }
+  &:active {
+    background-color: hover-color($input-bg, -2);
+    color: hover-color($input-text, -10);
+  }
+}
+
+.geocoder-result-button {
+  padding: 1rem 1rem;
+  width: 100%;
+  background-color: $input-bg;
+  color: $input-text;
+  border: none;
+  border-radius: 8px;
+  @include on-hover {
+    background-color: hover-color($input-bg, -5);
+  }
+  &:active,
+  &:focus {
+    background-color: hover-color($input-bg, -5);
+    color: hover-color($input-text, -10);
+  }
+  &.active {
+    background-color: hover-color($app-accent, 15);
   }
 }
 
