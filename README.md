@@ -7,10 +7,10 @@ CycPlanner is a web application that allows users to create, organize, and join 
 
 To get started with the project, follow these steps:
 
-    Clone the repository to your local machine.
-    Install the necessary dependencies by running npm install.
-    Create a Firebase project and add your Firebase configuration to the .env.local file in the root directory of the project.
-    Start the development server by running npm run dev.
+    1. Clone the repository to your local machine.
+    2. Install the necessary dependencies by running npm install.
+    3. Create a Firebase project and add your Firebase configuration to the .env.local file in the root directory of the project.
+    4. Start the development server by running npm run dev.
 
 ---
 
