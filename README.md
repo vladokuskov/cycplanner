@@ -50,11 +50,11 @@ Contributions to CycPlanner are welcome! If you would like to contribute, please
 
 ### License
 
-CycPlanner is licensed under the MIT license. See the LICENSE file for more information.
+`cycplanner` is licensed under the MIT license. See the LICENSE file for more information.
 
 ### Acknowledgements
 
-CycPlanner was created by Swappnet as a project for cycling community.
+`cycplanner` was created by Swappnet as a project for cycling community.
 
 <h4>Liked the work ?</h4>
 Give the repository a star :-)
