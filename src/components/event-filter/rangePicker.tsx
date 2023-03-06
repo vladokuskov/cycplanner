@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 interface Props {
-  updateRange: (range: number) => void;
+  changeRange: (range: number) => void;
   selectedRange: number;
 }
 
-const RangePicker = ({ updateRange, selectedRange }: Props) => {
+const RangePicker = ({ changeRange, selectedRange }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
 
   const handleOptionClick = (option: number) => {
-    updateRange(option);
+    changeRange(option);
     setIsOpen(false);
   };
   const options = [15, 40, 70, 100, 200];
@@ -50,9 +50,9 @@ const RangePicker = ({ updateRange, selectedRange }: Props) => {
             <li
               className="range-option-wrapper"
               key={option}
-              role="button"
-              onClick={() => handleOptionClick(option)}
               tabIndex={0}
+              role="button"
+              onClick={(e) => handleOptionClick(option)}
             >
               {option + ` km`}
             </li>

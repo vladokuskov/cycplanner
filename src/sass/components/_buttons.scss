@@ -105,6 +105,7 @@ button {
 }
 
 .date-selector-button {
+  min-width: 7.5rem;
   width: 100%;
   border-radius: 8px;
   border: none;
@@ -150,6 +151,26 @@ button {
   &:active {
     background-color: hover-color($input-bg, -2);
     color: hover-color($input-text, -10);
+  }
+}
+
+.geocoder-result-button {
+  padding: 1rem 1rem;
+  width: 100%;
+  background-color: $input-bg;
+  color: $input-text;
+  border: none;
+  border-radius: 8px;
+  @include on-hover {
+    background-color: hover-color($input-bg, -5);
+  }
+  &:active,
+  &:focus {
+    background-color: hover-color($input-bg, -5);
+    color: hover-color($input-text, -10);
+  }
+  &.active {
+    background-color: hover-color($app-accent, 15);
   }
 }
 

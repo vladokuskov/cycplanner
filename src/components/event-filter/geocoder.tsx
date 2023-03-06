@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { GeoPoint } from './eventFilter';
 
 interface Props {
-  updateGeoPoint: (point: GeoPoint) => void;
+  changeGeoPoint: (point: GeoPoint) => void;
   geoPoint: GeoPoint;
 }
 
@@ -13,7 +13,7 @@ enum LocationStatus {
   error,
 }
 
-const Geocoder = ({ updateGeoPoint, geoPoint }: Props) => {
+const Geocoder = ({ changeGeoPoint, geoPoint }: Props) => {
   const [reversedLocation, setReversedLocation] = useState<string>('London');
   const [geocoderValue, setGeocoderValue] = useState<string>(reversedLocation);
   const [isGeocoderLoading, setIsGeocoderLoading] = useState<boolean>(false);
@@ -88,7 +88,7 @@ const Geocoder = ({ updateGeoPoint, geoPoint }: Props) => {
     longitude: number;
     address: string;
   }) => {
-    updateGeoPoint({ latitude: point.latitude, longitude: point.longitude });
+    changeGeoPoint({ latitude: point.latitude, longitude: point.longitude });
     setLocationStatus(LocationStatus.idle);
     setGeocoderValue(point.address);
     setHasUserTyped(false);
@@ -152,7 +152,7 @@ const Geocoder = ({ updateGeoPoint, geoPoint }: Props) => {
               longitude: position.coords.longitude,
             };
             setLocationStatus(LocationStatus.success);
-            updateGeoPoint(geoPoint);
+            changeGeoPoint(geoPoint);
           },
           (error) => {
             setLocationStatus(LocationStatus.error);
@@ -192,65 +192,70 @@ const Geocoder = ({ updateGeoPoint, geoPoint }: Props) => {
   }, [locationStatus]);
 
   return (
-    <div className="filter-location-content">
-      <div className="location-geocoder-wrapper" ref={ref}>
-        <input
-          name="geocoder"
-          value={geocoderValue}
-          className="geocoder-input"
-          autoComplete="false"
-          placeholder="Search location"
-          title="Search location"
-          aria-label="Search location"
-          onChange={handleChangeGeocoder}
-          onClick={() => setIsResultsOpen(true)}
-          tabIndex={0}
-        />
-        <div className="geocoder-status-wrapper">
-          {isGeocoderLoading ? (
-            <div className="geocoder-loading-icon" />
-          ) : geocoderValue.length > 0 ? (
-            <button
-              className="geocoder-clear-button"
-              onClick={handleClear}
-              title="Clear text"
-              tabIndex={0}
-            >
-              <i className="close-icon" />
-            </button>
-          ) : (
-            <i className="search-icon" />
+    <div className="filter-location-wrapper">
+      <label htmlFor="geocoder" className="filter-label">
+        Location
+      </label>
+      <div className="filter-location-content">
+        <div className="location-geocoder-wrapper" ref={ref}>
+          <input
+            name="geocoder"
+            value={geocoderValue}
+            className="geocoder-input"
+            autoComplete="false"
+            placeholder="Search location"
+            title="Search location"
+            aria-label="Search location"
+            onChange={handleChangeGeocoder}
+            onClick={() => setIsResultsOpen(true)}
+            tabIndex={0}
+          />
+          <div className="geocoder-status-wrapper">
+            {isGeocoderLoading ? (
+              <div className="geocoder-loading-icon" />
+            ) : geocoderValue.length > 0 ? (
+              <button
+                className="geocoder-clear-button"
+                onClick={handleClear}
+                title="Clear text"
+                tabIndex={0}
+              >
+                <i className="close-icon" />
+              </button>
+            ) : (
+              <i className="search-icon" />
+            )}
+          </div>
+          {isResultsOpen && (
+            <ul className="geocoder-results-wrapper">{geoResult}</ul>
           )}
         </div>
-        {isResultsOpen && (
-          <ul className="geocoder-results-wrapper">{geoResult}</ul>
-        )}
+        <button
+          className={
+            locationStatus === LocationStatus.idle ||
+            locationStatus === LocationStatus.fetching
+              ? `location-find-button`
+              : locationStatus === LocationStatus.success
+              ? 'location-find-button founded'
+              : locationStatus === LocationStatus.error
+              ? 'location-find-button error'
+              : 'location-find-button'
+          }
+          title="Find location"
+          aria-label="Find location"
+          disabled={locationStatus === LocationStatus.fetching}
+          tabIndex={locationStatus === LocationStatus.fetching ? -1 : 0}
+          onClick={getLocation}
+        >
+          {locationStatus === LocationStatus.idle ? (
+            <i className="location-icon" />
+          ) : locationStatus === LocationStatus.fetching ? (
+            <i className="location-fetching-icon" />
+          ) : (
+            <i className="location-icon" />
+          )}
+        </button>
       </div>
-      <button
-        className={
-          locationStatus === LocationStatus.idle ||
-          locationStatus === LocationStatus.fetching
-            ? `location-find-button`
-            : locationStatus === LocationStatus.success
-            ? 'location-find-button founded'
-            : locationStatus === LocationStatus.error
-            ? 'location-find-button error'
-            : 'location-find-button'
-        }
-        title="Find location"
-        aria-label="Find location"
-        disabled={locationStatus === LocationStatus.fetching}
-        tabIndex={locationStatus === LocationStatus.fetching ? -1 : 0}
-        onClick={getLocation}
-      >
-        {locationStatus === LocationStatus.idle ? (
-          <i className="location-icon" />
-        ) : locationStatus === LocationStatus.fetching ? (
-          <i className="location-fetching-icon" />
-        ) : (
-          <i className="location-icon" />
-        )}
-      </button>
     </div>
   );
 };

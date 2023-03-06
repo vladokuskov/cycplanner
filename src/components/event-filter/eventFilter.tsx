@@ -1,8 +1,9 @@
-import { useState } from 'react';
-
 import Geocoder from './geocoder';
 import DatePicker from './datePicker';
 import RangePicker from './rangePicker';
+
+import { useAppDispatch, useAppSelector } from '@/store/redux-hooks';
+import { updateDate, updateGeoPoint, updateRange } from '@/store/filterReducer';
 
 export interface GeoPoint {
   latitude: number;
@@ -10,38 +11,30 @@ export interface GeoPoint {
 }
 
 const EventFilter = () => {
-  const [geoPoint, setGeoPoint] = useState<GeoPoint>({
-    latitude: 51.509865,
-    longitude: -0.118092,
-  });
+  const dispatch = useAppDispatch();
 
-  const [initialDate, setInitialDate] = useState(new Date());
+  const geoPoint = useAppSelector((state) => state.filterReducer.geoPoint);
+  const initialDate = useAppSelector((state) => state.filterReducer.date);
+  const selectedRange = useAppSelector((state) => state.filterReducer.range);
 
-  const [selectedRange, setSelectedRange] = useState<number>(40);
-
-  const updateDate = (date: Date) => {
-    setInitialDate(date);
+  const changeDate = (date: Date) => {
+    dispatch(updateDate(date));
   };
 
-  const updateGeoPoint = (point: GeoPoint) => {
-    setGeoPoint(point);
+  const changeGeoPoint = (point: GeoPoint) => {
+    dispatch(updateGeoPoint(point));
   };
 
-  const updateRange = (range: number) => {
-    setSelectedRange(range);
+  const changeRange = (range: number) => {
+    dispatch(updateRange(range));
   };
 
   return (
     <div className="filter-wrapper">
-      <div className="filter-location-wrapper">
-        <label htmlFor="geocoder" className="filter-label">
-          Location
-        </label>
-        <Geocoder updateGeoPoint={updateGeoPoint} geoPoint={geoPoint} />
-      </div>
+      <Geocoder changeGeoPoint={changeGeoPoint} geoPoint={geoPoint} />
       <div className="filter-selectors-wrapper">
-        <DatePicker updateDate={updateDate} initialDate={initialDate} />
-        <RangePicker updateRange={updateRange} selectedRange={selectedRange} />
+        <DatePicker changeDate={changeDate} initialDate={initialDate} />
+        <RangePicker changeRange={changeRange} selectedRange={selectedRange} />
       </div>
     </div>
   );

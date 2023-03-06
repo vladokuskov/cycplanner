@@ -4,11 +4,11 @@ import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 interface Props {
-  updateDate: (date: Date) => void;
+  changeDate: (date: Date) => void;
   initialDate: Date;
 }
 
-const DatePicker = ({ updateDate, initialDate }: Props) => {
+const DatePicker = ({ changeDate, initialDate }: Props) => {
   const ReactDatePickerInput = forwardRef<
     HTMLButtonElement,
     React.DetailedHTMLProps<
@@ -33,7 +33,7 @@ const DatePicker = ({ updateDate, initialDate }: Props) => {
         timeCaption="time"
         dateFormat="MMM d, yyyy"
         selected={initialDate}
-        onChange={updateDate}
+        onChange={changeDate}
         name="datePicker"
         customInput={<ReactDatePickerInput />}
       />

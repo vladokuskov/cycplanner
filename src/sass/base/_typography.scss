@@ -24,6 +24,11 @@ button {
 
 li {
   list-style: none;
+  font-family: $secondary-font;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: 0.2s;
+  letter-spacing: -0.02rem;
 }
 
 //Nav Menu
