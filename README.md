@@ -18,12 +18,12 @@ To get started with the project, follow these steps:
 
 CycPlanner includes the following features:
 
-    Sign up and sign in functionality using Firebase Authentication.
-    Create, edit, and delete cycling events.
-    Join and leave cycling events.
-    View cycling events in your area.
-    Filter cycling events by location, distance, and date.
-    View and edit your profile information.
+    * Sign up and sign in functionality using Firebase Authentication.
+    * Create, edit, and delete cycling events.
+    * Join and leave cycling events.
+    * View cycling events in your area.
+    * Filter cycling events by location, distance, and date.
+    * View and edit your profile information.
 
 ### Technology Stack
 
@@ -38,11 +38,11 @@ CycPlanner was built using the following technology stack:
 
 Contributions to CycPlanner are welcome! If you would like to contribute, please follow these steps:
 
-    Fork the repository.
-    Create a new branch for your feature or bug fix.
-    Write your code and tests.
-    Push your changes to your fork.
-    Create a pull request.
+    1. Fork the repository.
+    2. Create a new branch for your feature or bug fix.
+    3. Write your code and tests.
+    4. Push your changes to your fork.
+    5. Create a pull request.
 
 ---
 
