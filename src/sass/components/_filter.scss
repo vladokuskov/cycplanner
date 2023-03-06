@@ -1,0 +1,15 @@
+@use '../abstracts' as *;
+@use '../themes' as *;
+
+.filter-wrapper {
+  margin-top: 0.5rem;
+  width: 100%;
+  @include flexCenter(column, 0.5rem);
+  .filter-location-wrapper {
+    @include flexCenter(column, 0.3rem);
+    align-items: flex-start;
+    .filter-location-content {
+      @include flexCenter(row, 0.5rem);
+    }
+  }
+}

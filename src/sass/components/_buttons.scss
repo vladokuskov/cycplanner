@@ -41,6 +41,69 @@ button {
   }
 }
 
+.start-content-button {
+  font-weight: 600;
+  font-size: 0.9rem;
+  font-family: $secondary-font;
+  background-color: $app-accent;
+  color: $page-bg;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem 2rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  @include media($from: 'md') {
+    font-size: 1rem;
+  }
+  @include on-hover {
+    background-color: hover-color($app-accent, 5);
+  }
+  &:active {
+    background-color: hover-color($app-accent, 5);
+  }
+}
+
+.events-info-button {
+  border-radius: 100%;
+  border: none;
+  background-color: $home-info-bg;
+  color: $home-info;
+  padding: 0;
+  width: 1.2rem;
+  height: 1.2rem;
+  @include on-hover {
+    background-color: hover-color($home-info-bg, -20);
+  }
+  &:active {
+    background-color: hover-color($home-info-bg, -20);
+  }
+}
+
+.location-find-button {
+  border-radius: 10px;
+  border: none;
+  width: 2.5rem;
+  height: 2rem;
+  padding: 0;
+  background-color: $input-bg;
+  color: $input-icon;
+  @include flexCenter(row, 0);
+  @include on-hover {
+    background-color: hover-color($input-bg, -2);
+    color: hover-color($input-icon, -10);
+  }
+  &:active {
+    background-color: hover-color($input-bg, -2);
+    color: hover-color($input-icon, -10);
+  }
+  &.founded {
+    color: $filter-founded;
+  }
+  &.error {
+    color: $filter-error;
+  }
+}
+
 .hamburger {
   @include media($from: 'md') {
     display: none;

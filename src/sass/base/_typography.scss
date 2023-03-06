@@ -55,7 +55,10 @@ li {
   text-decoration: underline;
   text-underline-offset: 0.1rem;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  @include media($from: 'md') {
+    font-size: 1rem;
+  }
   @include on-hover {
     color: hover-color($footer-link, 30);
   }
@@ -83,6 +86,71 @@ li {
     color: hover-color($nav-link, 30);
   }
   &.active {
-    color: hover-color($nav-link, 30);
+    color: hover-color($nav-link, 40);
   }
+}
+
+.start-content-title {
+  color: $home-title;
+  font-weight: 500;
+  font-size: 3.5rem;
+  line-height: 93%;
+  @include media($from: 'xl') {
+    font-size: 5rem;
+  }
+  span {
+    color: $page-title;
+    font-weight: 800;
+  }
+}
+
+.start-content-description {
+  color: $page-title;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 19px;
+  margin-top: 0.5rem;
+  @include media($from: 'md') {
+    max-width: 90%;
+    font-size: 1.1rem;
+  }
+}
+
+.home-events-title {
+  color: $home-title;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2.9rem;
+  line-height: 48px;
+}
+
+.events-info-title {
+  z-index: 1001;
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  width: 100%;
+  width: 100%;
+  max-width: 100%;
+  min-width: 12rem;
+  text-align: center;
+  padding: 0.1rem 0.3rem;
+  border-radius: 10px;
+  color: $home-info;
+  background-color: $home-info-bg;
+  margin-right: 1rem;
+  animation: smoothShow 250ms;
+  span {
+    font-weight: 600;
+    color: hover-color($home-info, -10);
+  }
+}
+
+.filter-label {
+  font-family: $primary-font;
+  color: $filter-label;
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 12px;
+  margin-left: 0.5rem;
 }

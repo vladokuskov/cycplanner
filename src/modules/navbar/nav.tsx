@@ -41,7 +41,7 @@ const Navbar = () => {
 
   const isSticky = () => {
     const scrollTop = window.scrollY;
-    const stickyClass = scrollTop >= 132 ? 'sticky' : '';
+    const stickyClass = scrollTop >= 60 ? 'sticky' : '';
     setSticky(stickyClass);
   };
 
@@ -59,7 +59,7 @@ const Navbar = () => {
                 : 'hamburger hamburger--3dy'
             }
             type="button"
-            title="Open Menu"
+            title={!isMenuOpen ? 'Open Menu' : 'Close Menu'}
             tabIndex={0}
             onClick={() => {
               setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);

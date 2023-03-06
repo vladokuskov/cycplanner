@@ -81,3 +81,41 @@
     opacity: 1;
   }
 }
+
+@keyframes smoothShow {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes loadbar {
+  0%,
+  to {
+    left: 0;
+    right: 80%;
+  }
+  25%,
+  75% {
+    left: 0;
+    right: 0;
+  }
+  50% {
+    left: 80%;
+    right: 0;
+  }
+}
