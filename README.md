@@ -52,6 +52,6 @@ Contributions to CycPlanner are welcome! If you would like to contribute, please
 
 CycPlanner is licensed under the MIT license. See the LICENSE file for more information.
 
-###Acknowledgements
+### Acknowledgements
 
 CycPlanner was created by Swappnet as a project for cycling community.
