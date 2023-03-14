@@ -1,9 +1,15 @@
 import Head from 'next/head';
 
+import Event from '@/modules/event/event';
+
 import Banner from '@/assets/home/home-banner.svg';
 
 import EventFilter from '@/components/event-filter/eventFilter';
 import EventsInfo from '@/components/home/eventsInfo';
+import Link from 'next/link';
+
+import { useEffect } from 'react';
+import { getEvents } from '@/firebase/firestore';
 
 export default function Home() {
   return (
@@ -23,14 +29,16 @@ export default function Home() {
               the ultimate platform for cycling enthusiasts and event
               organizers.
             </p>
-            <button
-              className="start-content-button get-started"
-              title="Get started"
-              aria-label="Get started"
-              tabIndex={0}
-            >
-              GET STARTED
-            </button>
+            <Link href="/events">
+              <button
+                className="start-content-button get-started"
+                title="Get started"
+                aria-label="Get started"
+                tabIndex={0}
+              >
+                GET STARTED
+              </button>
+            </Link>
           </div>
           <div className="home-start-banner-wrapper">
             <Banner className="start-banner" />
@@ -44,6 +52,18 @@ export default function Home() {
               <EventsInfo />
             </div>
             <EventFilter />
+          </div>
+          <div className="home-events-body">
+            <div className="body-events-wrapper">
+              <Event />
+              <Event />
+              <Event />
+            </div>
+            <div className="body-events-footer">
+              <Link href="/events" className="events-footer-extend">
+                See more...
+              </Link>
+            </div>
           </div>
         </div>
       </main>

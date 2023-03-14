@@ -229,3 +229,36 @@
   left: 4px;
   bottom: 2px;
 }
+
+.share-icon {
+  z-index: 0;
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(var(--ggs, 1));
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  border-radius: 100px;
+  box-shadow: 10px -6px 0, 10px 6px 0;
+}
+.share-icon::after,
+.share-icon::before {
+  content: '';
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  border-radius: 3px;
+  width: 10px;
+  height: 2px;
+  background: currentColor;
+  left: 2px;
+}
+.share-icon::before {
+  top: 0;
+  transform: rotate(-35deg);
+}
+.share-icon::after {
+  bottom: 0;
+  transform: rotate(35deg);
+}

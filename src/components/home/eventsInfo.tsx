@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useAppSelector } from '@/store/redux-hooks';
 
 const EventsInfo = () => {
   const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
+
+  const selectedRange = useAppSelector((state) => state.filterReducer.range);
 
   const handleHover = () => {
     setIsInfoOpen(true);
@@ -31,11 +34,12 @@ const EventsInfo = () => {
       >
         ?
       </button>
-      {isInfoOpen ? (
+      {isInfoOpen && (
         <p className="events-info-title">
-          The nearest events are within a radius of <span>40 km</span>
+          The nearest events are within a radius of
+          <span> {selectedRange} km</span>
         </p>
-      ) : null}
+      )}
     </div>
   );
 };
