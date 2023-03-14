@@ -1,5 +1,8 @@
-import Head from 'next/head';
+import type { ReactElement } from 'react';
+import type { NextPageWithLayout } from './_app';
 
+import Head from 'next/head';
+import Layout from '@/modules/layout';
 import Event from '@/modules/event/event';
 
 import Banner from '@/assets/home/home-banner.svg';
@@ -8,10 +11,7 @@ import EventFilter from '@/components/event-filter/eventFilter';
 import EventsInfo from '@/components/home/eventsInfo';
 import Link from 'next/link';
 
-import { useEffect } from 'react';
-import { getEvents } from '@/firebase/firestore';
-
-export default function Home() {
+const Home: NextPageWithLayout = () => {
   return (
     <>
       <Head>
@@ -69,4 +69,10 @@ export default function Home() {
       </main>
     </>
   );
-}
+};
+
+Home.getLayout = function getLayout(page: ReactElement) {
+  return <Layout>{page}</Layout>;
+};
+
+export default Home;

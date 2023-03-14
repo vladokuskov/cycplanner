@@ -1,0 +1,6 @@
+@use '../abstracts' as *;
+@use '../themes' as *;
+
+.login-wrapper {
+  @include flexCenter(row, 0);
+}

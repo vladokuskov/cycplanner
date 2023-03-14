@@ -1,23 +1,26 @@
-import type { AppProps } from 'next/app';
+import type { ReactElement, ReactNode } from 'react';
+import type { NextPage } from 'next';
 
-import Footer from '@/modules/footer';
-import Navbar from '@/modules/navbar/nav';
+import type { AppProps } from 'next/app';
 
 import { Provider } from 'react-redux';
 import { store } from '@/store/store';
 
 import '@/sass/style.scss';
 
-import Layout from '@/modules/layout';
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
 
-export default function App({ Component, pageProps }: AppProps) {
-  return (
-    <Layout>
-      <Navbar />
-      <Provider store={store}>
-        <Component {...pageProps} />
-      </Provider>
-      <Footer />
-    </Layout>
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page) => page);
+  return getLayout(
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
   );
 }
