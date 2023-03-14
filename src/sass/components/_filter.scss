@@ -44,7 +44,7 @@
       align-items: flex-start;
       position: relative;
       .range-options-wrapper {
-        z-index: 0;
+        z-index: 2;
         position: absolute;
         top: 3.6rem;
         width: 100%;
@@ -60,6 +60,12 @@
           border-bottom: 1px solid $result-border;
           background-color: $input-bg;
           padding: 0.6rem 0.1rem;
+          &.active {
+            background-color: hover-color($input-bg, -10);
+            @include on-hover {
+              background-color: hover-color($input-bg, -10);
+            }
+          }
           &:first-child {
             border-radius: 8px 8px 0 0;
           }

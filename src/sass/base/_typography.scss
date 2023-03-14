@@ -163,3 +163,71 @@ li {
   line-height: 12px;
   margin-left: 0.5rem;
 }
+
+.events-footer-extend {
+  font-family: $primary-font;
+  color: $footer-link;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 12px;
+  margin-left: 0.5rem;
+  @include media($from: 'md') {
+    font-size: 1.2rem;
+  }
+  @include on-hover {
+    color: hover-color($footer-link, 30);
+  }
+  &:active {
+    color: hover-color($footer-link, 30);
+  }
+}
+
+// Event
+.author-name-title {
+  font-family: $primary-font;
+  color: $event-author;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 0.9rem;
+  letter-spacing: -0.01em;
+}
+
+.event-title {
+  font-family: $primary-font;
+  font-weight: 700;
+  font-size: 2.1rem;
+  line-height: 1.8rem;
+  letter-spacing: 0.025em;
+  color: $event-title;
+  margin-bottom: 0.5rem;
+}
+
+.event-detail-wrapper {
+  font-family: $primary-font;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1rem;
+  letter-spacing: 0.015em;
+  color: $event-description;
+  .location-detail-link {
+    color: $event-description;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 0.1rem;
+    text-decoration-color: $event-description;
+    @include on-hover {
+      color: hover-color($event-description, 10);
+    }
+  }
+}
+
+.event-detail-title {
+  font-family: $primary-font;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 23px;
+  letter-spacing: 0.02em;
+  color: $event-subtitle;
+  text-decoration: none !important;
+}

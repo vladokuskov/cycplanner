@@ -174,6 +174,66 @@ button {
   }
 }
 
+.share-event-button {
+  border-radius: 5px;
+  padding: 0.1rem;
+  width: 1.5rem;
+  color: $input-text;
+  border: none;
+  background-color: transparent;
+  @include flexCenter(row, 0);
+  @include on-hover {
+    opacity: 0.7;
+  }
+  &:active,
+  &:focus {
+    background-color: $hover-button-bg;
+  }
+  .event-button-icon {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.event-button {
+  padding: 0.1rem;
+  background-color: transparent;
+  border: none;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 5px;
+  @include flexCenter(row, 0);
+  transition: 0.1s;
+  @include on-hover {
+    opacity: 0.7;
+  }
+  &:active,
+  &:focus {
+    background-color: $hover-button-bg;
+  }
+  .event-button-icon {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.event-button--participate {
+  font-family: $secondary-font;
+  color: $event-bg;
+  background-color: $app-accent;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  margin-left: 2rem;
+  @include on-hover {
+    background-color: hover-color($app-accent, 5);
+  }
+  &:active,
+  &:focus {
+    background-color: hover-color($app-accent, 5);
+  }
+}
+
 .hamburger {
   @include media($from: 'md') {
     display: none;

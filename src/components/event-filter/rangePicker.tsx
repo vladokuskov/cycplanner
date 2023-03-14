@@ -48,7 +48,11 @@ const RangePicker = ({ changeRange, selectedRange }: Props) => {
         <ul className="range-options-wrapper">
           {options.map((option) => (
             <li
-              className="range-option-wrapper"
+              className={
+                option === selectedRange
+                  ? 'range-option-wrapper active'
+                  : 'range-option-wrapper'
+              }
               key={option}
               tabIndex={0}
               role="button"

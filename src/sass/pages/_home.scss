@@ -50,5 +50,19 @@
         }
       }
     }
+    .home-events-body {
+      margin-top: 1.5rem;
+      width: 100%;
+      @include flexCenter(column, 1rem);
+      .body-events-wrapper {
+        width: 100%;
+        @include flexCenter(column, 2rem);
+        align-items: flex-start;
+      }
+      .body-events-footer {
+        width: 100%;
+        text-align: center;
+      }
+    }
   }
 }
