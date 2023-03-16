@@ -10,6 +10,7 @@ import {
 import Button from '@/components/button';
 import EventAuthor from './eventAuthor';
 import EventDetail from './eventDetail';
+import { copyEventLink } from '@/utils/copyEventLink';
 
 const Event = () => {
   return (
@@ -20,7 +21,12 @@ const Event = () => {
       <div className="event-wrapper">
         <div className="event-header-wrapper">
           <EventAuthor authorImage={null} authorName={'Vlad Okuskov'} />
-          <Button type="icon" icon={<IconShare />} label="Share event" />
+          <Button
+            type="icon"
+            icon={<IconShare />}
+            label="Share event"
+            onClick={() => copyEventLink('1236')}
+          />
         </div>
         <div className="event-main-wrapper">
           <div className="event-details-wrapper">
