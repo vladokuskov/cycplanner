@@ -3,13 +3,14 @@ import type { NextPageWithLayout } from './_app';
 
 import Head from 'next/head';
 import Layout from '@/modules/layout';
-import Event from '@/modules/event/event';
+import Event from '@/components/event/event';
 
 import Banner from '@/assets/home/home-banner.svg';
 
 import EventFilter from '@/components/event-filter/eventFilter';
 import EventsInfo from '@/components/home/eventsInfo';
 import Link from 'next/link';
+import Button from '@/components/button';
 
 const Home: NextPageWithLayout = () => {
   return (
@@ -30,14 +31,7 @@ const Home: NextPageWithLayout = () => {
               organizers.
             </p>
             <Link href="/events">
-              <button
-                className="start-content-button get-started"
-                title="Get started"
-                aria-label="Get started"
-                tabIndex={0}
-              >
-                GET STARTED
-              </button>
+              <Button type="filled" label="Get Started" size="xxl" />
             </Link>
           </div>
           <div className="home-start-banner-wrapper">

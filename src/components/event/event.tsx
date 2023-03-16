@@ -1,11 +1,14 @@
-import Image from 'next/image';
 import Head from 'next/head';
-import Link from 'next/link';
 
-import ParticipantsIcon from '@/assets/event/participants-icon.svg';
-import CommentsIcon from '@/assets/event/comment-icon.svg';
-import LikeIcon from '@/assets/event/like-icon.svg';
-import ShareIcon from '@/assets/event/share-icon.svg';
+import {
+  IconShare,
+  IconHeart,
+  IconMessages,
+  IconUsers,
+} from '@tabler/icons-react';
+
+import Button from '@/components/button';
+import EventAuthor from './eventAuthor';
 
 const Event = () => {
   return (
@@ -15,30 +18,8 @@ const Event = () => {
       </Head>
       <div className="event-wrapper">
         <div className="event-header-wrapper">
-          <Link
-            className="event-author-wrapper"
-            href="/account/example"
-            tabIndex={0}
-          >
-            <div className="author-avatar-wrapper" role="button">
-              <Image
-                src="/assets/event-avatar.jpg"
-                className="author-avatar-image"
-                width={30}
-                height={30}
-                alt=""
-              />
-            </div>
-            <p className="author-name-title">Vlad Okuskov</p>
-          </Link>
-          <button
-            className="share-event-button"
-            title="Share event"
-            aria-label="Share event"
-            tabIndex={0}
-          >
-            <ShareIcon className="event-button-icon" />
-          </button>
+          <EventAuthor authorImage={null} authorName={'Vlad Okuskov'} />
+          <Button type="icon" icon={<IconShare />} label="Share event" />
         </div>
         <div className="event-main-wrapper">
           <div className="event-details-wrapper">
@@ -86,34 +67,10 @@ const Event = () => {
               </div>
             </div>
             <div className="details-buttons-wrapper">
-              <button
-                className="event-button"
-                title="Like event"
-                aria-label="like-event"
-              >
-                <LikeIcon className="event-button-icon" />
-              </button>
-              <button
-                className="event-button"
-                title="See comments"
-                aria-label="Comments"
-              >
-                <CommentsIcon className="event-button-icon" />
-              </button>
-              <button
-                className="event-button"
-                title="Participants"
-                aria-label="Participants"
-              >
-                <ParticipantsIcon className="event-button-icon" />
-              </button>
-              <button
-                className="event-button--participate"
-                title="Participate"
-                aria-label="Participate"
-              >
-                Participate
-              </button>
+              <Button type="icon" icon={<IconHeart />} label="Like event" />
+              <Button type="icon" icon={<IconMessages />} label="Comments" />
+              <Button type="icon" icon={<IconUsers />} label="Participants" />
+              <Button type="filled" label="Participate" size="md" />
             </div>
           </div>
           <div className="event-main-separator" />

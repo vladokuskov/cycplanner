@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
+    "@tabler/icons-react": "^2.10.0",
     "@types/node": "18.14.2",
     "@types/react": "18.0.28",
     "@types/react-datepicker": "^4.10.0",

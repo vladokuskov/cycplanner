@@ -5,61 +5,67 @@ button {
   font-family: $secondary-font;
   font-weight: 600;
   font-size: 0.9rem;
-  padding: 0.2rem 0.6rem;
   transition: 0.2s;
 }
 
-.signup-button {
-  font-weight: 600;
-  font-family: $secondary-font;
-  background-color: transparent;
-  color: $app-accent;
-  border: 2px solid $app-accent;
-  border-radius: 5px;
-  @include on-hover {
-    color: hover-color($app-accent, 10);
-    border-color: hover-color($app-accent, 10);
-  }
-  &:active {
-    color: hover-color($app-accent, 10);
-    border-color: hover-color($app-accent, 10);
-  }
-}
-
-.login-button {
-  border: none;
-  background-color: transparent;
+.btn {
   padding: 0;
-  color: $login-btn;
-  @include on-hover {
-    color: hover-color($login-btn, 10);
-    border-color: hover-color($login-btn, 10);
-  }
-  &:active {
-    color: hover-color($login-btn, 10);
-    border-color: hover-color($login-btn, 10);
-  }
-}
-
-.start-content-button {
-  font-weight: 600;
-  font-size: 0.9rem;
-  font-family: $secondary-font;
-  background-color: $app-accent;
-  color: $page-bg;
-  border: none;
+  @include flexCenter(row, 0);
   border-radius: 10px;
-  padding: 0.5rem 2rem;
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
-  @include media($from: 'md') {
-    font-size: 1rem;
+  border: none;
+  background-color: transparent;
+  &.sm {
+    padding: 0.1rem 0.5rem;
   }
-  @include on-hover {
-    background-color: hover-color($app-accent, 5);
+  &.md {
+    padding: 0.4rem 1rem;
   }
-  &:active {
-    background-color: hover-color($app-accent, 5);
+  &.xl {
+    padding: 0.5rem 2rem;
+  }
+  &.xxl {
+    padding: 0.7rem 3rem;
+  }
+  &.btn-filled {
+    background-color: $app-accent;
+    color: $page-bg;
+
+    @include on-hover {
+      background-color: hover-color($app-accent, 5);
+    }
+    &:active {
+      background-color: hover-color($app-accent, 5);
+    }
+  }
+  &.btn-outline {
+    color: $app-accent;
+    border: 2px solid $app-accent;
+    @include on-hover {
+      color: hover-color($app-accent, 10);
+      border-color: hover-color($app-accent, 10);
+    }
+    &:active {
+      color: hover-color($app-accent, 10);
+      border-color: hover-color($app-accent, 10);
+    }
+  }
+  &.btn-icon {
+    color: $input-text;
+    @include on-hover {
+      color: hover-color($input-text, 15);
+    }
+    &:active {
+      color: hover-color($input-text, 15);
+    }
+  }
+  &.btn-text {
+    color: $input-text;
+    @include on-hover {
+      color: hover-color($input-text, 15);
+    }
+    &:active {
+      color: hover-color($input-text, 15);
+    }
   }
 }
 
@@ -183,20 +189,13 @@ button {
   background-color: transparent;
   @include flexCenter(row, 0);
   @include on-hover {
-    opacity: 0.7;
-  }
-  &:active,
-  &:focus {
-    background-color: $hover-button-bg;
-  }
-  .event-button-icon {
-    width: 100%;
-    height: 100%;
+    color: hover-color($input-text, 15);
   }
 }
 
 .event-button {
-  padding: 0.1rem;
+  color: $input-text;
+  padding: 0;
   background-color: transparent;
   border: none;
   height: 2rem;
@@ -205,15 +204,7 @@ button {
   @include flexCenter(row, 0);
   transition: 0.1s;
   @include on-hover {
-    opacity: 0.7;
-  }
-  &:active,
-  &:focus {
-    background-color: $hover-button-bg;
-  }
-  .event-button-icon {
-    width: 100%;
-    height: 100%;
+    color: hover-color($input-text, 15);
   }
 }
 

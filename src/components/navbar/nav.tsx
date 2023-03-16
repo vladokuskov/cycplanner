@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef } from 'react';
+import Button from '../button';
 
 import NavMenu from './navMenu';
 
@@ -114,9 +115,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navbar-sublinks-wrapper">
-          <button className="signup-button" title="Sign up">
-            SIGN UP
-          </button>
+          <Button type="outline" label="SIGN UP" size="md" />
         </div>
       </div>
     </nav>

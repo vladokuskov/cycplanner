@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { NextRouter } from 'next/router';
 
+import Button from '@/components/button';
+
 type NavMenu = {
   sticky: string;
   handleMenuClick: (event: React.MouseEvent<HTMLElement>) => void;
@@ -50,13 +52,9 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
         </Link>
       </div>
       <div className="navbar-menu--footer">
-        <button className="signup-button" title="Sign up">
-          SIGN UP
-        </button>
+        <Button type="outline" label="SIGN UP" size="sm" />
         <p className="footer-label">or</p>
-        <button className="login-button" title="Log in">
-          Log In
-        </button>
+        <Button type="text" label="Log in" size="sm" />
       </div>
     </div>
   );

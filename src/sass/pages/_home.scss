@@ -13,6 +13,9 @@
     .home-start-content-wrapper {
       @include flexCenter(column, 0.5rem);
       align-items: flex-start;
+      .btn {
+        margin-top: 1.5rem;
+      }
     }
     .home-start-banner-wrapper {
       display: none;
