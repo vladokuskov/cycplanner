@@ -9,6 +9,7 @@ import {
 
 import Button from '@/components/button';
 import EventAuthor from './eventAuthor';
+import EventDetail from './eventDetail';
 
 const Event = () => {
   return (
@@ -25,46 +26,31 @@ const Event = () => {
           <div className="event-details-wrapper">
             <div className="details-info-wrapper">
               <h2 className="event-title">Ride without dirt</h2>
-              <p className="event-detail-wrapper">
-                <span className="event-detail-title">Description: </span>
-                <span className="event-detail-content">
-                  we will drive through overgrown forest and fields
-                </span>
-              </p>
-              <p className="event-detail-wrapper">
-                <span className="event-detail-title">Distance: </span>
-                <span className="event-detail-content">45 km</span>
-              </p>
-              <p className="event-detail-wrapper">
-                <span className="event-detail-title">Type: </span>
-                <span className="event-detail-content">gravel ride</span>
-              </p>
-              <p className="event-detail-wrapper">
-                <span className="event-detail-title">Start location: </span>
-                <span className="event-detail-content location-detail">
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=40.7128,-74.0060
-                    "
-                    className="location-detail-link"
-                    target="_blank"
-                    title="See location on map"
-                    aria-label="See location on map"
-                  >
-                    Ukraine, Novovolynsk, Doroshenka St.
-                  </a>
-                </span>
-              </p>
-              <div className="event-date-wrapper">
-                <p className="event-detail-wrapper">
-                  <span className="event-detail-title">Start: </span>
-                  <span className="event-detail-content">Mar, 18, 15:30</span>
-                </p>
-                <div className="date-separator" />
-                <p className="event-detail-wrapper">
-                  <span className="event-subtitle">End: </span>
-                  <span className="event-detail-content">Mar, 18, 20:30</span>
-                </p>
-              </div>
+              <EventDetail
+                type="default"
+                title="Description: "
+                description="  we will drive through overgrown forest and fields"
+              />
+              <EventDetail
+                type="default"
+                title="Distance: "
+                description="45 km"
+              />
+              <EventDetail
+                type="default"
+                title="Type: "
+                description="gravel ride"
+              />
+              <EventDetail
+                type="location"
+                title="Start location: "
+                locationName="Ukraine, Novovolynsk, Doroshenka St."
+                locationGeoPoint={{ lat: 40.7128, lng: -74.006 }}
+              />
+              <EventDetail
+                type="date"
+                date={{ start: 'Mar, 18, 15:30', end: 'Mar, 18, 20:30' }}
+              />
             </div>
             <div className="details-buttons-wrapper">
               <Button type="icon" icon={<IconHeart />} label="Like event" />
