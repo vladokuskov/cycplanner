@@ -1,3 +1,4 @@
+import { IconCalendarEvent } from '@tabler/icons-react';
 import { forwardRef } from 'react';
 
 import ReactDatePicker from 'react-datepicker';
@@ -16,9 +17,9 @@ const DatePicker = ({ changeDate, initialDate }: Props) => {
       HTMLButtonElement
     >
   >((props: any, ref) => (
-    <button ref={ref} {...props} className="date-selector-button">
+    <button ref={ref} {...props} className="filter-btn">
       {props.value}
-      {<i className="selector-date-icon" />}
+      <IconCalendarEvent className="selector-date-icon" />
     </button>
   ));
 
