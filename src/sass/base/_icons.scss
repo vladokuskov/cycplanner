@@ -94,42 +94,6 @@
   margin-right: 0.5rem;
 }
 
-.location-icon {
-  box-sizing: border-box;
-  position: relative;
-  display: block;
-  transform: scale(var(--ggs, 1));
-  width: 10px;
-  height: 10px;
-  border: 2px solid transparent;
-  box-shadow: 0 0 0 2px, inset 0 0 0 10px;
-  border-radius: 100px;
-}
-.location-icon::after,
-.location-icon::before {
-  content: '';
-  display: block;
-  box-sizing: border-box;
-  position: absolute;
-  border-radius: 3px;
-}
-.location-icon::before {
-  border-left: 4px solid;
-  border-right: 4px solid;
-  width: 18px;
-  height: 2px;
-  left: -6px;
-  top: 2px;
-}
-.location-icon::after {
-  width: 2px;
-  height: 18px;
-  border-top: 4px solid;
-  border-bottom: 4px solid;
-  left: 2px;
-  top: -6px;
-}
-
 .location-fetching-icon,
 .location-fetching-icon::before {
   display: block;
@@ -147,39 +111,6 @@
   border-radius: 4px;
   background: currentColor;
   animation: loadbar 2s cubic-bezier(0, 0, 0.58, 1) infinite;
-}
-
-.selector-date-icon {
-  color: $input-icon;
-  box-sizing: border-box;
-  position: relative;
-  display: block;
-  transform: scale(var(--ggs, 1));
-  width: 18px;
-  height: 18px;
-  border: 2px solid;
-  border-radius: 3px;
-}
-.selector-date-icon::after,
-.selector-date-icon::before {
-  content: '';
-  display: block;
-  box-sizing: border-box;
-  position: absolute;
-  border-radius: 3px;
-  height: 2px;
-  left: 2px;
-}
-.selector-date-icon::before {
-  background: currentColor;
-  width: 2px;
-  box-shadow: 4px 0 0, 8px 0 0, 0 4px 0, 4px 4px 0, 8px 4px 0;
-  top: 6px;
-}
-.selector-date-icon::after {
-  width: 10px;
-  top: -4px;
-  box-shadow: 0 6px 0 0;
 }
 
 .arrow-down {
@@ -228,37 +159,4 @@
   transform: rotate(-45deg);
   left: 4px;
   bottom: 2px;
-}
-
-.share-icon {
-  z-index: 0;
-  box-sizing: border-box;
-  position: relative;
-  display: block;
-  transform: scale(var(--ggs, 1));
-  width: 6px;
-  height: 6px;
-  background: currentColor;
-  border-radius: 100px;
-  box-shadow: 10px -6px 0, 10px 6px 0;
-}
-.share-icon::after,
-.share-icon::before {
-  content: '';
-  display: block;
-  box-sizing: border-box;
-  position: absolute;
-  border-radius: 3px;
-  width: 10px;
-  height: 2px;
-  background: currentColor;
-  left: 2px;
-}
-.share-icon::before {
-  top: 0;
-  transform: rotate(-35deg);
-}
-.share-icon::after {
-  bottom: 0;
-  transform: rotate(35deg);
 }
