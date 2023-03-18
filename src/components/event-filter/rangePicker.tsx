@@ -35,7 +35,7 @@ const RangePicker = ({ changeRange, selectedRange }: Props) => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         name="RangePicker"
-        className="selector-range-button"
+        className="filter-btn"
         title="Select range of search"
         aria-label="Select range of search"
       >
