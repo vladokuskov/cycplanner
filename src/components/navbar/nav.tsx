@@ -70,13 +70,13 @@ const Navbar = () => {
               <span className="hamburger-inner"></span>
             </span>
           </button>
-          {isMenuOpen ? (
+          {isMenuOpen && (
             <NavMenu
               sticky={sticky}
               handleMenuClick={handleMenuClick}
               router={router}
             />
-          ) : null}
+          )}
         </div>
         <div className="navbar-links-wrapper">
           <Link
@@ -115,7 +115,9 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navbar-sublinks-wrapper">
-          <Button type="outline" label="SIGN UP" size="md" />
+          <Link href="/signup">
+            <Button type="outline" label="SIGN UP" size="md" />
+          </Link>
         </div>
       </div>
     </nav>
