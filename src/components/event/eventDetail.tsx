@@ -25,12 +25,16 @@ const EventDetail = ({
     type === 'location' && 'location-detail'
   }`;
   return (
-    <p className="event-detail-wrapper">
-      <span className="event-detail-title">{title}</span>
-      <span className={eventDetailClassName}>
-        {type === 'default' ? (
-          description
-        ) : type === 'location' ? (
+    <div className="event-detail-wrapper">
+      {type === 'default' && (
+        <>
+          <span className="event-detail-title">{title}</span>
+          <span className={eventDetailClassName}>{description}</span>
+        </>
+      )}
+      {type === 'location' && (
+        <>
+          <span className="event-detail-title">{title}</span>
           <a
             href={`https://www.google.com/maps/search/?api=1&query=${locationGeoPoint?.lat},${locationGeoPoint?.lng}`}
             className="location-detail-link"
@@ -40,21 +44,22 @@ const EventDetail = ({
           >
             {locationName}
           </a>
-        ) : (
-          <div className="event-date-wrapper">
-            <p className="event-detail-wrapper">
-              <span className="event-detail-title">Start: </span>
-              <span className="event-detail-content">{date?.start}</span>
-            </p>
-            <div className="date-separator" />
-            <p className="event-detail-wrapper">
-              <span className="event-detail-title">End: </span>
-              <span className="event-detail-content">{date?.end}</span>
-            </p>
-          </div>
-        )}
-      </span>
-    </p>
+        </>
+      )}
+      {type === 'date' && (
+        <div className="event-date-wrapper">
+          <p className="event-detail-wrapper">
+            <span className="event-detail-title">Start: </span>
+            <span className="event-detail-content">{date?.start}</span>
+          </p>
+          <div className="date-separator" />
+          <p className="event-detail-wrapper">
+            <span className="event-detail-title">End: </span>
+            <span className="event-detail-content">{date?.end}</span>
+          </p>
+        </div>
+      )}
+    </div>
   );
 };
 
