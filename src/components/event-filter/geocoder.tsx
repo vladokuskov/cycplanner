@@ -1,3 +1,7 @@
+import {
+  IconCurrentLocation,
+  IconCurrentLocationOff,
+} from '@tabler/icons-react';
 import { useState, useEffect, useRef } from 'react';
 import { GeoPoint } from './eventFilter';
 
@@ -247,12 +251,16 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Props) => {
           tabIndex={locationStatus === LocationStatus.fetching ? -1 : 0}
           onClick={getLocation}
         >
-          {locationStatus === LocationStatus.idle ? (
-            <i className="location-icon" />
-          ) : locationStatus === LocationStatus.fetching ? (
-            <i className="location-fetching-icon" />
+          {locationStatus === LocationStatus.error ? (
+            <IconCurrentLocationOff />
+          ) : locationStatus === LocationStatus.success ? (
+            <IconCurrentLocation />
+          ) : locationStatus === LocationStatus.idle ? (
+            <IconCurrentLocationOff />
           ) : (
-            <i className="location-icon" />
+            locationStatus === LocationStatus.fetching && (
+              <i className="location-fetching-icon" />
+            )
           )}
         </button>
       </div>
