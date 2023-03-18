@@ -52,9 +52,14 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
         </Link>
       </div>
       <div className="navbar-menu--footer">
-        <Button type="outline" label="SIGN UP" size="sm" />
+        <Link href="/signup">
+          <Button type="outline" label="SIGN UP" size="sm" />
+        </Link>
+
         <p className="footer-label">or</p>
-        <Button type="text" label="Log in" size="sm" />
+        <Link href="/login">
+          <Button type="text" label="Log in" size="sm" />
+        </Link>
       </div>
     </div>
   );
