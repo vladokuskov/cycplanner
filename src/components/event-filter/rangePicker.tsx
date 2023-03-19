@@ -39,7 +39,7 @@ const RangePicker = ({ changeRange, selectedRange }: Props) => {
         title="Select range of search"
         aria-label="Select range of search"
       >
-        <span>{selectedRange + ` km`}</span>
+        {selectedRange + ` km`}
         <span className="range-button--icon">
           <i className={isOpen ? 'arrow-up' : 'arrow-down'} />
         </span>
