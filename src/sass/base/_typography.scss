@@ -182,7 +182,7 @@ li {
   }
 }
 
-// Event
+// EVENT COMPONENT
 .author-name-title {
   font-family: $primary-font;
   color: $event-author;
@@ -230,4 +230,46 @@ li {
   letter-spacing: 0.02em;
   color: $event-subtitle;
   text-decoration: none !important;
+}
+
+// LOGIN/SIGNUP PAGES
+
+.info-title {
+  font-family: $primary-font;
+  font-size: 31px;
+  line-height: 37px;
+  font-weight: 700;
+  color: $page-title;
+}
+
+.info-subtitle {
+  color: $page-description;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 13px;
+}
+
+.header-link {
+  color: $page-description;
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 13px;
+  cursor: pointer;
+  span {
+    color: $page-title;
+    font-weight: 600;
+  }
+  &:hover {
+    span {
+      color: hover-color($page-title, 10);
+      text-decoration: underline;
+    }
+  }
+}
+
+.alt-title {
+  color: $page-description;
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 13px;
 }

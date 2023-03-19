@@ -14,6 +14,9 @@ button {
   border-radius: 10px;
   border: none;
   background-color: transparent;
+  &.full {
+    width: 100%;
+  }
   &.sm {
     padding: 0.1rem 0.5rem;
   }
@@ -50,6 +53,18 @@ button {
     }
   }
   &.btn-icon {
+    color: $input-text;
+    @include on-hover {
+      color: hover-color($input-text, 15);
+    }
+    &:active {
+      color: hover-color($input-text, 15);
+    }
+  }
+  &.btn-icon-outlined {
+    border-radius: 50%;
+    border: 2px solid $input-icon;
+    padding: 0.3rem;
     color: $input-text;
     @include on-hover {
       color: hover-color($input-text, 15);
@@ -121,6 +136,9 @@ button {
   @include flexCenter(row, 0.1rem);
   justify-content: space-between;
   svg {
+    color: $input-icon;
+  }
+  span {
     color: $input-icon;
   }
   @include on-hover {
