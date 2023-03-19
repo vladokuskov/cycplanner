@@ -50,8 +50,6 @@ const Home: NextPageWithLayout = () => {
           <div className="home-events-body">
             <div className="body-events-wrapper">
               <Event />
-              <Event />
-              <Event />
             </div>
             <div className="body-events-footer">
               <Link href="/events" className="events-footer-extend">
