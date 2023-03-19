@@ -5,6 +5,7 @@ import {
   IconHeart,
   IconMessages,
   IconUsers,
+  IconHeartFilled,
 } from '@tabler/icons-react';
 
 import Button from '@/components/button';
@@ -12,7 +13,11 @@ import EventAuthor from './eventAuthor';
 import EventDetail from './eventDetail';
 import { copyEventLink } from '@/utils/copyEventLink';
 
-const Event = () => {
+interface EventProps {
+  isLiked: boolean;
+}
+
+const Event = ({ isLiked }: EventProps) => {
   return (
     <>
       <Head>
@@ -25,7 +30,7 @@ const Event = () => {
             type="icon"
             icon={<IconShare />}
             label="Share event"
-            onClick={() => copyEventLink('1236')}
+            onClick={() => copyEventLink('!Change later!')}
           />
         </div>
         <div className="event-main-wrapper">
@@ -59,7 +64,11 @@ const Event = () => {
               />
             </div>
             <div className="details-buttons-wrapper">
-              <Button type="icon" icon={<IconHeart />} label="Like event" />
+              <Button
+                type="icon"
+                icon={!isLiked ? <IconHeart /> : <IconHeartFilled />}
+                label="Like event"
+              />
               <Button type="icon" icon={<IconMessages />} label="Comments" />
               <Button type="icon" icon={<IconUsers />} label="Participants" />
               <Button type="filled" label="Participate" size="md" />
@@ -77,3 +86,7 @@ const Event = () => {
 };
 
 export default Event;
+
+Event.defaultProps = {
+  isLiked: false,
+};
