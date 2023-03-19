@@ -61,7 +61,7 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      <p className="footer-copy">{`© ${new Date().getFullYear()} ' cycplanner`}</p>
+      <p className="footer-copy">{`© ${new Date().getFullYear()} Made with love from Swappnet <3 ' cycplanner`}</p>
     </footer>
   );
 };
