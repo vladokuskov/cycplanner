@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { FormEvent } from 'react';
 
 import Button from '@/components/button';
+import Input from '@/components/input';
 
 import { IconBrandGoogle, IconArrowLeft } from '@tabler/icons-react';
 
@@ -20,7 +21,7 @@ const Signup = () => {
       <div className="authentication-main-wrapper">
         <div className="authentication-wrapper">
           <Link href="/">
-            <Button type="icon" icon={<IconArrowLeft />} label="Back" />
+            <Button variant="icon" icon={<IconArrowLeft />} label="Back" />
           </Link>
           <div className="authentication-content-wrapper">
             <header className="content-header-wrapper">
@@ -36,47 +37,26 @@ const Signup = () => {
               </Link>
             </header>
             <form className="content-form-wrapper" onSubmit={handleSubmit}>
-              <div className="form-input-wrapper">
-                <label htmlFor="name" className="label-name">
-                  <span className="form-input-label">Name</span>
-                </label>
-                <input
-                  className="form-input"
-                  type="text"
-                  title="Enter name"
-                  name="name"
-                  autoComplete="off"
-                  required
-                />
-              </div>
-              <div className="form-input-wrapper">
-                <label htmlFor="email" className="label-name">
-                  <span className="form-input-label">Email</span>
-                </label>
-                <input
-                  className="form-input"
-                  type="email"
-                  title="Enter email"
-                  name="email"
-                  autoComplete="off"
-                  required
-                />
-              </div>
-              <div className="form-input-wrapper">
-                <label htmlFor="password" className="label-name">
-                  <span className="form-input-label">Password</span>
-                </label>
-                <input
-                  className="form-input"
-                  type="password"
-                  title="Enter password"
-                  name="password"
-                  autoComplete="off"
-                  required
-                />
-              </div>
+              <Input
+                variant="account"
+                placeHolder="Enter name"
+                icon="account"
+                label="Account"
+              />
+              <Input
+                variant="email"
+                placeHolder="Enter email"
+                icon="email"
+                label="Email"
+              />
+              <Input
+                variant="password"
+                placeHolder="Enter Password"
+                icon="password"
+                label="Password"
+              />
               <Button
-                type="filled"
+                variant="filled"
                 label="Create account"
                 size="xl"
                 stretched
@@ -90,9 +70,9 @@ const Signup = () => {
               </div>
               <div className="alternatives-buttons-wrapper">
                 <Button
-                  type="icon-outlined"
+                  variant="icon-outlined"
                   icon={<IconBrandGoogle />}
-                  label="Sign up with Google"
+                  label="Sign up with Go  ogle"
                 />
               </div>
             </footer>

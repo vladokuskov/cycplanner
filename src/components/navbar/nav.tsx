@@ -116,7 +116,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-sublinks-wrapper">
           <Link href="/signup">
-            <Button type="outline" label="SIGN UP" size="md" />
+            <Button variant="outline" label="SIGN UP" size="md" />
           </Link>
         </div>
       </div>

@@ -31,7 +31,7 @@ const Home: NextPageWithLayout = () => {
               organizers.
             </p>
             <Link href="/events">
-              <Button type="filled" label="Get Started" size="xxl" />
+              <Button variant="filled" label="Get Started" size="xxl" />
             </Link>
           </div>
           <div className="home-start-banner-wrapper">

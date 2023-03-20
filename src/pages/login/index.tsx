@@ -6,6 +6,7 @@ import { FormEvent } from 'react';
 import Button from '@/components/button';
 
 import { IconArrowLeft, IconBrandGoogle } from '@tabler/icons-react';
+import Input from '@/components/input';
 
 const handleSubmit = (e: FormEvent) => {
   e.preventDefault();
@@ -20,7 +21,7 @@ const Login = () => {
       <div className="authentication-main-wrapper">
         <div className="authentication-wrapper">
           <Link href="/">
-            <Button type="icon" icon={<IconArrowLeft />} label="Back" />
+            <Button variant="icon" icon={<IconArrowLeft />} label="Back" />
           </Link>
           <div className="authentication-content-wrapper">
             <header className="content-header-wrapper">
@@ -38,33 +39,19 @@ const Login = () => {
               </Link>
             </header>
             <form className="content-form-wrapper" onSubmit={handleSubmit}>
-              <div className="form-input-wrapper">
-                <label htmlFor="email" className="label-name">
-                  <span className="form-input-label">Email</span>
-                </label>
-                <input
-                  className="form-input"
-                  type="email"
-                  title="Enter email"
-                  name="email"
-                  autoComplete="off"
-                  required
-                />
-              </div>
-              <div className="form-input-wrapper">
-                <label htmlFor="password" className="label-name">
-                  <span className="form-input-label">Password</span>
-                </label>
-                <input
-                  className="form-input"
-                  type="password"
-                  title="Enter password"
-                  name="password"
-                  autoComplete="off"
-                  required
-                />
-              </div>
-              <Button type="filled" label="Continue" size="xl" stretched />
+              <Input
+                variant="email"
+                placeHolder="Enter email"
+                icon="email"
+                label="Email"
+              />
+              <Input
+                variant="password"
+                placeHolder="Enter Password"
+                icon="password"
+                label="Password"
+              />
+              <Button variant="filled" label="Continue" size="xl" stretched />
             </form>
             <footer className="content-alternatives-wrapper">
               <div className="alternatives-title-wrapper">
@@ -74,7 +61,7 @@ const Login = () => {
               </div>
               <div className="alternatives-buttons-wrapper">
                 <Button
-                  type="icon-outlined"
+                  variant="icon-outlined"
                   icon={<IconBrandGoogle />}
                   label="Continue with Google"
                 />

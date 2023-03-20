@@ -27,7 +27,7 @@ const Event = ({ isLiked }: EventProps) => {
         <div className="event-header-wrapper">
           <EventAuthor authorImage={null} authorName={'Vlad Okuskov'} />
           <Button
-            type="icon"
+            variant="icon"
             icon={<IconShare />}
             label="Share event"
             onClick={() => copyEventLink('!Change later!')}
@@ -65,13 +65,17 @@ const Event = ({ isLiked }: EventProps) => {
             </div>
             <div className="details-buttons-wrapper">
               <Button
-                type="icon"
+                variant="icon"
                 icon={!isLiked ? <IconHeart /> : <IconHeartFilled />}
                 label="Like event"
               />
-              <Button type="icon" icon={<IconMessages />} label="Comments" />
-              <Button type="icon" icon={<IconUsers />} label="Participants" />
-              <Button type="filled" label="Participate" size="md" />
+              <Button variant="icon" icon={<IconMessages />} label="Comments" />
+              <Button
+                variant="icon"
+                icon={<IconUsers />}
+                label="Participants"
+              />
+              <Button variant="filled" label="Participate" size="md" />
             </div>
           </div>
           <div className="event-main-separator" />
