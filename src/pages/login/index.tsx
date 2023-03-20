@@ -25,13 +25,7 @@ const Login = () => {
           <div className="authentication-content-wrapper">
             <header className="content-header-wrapper">
               <div className="header-logo-wrapper">
-                <Image
-                  src="/assets/logo.svg"
-                  alt=""
-                  width={160}
-                  height={160}
-                  className="header-logo"
-                />
+                <img src="/assets/logo.svg" alt="" className="header-logo" />
               </div>
               <div className="header-info-wrapper">
                 <h2 className="info-title">Welcome Back</h2>
