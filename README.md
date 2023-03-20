@@ -4,18 +4,6 @@
 
 `cycplanner` is a web application that allows users to create, organize, and join cycling events in their area. This project was created using React, Next.js, and Firebase.
 
-
-### Getting Started
-
-To get started with the project, follow these steps:
-
-    1. Clone the repository to your local machine.
-    2. Install the necessary dependencies by running npm install.
-    3. Create a Firebase project and add your Firebase configuration to the .env.local file in the root directory of the project.
-    4. Start the development server by running npm run dev.
-
----
-
 ### Features
 
 CycPlanner includes the following features:
@@ -29,16 +17,17 @@ CycPlanner includes the following features:
 
 ### Technology Stack
 
-CycPlanner was built using the following technology stack:
+'cycplanner' was built using the following technology stack:
 
     React
     Next.js
     Firebase
     Sass
+    TypeScript
 
 ### Contributing
 
-Contributions to CycPlanner are welcome! If you would like to contribute, please follow these steps:
+Contributions to 'cycplanner' are welcome! If you would like to contribute, please follow these steps:
 
     1. Fork the repository.
     2. Create a new branch for your feature or bug fix.
