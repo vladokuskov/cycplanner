@@ -1,18 +1,24 @@
-interface Button {
-  size?: 'sm' | 'md' | 'xl' | 'xxl';
-  type: 'filled' | 'outline' | 'icon' | 'text' | 'icon-outlined';
-  label?: string;
-  icon?: React.ReactNode;
-  stretched?: boolean;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-}
+import { IButton } from '@/types/button-component.types';
 
-const Button = ({ onClick, label, type, icon, size, stretched }: Button) => {
-  const buttonClassName = `btn btn-${type} ${size} ${stretched && 'full'}`;
+const Button = ({
+  onClick,
+  label,
+  variant,
+  icon,
+  size = 'sm',
+  stretched = false,
+  type = 'submit',
+}: IButton) => {
+  const buttonClassName = `btn btn-${variant} ${size} ${stretched && 'full'}`;
 
   return (
-    <button className={buttonClassName} onClick={onClick} title={label}>
-      {type === 'icon' || type === 'icon-outlined' ? icon : label}
+    <button
+      className={buttonClassName}
+      onClick={onClick}
+      title={label}
+      type={type}
+    >
+      {variant === 'icon' || variant === 'icon-outlined' ? icon : label}
     </button>
   );
 };
