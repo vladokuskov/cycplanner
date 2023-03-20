@@ -10,7 +10,6 @@
     height: 100vh;
   }
   .authentication-wrapper {
-    position: relative;
     min-width: 22rem;
     width: 100%;
     margin: 1rem;
@@ -25,15 +24,14 @@
     @include media($from: 'md') {
       flex-direction: row;
     }
-    .btn-icon {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
+    a {
+      align-self: flex-start;
     }
     .authentication-content-wrapper {
       @include flexCenter(column, 1rem);
       width: 100%;
       .content-header-wrapper {
+        width: 100%;
         @include flexCenter(column, 1.2rem);
       }
       .header-logo-wrapper {
