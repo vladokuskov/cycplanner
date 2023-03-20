@@ -47,7 +47,7 @@ input {
       @include on-hover {
         color: hover-color($input-icon, -10);
       }
-      padding-right: 0.5rem;
+      margin-right: 0.5rem;
     }
   }
 }
