@@ -54,11 +54,10 @@ const RangePicker = ({ changeRange, selectedRange }: Props) => {
                   : 'range-option-wrapper'
               }
               key={option}
-              tabIndex={0}
-              role="button"
-              onClick={(e) => handleOptionClick(option)}
             >
-              {option + ` km`}
+              <button tabIndex={0} onClick={() => handleOptionClick(option)}>
+                {option + ` km`}
+              </button>
             </li>
           ))}
         </ul>
