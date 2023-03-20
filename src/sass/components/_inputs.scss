@@ -9,6 +9,47 @@ input {
   letter-spacing: -0.02rem;
 }
 
+.input-wrapper {
+  @include flexCenter(row, 0);
+  position: relative;
+  width: 100%;
+  .input-field-wrapper {
+    position: relative;
+    width: 100%;
+    .input-field-label {
+      font-family: $secondary-font;
+      font-size: 0.8rem;
+      letter-spacing: -0.035em;
+      line-height: 0.8rem;
+      color: $input-component-label;
+      position: absolute;
+      left: 2.5rem;
+      top: 0.4rem;
+    }
+    .input-field {
+      width: 100%;
+      padding-top: 1.2rem;
+      padding-bottom: 0.1rem;
+      padding-left: 2.5rem;
+      padding-right: 2.2rem;
+      background-color: transparent;
+      border: 0.15rem solid $input-component-border;
+      border-radius: 15px;
+      color: $input-component-text;
+    }
+  }
+  button {
+    position: absolute;
+    right: 0.5rem;
+    color: $input-component-icon;
+  }
+  .input-icon {
+    position: absolute;
+    left: 0.5rem;
+    color: $input-component-icon;
+  }
+}
+
 .location-geocoder-wrapper {
   min-width: 14rem;
   width: 100%;
