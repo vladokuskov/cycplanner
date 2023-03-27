@@ -1,9 +1,0 @@
-@function hover-color($color, $value) {
-  @if ($value > 0) {
-    @return lighten($color, $value);
-  } @else if ($value < 0) {
-    @return darken($color, abs($value));
-  } @else {
-    @return $color;
-  }
-}
