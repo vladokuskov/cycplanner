@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import type { ReactElement } from 'react';
+import Layout from '@/modules/layout';
 
 export default function Events() {
   return (
@@ -6,7 +8,10 @@ export default function Events() {
       <Head>
         <title>cycplanner - Events</title>
       </Head>
-      <main className="events-wrapper"></main>
     </>
   );
 }
+
+Events.getLayout = function getLayout(page: ReactElement) {
+  return <Layout>{page}</Layout>;
+};

@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react';
 
 import Footer from '@/components/footer';
-import Navbar from '@/components/navbar/nav';
+import Navbar from '@/components/styledComponents/navbar/Navbar';
+import StyledContainer from '@/components/StyledContainer';
 
 interface Props {
   children?: ReactNode;
@@ -9,10 +10,10 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   return (
-    <div className="container">
+    <StyledContainer variant="page">
       <Navbar />
       {children}
       <Footer />
-    </div>
+    </StyledContainer>
   );
 }

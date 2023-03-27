@@ -41,7 +41,7 @@ const Signup = () => {
                 variant="account"
                 placeHolder="Enter name"
                 icon="account"
-                label="Account"
+                label="Name"
               />
               <Input
                 variant="email"

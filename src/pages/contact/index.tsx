@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import type { ReactElement } from 'react';
+import Layout from '@/modules/layout';
 
 export default function Contact() {
   return (
@@ -6,7 +8,10 @@ export default function Contact() {
       <Head>
         <title>cycplanner - Contact us</title>
       </Head>
-      <main className="contact-wrapper"></main>
     </>
   );
 }
+
+Contact.getLayout = function getLayout(page: ReactElement) {
+  return <Layout>{page}</Layout>;
+};
