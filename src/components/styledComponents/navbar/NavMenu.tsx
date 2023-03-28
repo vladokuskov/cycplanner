@@ -1,7 +1,11 @@
 import styled, { css } from 'styled-components';
 import Link from 'next/link';
-import { NavbarWrapperProps, NavMenu } from '@/components/types/navbar.types';
-import { IconChevronRight } from '@tabler/icons-react';
+import {
+  NavbarWrapperProps,
+  NavMenuProps,
+} from '@/components/types/navbar.types';
+import { Icon } from '../Icon';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const MenuMainWrapper = styled.div`
   @media (min-width: 680px) {
@@ -76,7 +80,7 @@ const MenuFooter = styled.div`
   gap: 0.5rem;
 `;
 
-const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
+const NavMenu = ({ sticky, handleMenuClick, router }: NavMenuProps) => {
   return (
     <MenuMainWrapper>
       <MenuWrapper sticky={sticky}>
@@ -90,7 +94,7 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
           >
             <span>HOME</span>
             <span>
-              <IconChevronRight />
+              <Icon icon={faChevronRight} />
             </span>
           </Link>
           <Link
@@ -102,7 +106,7 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
           >
             <span>EVENTS</span>
             <span>
-              <IconChevronRight />
+              <Icon icon={faChevronRight} />
             </span>
           </Link>
           <Link
@@ -114,7 +118,7 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
           >
             <span>CONTACT US</span>
             <span>
-              <IconChevronRight />
+              <Icon icon={faChevronRight} />
             </span>
           </Link>
         </LinksWrapper>
