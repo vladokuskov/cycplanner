@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import type { ReactElement } from 'react';
 import Layout from '@/modules/layout';
-import StyledContainer from '@/components/StyledContainer';
+import StyledContainer from '@/components/styledComponents/StyledContainer';
 
 export default function Contact() {
   return (

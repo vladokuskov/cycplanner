@@ -1,19 +1,21 @@
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import type { ReactElement } from 'react';
-import Layout from '@/modules/layout';
-import StyledContainer from '@/components/StyledContainer';
+import StyledContainer from '@/components/styledComponents/StyledContainer';
+import PrivateRoute from '@/modules/PrivateRoute';
 
-export default function Events() {
+export default function Web() {
+  const DynamicLayout = dynamic(() => import('@/modules/layout'), {
+    ssr: false,
+  });
+
   return (
-    <>
-      <Head>
-        <title>cycplanner - Events</title>
-      </Head>
-      <StyledContainer variant="grid"></StyledContainer>
-    </>
+    <PrivateRoute>
+      <DynamicLayout>
+        <Head>
+          <title>cycplanner - Events</title>
+        </Head>
+        <StyledContainer variant="grid"></StyledContainer>
+      </DynamicLayout>
+    </PrivateRoute>
   );
 }
-
-Events.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>;
-};

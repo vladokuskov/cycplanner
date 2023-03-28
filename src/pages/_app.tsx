@@ -6,6 +6,7 @@ import type { AppProps } from 'next/app';
 
 import { Provider } from 'react-redux';
 import { store } from '@/store/store';
+import { AuthProvider } from '@/context/AuthContext';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -20,9 +21,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   return getLayout(
     <>
       <GlobalStyle />
-      <Provider store={store}>
-        <Component {...pageProps} />
-      </Provider>
+      <AuthProvider>
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
+      </AuthProvider>
     </>
   );
 }

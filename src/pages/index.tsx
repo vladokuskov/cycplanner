@@ -1,23 +1,18 @@
-import type { ReactElement } from 'react';
-import type { NextPageWithLayout } from './_app';
-
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import Layout from '@/modules/layout';
-import StyledContainer from '@/components/StyledContainer';
+import StyledContainer from '@/components/styledComponents/StyledContainer';
 
-const Home: NextPageWithLayout = () => {
+export default function Web() {
+  const DynamicLayout = dynamic(() => import('@/modules/layout'), {
+    ssr: false,
+  });
+
   return (
-    <>
+    <DynamicLayout>
       <Head>
         <title>cycplanner - Home</title>
       </Head>
       <StyledContainer variant="grid"></StyledContainer>
-    </>
+    </DynamicLayout>
   );
-};
-
-Home.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>;
-};
-
-export default Home;
+}
