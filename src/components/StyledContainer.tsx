@@ -16,6 +16,12 @@ const StyledContainer = styled.div<ContainerVariant>`
       justify-content: space-between;
       align-items: center;
     `}
+
+  ${({ variant }) =>
+    variant === 'grid' &&
+    css`
+      display: grid;
+    `}
 `;
 
 export default StyledContainer;

@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import type { ReactElement } from 'react';
 import Layout from '@/modules/layout';
+import StyledContainer from '@/components/StyledContainer';
 
 export default function Events() {
   return (
@@ -8,6 +9,7 @@ export default function Events() {
       <Head>
         <title>cycplanner - Events</title>
       </Head>
+      <StyledContainer variant="grid"></StyledContainer>
     </>
   );
 }
