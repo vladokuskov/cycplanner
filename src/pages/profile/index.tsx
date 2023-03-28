@@ -13,10 +13,10 @@ export default function Web() {
     <PrivateRoute>
       <DynamicLayout>
         <Head>
-          <title>cycplanner - Events</title>
+          <title>cycplanner - Profile</title>
         </Head>
         <StyledContainer variant="grid">
-          <h1>Events page</h1>
+          <h1>Profile page</h1>
         </StyledContainer>
       </DynamicLayout>
     </PrivateRoute>

@@ -1,9 +1,7 @@
-import Link from 'next/link';
-import Head from 'next/head';
-import Image from 'next/image';
-import { FormEvent } from 'react';
-
+import Auth from '@/components/styledComponents/Auth';
 import RestrictedRoute from '@/modules/ResctrictedRoute';
+import Head from 'next/head';
+import { FormEvent } from 'react';
 
 const handleSubmit = (e: FormEvent) => {
   e.preventDefault();
@@ -15,7 +13,7 @@ export default function Web() {
       <Head>
         <title>cycplanner - Log in</title>
       </Head>
-      <div>Log in page</div>
+      <Auth variant="login" />
     </RestrictedRoute>
   );
 }

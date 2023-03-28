@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;         /* Opera/IE 8+ */
     margin: 0;
     padding: 0;
+
   }
 
   *:focus:not(:focus-visible) {

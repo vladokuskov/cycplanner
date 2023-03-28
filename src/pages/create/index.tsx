@@ -1,19 +1,16 @@
-import dynamic from 'next/dynamic';
+import RestrictedRoute from '@/modules/ResctrictedRoute';
 import Head from 'next/head';
 import StyledContainer from '@/components/styledComponents/StyledContainer';
 
 export default function Web() {
-  const DynamicLayout = dynamic(() => import('@/modules/layout'), {
-    ssr: false,
-  });
   return (
-    <DynamicLayout>
+    <RestrictedRoute>
       <Head>
-        <title>cycplanner - Contact us</title>
+        <title>cycplanner - Create an event</title>
       </Head>
       <StyledContainer variant="grid">
-        <h1>Contact page</h1>
+        <h1>Event creation page</h1>
       </StyledContainer>
-    </DynamicLayout>
+    </RestrictedRoute>
   );
 }
