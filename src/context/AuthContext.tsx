@@ -5,7 +5,6 @@ import { createContext } from 'react';
 import { User } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Loader } from '@/components/styledComponents/Loader';
-import { useRouter } from 'next/router';
 
 export type AuthContext = {
   user: User | null;
@@ -26,7 +25,6 @@ export function useAuth() {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
 
   function signWithGoogle() {
     return signInWithGoogle;
@@ -43,7 +41,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(firebaseUser);
         setIsLoading(false);
       } else {
-        router.push('/');
         setIsLoading(false);
       }
     });
