@@ -4,6 +4,8 @@ import { AuthPageProps } from '../types/props/authPageProps.types';
 import {
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
+  signInWithGithub,
+  signInWithGoogle,
 } from '@/firebase/auth';
 
 import { useRouter } from 'next/router';
@@ -175,6 +177,44 @@ const FailedText = styled.p`
   align-self: flex-start;
 `;
 
+const AuthAltSectionWrapper = styled.div`
+  width: 100%;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+`;
+const AltHeaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+`;
+
+const Line = styled.div`
+  padding: 0.035rem;
+  border-radius: 10px;
+  border: none;
+  background-color: #bdbdbd9d;
+  width: 3rem;
+`;
+
+const AltTitle = styled.p`
+  font-weight: 500;
+  color: #999999;
+`;
+const AltButtonsWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 1rem;
+  gap: 0.7rem;
+`;
+
 export default function Auth({ variant }: AuthPageProps) {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -225,6 +265,24 @@ export default function Auth({ variant }: AuthPageProps) {
     } catch (err: any) {
       setValidationResponse(getErrorMessage(err));
       setIsFormValidated(false);
+    }
+  };
+
+  const handleSignWithGoogle = async () => {
+    await signInWithGoogle();
+
+    router.push('/');
+    try {
+    } catch (err: any) {
+      setValidationResponse(getErrorMessage(err));
+    }
+  };
+
+  const handleSignWithGithub = async () => {
+    await signInWithGithub();
+    try {
+    } catch (err: any) {
+      setValidationResponse(getErrorMessage(err));
     }
   };
 
@@ -317,6 +375,29 @@ export default function Auth({ variant }: AuthPageProps) {
               full
             />
           </AuthFormWrapper>
+          <AuthAltSectionWrapper>
+            <AltHeaderWrapper>
+              <Line />
+              <AltTitle>Or continue with</AltTitle>
+              <Line />
+            </AltHeaderWrapper>
+            <AltButtonsWrapper>
+              <Button
+                text="Continue with Google"
+                variant="outlined"
+                full
+                bold
+                onClick={handleSignWithGoogle}
+              />
+              <Button
+                text="Continue with GitHub"
+                variant="outlined"
+                full
+                bold
+                onClick={handleSignWithGithub}
+              />
+            </AltButtonsWrapper>
+          </AuthAltSectionWrapper>
         </AuthContentWrapper>
         <AuthBannerWrapper>
           <AuthBanner>

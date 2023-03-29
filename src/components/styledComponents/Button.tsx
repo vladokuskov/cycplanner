@@ -47,7 +47,7 @@ const StyledButton = styled.button<ButtonProps>`
   border: none;
   padding: 0;
   margin: 0;
-  font-weight: 500;
+  font-weight: ${({ bold }) => (bold === true ? 600 : 500)};
   letter-spacing: 0.01rem;
   border-radius: 10px;
   display: inline-flex;
@@ -191,6 +191,7 @@ const Button = ({
   full = false,
   buttonType = 'default',
   className,
+  bold = false,
 }: ButtonProps) => {
   return (
     <StyledButton
@@ -201,6 +202,7 @@ const Button = ({
       size={size}
       full={full}
       type={buttonType === 'default' ? 'button' : 'submit'}
+      bold={bold}
     >
       {variant !== 'icon' && variant !== 'icon-bg' && (
         <ButtonText>{text}</ButtonText>

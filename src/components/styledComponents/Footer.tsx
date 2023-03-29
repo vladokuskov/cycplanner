@@ -83,8 +83,15 @@ const Footer = () => {
           </Link>
         </FooterLinksWrapper>
         <FooterLinksWrapper>
-          <FooterLink>GitHub</FooterLink>
-          <FooterLink>cycroute (Route builder)</FooterLink>
+          <FooterLink
+            href="https://github.com/swappnet/cycplanner"
+            target="_blank"
+          >
+            GitHub
+          </FooterLink>
+          <FooterLink href="https://cycroute.netlify.app/" target="_blank">
+            cycroute (Route builder)
+          </FooterLink>
         </FooterLinksWrapper>
       </FooterWrapper>
       <FooterDescription>{`© ${new Date().getFullYear()} Made with love from Swappnet <3 ' cycplanner`}</FooterDescription>

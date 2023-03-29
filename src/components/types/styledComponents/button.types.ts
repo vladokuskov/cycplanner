@@ -13,4 +13,5 @@ export type ButtonProps = {
   size?: 'sm1' | 'sm2' | 'sm3' | 'md1' | 'md2' | 'md3' | 'xl1' | 'xl2' | 'xl3';
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
+  bold?: boolean;
 };
