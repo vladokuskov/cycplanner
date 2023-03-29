@@ -1,4 +1,3 @@
-import GlobalStyle from '@/styles/GlobalStyle';
 import { ButtonProps } from '../types/styledComponents/button.types';
 import styled, { css } from 'styled-components';
 import { Icon } from './Icon';
@@ -191,9 +190,11 @@ const Button = ({
   size = 'sm3',
   full = false,
   buttonType = 'default',
+  className,
 }: ButtonProps) => {
   return (
     <StyledButton
+      className={className}
       onClick={onClick}
       title={text}
       variant={variant}

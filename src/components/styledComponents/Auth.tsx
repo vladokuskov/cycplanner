@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { AuthPageProps } from '../types/props/authPageProps.types';
 
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -7,11 +8,11 @@ import { useAuth } from '@/context/AuthContext';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { AuthPageProps } from '../types/props/authPageProps.types';
 import { Input } from './Input';
-import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
-import { faKey } from '@fortawesome/free-solid-svg-icons';
 import { Button } from './Button';
+
+import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faArrowLeftLong, faKey } from '@fortawesome/free-solid-svg-icons';
 
 const AuthLayoutWrapper = styled.div`
   display: flex;
@@ -43,6 +44,9 @@ const AuthWrapper = styled.div`
   @media (min-width: 680px) {
     flex-direction: row;
     max-height: 40rem;
+  }
+  .back-button {
+    align-self: flex-start;
   }
 `;
 
@@ -94,8 +98,8 @@ const HeaderLogoWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 12rem;
-  min-width: 12rem;
+  max-width: 10rem;
+  min-width: 10rem;
   height: 100%;
   width: 100%;
   margin-bottom: 1rem;
@@ -291,6 +295,13 @@ export default function Auth({ variant }: AuthPageProps) {
   return (
     <AuthLayoutWrapper>
       <AuthWrapper>
+        <Button
+          variant="icon"
+          size="md3"
+          icon={faArrowLeftLong}
+          onClick={() => router.push('/')}
+          className="back-button"
+        />
         <AuthContentWrapper>
           <AuthHeaderWrapper>
             <HeaderLogoWrapper>
