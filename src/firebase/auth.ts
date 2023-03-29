@@ -98,6 +98,10 @@ export const sendPasswordReset = async (email: string) => {
   }
 };
 
-export const logout = () => {
-  signOut(auth);
+export const logout = async () => {
+  try {
+    await signOut(auth);
+  } catch (err) {
+    throw err;
+  }
 };

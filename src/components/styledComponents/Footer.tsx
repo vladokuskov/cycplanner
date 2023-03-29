@@ -75,11 +75,11 @@ const Footer = () => {
             Contact us
           </Link>
           <Link
-            href="/account"
-            title="Go to My account"
-            aria-label="Go to My account"
+            href="/profile"
+            title="Go to Profile"
+            aria-label="Go to Profile"
           >
-            My account
+            Profile
           </Link>
         </FooterLinksWrapper>
         <FooterLinksWrapper>

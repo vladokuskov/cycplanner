@@ -104,19 +104,22 @@ const StyledInput = styled.input<InputProps>`
         css`
           padding: 0.35rem 0.6rem 0.35rem 2.2rem;
         `}
-
+                          
         &:focus {
     outline: 3px solid #a3d168;
     outline-offset: 0;
-
-    &:active {
-      outline: 3px solid #a3d168;
-      outline-offset: 0;
-      ${({ variant }) =>
-        css`
-          border-radius: ${variant === 'search' ? '8px' : '14px'} !important;
-        `}
-    }
+    ${({ variant }) =>
+      css`
+        border-radius: ${variant === 'search' ? '8px' : '14px'} !important;
+      `}
+  }
+  &:active {
+    outline: 3px solid #a3d168;
+    outline-offset: 0;
+    ${({ variant }) =>
+      css`
+        border-radius: ${variant === 'search' ? '8px' : '14px'} !important;
+      `}
   }
 `;
 
@@ -137,10 +140,21 @@ const StyledTextarea = styled.textarea<InputProps>`
     opacity: 0.3;
     font-weight: 500;
   }
-  *:focus {
+  &:focus {
     outline: 3px solid #a3d168;
     outline-offset: 0;
-    border-radius: 14px;
+    ${({ variant }) =>
+      css`
+        border-radius: ${variant === 'search' ? '8px' : '14px'} !important;
+      `}
+  }
+  &:active {
+    outline: 3px solid #a3d168;
+    outline-offset: 0;
+    ${({ variant }) =>
+      css`
+        border-radius: ${variant === 'search' ? '8px' : '14px'} !important;
+      `}
   }
 `;
 

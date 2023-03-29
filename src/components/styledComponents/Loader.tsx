@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 const LoadingBar = styled.div`
   height: 0.4rem;
   width: 100%;
-  background-color: #1f986c76;
+  background-color: #a3d168;
   position: fixed;
   top: 0;
   left: 0;
@@ -21,8 +21,10 @@ const progress = keyframes`
 
 const ProgressBar = styled.div`
   height: 100%;
-  background-color: #a0a0a03b;
-  animation: ${progress} 2s ease-in-out infinite;
+  background-color: #ebebeb;
+  animation: ${progress} 1s linear infinite;
+  will-change: width;
+  transform: translate3d(0, 0, 0);
 `;
 
 function Loader() {

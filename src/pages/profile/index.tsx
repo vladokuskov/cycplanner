@@ -21,7 +21,8 @@ export default function Web() {
         </Head>
         <StyledContainer variant="grid">
           <h1>Profile page</h1>
-          <p>{user?.displayName}</p>
+          <p>UID: {user?.uid}</p>
+          <p>EMAIL: {user?.email}</p>
           <Button onClick={logoutUser} variant="outlined" text="Log out" />
         </StyledContainer>
       </DynamicLayout>

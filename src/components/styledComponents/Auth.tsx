@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 import { AuthPageProps } from '../types/props/authPageProps.types';
 
+import {
+  logInWithEmailAndPassword,
+  registerWithEmailAndPassword,
+} from '@/firebase/auth';
+
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useAuth } from '@/context/AuthContext';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,9 +22,8 @@ const AuthLayoutWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   width: 100%;
-  overflow: auto;
+  height: 100%;
   @media (min-height: 400px) and (min-width: 680px) {
     height: 100vh;
   }
@@ -28,12 +31,11 @@ const AuthLayoutWrapper = styled.div`
 
 const AuthWrapper = styled.div`
   max-width: 950px;
-  max-height: 30rem;
+  min-height: 32rem;
   min-width: 16rem;
   width: 100%;
   margin: 1.5rem;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -180,8 +182,6 @@ export default function Auth({ variant }: AuthPageProps) {
   const [validationResponse, setValidationResponse] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const { login, signup, signWithGoogle } = useAuth();
-
   const router = useRouter();
   const apiUrl = process.env.API_URL;
 
@@ -217,7 +217,7 @@ export default function Auth({ variant }: AuthPageProps) {
     }
 
     try {
-      login(user.email, user.password);
+      await logInWithEmailAndPassword(user.email, user.password);
 
       setEmail('');
       setPassword('');
@@ -265,7 +265,11 @@ export default function Auth({ variant }: AuthPageProps) {
     }
 
     try {
-      signup(user.username, user.email, user.password);
+      await registerWithEmailAndPassword(
+        user.username,
+        user.email,
+        user.password
+      );
 
       setEmail('');
       setPassword('');
@@ -375,7 +379,11 @@ export default function Auth({ variant }: AuthPageProps) {
             {validationResponse.length > 0 && (
               <FailedText>{validationResponse}</FailedText>
             )}
-            <Button text="Sign up" buttonType="submit" full />
+            <Button
+              text={variant === 'login' ? 'Log in' : 'Sign up'}
+              buttonType="submit"
+              full
+            />
           </AuthFormWrapper>
         </AuthContentWrapper>
         <AuthBannerWrapper>

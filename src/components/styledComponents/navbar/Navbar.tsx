@@ -1,9 +1,14 @@
+import { NavbarWrapperProps } from '@/components/types/styledComponents/navbar.types';
 import styled, { css, keyframes } from 'styled-components';
+
 import { useEffect, useState, useRef } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+
+import Link from 'next/link';
+import { Button } from '../Button';
 import NavMenu from './NavMenu';
-import { NavbarWrapperProps } from '@/components/types/navbar.types';
+
+import { faBars, faClose } from '@fortawesome/free-solid-svg-icons';
 
 const smoothSticky = keyframes`
 from {
@@ -178,13 +183,14 @@ const Navbar = () => {
           </Link>
         </LinksWrapper>
         <NavbarMenuWrapper>
-          <button
+          <Button
+            variant="icon"
+            icon={!isMenuOpen ? faBars : faClose}
+            size="xl1"
             onClick={() => {
               setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);
             }}
-          >
-            Opn
-          </button>
+          />
           {isMenuOpen && (
             <NavMenu
               sticky={isSticky}
