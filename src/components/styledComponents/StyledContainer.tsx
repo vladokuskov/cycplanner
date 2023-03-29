@@ -22,6 +22,16 @@ const StyledContainer = styled.div<ContainerVariant>`
     css`
       display: grid;
     `}
+
+    ${({ variant }) =>
+    variant === 'page-content' &&
+    css`
+      width: 100%;
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    `}
 `;
 
 export default StyledContainer;

@@ -1,3 +1,3 @@
 export interface ContainerVariant {
-  variant: 'page' | 'grid';
+  variant: 'page' | 'grid' | 'page-content';
 }

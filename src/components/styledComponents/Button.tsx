@@ -42,12 +42,12 @@ const sizes = {
 };
 
 const StyledButton = styled.button<ButtonProps>`
-  font-family: 'Open-Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: transparent;
   border: none;
   padding: 0;
   margin: 0;
-  font-weight: ${({ bold }) => (bold === true ? 600 : 500)};
+  font-weight: ${({ bold }) => (bold === true ? 500 : 400)};
   letter-spacing: 0.01rem;
   border-radius: 10px;
   display: inline-flex;

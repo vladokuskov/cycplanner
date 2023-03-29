@@ -18,7 +18,11 @@ import { Input } from './Input';
 import { Button } from './Button';
 
 import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
-import { faArrowLeftLong, faKey } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowLeftLong,
+  faExternalLink,
+  faKey,
+} from '@fortawesome/free-solid-svg-icons';
 import { getErrorMessage, validateAuth } from '@/utils/validateAuth';
 
 const AuthLayoutWrapper = styled.div`
@@ -38,18 +42,18 @@ const AuthWrapper = styled.div`
   min-height: 32rem;
   min-width: 16rem;
   width: 100%;
-  margin: 1.5rem;
+  margin: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   background-color: #fbfbfb;
   box-shadow: 0px 0px 21px -3px rgba(0, 0, 0, 0.09);
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 0.7rem;
   @media (min-width: 680px) {
     flex-direction: row;
-    max-height: 45rem;
+    max-height: 40rem;
   }
   .back-button {
     position: absolute;
@@ -60,6 +64,7 @@ const AuthWrapper = styled.div`
 
 const AuthContentWrapper = styled.div`
   padding-top: 2rem;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,19 +83,19 @@ const AuthBannerWrapper = styled.div`
   max-width: 100%;
   max-height: 100%;
   display: none;
-  border-radius: 15px;
+  border-radius: 10px;
   @media (min-width: 680px) {
     display: block;
   }
 `;
 
 const AuthBanner = styled.div`
-  border-radius: 15px;
+  border-radius: 10px;
   width: 100%;
   height: 100%;
   img {
     object-fit: cover;
-    border-radius: 15px;
+    border-radius: 10px;
   }
 `;
 
@@ -138,15 +143,6 @@ const HeaderTitle = styled.h2`
   line-height: 37px;
   font-weight: 700;
   color: #2c2c2c;
-  margin: 0;
-`;
-
-const HeaderSubTitle = styled.p`
-  font-family: 'Poppins', sans-serif;
-  color: #999999;
-  font-weight: 400;
-  font-size: 0.95rem;
-  line-height: 1.1rem;
   margin: 0;
 `;
 
@@ -315,11 +311,6 @@ export default function Auth({ variant }: AuthPageProps) {
               <HeaderTitle>
                 {variant === 'login' ? 'Welcome Back' : 'Create an account'}
               </HeaderTitle>
-              <HeaderSubTitle>
-                {variant === 'login'
-                  ? 'Welcome Back, please enter your details'
-                  : 'Join cycplanner community'}
-              </HeaderSubTitle>
             </HeaderInfoWrapper>
             <Link href={variant === 'login' ? '/signup' : '/login'}>
               <AuthLink>
@@ -394,14 +385,16 @@ export default function Auth({ variant }: AuthPageProps) {
             <AltButtonsWrapper>
               <Button
                 text="Google"
-                variant="outlined"
+                variant="text-icon"
+                icon={faExternalLink}
                 full
                 bold
                 onClick={handleSignWithGoogle}
               />
               <Button
                 text="GitHub"
-                variant="outlined"
+                variant="text-icon"
+                icon={faExternalLink}
                 full
                 bold
                 onClick={handleSignWithGithub}

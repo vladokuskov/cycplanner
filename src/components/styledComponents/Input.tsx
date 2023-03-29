@@ -15,7 +15,7 @@ const InputMainWrapper = styled.div<InputProps>`
     css`
       background-color: ${variant === 'search' ? '#DDDDDD' : 'transparent'};
       color: ${variant === 'search' ? '#474747' : '#2C2C2C'};
-      border-radius: ${variant === 'search' ? '8px' : '14px'};
+      border-radius: ${variant === 'search' ? '8px' : '10px'};
       border: ${variant === 'search'
         ? 'none'
         : danger === true
@@ -49,7 +49,7 @@ const InputWrapper = styled.div<InputProps>`
 
 const Label = styled.label<InputProps>`
   position: absolute;
-  font-family: 'Open-Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   ${({ variant }) =>
     variant === 'outlined'
       ? css`
@@ -66,7 +66,7 @@ const Label = styled.label<InputProps>`
 `;
 
 const StyledInput = styled.input<InputProps>`
-  font-family: 'Open-Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   width: 100%;
   border: none;
   margin: 0;
@@ -74,13 +74,14 @@ const StyledInput = styled.input<InputProps>`
   background-color: transparent;
   font-weight: 500;
   color: #696969;
+  -webkit-tap-highlight-color: transparent;
   ::placeholder {
     opacity: 0.3;
-    font-weight: 500;
+    font-weight: 400;
   }
   ${({ variant }) =>
     css`
-      border-radius: ${variant === 'search' ? '8px' : '14px'};
+      border-radius: ${variant === 'search' ? '8px' : '10px'};
     `}
   ${({ variant }) =>
     variant === 'search'
@@ -94,7 +95,7 @@ const StyledInput = styled.input<InputProps>`
         `
       : variant === 'auth-pass'
       ? css`
-          padding: 1.3rem 2.2rem 0.2rem 2.5rem;
+          padding: 1.3rem 3rem 0.2rem 2.5rem;
         `
       : variant === 'outlined'
       ? css`
@@ -104,26 +105,29 @@ const StyledInput = styled.input<InputProps>`
         css`
           padding: 0.35rem 0.6rem 0.35rem 2.2rem;
         `}
-                          
+                 
         &:focus {
-    outline: 3px solid #a3d168;
-    outline-offset: 0;
-    ${({ variant }) =>
-      css`
-        border-radius: ${variant === 'search' ? '8px' : '14px'} !important;
-      `}
+    outline: none;
+    box-shadow: none;
   }
-  &:active {
-    outline: 3px solid #a3d168;
-    outline-offset: 0;
+
+  *:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px #a3d168;
     ${({ variant }) =>
       css`
-        border-radius: ${variant === 'search' ? '8px' : '14px'} !important;
+        border-radius: ${variant === 'search' ? '8px' : '10px'} !important;
       `}
   }
 `;
 
 const StyledTextarea = styled.textarea<InputProps>`
+  font-family: 'Roboto', sans-serif;
   border: none;
   margin: 0;
   padding: 0;
@@ -131,7 +135,7 @@ const StyledTextarea = styled.textarea<InputProps>`
   padding: 0.3rem;
   max-width: 100%;
   width: 100%;
-  border-radius: 14px;
+  border-radius: 10px;
   min-height: 2rem;
   font-weight: 500;
   resize: vertical;
@@ -141,26 +145,28 @@ const StyledTextarea = styled.textarea<InputProps>`
     font-weight: 500;
   }
   &:focus {
-    outline: 3px solid #a3d168;
-    outline-offset: 0;
-    ${({ variant }) =>
-      css`
-        border-radius: ${variant === 'search' ? '8px' : '14px'} !important;
-      `}
+    outline: none;
+    box-shadow: none;
   }
-  &:active {
-    outline: 3px solid #a3d168;
-    outline-offset: 0;
+
+  *:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px #a3d168;
     ${({ variant }) =>
       css`
-        border-radius: ${variant === 'search' ? '8px' : '14px'} !important;
+        border-radius: ${variant === 'search' ? '8px' : '10px'} !important;
       `}
   }
 `;
 
 const InputButton = styled.button<InputProps>`
   position: absolute;
-  right: 0rem;
+  right: 0.5rem;
   padding: 0 0.5rem;
   border-radius: 4px;
   ${({ variant }) =>
