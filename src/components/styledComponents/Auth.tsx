@@ -33,6 +33,7 @@ const AuthLayoutWrapper = styled.div`
 `;
 
 const AuthWrapper = styled.div`
+  position: relative;
   max-width: 950px;
   min-height: 32rem;
   min-width: 16rem;
@@ -50,21 +51,23 @@ const AuthWrapper = styled.div`
     flex-direction: row;
     max-height: 45rem;
   }
+  .back-button {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.7rem;
+  }
 `;
 
 const AuthContentWrapper = styled.div`
   padding-top: 2rem;
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
   flex-direction: column;
   width: 100%;
-  .back-button {
-    position: absolute;
-    top: 0;
-    left: 0;
+  @media (min-width: 680px) {
+    padding-top: 0.5rem;
   }
 `;
 
@@ -112,6 +115,9 @@ const HeaderLogoWrapper = styled.div`
   height: 100%;
   width: 100%;
   margin-bottom: 1rem;
+  @media (min-width: 680px) {
+    margin-bottom: 2rem;
+  }
   img {
     width: 100%;
     height: 100%;
@@ -293,14 +299,14 @@ export default function Auth({ variant }: AuthPageProps) {
   return (
     <AuthLayoutWrapper>
       <AuthWrapper>
+        <Button
+          variant="icon"
+          size="md3"
+          icon={faArrowLeftLong}
+          onClick={() => router.push('/')}
+          className="back-button"
+        />
         <AuthContentWrapper>
-          <Button
-            variant="icon"
-            size="md3"
-            icon={faArrowLeftLong}
-            onClick={() => router.push('/')}
-            className="back-button"
-          />
           <AuthHeaderWrapper>
             <HeaderLogoWrapper>
               <img src="/assets/logo.svg" alt="" />
