@@ -48,20 +48,24 @@ const AuthWrapper = styled.div`
   padding: 0.7rem;
   @media (min-width: 680px) {
     flex-direction: row;
-    max-height: 40rem;
-  }
-  .back-button {
-    align-self: flex-start;
+    max-height: 45rem;
   }
 `;
 
 const AuthContentWrapper = styled.div`
+  padding-top: 2rem;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
   flex-direction: column;
   width: 100%;
+  .back-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 `;
 
 const AuthBannerWrapper = styled.div`
@@ -289,14 +293,14 @@ export default function Auth({ variant }: AuthPageProps) {
   return (
     <AuthLayoutWrapper>
       <AuthWrapper>
-        <Button
-          variant="icon"
-          size="md3"
-          icon={faArrowLeftLong}
-          onClick={() => router.push('/')}
-          className="back-button"
-        />
         <AuthContentWrapper>
+          <Button
+            variant="icon"
+            size="md3"
+            icon={faArrowLeftLong}
+            onClick={() => router.push('/')}
+            className="back-button"
+          />
           <AuthHeaderWrapper>
             <HeaderLogoWrapper>
               <img src="/assets/logo.svg" alt="" />
@@ -383,14 +387,14 @@ export default function Auth({ variant }: AuthPageProps) {
             </AltHeaderWrapper>
             <AltButtonsWrapper>
               <Button
-                text="Continue with Google"
+                text="Google"
                 variant="outlined"
                 full
                 bold
                 onClick={handleSignWithGoogle}
               />
               <Button
-                text="Continue with GitHub"
+                text="GitHub"
                 variant="outlined"
                 full
                 bold

@@ -1,11 +1,13 @@
 import styled, { css } from 'styled-components';
 import Link from 'next/link';
 import {
-  NavbarWrapperProps,
   NavMenuProps,
-} from '@/components/types/navbar.types';
+  NavbarWrapperProps,
+} from '@/components/types/styledComponents/navbar.types';
 import { Icon } from '../Icon';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from '@/context/AuthContext';
+import { Button } from '../Button';
 
 const MenuMainWrapper = styled.div`
   @media (min-width: 680px) {
@@ -80,7 +82,24 @@ const MenuFooter = styled.div`
   gap: 0.5rem;
 `;
 
+const MenuFooterButtonsWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+`;
+const MenuFooterButtonsLabel = styled.p`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 12px;
+  color: #787878;
+`;
+
 const NavMenu = ({ sticky, handleMenuClick, router }: NavMenuProps) => {
+  const { user } = useAuth();
+
   return (
     <MenuMainWrapper>
       <MenuWrapper sticky={sticky}>
@@ -122,7 +141,29 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenuProps) => {
             </span>
           </Link>
         </LinksWrapper>
-        <MenuFooter>{/* SIGNUP & LOGIN buttons! */}</MenuFooter>
+        <MenuFooter>
+          {user ? (
+            ''
+          ) : (
+            <MenuFooterButtonsWrapper>
+              <Button
+                variant="outlined"
+                text="Sign up"
+                size="sm1"
+                bold
+                onClick={() => router.replace('/signup')}
+              />
+              <MenuFooterButtonsLabel>or</MenuFooterButtonsLabel>
+              <Button
+                variant="default"
+                text="Log in"
+                size="sm1"
+                bold
+                onClick={() => router.replace('/login')}
+              />
+            </MenuFooterButtonsWrapper>
+          )}
+        </MenuFooter>
       </MenuWrapper>
     </MenuMainWrapper>
   );

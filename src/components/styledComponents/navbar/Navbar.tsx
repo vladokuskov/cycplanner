@@ -9,6 +9,7 @@ import { Button } from '../Button';
 import NavMenu from './NavMenu';
 
 import { faBars, faClose } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from '@/context/AuthContext';
 
 const smoothSticky = keyframes`
 from {
@@ -117,6 +118,7 @@ const Navbar = () => {
   const [isSticky, setIsSticky] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const router = useRouter();
+  const { user } = useAuth();
 
   useEffect(() => {
     window.addEventListener('scroll', handleSticky);
@@ -200,7 +202,17 @@ const Navbar = () => {
           )}
         </NavbarMenuWrapper>
         <SubLinksWrapper>
-          <Link href="/signup">{/* Button here */}</Link>
+          {user ? (
+            ''
+          ) : (
+            <Button
+              variant="outlined"
+              text="Sign up"
+              size="sm1"
+              bold
+              onClick={() => router.replace('/signup')}
+            />
+          )}
         </SubLinksWrapper>
       </NavbarWrapper>
     </NavbarMainWrapper>
