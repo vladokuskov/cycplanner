@@ -17,6 +17,7 @@ import { Button } from './Button';
 
 import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faArrowLeftLong, faKey } from '@fortawesome/free-solid-svg-icons';
+import { getErrorMessage, validateAuth } from '@/utils/validateAuth';
 
 const AuthLayoutWrapper = styled.div`
   display: flex;
@@ -175,15 +176,14 @@ const FailedText = styled.p`
 `;
 
 export default function Auth({ variant }: AuthPageProps) {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isFormValidated, setIsFormValidated] = useState(true);
-  const [validationResponse, setValidationResponse] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [isFormValidated, setIsFormValidated] = useState<boolean>(true);
+  const [validationResponse, setValidationResponse] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const router = useRouter();
-  const apiUrl = process.env.API_URL;
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
@@ -192,108 +192,38 @@ export default function Auth({ variant }: AuthPageProps) {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const user = {
-      email: email,
-      password: password,
-    };
-
-    if (!validateEmail(email)) {
-      setValidationResponse('Please enter a valid email address.');
-      setIsFormValidated(false);
-      return;
-    } else {
-      setValidationResponse('');
-      setIsFormValidated(true);
-    }
-    if (!validatePassword(password)) {
-      setValidationResponse(
-        'Please enter a password that is at least 8 characters long.'
-      );
-      setIsFormValidated(false);
-      return;
-    } else {
-      setValidationResponse('');
-      setIsFormValidated(true);
-    }
-
     try {
-      await logInWithEmailAndPassword(user.email, user.password);
+      const isValid = await validateAuth({ email, password });
+      if (isValid) {
+        await logInWithEmailAndPassword(email, password);
 
-      setEmail('');
-      setPassword('');
+        setEmail('');
+        setPassword('');
 
-      router.push('/');
+        router.push('/');
+      }
     } catch (err: any) {
-      setValidationResponse(err);
+      setValidationResponse(err.message);
     }
   };
 
   const handleRegistration = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const user = {
-      username: username,
-      email: email,
-      password: password,
-    };
-
-    if (!validateName(username)) {
-      setValidationResponse('Please enter a valid name.');
-      setIsFormValidated(false);
-      return;
-    } else {
-      setValidationResponse('');
-      setIsFormValidated(true);
-    }
-    if (!validateEmail(email)) {
-      setValidationResponse('Please enter a valid email address.');
-      setIsFormValidated(false);
-      return;
-    } else {
-      setValidationResponse('');
-      setIsFormValidated(true);
-    }
-    if (!validatePassword(password)) {
-      setValidationResponse(
-        'Please enter a password that is at least 8 characters long.'
-      );
-      setIsFormValidated(false);
-      return;
-    } else {
-      setValidationResponse('');
-      setIsFormValidated(true);
-    }
-
     try {
-      await registerWithEmailAndPassword(
-        user.username,
-        user.email,
-        user.password
-      );
+      const isValid = await validateAuth({ email, username, password });
+      if (isValid) {
+        await registerWithEmailAndPassword(username, email, password);
 
-      setEmail('');
-      setPassword('');
-      setUsername('');
+        setEmail('');
+        setPassword('');
+        setUsername('');
 
-      router.push('/');
+        router.push('/');
+      }
     } catch (err: any) {
-      setValidationResponse(err);
+      setValidationResponse(err.message);
     }
-  };
-
-  const validateName = (name: string) => {
-    return name.length > 0;
-  };
-
-  const validateEmail = (email: string) => {
-    // Use a regular expression to check if the email address is valid
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const validatePassword = (password: string) => {
-    // Check if the password is at least 8 characters long
-    return password.length >= 8;
   };
 
   return (

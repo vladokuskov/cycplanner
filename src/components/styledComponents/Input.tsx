@@ -66,13 +66,13 @@ const Label = styled.label<InputProps>`
 `;
 
 const StyledInput = styled.input<InputProps>`
+  font-family: 'Open-Sans', sans-serif;
   width: 100%;
   border: none;
   margin: 0;
   padding: 0;
   background-color: transparent;
-  font-weight: 600;
-  font-family: 'Open-Sans', sans-serif;
+  font-weight: 500;
   color: #696969;
   ::placeholder {
     opacity: 0.3;
@@ -90,7 +90,7 @@ const StyledInput = styled.input<InputProps>`
       : variant === 'auth'
       ? css`
           padding: 1.3rem 0.3rem 0.2rem 2.5rem;
-          font-weight: 600;
+          font-weight: 500;
         `
       : variant === 'auth-pass'
       ? css`
@@ -133,7 +133,7 @@ const StyledTextarea = styled.textarea<InputProps>`
   width: 100%;
   border-radius: 14px;
   min-height: 2rem;
-  font-weight: 600;
+  font-weight: 500;
   resize: vertical;
   color: #696969;
   ::placeholder {

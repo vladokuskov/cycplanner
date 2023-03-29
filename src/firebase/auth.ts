@@ -20,29 +20,14 @@ import {
   GithubAuthProvider,
 } from 'firebase/auth';
 
-import { FirebaseError } from 'firebase/app';
-
 export const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
+const providerGoogle = new GoogleAuthProvider();
 const providerGit = new GithubAuthProvider();
 export const auth = getAuth(app);
 
-export function getErrorMessage(error: FirebaseError) {
-  switch (error.code) {
-    case 'auth/user-not-found':
-      return 'Invalid email or password';
-    case 'auth/wrong-password':
-      return 'Invalid email or password';
-    case 'auth/too-many-requests':
-      return 'Too many unsuccessful login attempts. Please try again later.';
-    default:
-      return 'An error occurred. Please try again.';
-  }
-}
-
 export const signInWithGoogle = async () => {
   try {
-    const res = await signInWithPopup(auth, provider);
+    const res = await signInWithPopup(auth, providerGoogle);
     const user = res.user;
     const q = query(collection(db, 'users'), where('uid', '==', user.uid));
     const docs = await getDocs(q);
@@ -71,7 +56,7 @@ export const logInWithEmailAndPassword = async (
 };
 
 export const registerWithEmailAndPassword = async (
-  name: string,
+  username: string,
   email: string,
   password: string
 ) => {
@@ -80,7 +65,8 @@ export const registerWithEmailAndPassword = async (
     const user = res.user;
     await addDoc(collection(db, 'users'), {
       uid: user.uid,
-      name,
+      username,
+      photoUrl: null,
       authProvider: 'local',
       email,
     });
