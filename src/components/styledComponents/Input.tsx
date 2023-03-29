@@ -29,13 +29,13 @@ const InputMainWrapper = styled.div<InputProps>`
       &:hover,
       &:focus {
         background-color: ${variant === 'search' ? '#e6e6e6' : 'transparent'};
-        border-color: ${danger === true ? '#ff3737' : '#c7c7c7'};
+        border-color: ${danger === true ? '#ff3737' : '#acacac'};
         .icon {
           color: ${variant === 'search'
             ? '#7a7a7ab3'
             : danger === true
             ? '#ff3737'
-            : '#c7c7c7'};
+            : '#acacac'};
         }
       }
     `}
@@ -72,7 +72,8 @@ const StyledInput = styled.input<InputProps>`
   padding: 0;
   background-color: transparent;
   font-weight: 600;
-  color: #535353;
+  font-family: 'Open-Sans', sans-serif;
+  color: #696969;
   ::placeholder {
     opacity: 0.3;
     font-weight: 500;
@@ -89,6 +90,7 @@ const StyledInput = styled.input<InputProps>`
       : variant === 'auth'
       ? css`
           padding: 1.3rem 0.3rem 0.2rem 2.5rem;
+          font-weight: 600;
         `
       : variant === 'auth-pass'
       ? css`
@@ -104,7 +106,17 @@ const StyledInput = styled.input<InputProps>`
         `}
 
         &:focus {
-    box-shadow: none;
+    outline: 3px solid #a3d168;
+    outline-offset: 0;
+
+    &:active {
+      outline: 3px solid #a3d168;
+      outline-offset: 0;
+      ${({ variant }) =>
+        css`
+          border-radius: ${variant === 'search' ? '8px' : '14px'} !important;
+        `}
+    }
   }
 `;
 
@@ -120,13 +132,15 @@ const StyledTextarea = styled.textarea<InputProps>`
   min-height: 2rem;
   font-weight: 600;
   resize: vertical;
-  color: #535353;
+  color: #696969;
   ::placeholder {
     opacity: 0.3;
     font-weight: 500;
   }
-  &:focus {
-    box-shadow: none;
+  *:focus {
+    outline: 3px solid #a3d168;
+    outline-offset: 0;
+    border-radius: 14px;
   }
 `;
 
@@ -213,6 +227,13 @@ const Input = ({
           />
         ) : (
           <StyledInput
+            type={
+              variant === 'auth-pass' && !isPassShowed
+                ? 'password'
+                : variant === 'auth-pass' && isPassShowed
+                ? 'text'
+                : 'text'
+            }
             name={variant}
             value={value}
             variant={variant}
@@ -228,6 +249,7 @@ const Input = ({
       {((variant === 'search' && value?.length !== 0) ||
         (variant === 'auth-pass' && value?.length !== 0)) && (
         <InputButton
+          type="button"
           onClick={onClick}
           title={
             variant === 'search'

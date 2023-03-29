@@ -1,3 +1,4 @@
+import GlobalStyle from '@/styles/GlobalStyle';
 import { ButtonProps } from '../types/styledComponents/button.types';
 import styled, { css } from 'styled-components';
 import { Icon } from './Icon';
@@ -42,11 +43,12 @@ const sizes = {
 };
 
 const StyledButton = styled.button<ButtonProps>`
+  font-family: 'Open-Sans', sans-serif;
   background-color: transparent;
   border: none;
   padding: 0;
   margin: 0;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.01rem;
   border-radius: 10px;
   display: inline-flex;

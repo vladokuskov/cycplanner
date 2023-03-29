@@ -8,6 +8,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { AuthPageProps } from '../types/props/authPageProps.types';
+import { Input } from './Input';
+import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faKey } from '@fortawesome/free-solid-svg-icons';
+import { Button } from './Button';
 
 const AuthLayoutWrapper = styled.div`
   display: flex;
@@ -315,30 +319,52 @@ export default function Auth({ variant }: AuthPageProps) {
             onSubmit={variant === 'login' ? handleLogin : handleRegistration}
           >
             {variant === 'signup' && (
-              <input
-                required
+              <Input
+                value={username}
+                variant="auth"
+                icon={faUser}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setUsername(e.target.value)
                 }
+                label="Username"
+                placeholder="Enter username"
+                full
+                required
+                danger={!isFormValidated}
               />
             )}
-            <input
-              required
+            <Input
+              value={email}
+              variant="auth"
+              icon={faEnvelope}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setEmail(e.target.value)
               }
-            />
-            <input
+              label="Email"
+              placeholder="Enter email"
+              full
               required
+              danger={!isFormValidated}
+            />
+            <Input
+              isPassShowed={showPassword}
+              value={password}
+              variant="auth-pass"
+              icon={faKey}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
+              onClick={handleTogglePasswordVisibility}
+              label="Password"
+              placeholder="Enter password"
+              full
+              required
+              danger={!isFormValidated}
             />
-
             {validationResponse.length > 0 && (
               <FailedText>{validationResponse}</FailedText>
             )}
-            <button>Submit</button>
+            <Button text="Sign up" buttonType="submit" full />
           </AuthFormWrapper>
         </AuthContentWrapper>
         <AuthBannerWrapper>

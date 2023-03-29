@@ -19,9 +19,9 @@ const GlobalStyle = createGlobalStyle`
     box-shadow: none;
   }
   *:focus-visible {
-    outline: none;
-    border-radius: 3px;
-    box-shadow: 0 0 0 2px #a3d168;
+    outline: 3px solid #a3d168;
+    outline-offset: .2rem;
+    box-shadow: none;
   }
 
   body,
