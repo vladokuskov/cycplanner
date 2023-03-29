@@ -45,7 +45,11 @@ export const getErrorMessage = (error: FirebaseError) => {
       return 'Invalid email or password';
     case 'auth/too-many-requests':
       return 'Too many unsuccessful login attempts. Please try again later.';
+    case 'auth/weak-password':
+      return 'Please enter a password that is at least 8 characters long.';
+    case 'auth/email-already-in-use':
+      return 'This email already exists, please choose another.';
     default:
-      return error.code;
+      return error.message;
   }
 };

@@ -203,7 +203,8 @@ export default function Auth({ variant }: AuthPageProps) {
         router.push('/');
       }
     } catch (err: any) {
-      setValidationResponse(err.message);
+      setValidationResponse(getErrorMessage(err));
+      setIsFormValidated(false);
     }
   };
 
@@ -222,7 +223,8 @@ export default function Auth({ variant }: AuthPageProps) {
         router.push('/');
       }
     } catch (err: any) {
-      setValidationResponse(err.message);
+      setValidationResponse(getErrorMessage(err));
+      setIsFormValidated(false);
     }
   };
 
