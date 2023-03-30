@@ -249,6 +249,13 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: GeocoderProps) => {
           variant="icon-bg"
           icon={faLocation}
           text="Fetch location"
+          status={
+            locationStatus === LocationStatus.error
+              ? 'error'
+              : locationStatus === LocationStatus.success
+              ? 'success'
+              : 'default'
+          }
           disabled={locationStatus === LocationStatus.fetching}
           onClick={getLocation}
         />

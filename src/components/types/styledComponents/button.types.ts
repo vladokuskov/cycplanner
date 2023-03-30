@@ -5,7 +5,8 @@ export type ButtonProps = {
     | 'text-icon'
     | 'icon-bg'
     | 'icon'
-    | 'default';
+    | 'default'
+    | 'danger';
   text?: string;
   icon?: any;
   full?: boolean;
@@ -15,4 +16,5 @@ export type ButtonProps = {
   className?: string;
   bold?: boolean;
   disabled?: boolean;
+  status?: 'default' | 'error' | 'success';
 };

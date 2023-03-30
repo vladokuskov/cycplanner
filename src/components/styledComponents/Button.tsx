@@ -169,7 +169,53 @@ const StyledButton = styled.button<ButtonProps>`
             color: #6b6b6b;
           }
         `
+      : variant === 'danger'
+      ? css`
+          background-color: transparent;
+          color: #e62e2e;
+          border: 2px solid #e62e2e;
+          &:hover,
+          &:focus {
+            color: #ff3737;
+            border-color: #ff3737;
+          }
+          &:active {
+            color: #f13434;
+            border-color: #f13434;
+          }
+        `
       : ''};
+
+  ${({ status }) =>
+    status === 'error'
+      ? css`
+          color: #e62e2e;
+          border-color: #e62e2e;
+          &:hover,
+          &:focus {
+            color: #ff3737;
+            border-color: #ff3737;
+          }
+          &:active {
+            color: #f13434;
+            border-color: #f13434;
+          }
+        `
+      : status === 'success'
+      ? css`
+          color: #2e93e6;
+          border-color: #2e93e6;
+          &:hover,
+          &:focus {
+            color: #35a3fd;
+            border-color: #35a3fd;
+          }
+          &:active {
+            color: #2f96eb;
+            border-color: #2f96eb;
+          }
+        `
+      : ''}
 `;
 
 const ButtonText = styled.span``;
@@ -193,6 +239,7 @@ const Button = ({
   className,
   bold = false,
   disabled = false,
+  status = 'default',
 }: ButtonProps) => {
   return (
     <StyledButton
@@ -205,6 +252,7 @@ const Button = ({
       type={buttonType === 'default' ? 'button' : 'submit'}
       bold={bold}
       disabled={disabled}
+      status={status}
     >
       {variant !== 'icon' && variant !== 'icon-bg' && (
         <ButtonText>{text}</ButtonText>
