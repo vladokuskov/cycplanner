@@ -17,36 +17,16 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
-  GithubAuthProvider,
+  updateProfile,
 } from 'firebase/auth';
 
 export const db = getFirestore(app);
 const providerGoogle = new GoogleAuthProvider();
-const providerGit = new GithubAuthProvider();
 export const auth = getAuth(app);
 
 export const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, providerGoogle);
-    const user = res.user;
-    const q = query(collection(db, 'users'), where('uid', '==', user.uid));
-    const docs = await getDocs(q);
-    if (docs.docs.length === 0) {
-      await addDoc(collection(db, 'users'), {
-        uid: user.uid,
-        name: user.displayName,
-        authProvider: 'google',
-        email: user.email,
-      });
-    }
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const signInWithGithub = async () => {
-  try {
-    const res = await signInWithPopup(auth, providerGit);
     const user = res.user;
     const q = query(collection(db, 'users'), where('uid', '==', user.uid));
     const docs = await getDocs(q);
@@ -81,10 +61,14 @@ export const registerWithEmailAndPassword = async (
 ) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
+
     const user = res.user;
+    await updateProfile(user, {
+      displayName: username,
+    });
     await addDoc(collection(db, 'users'), {
       uid: user.uid,
-      username,
+      name: username,
       photoUrl: null,
       authProvider: 'local',
       email,

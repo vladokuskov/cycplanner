@@ -4,7 +4,6 @@ import { AuthPageProps } from '../types/props/authPageProps.types';
 import {
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
-  signInWithGithub,
   signInWithGoogle,
 } from '@/firebase/auth';
 
@@ -284,14 +283,6 @@ export default function Auth({ variant }: AuthPageProps) {
     }
   };
 
-  const handleSignWithGithub = async () => {
-    await signInWithGithub();
-    try {
-    } catch (err: any) {
-      setValidationResponse(getErrorMessage(err));
-    }
-  };
-
   return (
     <AuthLayoutWrapper>
       <AuthWrapper>
@@ -390,14 +381,6 @@ export default function Auth({ variant }: AuthPageProps) {
                 full
                 bold
                 onClick={handleSignWithGoogle}
-              />
-              <Button
-                text="GitHub"
-                variant="text-icon"
-                icon={faExternalLink}
-                full
-                bold
-                onClick={handleSignWithGithub}
               />
             </AltButtonsWrapper>
           </AuthAltSectionWrapper>
