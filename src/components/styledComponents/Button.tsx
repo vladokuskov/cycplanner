@@ -192,6 +192,7 @@ const Button = ({
   buttonType = 'default',
   className,
   bold = false,
+  disabled = false,
 }: ButtonProps) => {
   return (
     <StyledButton
@@ -203,6 +204,7 @@ const Button = ({
       full={full}
       type={buttonType === 'default' ? 'button' : 'submit'}
       bold={bold}
+      disabled={disabled}
     >
       {variant !== 'icon' && variant !== 'icon-bg' && (
         <ButtonText>{text}</ButtonText>

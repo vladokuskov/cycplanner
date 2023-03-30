@@ -14,4 +14,5 @@ export type ButtonProps = {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
   bold?: boolean;
+  disabled?: boolean;
 };

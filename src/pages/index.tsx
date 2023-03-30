@@ -5,6 +5,14 @@ import styled from 'styled-components';
 import { Button } from '@/components/styledComponents/Button';
 import { useRouter } from 'next/router';
 import { PageSeparator } from '@/components/styledComponents/PageSeparator';
+import Banner from '../assets/home-banner.svg';
+import { useAuth } from '@/context/AuthContext';
+
+const HomeMainWrapper = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  min-width: 100%;
+`;
 
 const StartWrapper = styled.div`
   width: 100%;
@@ -24,22 +32,16 @@ const StartContentWrapper = styled.div`
   flex-direction: column;
   gap: 1.5rem;
 `;
+
 const StartBannerWrapper = styled.div`
   display: none;
   max-width: 35rem;
   min-width: 26rem;
-  max-height: 20rem;
   width: 100%;
-  height: 100%;
   @media (min-width: 680px) {
     display: block;
     padding: 1rem 3rem;
   }
-`;
-
-const StartBanner = styled.img`
-  width: 100%;
-  height: 100%;
 `;
 
 const StartTitle = styled.h1`
@@ -75,6 +77,8 @@ export default function Web() {
     ssr: false,
   });
 
+  const { user } = useAuth();
+
   const router = useRouter();
 
   return (
@@ -82,33 +86,36 @@ export default function Web() {
       <Head>
         <title>cycplanner - Home</title>
       </Head>
-      <StyledContainer variant="page-content">
-        <StartWrapper>
-          <StartContentWrapper>
-            <>
-              <StartTitle>
-                <StartTitleBolder>WELCOME to</StartTitleBolder>
-                <br />
-                cycplanner
-              </StartTitle>
-              <StartDescription>
-                the ultimate platform for cycling enthusiasts and event
-                organizers.
-              </StartDescription>
-            </>
-            <Button
-              variant="filled"
-              text="Get Started"
-              bold
-              size="md1"
-              onClick={() => router.replace('/login')}
-            />
-          </StartContentWrapper>
-          <StartBannerWrapper>
-            <StartBanner src="../assets/home-banner.svg" alt="" />
-          </StartBannerWrapper>
-        </StartWrapper>
-        <PageSeparator />
+      <StyledContainer variant="page">
+        <HomeMainWrapper>
+          <StartWrapper>
+            <StartContentWrapper>
+              <>
+                <StartTitle>
+                  <StartTitleBolder>WELCOME to</StartTitleBolder>
+                  <br />
+                  cycplanner
+                </StartTitle>
+                <StartDescription>
+                  the ultimate platform for cycling enthusiasts and event
+                  organizers.
+                </StartDescription>
+              </>
+              <Button
+                disabled={user !== null}
+                variant="filled"
+                text="Get Started"
+                bold
+                size="md1"
+                onClick={() => router.replace('/login')}
+              />
+            </StartContentWrapper>
+            <StartBannerWrapper>
+              <Banner />
+            </StartBannerWrapper>
+          </StartWrapper>
+          <PageSeparator />
+        </HomeMainWrapper>
       </StyledContainer>
     </DynamicLayout>
   );

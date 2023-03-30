@@ -13,7 +13,7 @@ const StyledContainer = styled.div<ContainerVariant>`
       background-color: #fbfbfb;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
     `}
 
@@ -21,16 +21,6 @@ const StyledContainer = styled.div<ContainerVariant>`
     variant === 'grid' &&
     css`
       display: grid;
-    `}
-
-    ${({ variant }) =>
-    variant === 'page-content' &&
-    css`
-      width: 100%;
-      flex-direction: column;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     `}
 `;
 
