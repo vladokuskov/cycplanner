@@ -8,6 +8,7 @@ import { Icon } from '../Icon';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '../Button';
+import { ProfilePreview } from '../ProfilePreview';
 
 const MenuMainWrapper = styled.div`
   @media (min-width: 680px) {
@@ -50,7 +51,7 @@ const LinksWrapper = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   width: 100%;
-  padding-bottom: 0.5rem;
+  padding-bottom: 1rem;
   a {
     display: inline-flex;
     justify-content: space-between;
@@ -76,7 +77,7 @@ const LinksWrapper = styled.div`
 const MenuFooter = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
   gap: 0.5rem;
@@ -143,7 +144,11 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenuProps) => {
         </LinksWrapper>
         <MenuFooter>
           {user ? (
-            ''
+            <ProfilePreview
+              variant="default"
+              photoURL={user?.photoURL}
+              name={user.displayName}
+            />
           ) : (
             <MenuFooterButtonsWrapper>
               <Button

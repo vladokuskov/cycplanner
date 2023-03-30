@@ -10,6 +10,7 @@ import NavMenu from './NavMenu';
 
 import { faBars, faClose } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '@/context/AuthContext';
+import { ProfilePreview } from '../ProfilePreview';
 
 const smoothSticky = keyframes`
 from {
@@ -152,6 +153,8 @@ const Navbar = () => {
     setIsSticky(scrollTop >= 60 ? true : false);
   };
 
+  console.log(user?.photoURL);
+
   return (
     <NavbarMainWrapper ref={ref}>
       <NavbarWrapper sticky={isSticky}>
@@ -203,7 +206,11 @@ const Navbar = () => {
         </NavbarMenuWrapper>
         <SubLinksWrapper>
           {user ? (
-            ''
+            <ProfilePreview
+              variant="default-rev"
+              photoURL={user?.photoURL}
+              name={user.displayName}
+            />
           ) : (
             <Button
               variant="outlined"
