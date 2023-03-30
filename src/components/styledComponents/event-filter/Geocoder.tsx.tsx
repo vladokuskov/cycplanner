@@ -1,19 +1,57 @@
 import { useState, useEffect, useRef } from 'react';
+import styled from 'styled-components';
+
 import { GeoPoint } from '@/components/types/props/geoPoint.types';
+import { GeocoderProps } from '@/components/types/props/geocoderProps.types';
+import { LocationStatus } from '@/components/types/props/geocoderProps.types';
 
-interface Props {
-  changeGeoPoint: (point: GeoPoint) => void;
-  geoPoint: GeoPoint;
-}
+import { Button } from '../Button';
+import { Input } from '../Input';
+import { SelectorLabel } from './RangePicker';
+import { faLocation } from '@fortawesome/free-solid-svg-icons';
+import { icon } from '@fortawesome/fontawesome-svg-core';
 
-enum LocationStatus {
-  idle,
-  fetching,
-  success,
-  error,
-}
+const GeocoderMainWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.3rem;
+`;
+const GeocoderWrapper = styled.div`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+`;
+const GeocoderInputWrapper = styled.div`
+  width: 100%;
+  position: relative;
+`;
+const GeocoderResultsWrapper = styled.ul`
+  position: absolute;
+  top: 2.2rem;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0px 5px 15px -1px rgba(0, 0, 0, 0.09);
+  background-color: #e5e5e5;
+  z-index: 1;
+`;
 
-const Geocoder = ({ changeGeoPoint, geoPoint }: Props) => {
+const ResultWrapper = styled.li`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgb(138, 138, 138);
+  &:last-child {
+    border-bottom: none;
+  }
+`;
+
+const Geocoder = ({ changeGeoPoint, geoPoint }: GeocoderProps) => {
   const [reversedLocation, setReversedLocation] = useState<string>('London');
   const [geocoderValue, setGeocoderValue] = useState<string>(reversedLocation);
   const [isGeocoderLoading, setIsGeocoderLoading] = useState<boolean>(false);
@@ -103,9 +141,10 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Props) => {
           properties: { lat: number; lon: number; formatted: string };
         }) => {
           return (
-            <li className="geocoder-result-wrapper" key={item.properties.lon}>
-              <button
-                className="geocoder-result-button"
+            <ResultWrapper key={item.properties.lon}>
+              <Button
+                variant="default"
+                full
                 onClick={() =>
                   handleResult({
                     latitude: item.properties.lat,
@@ -113,10 +152,9 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Props) => {
                     address: item.properties.formatted,
                   })
                 }
-              >
-                {item.properties.formatted}
-              </button>
-            </li>
+                text={item.properties.formatted}
+              />
+            </ResultWrapper>
           );
         }
       );
@@ -192,65 +230,30 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Props) => {
   }, [locationStatus]);
 
   return (
-    <div className="filter-location-wrapper">
-      <label htmlFor="geocoder" className="filter-label">
-        Location
-      </label>
-      <div className="filter-location-content">
-        <div className="location-geocoder-wrapper" ref={ref}>
-          <input
-            name="geocoder"
+    <GeocoderMainWrapper>
+      <SelectorLabel>Location</SelectorLabel>
+      <GeocoderWrapper>
+        <GeocoderInputWrapper ref={ref}>
+          <Input
+            variant="search"
             value={geocoderValue}
-            className="geocoder-input"
-            autoComplete="false"
-            placeholder="Search location"
-            title="Search location"
-            aria-label="Search location"
             onChange={handleChangeGeocoder}
-            onClick={() => setIsResultsOpen(true)}
-            tabIndex={0}
+            onClick={handleClear}
+            placeholder="Enter location"
           />
-          <div className="geocoder-status-wrapper">
-            {isGeocoderLoading ? (
-              <div className="geocoder-loading-icon" />
-            ) : geocoderValue.length > 0 ? (
-              <button
-                className="geocoder-clear-button"
-                onClick={handleClear}
-                title="Clear text"
-                tabIndex={0}
-              >
-                <i className="close-icon" />
-              </button>
-            ) : (
-              <i className="search-icon" />
-            )}
-          </div>
           {isResultsOpen && (
-            <ul className="geocoder-results-wrapper">{geoResult}</ul>
+            <GeocoderResultsWrapper>{geoResult}</GeocoderResultsWrapper>
           )}
-        </div>
-        <button
-          className={
-            locationStatus === LocationStatus.idle ||
-            locationStatus === LocationStatus.fetching
-              ? `location-find-button`
-              : locationStatus === LocationStatus.success
-              ? 'location-find-button founded'
-              : locationStatus === LocationStatus.error
-              ? 'location-find-button error'
-              : 'location-find-button'
-          }
-          title="Find location"
-          aria-label="Find location"
+        </GeocoderInputWrapper>
+        <Button
+          variant="icon-bg"
+          icon={faLocation}
+          text="Fetch location"
           disabled={locationStatus === LocationStatus.fetching}
-          tabIndex={locationStatus === LocationStatus.fetching ? -1 : 0}
           onClick={getLocation}
-        >
-          Find Loc
-        </button>
-      </div>
-    </div>
+        />
+      </GeocoderWrapper>
+    </GeocoderMainWrapper>
   );
 };
 

@@ -11,11 +11,9 @@ import { EventFilter } from '@/components/styledComponents/event-filter/EventFil
 
 const HomeMainWrapper = styled.div`
   width: 100%;
-  max-width: 1200px;
-  min-width: 100%;
 `;
 
-const StartWrapper = styled.div`
+const SectionWrapper = styled.div`
   width: 100%;
   padding: 1rem;
   display: flex;
@@ -89,7 +87,7 @@ export default function Web() {
       </Head>
       <StyledContainer variant="page">
         <HomeMainWrapper>
-          <StartWrapper>
+          <SectionWrapper>
             <StartContentWrapper>
               <>
                 <StartTitle>
@@ -114,9 +112,11 @@ export default function Web() {
             <StartBannerWrapper>
               <Banner />
             </StartBannerWrapper>
-          </StartWrapper>
+          </SectionWrapper>
           <PageSeparator />
-          <EventFilter />
+          <SectionWrapper>
+            <EventFilter />
+          </SectionWrapper>
         </HomeMainWrapper>
       </StyledContainer>
     </DynamicLayout>

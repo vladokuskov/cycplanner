@@ -34,10 +34,14 @@ const PhotoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.3rem;
+  height: 2.3rem;
   border: none;
   border-radius: 50%;
+  @media (min-width: 680px) {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 `;
 const Photo = styled.img`
   width: 100%;
@@ -59,10 +63,13 @@ const PhotoPlaceholder = styled.div`
 const PreviewName = styled.p`
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 18px;
   letter-spacing: 0.015em;
   color: #424242;
+  @media (min-width: 680px) {
+    font-size: 1rem;
+  }
 `;
 
 const ProfilePreview = ({ variant, photoURL, name }: ProfilePreviewProps) => {

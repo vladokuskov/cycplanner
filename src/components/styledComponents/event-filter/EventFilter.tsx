@@ -1,4 +1,4 @@
-import Geocoder from './geocoder';
+import Geocoder from './Geocoder.tsx';
 import { SortingPicker } from './SortingPicker';
 import RangePicker from './RangePicker';
 
@@ -19,7 +19,7 @@ const FilterWrapper = styled.div`
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.8rem;
   @media (min-width: 680px) {
     align-items: center;
   }

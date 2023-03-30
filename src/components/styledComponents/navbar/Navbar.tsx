@@ -153,8 +153,6 @@ const Navbar = () => {
     setIsSticky(scrollTop >= 60 ? true : false);
   };
 
-  console.log(user?.photoURL);
-
   return (
     <NavbarMainWrapper ref={ref}>
       <NavbarWrapper sticky={isSticky}>

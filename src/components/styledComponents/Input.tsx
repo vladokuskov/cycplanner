@@ -166,12 +166,12 @@ const StyledTextarea = styled.textarea<InputProps>`
 
 const InputButton = styled.button<InputProps>`
   position: absolute;
-  right: 0.5rem;
   padding: 0 0.5rem;
   border-radius: 4px;
   ${({ variant }) =>
     css`
       color: ${variant === 'search' ? '#5a5a5a' : '#999999'};
+      right: ${variant === 'search' ? '0rem' : '.5rem'};
     `}
 `;
 
@@ -214,18 +214,11 @@ const Input = ({
       {(variant === 'auth' ||
         variant === 'auth-pass' ||
         variant === 'outlined-icon' ||
-        variant === 'search') && (
+        (variant === 'search' && value?.length === 0)) && (
         <InputIcon variant={variant} danger={danger} className="icon">
-          <Icon
-            icon={
-              variant === 'search' && value?.length === 0
-                ? faMagnifyingGlass
-                : variant !== 'search' && icon
-            }
-          />
+          <Icon icon={variant === 'search' ? faMagnifyingGlass : icon} />
         </InputIcon>
       )}
-      {variant === 'outlined'}
       <InputWrapper>
         {(variant === 'auth' ||
           variant === 'auth-pass' ||
@@ -271,6 +264,7 @@ const Input = ({
         <InputButton
           type="button"
           onClick={onClick}
+          variant={variant}
           title={
             variant === 'search'
               ? 'Clear'
