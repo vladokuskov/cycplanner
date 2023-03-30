@@ -1,9 +1,13 @@
 import Geocoder from './geocoder';
-import { DatePicker } from './DatePicker';
+import { SortingPicker } from './SortingPicker';
 import RangePicker from './RangePicker';
 
 import { useAppDispatch, useAppSelector } from '@/store/redux-hooks';
-import { updateDate, updateGeoPoint, updateRange } from '@/store/filterReducer';
+import {
+  updateSorting,
+  updateGeoPoint,
+  updateRange,
+} from '@/store/filterReducer';
 
 import { GeoPoint } from '@/components/types/props/geoPoint.types';
 import styled from 'styled-components';
@@ -33,11 +37,13 @@ const EventFilter = () => {
   const dispatch = useAppDispatch();
 
   const geoPoint = useAppSelector((state) => state.filterReducer.geoPoint);
-  const initialDate = useAppSelector((state) => state.filterReducer.date);
+  const selectedSorting = useAppSelector(
+    (state) => state.filterReducer.sorting
+  );
   const selectedRange = useAppSelector((state) => state.filterReducer.range);
 
-  const changeDate = (date: Date) => {
-    dispatch(updateDate(date));
+  const changeSorting = (variant: 'newest' | 'oldest') => {
+    dispatch(updateSorting(variant));
   };
 
   const changeGeoPoint = (point: GeoPoint) => {
@@ -52,7 +58,10 @@ const EventFilter = () => {
     <FilterWrapper>
       <Geocoder changeGeoPoint={changeGeoPoint} geoPoint={geoPoint} />
       <FilterSelectorsWrapper>
-        <DatePicker changeDate={changeDate} initialDate={initialDate} />
+        <SortingPicker
+          changeSorting={changeSorting}
+          selectedSorting={selectedSorting}
+        />
         <RangePicker changeRange={changeRange} selectedRange={selectedRange} />
       </FilterSelectorsWrapper>
     </FilterWrapper>

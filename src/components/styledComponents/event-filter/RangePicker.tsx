@@ -44,8 +44,14 @@ const RangeOption = styled.li`
   width: 100%;
   border-bottom: 1px solid rgb(138, 138, 138);
   background-color: #e5e5e5;
-  border: none;
-  border-radius: 10px;
+  border-radius: 8px 8px 0 0;
+  &:first-child {
+    border-radius: 8px 8px 0 0;
+  }
+  &:last-child {
+    border-bottom: none;
+    border-radius: 0 0 8px 8px;
+  }
 `;
 
 const RangePicker = ({ changeRange, selectedRange }: RangeProps) => {

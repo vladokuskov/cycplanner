@@ -1,8 +1,8 @@
 import { getFirestore, getDocs, query, collection } from 'firebase/firestore';
 
-import firebaseApp from './firebase';
+import { app } from './firebase';
 
-const db = getFirestore(firebaseApp);
+const db = getFirestore(app);
 
 export const getEvents = async () => {
   const q = query(collection(db, 'events'));

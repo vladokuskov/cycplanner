@@ -4,13 +4,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface FilterState {
   range: number;
   geoPoint: GeoPoint;
-  date: Date;
+  sorting: 'newest' | 'oldest';
 }
 
 const initialState: FilterState = {
   range: 40,
   geoPoint: { latitude: 51.509865, longitude: -0.118092 },
-  date: new Date(),
+  sorting: 'newest',
 };
 
 export const filterReducer = createSlice({
@@ -23,10 +23,10 @@ export const filterReducer = createSlice({
         geoPoint: action.payload,
       };
     },
-    updateDate: (state, action: PayloadAction<Date>) => {
+    updateSorting: (state, action: PayloadAction<'newest' | 'oldest'>) => {
       return {
         ...state,
-        date: action.payload,
+        sorting: action.payload,
       };
     },
     updateRange: (state, action: PayloadAction<number>) => {
@@ -38,6 +38,6 @@ export const filterReducer = createSlice({
   },
 });
 
-export const { updateGeoPoint, updateDate, updateRange } =
+export const { updateGeoPoint, updateSorting, updateRange } =
   filterReducer.actions;
 export default filterReducer.reducer;
