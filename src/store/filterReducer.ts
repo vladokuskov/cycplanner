@@ -1,4 +1,4 @@
-import { GeoPoint } from '@/components/event-filter/eventFilter';
+import { GeoPoint } from '@/components/types/props/geoPoint.types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface FilterState {

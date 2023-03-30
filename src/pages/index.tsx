@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { PageSeparator } from '@/components/styledComponents/PageSeparator';
 import Banner from '../assets/home-banner.svg';
 import { useAuth } from '@/context/AuthContext';
+import { EventFilter } from '@/components/styledComponents/event-filter/EventFilter';
 
 const HomeMainWrapper = styled.div`
   width: 100%;
@@ -115,6 +116,7 @@ export default function Web() {
             </StartBannerWrapper>
           </StartWrapper>
           <PageSeparator />
+          <EventFilter />
         </HomeMainWrapper>
       </StyledContainer>
     </DynamicLayout>

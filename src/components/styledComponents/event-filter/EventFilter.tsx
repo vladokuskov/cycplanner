@@ -1,14 +1,33 @@
 import Geocoder from './geocoder';
-import DatePicker from './datePicker';
-import RangePicker from './rangePicker';
+import { DatePicker } from './DatePicker';
+import RangePicker from './RangePicker';
 
 import { useAppDispatch, useAppSelector } from '@/store/redux-hooks';
 import { updateDate, updateGeoPoint, updateRange } from '@/store/filterReducer';
 
-export interface GeoPoint {
-  latitude: number;
-  longitude: number;
-}
+import { GeoPoint } from '@/components/types/props/geoPoint.types';
+import styled from 'styled-components';
+
+const FilterWrapper = styled.div`
+  margin-top: 0.5rem;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  @media (min-width: 680px) {
+    align-items: center;
+  }
+`;
+
+const FilterSelectorsWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  align-items: flex-end;
+`;
 
 const EventFilter = () => {
   const dispatch = useAppDispatch();
@@ -30,14 +49,14 @@ const EventFilter = () => {
   };
 
   return (
-    <div className="filter-wrapper">
+    <FilterWrapper>
       <Geocoder changeGeoPoint={changeGeoPoint} geoPoint={geoPoint} />
-      <div className="filter-selectors-wrapper">
+      <FilterSelectorsWrapper>
         <DatePicker changeDate={changeDate} initialDate={initialDate} />
         <RangePicker changeRange={changeRange} selectedRange={selectedRange} />
-      </div>
-    </div>
+      </FilterSelectorsWrapper>
+    </FilterWrapper>
   );
 };
 
-export default EventFilter;
+export { EventFilter };

@@ -50,7 +50,7 @@ const NavbarWrapper = styled.div<NavbarWrapperProps>`
       animation: ${smoothSticky} 250ms;
       background-color: #fbfbfb;
       position: fixed;
-      height: 3rem;
+      height: 3.4rem;
       top: 0;
       padding: 0.1rem 1rem;
       z-index: 1005;

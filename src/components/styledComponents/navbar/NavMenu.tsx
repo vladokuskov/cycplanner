@@ -39,7 +39,7 @@ const MenuWrapper = styled.div<NavbarWrapperProps>`
   ${({ sticky }) =>
     sticky &&
     css`
-      top: 3rem;
+      top: 3.4rem;
       z-index: 1005;
     `}
 `;
