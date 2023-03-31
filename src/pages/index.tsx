@@ -1,24 +1,42 @@
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import StyledContainer from '@/components/styledComponents/StyledContainer';
 import styled from 'styled-components';
-import { Button } from '@/components/styledComponents/Button';
+
 import { useRouter } from 'next/router';
-import { PageSeparator } from '@/components/styledComponents/PageSeparator';
-import Banner from '../assets/home-banner.svg';
 import { useAuth } from '@/context/AuthContext';
+
+import Banner from '../assets/home-banner.svg';
+import Link from 'next/link';
+import StyledContainer from '@/components/styledComponents/StyledContainer';
+import { Button } from '@/components/styledComponents/Button';
+import PageTitle from '@/components/styledComponents/PageTitle';
+import { PageSeparator } from '@/components/styledComponents/PageSeparator';
+import HomeInfo from '@/components/styledComponents/HomeInfo';
 import { EventFilter } from '@/components/styledComponents/event-filter/EventFilter';
 
 const HomeMainWrapper = styled.div`
   width: 100%;
 `;
 
-const SectionWrapper = styled.div`
+const StartSectionWrapper = styled.section`
   width: 100%;
   padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (min-width: 680px) {
+    padding: 1rem 3rem;
+  }
+`;
+
+const EventsSectionWrapper = styled.section`
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   @media (min-width: 680px) {
     padding: 1rem 3rem;
   }
@@ -65,10 +83,70 @@ const StartDescription = styled.p`
   font-size: 1rem;
   line-height: 19px;
   margin-top: 0.5rem;
-  @include media($from: 'md') {
+  @media (min-width: 680px) {
     max-width: 90%;
     font-size: 1.1rem;
   }
+`;
+
+const HomeEventsHeaderWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  @media (min-width: 680px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+`;
+const HeaderTitleWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  @media (min-width: 680px) {
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+`;
+
+const HomeEventsBodyWrapper = styled.div`
+  padding: 1.5rem 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 100%;
+  .more-link {
+    align-self: center;
+    color: #2c2c2c;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 12px;
+    margin-left: 0.5rem;
+    @media (min-width: 680px) {
+      font-size: 1.2rem;
+    }
+    &:hover,
+    &:focus {
+      color: #5a5a5a;
+    }
+    &:active {
+      color: #303030;
+    }
+  }
+`;
+const BodyEventsWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
 export default function Web() {
@@ -87,7 +165,7 @@ export default function Web() {
       </Head>
       <StyledContainer variant="page">
         <HomeMainWrapper>
-          <SectionWrapper>
+          <StartSectionWrapper>
             <StartContentWrapper>
               <>
                 <StartTitle>
@@ -112,11 +190,29 @@ export default function Web() {
             <StartBannerWrapper>
               <Banner />
             </StartBannerWrapper>
-          </SectionWrapper>
+          </StartSectionWrapper>
           <PageSeparator />
-          <SectionWrapper>
-            <EventFilter />
-          </SectionWrapper>
+          <EventsSectionWrapper>
+            <HomeEventsHeaderWrapper>
+              <HeaderTitleWrapper>
+                <PageTitle title="EVENTS" />
+                <HomeInfo />
+              </HeaderTitleWrapper>
+              <EventFilter />
+            </HomeEventsHeaderWrapper>
+            <HomeEventsBodyWrapper>
+              <BodyEventsWrapper>
+                {/* Three events from filter area */}
+              </BodyEventsWrapper>
+              <Link
+                href="/events"
+                title="See more events"
+                className="more-link"
+              >
+                See more ..
+              </Link>
+            </HomeEventsBodyWrapper>
+          </EventsSectionWrapper>
         </HomeMainWrapper>
       </StyledContainer>
     </DynamicLayout>
