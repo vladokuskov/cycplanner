@@ -1,3 +1,5 @@
+import styled from 'styled-components';
+
 import Geocoder from './Geocoder.tsx';
 import { SortingPicker } from './SortingPicker';
 import RangePicker from './RangePicker';
@@ -10,7 +12,6 @@ import {
 } from '@/store/filterReducer';
 
 import { GeoPoint } from '@/components/types/props/geoPoint.types';
-import styled from 'styled-components';
 
 const FilterWrapper = styled.div`
   margin-top: 0.5rem;
