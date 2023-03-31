@@ -44,7 +44,6 @@ const RangeOption = styled.li`
   width: 100%;
   border-bottom: 1px solid rgb(138, 138, 138);
   background-color: #e5e5e5;
-  border-radius: 8px 8px 0 0;
   &:first-child {
     border-radius: 8px 8px 0 0;
   }
