@@ -17,12 +17,9 @@ import { Input } from './Input';
 import { Button } from './Button';
 
 import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
-import {
-  faArrowLeftLong,
-  faExternalLink,
-  faKey,
-} from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeftLong, faKey } from '@fortawesome/free-solid-svg-icons';
 import { getErrorMessage, validateAuth } from '@/utils/validateAuth';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 const AuthLayoutWrapper = styled.div`
   display: flex;
@@ -377,7 +374,7 @@ export default function Auth({ variant }: AuthPageProps) {
               <Button
                 text="Google"
                 variant="text-icon"
-                icon={faExternalLink}
+                icon={faGoogle}
                 full
                 bold
                 onClick={handleSignWithGoogle}
