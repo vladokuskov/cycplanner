@@ -9,13 +9,13 @@ const ProfilePreviewWrapper = styled.div<ProfilePreviewProps>`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  cursor: pointer;
+  cursor: ${({ variant }) => (variant === 'no-link' ? 'default' : 'pointer')};
   transition: 0.2s;
   border: none;
   border-radius: 4px;
   &:hover,
   &:focus {
-    opacity: 0.8;
+    opacity: ${({ variant }) => (variant === 'no-link' ? 1 : 0.8)};
   }
   ${({ variant }) =>
     variant === 'default'
@@ -73,7 +73,20 @@ const PreviewName = styled.p`
 `;
 
 const ProfilePreview = ({ variant, photoURL, name }: ProfilePreviewProps) => {
-  return (
+  return variant === 'no-link' ? (
+    <ProfilePreviewWrapper variant={variant}>
+      <PhotoWrapper>
+        {photoURL ? (
+          <Photo src={photoURL} alt="" />
+        ) : (
+          <PhotoPlaceholder>
+            <Icon icon={faUser} />
+          </PhotoPlaceholder>
+        )}
+      </PhotoWrapper>
+      <PreviewName>{name}</PreviewName>
+    </ProfilePreviewWrapper>
+  ) : (
     <Link href="/profile" title="Open Profile">
       <ProfilePreviewWrapper variant={variant}>
         <PhotoWrapper>
