@@ -317,9 +317,9 @@ export default function Auth({ variant }: AuthPageProps) {
                 value={username}
                 variant="auth"
                 icon={faUser}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setUsername(e.target.value)
-                }
+                onChange={(
+                  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+                ) => setUsername(e.target.value)}
                 label="Username"
                 placeholder="Enter username"
                 full
@@ -331,9 +331,9 @@ export default function Auth({ variant }: AuthPageProps) {
               value={email}
               variant="auth"
               icon={faEnvelope}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setEmail(e.target.value)
-              }
+              onChange={(
+                e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+              ) => setEmail(e.target.value)}
               label="Email"
               placeholder="Enter email"
               full
@@ -345,9 +345,9 @@ export default function Auth({ variant }: AuthPageProps) {
               value={password}
               variant="auth-pass"
               icon={faKey}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setPassword(e.target.value)
-              }
+              onChange={(
+                e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+              ) => setPassword(e.target.value)}
               onClick={handleTogglePasswordVisibility}
               label="Password"
               placeholder="Enter password"

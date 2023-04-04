@@ -87,7 +87,7 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: GeocoderProps) => {
   };
 
   const handleChangeGeocoder = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
     setGeocoderValue(e.target.value);
     setHasUserTyped(true);
@@ -121,11 +121,11 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: GeocoderProps) => {
   let geoResult;
 
   const handleResult = (point: {
-    latitude: number;
-    longitude: number;
+    lat: number;
+    lon: number;
     address: string;
   }) => {
-    changeGeoPoint({ latitude: point.latitude, longitude: point.longitude });
+    changeGeoPoint({ lat: `${point.lat}`, lon: `${point.lon}` });
     setLocationStatus(LocationStatus.idle);
     setGeocoderValue(point.address);
     setHasUserTyped(false);
@@ -146,8 +146,8 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: GeocoderProps) => {
                 full
                 onClick={() =>
                   handleResult({
-                    latitude: item.properties.lat,
-                    longitude: item.properties.lon,
+                    lat: item.properties.lat,
+                    lon: item.properties.lon,
                     address: item.properties.formatted,
                   })
                 }
@@ -185,8 +185,8 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: GeocoderProps) => {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const geoPoint = {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
+              lat: `${position.coords.latitude}`,
+              lon: `${position.coords.longitude}`,
             };
             setLocationStatus(LocationStatus.success);
             changeGeoPoint(geoPoint);
@@ -208,7 +208,7 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: GeocoderProps) => {
     try {
       setReversedLocation('');
       const apiKey = process.env.NEXT_PUBLIC_GEOCODER_API;
-      const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${geoPoint.latitude}&lon=${geoPoint.longitude}&apiKey=${apiKey}`;
+      const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${geoPoint.lat}&lon=${geoPoint.lon}&apiKey=${apiKey}`;
       const response = await fetch(url);
       const data = await response.json();
       const city = data.features[0].properties.city;
