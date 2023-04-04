@@ -103,8 +103,11 @@ const LinksWrapper = styled.div`
 
 const SubLinksWrapper = styled.div`
   display: none;
+  flex-direction: center;
+  justify-content: center;
+  gap: 2rem;
   @media (min-width: 680px) {
-    display: block;
+    display: flex;
   }
 `;
 
@@ -157,7 +160,9 @@ const Navbar = () => {
     <NavbarMainWrapper ref={ref}>
       <NavbarWrapper sticky={isSticky}>
         <LogoWrapper>
-          <LogoImage src="/assets/logo.svg" alt="" />
+          <Link href="/">
+            <LogoImage src="/assets/logo.svg" alt="" />
+          </Link>
         </LogoWrapper>
         <LinksWrapper>
           <Link
@@ -204,11 +209,22 @@ const Navbar = () => {
         </NavbarMenuWrapper>
         <SubLinksWrapper>
           {user ? (
-            <ProfilePreview
-              variant="default-rev"
-              photoURL={user?.photoURL}
-              name={user.displayName}
-            />
+            <>
+              {router.pathname !== '/create' && (
+                <Button
+                  variant="outlined"
+                  text="New route"
+                  size="sm2"
+                  disabled={router.pathname === '/create'}
+                  onClick={() => router.push('/create')}
+                ></Button>
+              )}
+              <ProfilePreview
+                variant="photo"
+                photoURL={user?.photoURL}
+                name={user.displayName}
+              />
+            </>
           ) : (
             <Button
               variant="outlined"
