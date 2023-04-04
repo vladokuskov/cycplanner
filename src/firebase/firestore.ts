@@ -19,7 +19,7 @@ export const createEvent = async (event: EventProps) => {
     });
     await updateDoc(docRef, { docID: docRef.id, event });
   } catch (err) {
-    console.log(err);
+    throw 'Oops, it looks like something went wrong while creating your event.';
   }
 };
 

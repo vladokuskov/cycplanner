@@ -51,7 +51,7 @@ const Label = styled.label<InputProps>`
   position: absolute;
   font-family: 'Roboto', sans-serif;
   ${({ variant }) =>
-    variant === 'outlined'
+    variant === 'outlined' || variant === 'textarea'
       ? css`
           top: -1.7rem;
           color: rgba(32, 32, 32, 0.77);
@@ -136,13 +136,13 @@ const StyledTextarea = styled.textarea<InputProps>`
   max-width: 100%;
   width: 100%;
   border-radius: 10px;
-  min-height: 2rem;
+  min-height: 2.1rem;
   font-weight: 500;
   resize: vertical;
   color: #696969;
   ::placeholder {
     opacity: 0.3;
-    font-weight: 500;
+    font-weight: 400;
   }
   &:focus {
     outline: none;
@@ -206,7 +206,6 @@ const Input = ({
   full,
   onChange,
   onClick,
-  onChangeArea,
   placeholder,
   name,
 }: InputProps) => {
@@ -223,7 +222,8 @@ const Input = ({
       <InputWrapper>
         {(variant === 'auth' ||
           variant === 'auth-pass' ||
-          variant === 'outlined') && (
+          variant === 'outlined' ||
+          variant === 'textarea') && (
           <Label htmlFor={variant} variant={variant}>
             {label}
           </Label>
@@ -234,7 +234,7 @@ const Input = ({
             value={value}
             variant={variant}
             title={label ? label : ''}
-            onChangeArea={onChangeArea}
+            onChange={onChange}
             required={required}
             placeholder={placeholder}
             autoComplete="off"

@@ -1,4 +1,4 @@
 export type GeoPoint = {
-  latitude: number;
-  longitude: number;
+  lat: string;
+  lon: string;
 };

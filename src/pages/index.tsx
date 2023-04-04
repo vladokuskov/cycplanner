@@ -13,7 +13,6 @@ import PageTitle from '@/components/styledComponents/PageTitle';
 import { PageSeparator } from '@/components/styledComponents/PageSeparator';
 import HomeInfo from '@/components/styledComponents/HomeInfo';
 import { EventFilter } from '@/components/styledComponents/event-filter/EventFilter';
-import Event from '@/components/styledComponents/event/Event';
 
 const HomeMainWrapper = styled.div`
   width: 100%;
@@ -202,9 +201,7 @@ export default function Web() {
               <EventFilter />
             </HomeEventsHeaderWrapper>
             <HomeEventsBodyWrapper>
-              <BodyEventsWrapper>
-                <Event />
-              </BodyEventsWrapper>
+              <BodyEventsWrapper></BodyEventsWrapper>
               <Link
                 href="/events"
                 title="See more events"

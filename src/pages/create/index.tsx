@@ -16,7 +16,7 @@ export default function Web() {
         <Head>
           <title>cycplanner - Create event</title>
         </Head>
-        <StyledContainer variant="grid">
+        <StyledContainer variant="page">
           <EventCreation />
         </StyledContainer>
       </DynamicLayout>
