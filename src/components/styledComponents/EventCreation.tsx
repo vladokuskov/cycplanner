@@ -284,7 +284,7 @@ const EventCreation = () => {
         <FormFooterWrapper>
           <Button
             buttonType="submit"
-            text="Create event"
+            text={isCreatingEvent ? 'Creating' : 'Create event'}
             disabled={isCreatingEvent}
             size="md1"
             full
