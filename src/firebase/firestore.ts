@@ -1,14 +1,27 @@
+import { EventProps } from '@/components/types/styledComponents/event.types';
 import {
   getFirestore,
   getDocs,
   query,
   collection,
   addDoc,
+  updateDoc,
 } from 'firebase/firestore';
 
 import { app } from './firebase';
 
 const db = getFirestore(app);
+
+export const createEvent = async (event: EventProps) => {
+  try {
+    const docRef = await addDoc(collection(db, 'events'), {
+      event,
+    });
+    await updateDoc(docRef, { docID: docRef.id, event });
+  } catch (err) {
+    throw 'Oops, it looks like something went wrong while creating your event.';
+  }
+};
 
 export const getEvents = async () => {
   const q = query(collection(db, 'events'));

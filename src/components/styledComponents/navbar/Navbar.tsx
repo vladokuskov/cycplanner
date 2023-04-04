@@ -103,8 +103,11 @@ const LinksWrapper = styled.div`
 
 const SubLinksWrapper = styled.div`
   display: none;
+  flex-direction: center;
+  justify-content: center;
+  gap: 2rem;
   @media (min-width: 680px) {
-    display: block;
+    display: flex;
   }
 `;
 
@@ -157,7 +160,9 @@ const Navbar = () => {
     <NavbarMainWrapper ref={ref}>
       <NavbarWrapper sticky={isSticky}>
         <LogoWrapper>
-          <LogoImage src="/assets/logo.svg" alt="" />
+          <Link href="/">
+            <LogoImage src="/assets/logo.svg" alt="" />
+          </Link>
         </LogoWrapper>
         <LinksWrapper>
           <Link
@@ -205,7 +210,7 @@ const Navbar = () => {
         <SubLinksWrapper>
           {user ? (
             <ProfilePreview
-              variant="default-rev"
+              variant="photo"
               photoURL={user?.photoURL}
               name={user.displayName}
             />

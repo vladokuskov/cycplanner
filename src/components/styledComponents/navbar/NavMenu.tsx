@@ -10,7 +10,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Button } from '../Button';
 import { ProfilePreview } from '../ProfilePreview';
 
-const MenuMainWrapper = styled.div`
+const MenuMainWrapper = styled.aside`
   @media (min-width: 680px) {
     display: none;
   }
@@ -80,7 +80,7 @@ const MenuFooter = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 2rem;
 `;
 
 const MenuFooterButtonsWrapper = styled.div`
@@ -108,7 +108,7 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenuProps) => {
           <Link
             href="/"
             onClick={handleMenuClick}
-            className={router.pathname == '/' ? 'active' : ''}
+            className={router.pathname === '/' ? 'active' : ''}
             title="Go to Home"
             aria-label="Go to Home"
           >
@@ -120,7 +120,7 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenuProps) => {
           <Link
             href="/events"
             onClick={handleMenuClick}
-            className={router.pathname == '/events' ? 'active' : ''}
+            className={router.pathname === '/events' ? 'active' : ''}
             title="Go to Events"
             aria-label="Go to Events"
           >
@@ -132,7 +132,7 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenuProps) => {
           <Link
             href="/contact"
             onClick={handleMenuClick}
-            className={router.pathname == '/contact' ? 'active' : ''}
+            className={router.pathname === '/contact' ? 'active' : ''}
             title="Go to Contact us"
             aria-label="Go to Contact us"
           >
@@ -144,11 +144,22 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenuProps) => {
         </LinksWrapper>
         <MenuFooter>
           {user ? (
-            <ProfilePreview
-              variant="default"
-              photoURL={user?.photoURL}
-              name={user.displayName}
-            />
+            <>
+              {router.pathname !== '/create' && (
+                <Button
+                  variant="outlined"
+                  text="New event"
+                  full
+                  disabled={router.pathname === '/create'}
+                  onClick={() => router.push('/create')}
+                />
+              )}
+              <ProfilePreview
+                variant="default"
+                photoURL={user?.photoURL}
+                name={user.displayName}
+              />
+            </>
           ) : (
             <MenuFooterButtonsWrapper>
               <Button
@@ -156,7 +167,7 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenuProps) => {
                 text="Sign up"
                 size="sm1"
                 bold
-                onClick={() => router.replace('/signup')}
+                onClick={() => router.push('/signup')}
               />
               <MenuFooterButtonsLabel>or</MenuFooterButtonsLabel>
               <Button
@@ -164,7 +175,7 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenuProps) => {
                 text="Log in"
                 size="sm1"
                 bold
-                onClick={() => router.replace('/login')}
+                onClick={() => router.push('/login')}
               />
             </MenuFooterButtonsWrapper>
           )}

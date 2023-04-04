@@ -85,11 +85,11 @@ const ContentButtonsWrapper = styled.div`
   }
 `;
 
-const Event = ({ name = 'Swappnet', photoUrl }: EventProps) => {
+const Event = () => {
   return (
     <EventWrapper>
       <EventHeaderWrapper>
-        <ProfilePreview name={name} photoURL={photoUrl} variant="no-link" />
+        <ProfilePreview name="Swappnet" photoURL={null} variant="no-link" />
         <Button variant="icon" icon={faShareNodes} size="md3" />
       </EventHeaderWrapper>
       <EventMainWrapper>

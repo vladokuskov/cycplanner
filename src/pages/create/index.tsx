@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import StyledContainer from '@/components/styledComponents/StyledContainer';
 import { EventCreation } from '@/components/styledComponents/EventCreation';
+import PageTitle from '@/components/styledComponents/PageTitle';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {
@@ -15,8 +16,7 @@ export default function Web() {
         <Head>
           <title>cycplanner - Create event</title>
         </Head>
-        <StyledContainer variant="grid">
-          <h1>Event creation page</h1>
+        <StyledContainer variant="page">
           <EventCreation />
         </StyledContainer>
       </DynamicLayout>

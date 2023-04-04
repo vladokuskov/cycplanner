@@ -9,7 +9,7 @@ export interface FilterState {
 
 const initialState: FilterState = {
   range: 40,
-  geoPoint: { latitude: 51.509865, longitude: -0.118092 },
+  geoPoint: { lat: '51.509865', lon: '-0.118092' },
   sorting: 'newest',
 };
 

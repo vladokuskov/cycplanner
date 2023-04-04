@@ -16,6 +16,8 @@ export type InputProps = {
   placeholder?: string;
   name?: string;
   onChangeArea?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
