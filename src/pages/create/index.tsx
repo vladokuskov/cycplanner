@@ -1,8 +1,8 @@
 import PrivateRoute from '@/modules/PrivateRoute';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-
 import StyledContainer from '@/components/styledComponents/StyledContainer';
+import { EventCreation } from '@/components/styledComponents/EventCreation';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {
@@ -17,6 +17,7 @@ export default function Web() {
         </Head>
         <StyledContainer variant="grid">
           <h1>Event creation page</h1>
+          <EventCreation />
         </StyledContainer>
       </DynamicLayout>
     </PrivateRoute>

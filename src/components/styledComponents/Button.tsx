@@ -45,7 +45,6 @@ const StyledButton = styled.button<ButtonProps>`
   font-family: 'Roboto', sans-serif;
   background-color: transparent;
   border: none;
-  padding: 0;
   margin: 0;
   font-weight: ${({ bold }) => (bold === true ? 500 : 400)};
   letter-spacing: 0.01rem;

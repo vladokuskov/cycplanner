@@ -208,6 +208,7 @@ const Input = ({
   onClick,
   onChangeArea,
   placeholder,
+  name,
 }: InputProps) => {
   return (
     <InputMainWrapper variant={variant} full={full} danger={danger}>
@@ -229,6 +230,7 @@ const Input = ({
         )}
         {variant === 'textarea' ? (
           <StyledTextarea
+            name={name}
             value={value}
             variant={variant}
             title={label ? label : ''}
@@ -247,7 +249,7 @@ const Input = ({
                 ? 'text'
                 : 'text'
             }
-            name={variant}
+            name={name}
             value={value}
             variant={variant}
             title={label ? label : ''}

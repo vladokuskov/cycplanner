@@ -16,6 +16,7 @@ const InfoButton = styled.button`
   justify-content: center;
   border-radius: 100%;
   background-color: #e0e0e0;
+  color: #2c2c2c;
 `;
 const InfoTitle = styled.p`
   z-index: 1001;
