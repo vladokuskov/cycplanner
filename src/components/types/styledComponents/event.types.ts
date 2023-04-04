@@ -1,4 +1,24 @@
+import { GeoPoint } from '../props/geoPoint.types';
+
 export type EventProps = {
-  name?: string;
-  photoUrl?: string | null;
+  id: string;
+  metadata: {
+    author: {
+      username: string | null | undefined;
+      photoUrl: string | null | undefined;
+      uid: string | null | undefined;
+    };
+    likes: number;
+    createdAt: number;
+  };
+  title: string;
+  description: string;
+  distance: string;
+  type: string;
+  location: {
+    geoPoint: GeoPoint | { lat: null; lng: null };
+  };
+  startDate: string;
+  endDate: string;
+  route: string;
 };

@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import React, { useState } from 'react';
 import { Button } from './Button';
 import { Input } from './Input';
@@ -5,11 +6,17 @@ import { useAuth } from '@/context/AuthContext';
 import { nanoid } from '@reduxjs/toolkit';
 import { FileUploader } from 'react-drag-drop-files';
 import { parseString } from 'xml2js';
+import { GeoPoint } from '../types/props/geoPoint.types';
+import { createEvent } from '@/firebase/firestore';
 
-export type GeoPoint = {
-  lat: number;
-  lng: number;
-};
+const EventFormWrapper = styled.form`
+  padding: 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2rem;
+`;
 
 const EventCreation = () => {
   const { user } = useAuth();
@@ -17,13 +24,13 @@ const EventCreation = () => {
   const [route, setRoute] = useState<null | GeoPoint[]>(null);
 
   const [eventForm, setEventForm] = useState({
+    id: nanoid(),
     metadata: {
       author: {
         username: user?.displayName,
         photoUrl: user?.photoURL,
         uid: user?.uid,
       },
-      id: nanoid(),
       likes: 0,
       createdAt: Date.now(),
     },
@@ -32,8 +39,8 @@ const EventCreation = () => {
     distance: '',
     type: '',
     location: { geoPoint: { lat: null, lng: null } },
-    sdate: '',
-    edate: '',
+    startDate: '',
+    endDate: '',
     route: route,
   });
 
@@ -59,7 +66,7 @@ const EventCreation = () => {
             console.error(err);
           } else {
             const points = result.gpx.trk[0].trkseg[0].trkpt;
-            const newRoute = points.map((point: any) => ({
+            const newRoute = points.flatMap((point: any) => ({
               lat: parseFloat(point.$.lat),
               lng: parseFloat(point.$.lon),
             }));
@@ -82,7 +89,7 @@ const EventCreation = () => {
               .map((placemark: any) => {
                 const coordinates = placemark.LineString[0].coordinates[0];
                 const points = coordinates.split(' ');
-                return points.map((point: any) => {
+                return points.flatMap((point: any) => {
                   const [lng, lat] = point.split(',');
                   return {
                     lat: parseFloat(lat),
@@ -106,20 +113,15 @@ const EventCreation = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    createEvent(eventForm);
   };
 
   return (
     <>
-      {file && <p>Uploaded {file.name}</p>}
-      <form onSubmit={handleSubmit}>
-        <FileUploader
-          handleChange={handleFileUpload}
-          name="file"
-          types={['gpx', 'kml']}
-          multiple={false}
-          required
-        />
+      <EventFormWrapper onSubmit={handleSubmit}>
         <Input
+          label="Title"
           placeholder="Enter Title"
           variant="outlined"
           name="title"
@@ -128,6 +130,7 @@ const EventCreation = () => {
           onChange={handleFormChange}
         />
         <Input
+          label="Description"
           placeholder="Enter Description"
           variant="outlined"
           name="description"
@@ -136,6 +139,7 @@ const EventCreation = () => {
           onChange={handleFormChange}
         />
         <Input
+          label="Distance"
           placeholder="Enter Distance"
           variant="outlined"
           name="distance"
@@ -144,7 +148,8 @@ const EventCreation = () => {
           onChange={handleFormChange}
         />
         <Input
-          placeholder="Enter Type"
+          label="Event type"
+          placeholder="Example: gravel ride"
           variant="outlined"
           name="type"
           required
@@ -152,21 +157,31 @@ const EventCreation = () => {
           onChange={handleFormChange}
         />
         <Input
-          placeholder="Enter Start Date"
+          label="Start date"
+          placeholder="DD/MM/YYYY"
           variant="outlined"
-          name="sdate"
-          value={eventForm.sdate}
+          name="startDate"
+          value={eventForm.startDate}
           onChange={handleFormChange}
         />
         <Input
-          placeholder="Enter End Date"
+          label="End date"
+          placeholder="DD/MM/YYYY"
           variant="outlined"
-          name="edate"
-          value={eventForm.edate}
+          name="endDate"
+          value={eventForm.endDate}
           onChange={handleFormChange}
         />
-        <Button buttonType="submit" text="Submit" />
-      </form>
+        <FileUploader
+          handleChange={handleFileUpload}
+          name="file"
+          types={['gpx', 'kml']}
+          multiple={false}
+          required
+        />
+        {file && <p>Uploaded {file.name}</p>}
+        <Button buttonType="submit" text="Create event" />
+      </EventFormWrapper>
     </>
   );
 };
