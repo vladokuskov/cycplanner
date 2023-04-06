@@ -18,7 +18,6 @@ export type EventProps = {
   location: {
     geoPoint: GeoPoint | { lat: null; lon: null };
   };
-  startDate: string;
-  endDate: string;
+  date: string;
   route: GeoPoint[] | null;
 };
