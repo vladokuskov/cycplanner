@@ -105,9 +105,10 @@ const EventCreation = () => {
   const handleDistanceInput = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    const { value } = event.target;
     const regex = /^[0-9\b]+$/;
-    if (event.target.value === '' || regex.test(event.target.value)) {
-      setEventForm((prev) => ({ ...prev, distance: event.target.value }));
+    if (value === '' || (regex.test(value) && value.length < 6)) {
+      setEventForm((prev) => ({ ...prev, distance: value }));
     }
   };
 
