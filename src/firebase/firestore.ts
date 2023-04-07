@@ -6,6 +6,8 @@ import {
   collection,
   addDoc,
   updateDoc,
+  orderBy,
+  limit,
 } from 'firebase/firestore';
 
 import { app } from './firebase';
@@ -30,6 +32,21 @@ export const getEvents = async () => {
   const events = querySnapShot.docs.map((doc) => ({
     id: doc.id,
     test: doc.data().test,
+  }));
+
+  return events;
+};
+
+export const getLastEvenets = async () => {
+  const q = query(
+    collection(db, 'events'),
+    orderBy('event.metadata.createdAt', 'desc'),
+    limit(3)
+  );
+  const querySnapShot = await getDocs(q);
+
+  const events = querySnapShot.docs.map((doc) => ({
+    event: doc.data().event,
   }));
 
   return events;

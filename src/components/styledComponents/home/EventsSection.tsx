@@ -3,8 +3,9 @@ import Link from 'next/link';
 import PageTitle from '@/components/styledComponents/PageTitle';
 import HomeInfo from '@/components/styledComponents/home/HomeInfo';
 import { EventFilter } from '@/components/styledComponents/event-filter/EventFilter';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IEvent } from '@/components/types/styledComponents/event.types';
+import { getEvents, getLastEvenets } from '@/firebase/firestore';
 
 const EventsSectionWrapper = styled.section`
   width: 100%;
@@ -79,7 +80,6 @@ const BodyEventsWrapper = styled.div`
 `;
 
 const EventsSection = () => {
-  const [events, setEvents] = useState<IEvent[] | null>(null);
   return (
     <EventsSectionWrapper>
       <HomeEventsHeaderWrapper>
