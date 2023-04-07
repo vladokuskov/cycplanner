@@ -3,6 +3,8 @@ import Link from 'next/link';
 import PageTitle from '@/components/styledComponents/PageTitle';
 import HomeInfo from '@/components/styledComponents/home/HomeInfo';
 import { EventFilter } from '@/components/styledComponents/event-filter/EventFilter';
+import { useState } from 'react';
+import { IEvent } from '@/components/types/styledComponents/event.types';
 
 const EventsSectionWrapper = styled.section`
   width: 100%;
@@ -77,6 +79,7 @@ const BodyEventsWrapper = styled.div`
 `;
 
 const EventsSection = () => {
+  const [events, setEvents] = useState<IEvent[] | null>(null);
   return (
     <EventsSectionWrapper>
       <HomeEventsHeaderWrapper>
@@ -88,6 +91,7 @@ const EventsSection = () => {
       </HomeEventsHeaderWrapper>
       <HomeEventsBodyWrapper>
         <BodyEventsWrapper></BodyEventsWrapper>
+
         <Link href="/events" title="See more events" className="more-link">
           See more ..
         </Link>
