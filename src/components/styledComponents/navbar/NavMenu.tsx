@@ -6,6 +6,7 @@ import {
 } from '@/components/types/styledComponents/navbar.types';
 import { Icon } from '../Icon';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '../Button';
 import { ProfilePreview } from '../ProfilePreview';
@@ -147,8 +148,9 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenuProps) => {
             <>
               {router.pathname !== '/create' && (
                 <Button
-                  variant="outlined"
-                  text="New event"
+                  variant="filled"
+                  text="Create event"
+                  icon={faPlus}
                   full
                   disabled={router.pathname === '/create'}
                   onClick={() => router.push('/create')}

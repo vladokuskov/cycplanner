@@ -90,7 +90,6 @@ const EventCreation = () => {
     distance: '',
     type: '',
     location: { geoPoint: { lat: null, lon: null } },
-    date: '',
     route: route,
   });
 
@@ -110,54 +109,6 @@ const EventCreation = () => {
     if (value === '' || (regex.test(value) && value.length < 6)) {
       setEventForm((prev) => ({ ...prev, distance: value }));
     }
-  };
-
-  const handleDateInput = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    value: string
-  ) => {
-    // First, get the new value of the input field and clean it up using regex
-    let newValue = event.target.value
-      .replace(/[^0-9\/]/g, '')
-      .replace(/\/\/+/g, '/')
-      .trim();
-
-    // Next, check if the new value is a valid date
-    if (
-      value !== null &&
-      value.length < event.target.value.length &&
-      newValue.length > 1
-    ) {
-      // Split the date into its component parts (month, day, year)
-      const parts = newValue.split('/');
-      let day = parts[0];
-      let month = parts[1];
-      let year = parts[2];
-
-      // Check if the new value needs to be formatted differently
-      if (newValue.length === 2 && newValue.indexOf('/') === -1) {
-        // if the user has only entered the month, add a slash after it
-        newValue += '/';
-      } else if (newValue.length === 5 && parts.length !== 3) {
-        // if the user has entered the month and day, but not the year, add a slash after the day
-        newValue += '/';
-      } else if (
-        newValue.length === 4 &&
-        newValue.charAt(1) === '/' &&
-        newValue.charAt(3) !== '/'
-      ) {
-        // if the user has entered the month and year together (e.g. 042023), add a slash between them
-        newValue += '/';
-      } else if (parts.length > 3 && newValue[newValue.length - 1] === '/') {
-        // if the user has entered too many parts (e.g. 04/20/2023/), remove the extra slash
-        newValue = newValue.slice(0, -1);
-      } else if (parts.length === 3 && year.length > 4) {
-        // if the year is longer than 4 digits (e.g. 20230), truncate it to 4 digits
-        newValue = `${day}/${month}/${year.slice(0, 4)}`;
-      }
-    }
-
-    setEventForm((prev) => ({ ...prev, [event.target.name]: newValue }));
   };
 
   const handleFileUpload = (file: File) => {
@@ -246,7 +197,6 @@ const EventCreation = () => {
       distance: '',
       type: '',
       location: { geoPoint: { lat: null, lon: null } },
-      date: '',
       route: null,
     });
   };
@@ -311,16 +261,6 @@ const EventCreation = () => {
               required
               value={eventForm.type}
               onChange={handleFormChange}
-            />
-            <Input
-              full
-              label="Start date"
-              placeholder="DD/MM/YYYY"
-              variant="outlined"
-              name="date"
-              required
-              value={eventForm.date}
-              onChange={(e) => handleDateInput(e, eventForm.date)}
             />
           </InputsWrapper>
           <FileUploader

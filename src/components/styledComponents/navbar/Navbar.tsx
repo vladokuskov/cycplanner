@@ -11,6 +11,7 @@ import NavMenu from './NavMenu';
 import { faBars, faClose } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '@/context/AuthContext';
 import { ProfilePreview } from '../ProfilePreview';
+import { ProfileMenu } from './ProfileMenu';
 
 const smoothSticky = keyframes`
 from {
@@ -106,6 +107,7 @@ const SubLinksWrapper = styled.div`
   flex-direction: center;
   justify-content: center;
   gap: 2rem;
+  position: relative;
   @media (min-width: 680px) {
     display: flex;
   }
@@ -121,6 +123,7 @@ const Navbar = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [isSticky, setIsSticky] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState<boolean>(false);
   const router = useRouter();
   const { user } = useAuth();
 
@@ -133,6 +136,14 @@ const Navbar = () => {
 
   const handleMenuClick = () => {
     setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);
+  };
+
+  const handleProfileMenuClose = () => {
+    setIsProfileMenuOpen(false);
+  };
+
+  const handleProfileMenuOpen = () => {
+    setIsProfileMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);
   };
 
   useEffect(() => {
@@ -210,9 +221,9 @@ const Navbar = () => {
         <SubLinksWrapper>
           {user ? (
             <ProfilePreview
-              variant="photo"
+              variant="button"
               photoURL={user?.photoURL}
-              name={user.displayName}
+              onClick={handleProfileMenuOpen}
             />
           ) : (
             <Button
@@ -221,6 +232,14 @@ const Navbar = () => {
               size="sm1"
               bold
               onClick={() => router.replace('/signup')}
+            />
+          )}
+          {isProfileMenuOpen && (
+            <ProfileMenu
+              name={user?.displayName}
+              navRef={ref}
+              onClose={handleProfileMenuClose}
+              isOpen={isProfileMenuOpen}
             />
           )}
         </SubLinksWrapper>

@@ -51,8 +51,9 @@ const StyledButton = styled.button<ButtonProps>`
   border-radius: 10px;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   transition: 0.2s;
+  justify-content: ${({ icon }) => (icon ? 'space-between' : 'center')};
+  gap: ${({ icon }) => (icon ? '1rem' : 'auto')};
   ${({ full }) =>
     full === true &&
     css`
@@ -252,13 +253,12 @@ const Button = ({
       bold={bold}
       disabled={disabled}
       status={status}
+      icon={icon}
     >
       {variant !== 'icon' && variant !== 'icon-bg' && (
         <ButtonText>{text}</ButtonText>
       )}
-      {(variant === 'text-icon' ||
-        variant === 'icon' ||
-        variant === 'icon-bg') && (
+      {icon && (
         <ButtonIcon variant={variant}>
           <Icon icon={icon} />
         </ButtonIcon>

@@ -16,15 +16,15 @@ import { EventFilter } from '@/components/styledComponents/event-filter/EventFil
 
 const HomeMainWrapper = styled.div`
   width: 100%;
+  height: 100%;
 `;
 
 const StartSectionWrapper = styled.section`
   width: 100%;
   padding: 1rem;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-
   @media (min-width: 680px) {
     padding: 1rem 3rem;
   }

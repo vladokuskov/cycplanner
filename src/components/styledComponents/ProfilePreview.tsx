@@ -72,11 +72,18 @@ const PreviewName = styled.p`
   }
 `;
 
-const ProfilePreview = ({ variant, photoURL, name }: ProfilePreviewProps) => {
+const ProfilePreviewButton = styled.button``;
+
+const ProfilePreview = ({
+  variant,
+  photoURL,
+  name,
+  onClick,
+}: ProfilePreviewProps) => {
   return variant === 'no-link' ? (
     <ProfilePreviewWrapper variant={variant}>
       <PhotoWrapper>
-        {photoURL ? (
+        {photoURL && photoURL.length > 0 ? (
           <Photo src={photoURL} alt="" />
         ) : (
           <PhotoPlaceholder>
@@ -86,11 +93,25 @@ const ProfilePreview = ({ variant, photoURL, name }: ProfilePreviewProps) => {
       </PhotoWrapper>
       <PreviewName>{name}</PreviewName>
     </ProfilePreviewWrapper>
+  ) : variant === 'button' ? (
+    <ProfilePreviewButton onClick={onClick}>
+      <ProfilePreviewWrapper variant={variant}>
+        <PhotoWrapper>
+          {photoURL && photoURL.length > 0 ? (
+            <Photo src={photoURL} alt="" />
+          ) : (
+            <PhotoPlaceholder>
+              <Icon icon={faUser} />
+            </PhotoPlaceholder>
+          )}
+        </PhotoWrapper>
+      </ProfilePreviewWrapper>
+    </ProfilePreviewButton>
   ) : (
     <Link href="/profile" title="Open Profile">
       <ProfilePreviewWrapper variant={variant}>
         <PhotoWrapper>
-          {photoURL ? (
+          {photoURL && photoURL.length > 0 ? (
             <Photo src={photoURL} alt="" />
           ) : (
             <PhotoPlaceholder>
