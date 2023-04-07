@@ -113,16 +113,12 @@ const EventCreationForm = () => {
   const handleFileUpload = (file: File) => {
     setFile(file);
 
-    // Getting the type of file
-    const fileType = file.name.split('.').pop();
-
     const reader = new FileReader();
 
     reader.onload = (e: Event) => {
       const content = (e.target as FileReader).result;
 
-      // Checking if filetype is .GPX or .KML
-      if (fileType === 'gpx' && typeof content === 'string') {
+      if (typeof content === 'string') {
         parseString(content, (err, result) => {
           if (err) {
             console.error(err);
@@ -133,36 +129,6 @@ const EventCreationForm = () => {
               lat: parseFloat(point.$.lat),
               lon: parseFloat(point.$.lon),
             }));
-            setRoute(newRoute);
-            setEventForm((prev) => ({
-              ...prev,
-              route: newRoute,
-              location: { ...prev.location, geoPoint: newRoute[0] },
-            }));
-          }
-        });
-      } else if (fileType === 'kml' && typeof content === 'string') {
-        parseString(content, (err, result) => {
-          if (err) {
-            console.error(err);
-          } else {
-            const placemarks = result.kml.Document[0].Placemark;
-            const newRoute = placemarks
-              .filter((placemark: any) => placemark.LineString)
-              .flatMap(
-                (placemark: { LineString: [{ coordinates: [string] }] }) => {
-                  const coordinates = placemark.LineString[0].coordinates[0];
-                  const points = coordinates.split(' ');
-                  return points.map((point: string) => {
-                    const [lng, lat] = point.split(',');
-                    return {
-                      lat: parseFloat(lat),
-                      lon: parseFloat(lng),
-                    };
-                  });
-                }
-              );
-            // Updating route state and event form
             setRoute(newRoute);
             setEventForm((prev) => ({
               ...prev,
@@ -203,13 +169,14 @@ const EventCreationForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsCreatingEvent(true);
+    if (route) {
+      try {
+        await createEvent(eventForm);
 
-    try {
-      await createEvent(eventForm);
-
-      resetForm();
-    } catch (err: any) {
-      setEventCreationStatus({ isError: true, error: err });
+        resetForm();
+      } catch (err: any) {
+        setEventCreationStatus({ isError: true, error: err });
+      }
     }
 
     setIsCreatingEvent(false);
@@ -265,7 +232,7 @@ const EventCreationForm = () => {
           <FileUploader
             handleChange={handleFileUpload}
             name="file"
-            types={['gpx', 'kml']}
+            types={['gpx']}
             multiple={false}
             required
           />
