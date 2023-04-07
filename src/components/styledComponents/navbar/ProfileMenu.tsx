@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useEffect, useRef } from 'react';
 import { Button } from '../Button';
-import { ProfileMenuProps } from '@/components/types/styledComponents/profileMenu.types';
+import { ProfileMenu } from '@/components/types/styledComponents/profileMenu.types';
 import { useRouter } from 'next/router';
 import { faPlus, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
@@ -80,7 +80,7 @@ const ProfileMenuListItem = styled.li`
   width: 100%;
 `;
 
-const ProfileMenu = ({ name, navRef, onClose, isOpen }: ProfileMenuProps) => {
+const ProfileMenu = ({ name, navRef, onClose, isOpen }: ProfileMenu) => {
   const { logoutUser } = useAuth();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
