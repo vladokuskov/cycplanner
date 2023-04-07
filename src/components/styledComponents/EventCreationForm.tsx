@@ -9,7 +9,6 @@ import { parseString } from 'xml2js';
 import { GeoPoint } from '../types/props/geoPoint.types';
 import { createEvent } from '@/firebase/firestore';
 import { EventProps } from '../types/styledComponents/event.types';
-import { PageSeparator } from './PageSeparator';
 
 const PageTitle = styled.h2`
   margin-top: 2rem;
@@ -64,7 +63,7 @@ const InputsWrapper = styled.div`
   gap: 2rem;
 `;
 
-const EventCreation = () => {
+const EventCreationForm = () => {
   const { user } = useAuth();
   const [file, setFile] = useState<null | File>(null);
   const [route, setRoute] = useState<null | GeoPoint[]>(null);
@@ -281,9 +280,8 @@ const EventCreation = () => {
           />
         </FormFooterWrapper>
       </EventFormWrapper>
-      <PageSeparator />
     </>
   );
 };
 
-export { EventCreation };
+export { EventCreationForm };

@@ -5,7 +5,6 @@ import { ProfileMenuProps } from '@/components/types/styledComponents/profileMen
 import { useRouter } from 'next/router';
 import { faPlus, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
-import { logout } from '@/firebase/auth';
 import { useAuth } from '@/context/AuthContext';
 
 const ProfileMenuWrapper = styled.div`
