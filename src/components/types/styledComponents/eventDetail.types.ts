@@ -1,4 +1,4 @@
-export type EventDetailProps = {
+export type EventDetail = {
   type: 'default' | 'location' | 'date';
   title?: string;
   description?: string;

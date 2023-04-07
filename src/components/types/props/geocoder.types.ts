@@ -1,6 +1,6 @@
 import { GeoPoint } from './geoPoint.types';
 
-export type GeocoderProps = {
+export type Geocoder = {
   changeGeoPoint: (point: GeoPoint) => void;
   geoPoint: GeoPoint;
 };

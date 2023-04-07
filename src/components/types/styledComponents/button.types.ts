@@ -1,6 +1,6 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
-export type ButtonProps = {
+export type Button = {
   variant?:
     | 'filled'
     | 'outlined'

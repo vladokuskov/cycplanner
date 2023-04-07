@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { EventDetailProps } from '@/components/types/styledComponents/eventDetail.types';
+import { EventDetail } from '@/components/types/styledComponents/eventDetail.types';
 
 const EventDetailWrapper = styled.div``;
 
@@ -10,7 +10,7 @@ const EventDetail = ({
   date,
   locationName,
   locationGeoPoint,
-}: EventDetailProps) => {
+}: EventDetail) => {
   return (
     <EventDetailWrapper>
       {type === 'default' && (

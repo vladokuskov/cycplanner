@@ -1,4 +1,4 @@
-import { NavbarWrapperProps } from '@/components/types/styledComponents/navbar.types';
+import { NavbarWrapper } from '@/components/types/styledComponents/navbar.types';
 import styled, { css, keyframes } from 'styled-components';
 
 import { useEffect, useState, useRef } from 'react';
@@ -37,7 +37,7 @@ const NavbarMainWrapper = styled.nav`
   justify-content: center;
 `;
 
-const NavbarWrapper = styled.div<NavbarWrapperProps>`
+const NavbarWrapper = styled.div<NavbarWrapper>`
   width: 100%;
   display: flex;
   align-items: center;

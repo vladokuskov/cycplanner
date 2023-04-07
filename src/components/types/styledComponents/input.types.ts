@@ -1,4 +1,4 @@
-export type InputProps = {
+export type Input = {
   variant?:
     | 'search'
     | 'textarea'

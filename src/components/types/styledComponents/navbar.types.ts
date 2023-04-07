@@ -1,10 +1,10 @@
 import { NextRouter } from 'next/router';
 
-export type NavbarWrapperProps = {
+export type NavbarWrapper = {
   sticky: boolean;
 };
 
-export type NavMenuProps = {
+export type NavMenu = {
   sticky: boolean;
   router: NextRouter;
   handleMenuClick: (event: React.MouseEvent<HTMLElement>) => void;

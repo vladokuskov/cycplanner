@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 import Link from 'next/link';
 import {
-  NavMenuProps,
-  NavbarWrapperProps,
+  NavMenu,
+  NavbarWrapper,
 } from '@/components/types/styledComponents/navbar.types';
 import { Icon } from '../Icon';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +17,7 @@ const MenuMainWrapper = styled.aside`
   }
 `;
 
-const MenuWrapper = styled.div<NavbarWrapperProps>`
+const MenuWrapper = styled.div<NavbarWrapper>`
   left: 0;
   top: 3.7rem;
   position: absolute;
@@ -99,7 +99,7 @@ const MenuFooterButtonsLabel = styled.p`
   color: #787878;
 `;
 
-const NavMenu = ({ sticky, handleMenuClick, router }: NavMenuProps) => {
+const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
   const { user } = useAuth();
 
   return (

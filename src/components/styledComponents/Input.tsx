@@ -1,10 +1,10 @@
-import { InputProps } from '../types/styledComponents/input.types';
+import { Input } from '../types/styledComponents/input.types';
 import styled, { css } from 'styled-components';
 import { Icon } from './Icon';
 import { faMagnifyingGlass, faClose } from '@fortawesome/free-solid-svg-icons';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 
-const InputMainWrapper = styled.div<InputProps>`
+const InputMainWrapper = styled.div<Input>`
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -41,13 +41,13 @@ const InputMainWrapper = styled.div<InputProps>`
     `}
 `;
 
-const InputWrapper = styled.div<InputProps>`
+const InputWrapper = styled.div<Input>`
   position: relative;
   width: 100%;
   height: 100%;
 `;
 
-const Label = styled.label<InputProps>`
+const Label = styled.label<Input>`
   position: absolute;
   font-family: 'Roboto', sans-serif;
   ${({ variant }) =>
@@ -65,7 +65,7 @@ const Label = styled.label<InputProps>`
         `};
 `;
 
-const StyledInput = styled.input<InputProps>`
+const StyledInput = styled.input<Input>`
   font-family: 'Roboto', sans-serif;
   width: 100%;
   border: none;
@@ -126,7 +126,7 @@ const StyledInput = styled.input<InputProps>`
   }
 `;
 
-const StyledTextarea = styled.textarea<InputProps>`
+const StyledTextarea = styled.textarea<Input>`
   font-family: 'Roboto', sans-serif;
   border: none;
   margin: 0;
@@ -164,7 +164,7 @@ const StyledTextarea = styled.textarea<InputProps>`
   }
 `;
 
-const InputButton = styled.button<InputProps>`
+const InputButton = styled.button<Input>`
   position: absolute;
   padding: 0 0.5rem;
   border-radius: 4px;
@@ -175,7 +175,7 @@ const InputButton = styled.button<InputProps>`
     `}
 `;
 
-const InputIcon = styled.span<InputProps>`
+const InputIcon = styled.span<Input>`
   transition: 0.2s;
   position: absolute;
   left: 0.5rem;
@@ -208,7 +208,7 @@ const Input = ({
   onClick,
   placeholder,
   name,
-}: InputProps) => {
+}: Input) => {
   return (
     <InputMainWrapper variant={variant} full={full} danger={danger}>
       {(variant === 'auth' ||

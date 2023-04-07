@@ -8,7 +8,7 @@ import { FileUploader } from 'react-drag-drop-files';
 import { parseString } from 'xml2js';
 import { GeoPoint } from '../types/props/geoPoint.types';
 import { createEvent } from '@/firebase/firestore';
-import { EventProps } from '../types/styledComponents/event.types';
+import { IEvent } from '../types/styledComponents/event.types';
 
 const PageTitle = styled.h2`
   margin-top: 2rem;
@@ -73,7 +73,7 @@ const EventCreationForm = () => {
     error: '',
   });
 
-  const [eventForm, setEventForm] = useState<EventProps>({
+  const [eventForm, setEventForm] = useState<IEvent>({
     id: nanoid(),
     metadata: {
       author: {

@@ -1,4 +1,4 @@
-export type ProfilePreviewProps = {
+export type ProfilePreview = {
   variant?:
     | 'default'
     | 'default-rev'

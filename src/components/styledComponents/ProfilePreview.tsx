@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
-import { ProfilePreviewProps } from '../types/styledComponents/profilePreview.types';
+import { ProfilePreview } from '../types/styledComponents/profilePreview.types';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from './Icon';
 import Link from 'next/link';
 
-const ProfilePreviewWrapper = styled.div<ProfilePreviewProps>`
+const ProfilePreviewWrapper = styled.div<ProfilePreview>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -79,7 +79,7 @@ const ProfilePreview = ({
   photoURL,
   name,
   onClick,
-}: ProfilePreviewProps) => {
+}: ProfilePreview) => {
   return variant === 'no-link' ? (
     <ProfilePreviewWrapper variant={variant}>
       <PhotoWrapper>

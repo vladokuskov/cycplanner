@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import { GeoPoint } from '@/components/types/props/geoPoint.types';
-import { GeocoderProps } from '@/components/types/props/geocoderProps.types';
-import { LocationStatus } from '@/components/types/props/geocoderProps.types';
+import { Geocoder } from '@/components/types/props/geocoder.types';
+import { LocationStatus } from '@/components/types/props/geocoder.types';
 
 import { Button } from '../Button';
 import { Input } from '../Input';
@@ -50,7 +50,7 @@ const ResultWrapper = styled.li`
   }
 `;
 
-const Geocoder = ({ changeGeoPoint, geoPoint }: GeocoderProps) => {
+const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
   const [reversedLocation, setReversedLocation] = useState<string>('London');
   const [geocoderValue, setGeocoderValue] = useState<string>(reversedLocation);
   const [isGeocoderLoading, setIsGeocoderLoading] = useState<boolean>(false);

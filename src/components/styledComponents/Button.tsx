@@ -1,4 +1,4 @@
-import { ButtonProps } from '../types/styledComponents/button.types';
+import { Button } from '../types/styledComponents/button.types';
 import styled, { css } from 'styled-components';
 import { Icon } from './Icon';
 
@@ -41,7 +41,7 @@ const sizes = {
   `,
 };
 
-const StyledButton = styled.button<ButtonProps>`
+const StyledButton = styled.button<Button>`
   font-family: 'Roboto', sans-serif;
   background-color: transparent;
   border: none;
@@ -220,7 +220,7 @@ const StyledButton = styled.button<ButtonProps>`
 
 const ButtonText = styled.span``;
 
-const ButtonIcon = styled.span<ButtonProps>`
+const ButtonIcon = styled.span<Button>`
   ${({ variant }) =>
     variant === 'text-icon' &&
     css`
@@ -240,7 +240,7 @@ const Button = ({
   bold = false,
   disabled = false,
   status = 'default',
-}: ButtonProps) => {
+}: Button) => {
   return (
     <StyledButton
       className={className}

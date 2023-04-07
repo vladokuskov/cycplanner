@@ -1,6 +1,6 @@
 import { GeoPoint } from '../props/geoPoint.types';
 
-export type EventProps = {
+export interface IEvent {
   id: string;
   metadata: {
     author: {
@@ -19,4 +19,4 @@ export type EventProps = {
     geoPoint: GeoPoint | { lat: null; lon: null };
   };
   route: GeoPoint[] | null;
-};
+}
