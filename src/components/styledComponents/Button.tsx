@@ -1,4 +1,4 @@
-import { ButtonProps } from '../types/styledComponents/button.types';
+import { Button } from '../types/styledComponents/button.types';
 import styled, { css } from 'styled-components';
 import { Icon } from './Icon';
 
@@ -41,7 +41,7 @@ const sizes = {
   `,
 };
 
-const StyledButton = styled.button<ButtonProps>`
+const StyledButton = styled.button<Button>`
   font-family: 'Roboto', sans-serif;
   background-color: transparent;
   border: none;
@@ -51,8 +51,9 @@ const StyledButton = styled.button<ButtonProps>`
   border-radius: 10px;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   transition: 0.2s;
+  justify-content: ${({ icon }) => (icon ? 'space-between' : 'center')};
+  gap: ${({ icon }) => (icon ? '1rem' : 'auto')};
   ${({ full }) =>
     full === true &&
     css`
@@ -219,7 +220,7 @@ const StyledButton = styled.button<ButtonProps>`
 
 const ButtonText = styled.span``;
 
-const ButtonIcon = styled.span<ButtonProps>`
+const ButtonIcon = styled.span<Button>`
   ${({ variant }) =>
     variant === 'text-icon' &&
     css`
@@ -239,7 +240,7 @@ const Button = ({
   bold = false,
   disabled = false,
   status = 'default',
-}: ButtonProps) => {
+}: Button) => {
   return (
     <StyledButton
       className={className}
@@ -252,13 +253,12 @@ const Button = ({
       bold={bold}
       disabled={disabled}
       status={status}
+      icon={icon}
     >
       {variant !== 'icon' && variant !== 'icon-bg' && (
         <ButtonText>{text}</ButtonText>
       )}
-      {(variant === 'text-icon' ||
-        variant === 'icon' ||
-        variant === 'icon-bg') && (
+      {icon && (
         <ButtonIcon variant={variant}>
           <Icon icon={icon} />
         </ButtonIcon>

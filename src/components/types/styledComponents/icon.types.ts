@@ -1,5 +1,5 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
-export type IconProps = {
+export type Icon = {
   icon: IconDefinition;
 };

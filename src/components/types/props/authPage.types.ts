@@ -1,3 +1,3 @@
-export type AuthPageProps = {
+export type AuthPage = {
   variant: 'login' | 'signup';
 };

@@ -1,3 +1,3 @@
-export type PageTitleProps = {
+export type PageTitle = {
   title?: string;
 };

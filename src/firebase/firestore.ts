@@ -1,4 +1,4 @@
-import { EventProps } from '@/components/types/styledComponents/event.types';
+import { IEvent } from '@/components/types/styledComponents/event.types';
 import {
   getFirestore,
   getDocs,
@@ -12,7 +12,7 @@ import { app } from './firebase';
 
 const db = getFirestore(app);
 
-export const createEvent = async (event: EventProps) => {
+export const createEvent = async (event: IEvent) => {
   try {
     const docRef = await addDoc(collection(db, 'events'), {
       event,

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PageTitleProps } from '../types/styledComponents/pageTitle.types';
+import { PageTitle } from '../types/styledComponents/pageTitle.types';
 
 const Title = styled.h2`
   color: rgba(32, 32, 32, 0.77);
@@ -9,7 +9,7 @@ const Title = styled.h2`
   line-height: 48px;
 `;
 
-const PageTitle = ({ title }: PageTitleProps) => {
+const PageTitle = ({ title }: PageTitle) => {
   return <Title>{title}</Title>;
 };
 

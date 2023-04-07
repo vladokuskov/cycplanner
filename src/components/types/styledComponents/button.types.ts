@@ -1,4 +1,6 @@
-export type ButtonProps = {
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+
+export type Button = {
   variant?:
     | 'filled'
     | 'outlined'
@@ -8,7 +10,7 @@ export type ButtonProps = {
     | 'default'
     | 'danger';
   text?: string;
-  icon?: any;
+  icon?: IconDefinition | null;
   full?: boolean;
   buttonType?: 'default' | 'submit';
   size?: 'sm1' | 'sm2' | 'sm3' | 'md1' | 'md2' | 'md3' | 'xl1' | 'xl2' | 'xl3';

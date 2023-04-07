@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '../Button';
-import { RangeProps } from '@/components/types/props/RangeSelector.types';
+import { Range } from '@/components/types/props/RangeSelector.types';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 const RangeSelectorWrapper = styled.div`
@@ -53,7 +53,7 @@ const RangeOption = styled.li`
   }
 `;
 
-const RangePicker = ({ changeRange, selectedRange }: RangeProps) => {
+const RangePicker = ({ changeRange, selectedRange }: Range) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
 

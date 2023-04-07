@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { AuthPageProps } from '../types/props/authPageProps.types';
+import { AuthPage } from '../types/props/authPage.types';
 
 import {
   logInWithEmailAndPassword,
@@ -217,7 +217,7 @@ const AltButtonsWrapper = styled.div`
   gap: 0.7rem;
 `;
 
-export default function Auth({ variant }: AuthPageProps) {
+export default function Auth({ variant }: AuthPage) {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');

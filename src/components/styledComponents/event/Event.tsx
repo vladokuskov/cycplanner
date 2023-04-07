@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { EventProps } from '../../types/styledComponents/event.types';
+import { IEvent } from '../../types/styledComponents/event.types';
 import { ProfilePreview } from '../ProfilePreview';
 import { Button } from '../Button';
 import { faShareNodes } from '@fortawesome/free-solid-svg-icons';
