@@ -8,6 +8,7 @@ import {
   faComment,
   faUserCircle,
 } from '@fortawesome/free-regular-svg-icons';
+import { useRouter } from 'next/router';
 
 const EventWrapper = styled.div`
   max-width: 700px;
@@ -85,20 +86,51 @@ const ContentButtonsWrapper = styled.div`
   }
 `;
 
-const Event = () => {
+const Event = (event: IEvent) => {
+  const router = useRouter();
+
+  const shareEvent = () => {
+    const baseURL = location.href;
+
+    navigator.clipboard.writeText(`${baseURL}event/${event.id}`);
+  };
+
+  const handleRedirect = () => {
+    router.push(`event/${event.id}`);
+  };
+
   return (
     <EventWrapper>
       <EventHeaderWrapper>
-        <ProfilePreview name="Swappnet" photoURL={null} variant="no-link" />
-        <Button variant="icon" icon={faShareNodes} size="md3" />
+        <ProfilePreview
+          name={event.metadata.author.username}
+          photoURL={event.metadata.author.photoUrl}
+          variant="no-link"
+        />
+        <Button
+          variant="icon"
+          icon={faShareNodes}
+          size="md3"
+          onClick={shareEvent}
+        />
       </EventHeaderWrapper>
       <EventMainWrapper>
         <EventContentWrapper>
           <ContentInfoWrapper></ContentInfoWrapper>
           <ContentButtonsWrapper>
             <Button variant="icon" icon={faHeart} size="xl2" />
-            <Button variant="icon" icon={faComment} size="xl2" />
-            <Button variant="icon" icon={faUserCircle} size="xl2" />
+            <Button
+              variant="icon"
+              icon={faComment}
+              size="xl2"
+              onClick={handleRedirect}
+            />
+            <Button
+              variant="icon"
+              icon={faUserCircle}
+              size="xl2"
+              onClick={handleRedirect}
+            />
             <Button variant="filled" text="Participate" size="sm2" />
           </ContentButtonsWrapper>
         </EventContentWrapper>

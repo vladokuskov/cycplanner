@@ -1,22 +1,22 @@
 import { GeoPoint } from '../props/geoPoint.types';
 
 export interface IEvent {
-  id: string;
+  id?: string;
   metadata: {
     author: {
-      username: string | null | undefined;
-      photoUrl: string | null | undefined;
-      uid: string | null | undefined;
+      username?: string | null | undefined;
+      photoUrl?: string | null | undefined;
+      uid?: string | null | undefined;
     };
-    likes: number;
-    createdAt: number;
+    likes?: number;
+    createdAt?: number;
   };
-  title: string;
-  description: string;
-  distance: string;
-  type: string;
+  title?: string;
+  description?: string;
+  distance?: string;
+  type?: string;
   location: {
-    geoPoint: GeoPoint | { lat: null; lon: null };
+    geoPoint?: GeoPoint | { lat: null; lon: null };
   };
-  route: GeoPoint[] | null;
+  route?: GeoPoint[] | null;
 }

@@ -45,9 +45,6 @@ export const getLastEvenets = async () => {
   );
   const querySnapShot = await getDocs(q);
 
-  const events = querySnapShot.docs.map((doc) => ({
-    event: doc.data().event,
-  }));
-
+  const events = querySnapShot.docs.map((doc) => doc.data().event);
   return events;
 };

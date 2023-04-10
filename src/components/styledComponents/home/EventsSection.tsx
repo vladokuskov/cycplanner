@@ -5,7 +5,8 @@ import HomeInfo from '@/components/styledComponents/home/HomeInfo';
 import { EventFilter } from '@/components/styledComponents/event-filter/EventFilter';
 import { useEffect, useState } from 'react';
 import { IEvent } from '@/components/types/styledComponents/event.types';
-import { getEvents, getLastEvenets } from '@/firebase/firestore';
+import { getLastEvenets } from '@/firebase/firestore';
+import Event from '../event/Event';
 
 const EventsSectionWrapper = styled.section`
   width: 100%;
@@ -70,6 +71,7 @@ const HomeEventsBodyWrapper = styled.div`
     }
   }
 `;
+
 const BodyEventsWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -80,6 +82,25 @@ const BodyEventsWrapper = styled.div`
 `;
 
 const EventsSection = () => {
+  const [events, setEvents] = useState<IEvent[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const getEvents = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getLastEvenets();
+        setEvents(response);
+        setIsLoading(false);
+      } catch (err) {
+        console.log(err);
+        setIsLoading(false);
+      }
+    };
+
+    getEvents();
+  }, []);
+
   return (
     <EventsSectionWrapper>
       <HomeEventsHeaderWrapper>
@@ -90,8 +111,17 @@ const EventsSection = () => {
         <EventFilter />
       </HomeEventsHeaderWrapper>
       <HomeEventsBodyWrapper>
-        <BodyEventsWrapper></BodyEventsWrapper>
-
+        <BodyEventsWrapper>
+          {!isLoading ? (
+            <>
+              {' '}
+              {events &&
+                events.map((data) => <Event key={data.id} {...data} />)}
+            </>
+          ) : (
+            <p>Loading</p>
+          )}
+        </BodyEventsWrapper>
         <Link href="/events" title="See more events" className="more-link">
           See more ..
         </Link>
