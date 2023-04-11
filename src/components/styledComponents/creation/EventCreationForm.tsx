@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import { Button } from './Button';
-import { Input } from './Input';
+import { Button } from '../Button';
+import { Input } from '../Input';
 import { useAuth } from '@/context/AuthContext';
 import { nanoid } from '@reduxjs/toolkit';
 import { FileUploader } from 'react-drag-drop-files';
 import { parseString } from 'xml2js';
-import { GeoPoint } from '../types/props/geoPoint.types';
+import { GeoPoint } from '../../types/props/geoPoint.types';
 import { createEvent } from '@/firebase/firestore';
-import { IEvent } from '../types/styledComponents/event.types';
+import { IEvent } from '../../types/styledComponents/event.types';
 import geohash from 'ngeohash';
+import { EventType } from './EventType';
 
 const PageTitle = styled.h2`
   margin-top: 2rem;
@@ -62,6 +63,15 @@ const InputsWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 2rem;
+`;
+
+const EventTypesWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.5rem;
 `;
 
 const EventCreationForm = () => {
@@ -187,6 +197,10 @@ const EventCreationForm = () => {
     setIsCreatingEvent(false);
   };
 
+  const handleTypeChange = (e: string) => {
+    setEventForm((prev) => ({ ...prev, type: e }));
+  };
+
   return (
     <>
       <PageTitle>Create Event</PageTitle>
@@ -223,16 +237,21 @@ const EventCreationForm = () => {
               value={eventForm.distance}
               onChange={handleDistanceInput}
             />
-            <Input
-              full
-              label="Event type"
-              placeholder="Example: gravel ride"
-              variant="outlined"
-              name="type"
-              required
-              value={eventForm.type}
-              onChange={handleFormChange}
-            />
+            <EventTypesWrapper>
+              <Input
+                full
+                label="Event type"
+                placeholder="Example: gravel ride"
+                variant="outlined"
+                name="type"
+                required
+                value={eventForm.type}
+                onChange={handleFormChange}
+              />
+              <EventType
+                handleTypeChange={(e: string) => handleTypeChange(e)}
+              />
+            </EventTypesWrapper>
           </InputsWrapper>
           <FileUploader
             handleChange={handleFileUpload}

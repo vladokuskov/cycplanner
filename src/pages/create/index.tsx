@@ -2,8 +2,9 @@ import PrivateRoute from '@/modules/PrivateRoute';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import StyledContainer from '@/components/styledComponents/StyledContainer';
-import { EventCreationForm } from '@/components/styledComponents/EventCreationForm';
+import { EventCreationForm } from '@/components/styledComponents/creation/EventCreationForm';
 import { PageSeparator } from '@/components/styledComponents/PageSeparator';
+import { RandomQuote } from '@/components/styledComponents/creation/RandomQuote';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {
@@ -19,6 +20,7 @@ export default function Web() {
         <StyledContainer variant="page">
           <EventCreationForm />
           <PageSeparator />
+          <RandomQuote />
         </StyledContainer>
       </DynamicLayout>
     </PrivateRoute>

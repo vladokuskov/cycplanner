@@ -1,3 +1,4 @@
+import { GeoPoint } from '@/components/types/props/geoPoint.types';
 import { IEvent } from '@/components/types/styledComponents/event.types';
 import {
   getFirestore,
@@ -26,7 +27,7 @@ export const createEvent = async (event: IEvent) => {
 };
 
 export const getLastEvenets = async (
-  geoPoint: { lat: number; lon: number },
+  geoPoint: GeoPoint,
   hash: string,
   selectedSorting: 'oldest' | 'newest',
   selectedRange: number
