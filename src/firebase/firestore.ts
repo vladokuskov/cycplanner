@@ -25,26 +25,24 @@ export const createEvent = async (event: IEvent) => {
   }
 };
 
-export const getEvents = async () => {
-  const q = query(collection(db, 'events'));
-  const querySnapShot = await getDocs(q);
+export const getLastEvenets = async (
+  geoPoint: { lat: number; lon: number },
+  hash: string,
+  selectedSorting: 'oldest' | 'newest',
+  selectedRange: number
+) => {
+  let q = collection(db, 'events');
 
-  const events = querySnapShot.docs.map((doc) => ({
-    id: doc.id,
-    test: doc.data().test,
-  }));
-
-  return events;
-};
-
-export const getLastEvenets = async () => {
-  const q = query(
-    collection(db, 'events'),
-    orderBy('event.metadata.createdAt', 'desc'),
+  const sortedEvents = query(
+    q,
+    orderBy(
+      'event.metadata.createdAt',
+      selectedSorting === 'newest' ? 'desc' : 'asc'
+    ),
     limit(3)
   );
-  const querySnapShot = await getDocs(q);
 
+  const querySnapShot = await getDocs(sortedEvents);
   const events = querySnapShot.docs.map((doc) => doc.data().event);
   return events;
 };

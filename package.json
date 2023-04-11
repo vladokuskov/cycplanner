@@ -23,9 +23,10 @@
     "date-fns": "^2.29.3",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.1",
-    "firebase": "^9.17.1",
+    "firebase": "^9.19.1",
     "next": "13.2.1",
     "next-redux-wrapper": "^8.1.0",
+    "ngeohash": "^0.6.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-drag-drop-files": "^2.3.9",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",
+    "@types/ngeohash": "^0.6.4",
     "@types/styled-components": "^5.1.26",
     "@types/xml2js": "^0.4.11"
   }

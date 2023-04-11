@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { IEvent } from '@/components/types/styledComponents/event.types';
 import { getLastEvenets } from '@/firebase/firestore';
 import Event from '../event/Event';
+import { useAppSelector } from '@/store/redux-hooks';
+import geohash from 'ngeohash';
 
 const EventsSectionWrapper = styled.section`
   width: 100%;
@@ -85,11 +87,23 @@ const EventsSection = () => {
   const [events, setEvents] = useState<IEvent[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const geoPoint = useAppSelector((state) => state.filterReducer.geoPoint);
+  const selectedSorting = useAppSelector(
+    (state) => state.filterReducer.sorting
+  );
+  const selectedRange = useAppSelector((state) => state.filterReducer.range);
+
   useEffect(() => {
     const getEvents = async () => {
       setIsLoading(true);
+
       try {
-        const response = await getLastEvenets();
+        const response = await getLastEvenets(
+          geoPoint,
+          geohash.encode(geoPoint.lat, geoPoint.lon),
+          selectedSorting,
+          selectedRange
+        );
         setEvents(response);
         setIsLoading(false);
       } catch (err) {
@@ -99,7 +113,7 @@ const EventsSection = () => {
     };
 
     getEvents();
-  }, []);
+  }, [geoPoint, selectedSorting, selectedRange]);
 
   return (
     <EventsSectionWrapper>
@@ -114,7 +128,6 @@ const EventsSection = () => {
         <BodyEventsWrapper>
           {!isLoading ? (
             <>
-              {' '}
               {events &&
                 events.map((data) => <Event key={data.id} {...data} />)}
             </>

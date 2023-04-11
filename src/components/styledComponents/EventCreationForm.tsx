@@ -9,6 +9,7 @@ import { parseString } from 'xml2js';
 import { GeoPoint } from '../types/props/geoPoint.types';
 import { createEvent } from '@/firebase/firestore';
 import { IEvent } from '../types/styledComponents/event.types';
+import geohash from 'ngeohash';
 
 const PageTitle = styled.h2`
   margin-top: 2rem;
@@ -88,7 +89,7 @@ const EventCreationForm = () => {
     description: '',
     distance: '',
     type: '',
-    location: { geoPoint: { lat: null, lon: null } },
+    location: { geoPoint: { lat: null, lon: null }, hash: '' },
     route: route,
   });
 
@@ -133,7 +134,11 @@ const EventCreationForm = () => {
             setEventForm((prev) => ({
               ...prev,
               route: newRoute,
-              location: { ...prev.location, geoPoint: newRoute[0] },
+              location: {
+                ...prev.location,
+                geoPoint: newRoute[0],
+                hash: geohash.encode(newRoute[0].lat, newRoute[0].lon),
+              },
             }));
           }
         });

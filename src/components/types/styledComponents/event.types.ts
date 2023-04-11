@@ -17,6 +17,7 @@ export interface IEvent {
   type?: string;
   location: {
     geoPoint?: GeoPoint | { lat: null; lon: null };
+    hash?: string;
   };
   route?: GeoPoint[] | null;
 }
