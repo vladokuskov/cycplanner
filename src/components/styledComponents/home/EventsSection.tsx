@@ -9,6 +9,7 @@ import { getLastEvenets } from '@/firebase/firestore';
 import Event from '../event/Event';
 import { useAppSelector } from '@/store/redux-hooks';
 import geohash from 'ngeohash';
+import { SkeletonLoader } from '../skeleton/Skeleton';
 
 const EventsSectionWrapper = styled.section`
   width: 100%;
@@ -132,7 +133,7 @@ const EventsSection = () => {
                 events.map((data) => <Event key={data.id} {...data} />)}
             </>
           ) : (
-            <p>Loading</p>
+            <SkeletonLoader variant="event-home" />
           )}
         </BodyEventsWrapper>
         <Link href="/events" title="See more events" className="more-link">

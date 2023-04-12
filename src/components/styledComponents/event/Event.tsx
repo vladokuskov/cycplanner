@@ -11,7 +11,7 @@ import {
 import { useRouter } from 'next/router';
 
 const EventWrapper = styled.div`
-  max-width: 700px;
+  max-width: 43rem;
   width: 100%;
   background-color: #f1f1f1;
   border-radius: 10px;

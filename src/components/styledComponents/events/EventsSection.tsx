@@ -6,6 +6,8 @@ import { IEvent } from '@/components/types/styledComponents/event.types';
 import { useAppSelector } from '@/store/redux-hooks';
 import { getAllEvents } from '@/firebase/firestore';
 import geohash from 'ngeohash';
+import { Pagination } from './Pagination';
+import { SkeletonLoader } from '../skeleton/Skeleton';
 
 export const PageTitle = styled.h2`
   color: rgba(32, 32, 32, 0.77);
@@ -75,13 +77,15 @@ const EventsSection = () => {
       <PageTitle>Events</PageTitle>
       <EventFilter />
       <EventsWrapper>
+        <Pagination />
         {!isLoading ? (
           <>
             {events && events.map((data) => <Event key={data.id} {...data} />)}
           </>
         ) : (
-          <p>Loading</p>
+          <SkeletonLoader variant="event-events" />
         )}
+        <Pagination />
       </EventsWrapper>
     </EventSectionWrapper>
   );
