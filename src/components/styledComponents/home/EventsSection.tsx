@@ -98,6 +98,7 @@ const EventsSection = () => {
   const selectedRange = useAppSelector((state) => state.filterReducer.range);
 
   useEffect(() => {
+    setLoadingState(Loading.loading);
     const getEvents = async () => {
       try {
         const response = await getLastEvenets(

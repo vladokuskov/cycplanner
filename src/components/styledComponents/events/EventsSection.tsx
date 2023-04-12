@@ -48,7 +48,6 @@ const EventsSection = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalEvents, setTotalEvents] = useState<number>(0);
   const [selectedFilter, setSelectedFiter] = useState<EventsFilter>('all');
-
   const geoPoint = useAppSelector((state) => state.filterReducer.geoPoint);
   const selectedSorting = useAppSelector(
     (state) => state.filterReducer.sorting
@@ -56,6 +55,7 @@ const EventsSection = () => {
   const selectedRange = useAppSelector((state) => state.filterReducer.range);
 
   useEffect(() => {
+    setLoadingState(Loading.loading);
     const getEvents = async () => {
       try {
         const { events, totalEvents } = await getAllEvents(
