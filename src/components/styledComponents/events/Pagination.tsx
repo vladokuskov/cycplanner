@@ -10,7 +10,7 @@ type PaginationProps = {
 
 const PaginationContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   gap: 0.8rem;

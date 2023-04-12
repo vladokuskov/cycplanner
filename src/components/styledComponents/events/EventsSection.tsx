@@ -100,7 +100,7 @@ const EventsSection = () => {
         )}
         {events && events?.length > 1 && (
           <Pagination
-            itemsPerPage={2}
+            itemsPerPage={10}
             totalItems={totalEvents}
             currentPage={currentPage}
             onPageChange={handlePageChange}
