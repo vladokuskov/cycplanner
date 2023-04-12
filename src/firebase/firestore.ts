@@ -9,6 +9,7 @@ import {
   updateDoc,
   orderBy,
   limit,
+  startAfter,
 } from 'firebase/firestore';
 
 import { app } from './firebase';
@@ -49,24 +50,46 @@ export const getLastEvenets = async (
 };
 
 export const getAllEvents = async (
-  geoPoint?: GeoPoint,
-  hash?: string,
   selectedSorting?: 'oldest' | 'newest',
-  selectedRange: number = 40,
-  pageSize: number = 10,
-  lastEvent?: any
+  pageNumber = 1,
+  itemsPerPage = 10
 ) => {
-  let q = collection(db, 'events');
+  const q = collection(db, 'events');
+  const sortingOrder = selectedSorting === 'newest' ? 'desc' : 'asc';
 
-  const sortedEvents = query(
+  let sortedEvents = query(
     q,
-    orderBy(
-      'event.metadata.createdAt',
-      selectedSorting === 'newest' ? 'desc' : 'asc'
-    )
+    orderBy('event.metadata.createdAt', sortingOrder),
+    limit(itemsPerPage)
   );
+
+  if (pageNumber > 1) {
+    const lastEvent = await getDocs(
+      query(
+        q,
+        orderBy('event.metadata.createdAt', sortingOrder),
+        limit((pageNumber - 1) * itemsPerPage + 1)
+      )
+    )
+      .then((snap) => snap.docs[snap.docs.length - 1])
+      .then((doc) => doc?.data().event?.metadata?.createdAt);
+
+    if (lastEvent) {
+      sortedEvents = query(
+        q,
+        orderBy('event.metadata.createdAt', sortingOrder),
+        startAfter(lastEvent),
+        limit(itemsPerPage)
+      );
+    }
+  }
+
+  const totalEventsQuery = query(q);
+  const totalEventsSnapshot = await getDocs(totalEventsQuery);
+  const totalEvents = totalEventsSnapshot.size;
 
   const querySnapShot = await getDocs(sortedEvents);
   const events = querySnapShot.docs.map((doc) => doc.data().event);
-  return events;
+
+  return { events, totalEvents };
 };

@@ -21,7 +21,7 @@ const MainSkeletonWrapper = styled.div`
   gap: 2rem;
   div {
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     position: relative;
     overflow: hidden;
     &:after {

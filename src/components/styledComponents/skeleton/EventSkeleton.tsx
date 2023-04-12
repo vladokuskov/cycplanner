@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const EventSkeletonWrapper = styled.div`
   width: 100%;
   max-width: 43rem;
-  height: 16rem;
+  height: 16.5rem;
   display: flex;
   align-items: flex-start;
   justify-content: center;

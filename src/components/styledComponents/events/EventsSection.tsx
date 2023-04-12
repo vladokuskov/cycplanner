@@ -43,6 +43,8 @@ const EventsWrapper = styled.div`
 const EventsSection = () => {
   const [events, setEvents] = useState<IEvent[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalEvents, setTotalEvents] = useState(0);
 
   const geoPoint = useAppSelector((state) => state.filterReducer.geoPoint);
   const selectedSorting = useAppSelector(
@@ -55,13 +57,13 @@ const EventsSection = () => {
       setIsLoading(true);
 
       try {
-        const response = await getAllEvents(
-          geoPoint,
-          geohash.encode(geoPoint.lat, geoPoint.lon),
+        const { events, totalEvents } = await getAllEvents(
           selectedSorting,
-          selectedRange
+          currentPage,
+          10
         );
-        setEvents(response);
+        setEvents(events);
+        setTotalEvents(totalEvents);
         setIsLoading(false);
       } catch (err) {
         console.log(err);
@@ -70,14 +72,25 @@ const EventsSection = () => {
     };
 
     getEvents();
-  }, [geoPoint, selectedSorting, selectedRange]);
+  }, [geoPoint, selectedSorting, selectedRange, currentPage]);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <EventSectionWrapper>
       <PageTitle>Events</PageTitle>
       <EventFilter />
       <EventsWrapper>
-        <Pagination />
+        {events && (
+          <Pagination
+            itemsPerPage={10}
+            totalItems={totalEvents}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        )}
         {!isLoading ? (
           <>
             {events && events.map((data) => <Event key={data.id} {...data} />)}
@@ -85,7 +98,14 @@ const EventsSection = () => {
         ) : (
           <SkeletonLoader variant="event-events" />
         )}
-        <Pagination />
+        {events && events?.length > 1 && (
+          <Pagination
+            itemsPerPage={2}
+            totalItems={totalEvents}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        )}
       </EventsWrapper>
     </EventSectionWrapper>
   );
