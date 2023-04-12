@@ -10,7 +10,6 @@ const StyledContainer = styled.div<ContainerVariant>`
       max-width: 1200px;
       min-height: 100vh;
       margin: 0 auto;
-      padding: 0;
       background-color: #fbfbfb;
       display: flex;
       flex-direction: column;
@@ -22,6 +21,21 @@ const StyledContainer = styled.div<ContainerVariant>`
     variant === 'grid' &&
     css`
       display: grid;
+    `}
+
+    ${({ variant }) =>
+    variant === 'events-page' &&
+    css`
+      width: 100%;
+      max-width: 1200px;
+      min-height: 100vh;
+      margin: 0 auto;
+      background-color: #fbfbfb;
+      display: grid;
+      padding: 1rem;
+      @media (min-width: 680px) {
+        grid-template-columns: 3fr 7fr;
+      }
     `}
 `;
 

@@ -47,3 +47,26 @@ export const getLastEvenets = async (
   const events = querySnapShot.docs.map((doc) => doc.data().event);
   return events;
 };
+
+export const getAllEvents = async (
+  geoPoint?: GeoPoint,
+  hash?: string,
+  selectedSorting?: 'oldest' | 'newest',
+  selectedRange: number = 40,
+  pageSize: number = 10,
+  lastEvent?: any
+) => {
+  let q = collection(db, 'events');
+
+  const sortedEvents = query(
+    q,
+    orderBy(
+      'event.metadata.createdAt',
+      selectedSorting === 'newest' ? 'desc' : 'asc'
+    )
+  );
+
+  const querySnapShot = await getDocs(sortedEvents);
+  const events = querySnapShot.docs.map((doc) => doc.data().event);
+  return events;
+};
