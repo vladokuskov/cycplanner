@@ -5,9 +5,11 @@ import { useEffect, useState } from 'react';
 import { IEvent } from '@/components/types/styledComponents/event.types';
 import { useAppSelector } from '@/store/redux-hooks';
 import { getAllEvents } from '@/firebase/firestore';
-import geohash from 'ngeohash';
 import { Pagination } from './Pagination';
 import { SkeletonLoader } from '../skeleton/Skeleton';
+import { EventsFilter } from '@/components/types/props/eventsFilter.types';
+import { Loading } from '@/components/types/props/loadingState.types';
+import { ErrorMessage } from '../ErrorMessage';
 
 export const PageTitle = styled.h2`
   color: rgba(32, 32, 32, 0.77);
@@ -42,9 +44,10 @@ const EventsWrapper = styled.div`
 
 const EventsSection = () => {
   const [events, setEvents] = useState<IEvent[] | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalEvents, setTotalEvents] = useState(0);
+  const [loadingState, setLoadingState] = useState<Loading>(Loading.loading);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalEvents, setTotalEvents] = useState<number>(0);
+  const [selectedFilter, setSelectedFiter] = useState<EventsFilter>('all');
 
   const geoPoint = useAppSelector((state) => state.filterReducer.geoPoint);
   const selectedSorting = useAppSelector(
@@ -54,8 +57,6 @@ const EventsSection = () => {
 
   useEffect(() => {
     const getEvents = async () => {
-      setIsLoading(true);
-
       try {
         const { events, totalEvents } = await getAllEvents(
           selectedSorting,
@@ -64,10 +65,10 @@ const EventsSection = () => {
         );
         setEvents(events);
         setTotalEvents(totalEvents);
-        setIsLoading(false);
+        setLoadingState(Loading.success);
       } catch (err) {
         console.log(err);
-        setIsLoading(false);
+        setLoadingState(Loading.error);
       }
     };
 
@@ -91,12 +92,15 @@ const EventsSection = () => {
             onPageChange={handlePageChange}
           />
         )}
-        {!isLoading ? (
+        {loadingState === Loading.loading ? (
+          <SkeletonLoader variant="event-events" />
+        ) : loadingState === Loading.success ? (
           <>
+            {!events && <ErrorMessage variant="no-events" />}
             {events && events.map((data) => <Event key={data.id} {...data} />)}
           </>
         ) : (
-          <SkeletonLoader variant="event-events" />
+          <ErrorMessage variant="loading" />
         )}
         {events && events?.length > 1 && (
           <Pagination

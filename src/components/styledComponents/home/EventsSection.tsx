@@ -10,6 +10,8 @@ import Event from '../event/Event';
 import { useAppSelector } from '@/store/redux-hooks';
 import geohash from 'ngeohash';
 import { SkeletonLoader } from '../skeleton/Skeleton';
+import { Loading } from '@/components/types/props/loadingState.types';
+import { ErrorMessage } from '../ErrorMessage';
 
 const EventsSectionWrapper = styled.section`
   width: 100%;
@@ -62,6 +64,7 @@ const HomeEventsBodyWrapper = styled.div`
     font-size: 1rem;
     line-height: 12px;
     margin-left: 0.5rem;
+    margin-top: 2rem;
     @media (min-width: 680px) {
       font-size: 1.2rem;
     }
@@ -86,7 +89,7 @@ const BodyEventsWrapper = styled.div`
 
 const EventsSection = () => {
   const [events, setEvents] = useState<IEvent[] | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loadingState, setLoadingState] = useState<Loading>(Loading.loading);
 
   const geoPoint = useAppSelector((state) => state.filterReducer.geoPoint);
   const selectedSorting = useAppSelector(
@@ -96,8 +99,6 @@ const EventsSection = () => {
 
   useEffect(() => {
     const getEvents = async () => {
-      setIsLoading(true);
-
       try {
         const response = await getLastEvenets(
           geoPoint,
@@ -106,10 +107,10 @@ const EventsSection = () => {
           selectedRange
         );
         setEvents(response);
-        setIsLoading(false);
+        setLoadingState(Loading.success);
       } catch (err) {
         console.log(err);
-        setIsLoading(false);
+        setLoadingState(Loading.error);
       }
     };
 
@@ -127,13 +128,16 @@ const EventsSection = () => {
       </HomeEventsHeaderWrapper>
       <HomeEventsBodyWrapper>
         <BodyEventsWrapper>
-          {!isLoading ? (
+          {loadingState === Loading.loading ? (
+            <SkeletonLoader variant="event-home" />
+          ) : loadingState === Loading.success ? (
             <>
+              {!events && <ErrorMessage variant="no-events" />}
               {events &&
                 events.map((data) => <Event key={data.id} {...data} />)}
             </>
           ) : (
-            <SkeletonLoader variant="event-home" />
+            <ErrorMessage variant="loading" />
           )}
         </BodyEventsWrapper>
         <Link href="/events" title="See more events" className="more-link">
