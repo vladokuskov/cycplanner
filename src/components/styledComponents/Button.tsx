@@ -52,6 +52,7 @@ const StyledButton = styled.button<Button>`
   display: inline-flex;
   align-items: center;
   transition: 0.2s;
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   justify-content: ${({ icon }) => (icon ? 'space-between' : 'center')};
   gap: ${({ icon }) => (icon ? '1rem' : 'auto')};
   ${({ full }) =>
@@ -213,6 +214,32 @@ const StyledButton = styled.button<Button>`
           &:active {
             color: #2f96eb;
             border-color: #2f96eb;
+          }
+        `
+      : ''}
+
+  ${({ disabled, variant }) =>
+    disabled && variant === 'default'
+      ? css`
+          color: #c7c7c7;
+
+          &:hover,
+          &:focus {
+            color: #c7c7c7;
+          }
+          &:active {
+            color: #c7c7c7;
+          }
+        `
+      : disabled && variant === 'filled'
+      ? css`
+          background-color: #d6eeb6;
+          &:hover,
+          &:focus {
+            background-color: #d6eeb6;
+          }
+          &:active {
+            background-color: #d6eeb6;
           }
         `
       : ''}
