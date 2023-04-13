@@ -1,6 +1,9 @@
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import StyledContainer from '@/components/styledComponents/StyledContainer';
+import { BannerSection } from '@/components/styledComponents/contact/BannerSection';
+import { PageSeparator } from '@/components/styledComponents/PageSeparator';
+import { FormSection } from '@/components/styledComponents/contact/FormSection';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {
@@ -11,8 +14,10 @@ export default function Web() {
       <Head>
         <title>cycplanner - Contact us</title>
       </Head>
-      <StyledContainer variant="grid">
-        <h1>Contact page</h1>
+      <StyledContainer variant="page">
+        <BannerSection />
+        <PageSeparator />
+        <FormSection />
       </StyledContainer>
     </DynamicLayout>
   );

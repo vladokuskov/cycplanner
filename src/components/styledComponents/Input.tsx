@@ -103,7 +103,7 @@ const StyledInput = styled.input<Input>`
         `
       : variant === 'outlined-icon' &&
         css`
-          padding: 0.35rem 0.6rem 0.35rem 2.2rem;
+          padding: 0.6rem 0.6rem 0.6rem 2.2rem;
         `}
                  
         &:focus {
@@ -156,7 +156,7 @@ const StyledTextarea = styled.textarea<Input>`
 
   &:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px #a3d168;
+    box-shadow: none;
     ${({ variant }) =>
       css`
         border-radius: ${variant === 'search' ? '8px' : '10px'} !important;
