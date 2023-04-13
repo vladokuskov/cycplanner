@@ -37,10 +37,10 @@ const BannerSection = () => {
     <BannerSectionMainWrapper>
       <Title>
         At cycplanner, we are committed to providing our users with the best
-        possible experience. Whether you're a seasoned pro or a beginner, we're
-        here to help you achieve your cycling goals and make the most of your
-        passion for the sport. Thank you for joining our community and we look
-        forward to helping you discover your next cycling adventure.
+        possible experience. Whether you&apos;re a seasoned pro or a beginner,
+        we&apos;re here to help you achieve your cycling goals and make the most
+        of your passion for the sport. Thank you for joining our community and
+        we look forward to helping you discover your next cycling adventure.
       </Title>
       <BannerImageWrapper>
         <BannerImage
