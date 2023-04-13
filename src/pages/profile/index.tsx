@@ -3,15 +3,13 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 import StyledContainer from '@/components/styledComponents/StyledContainer';
-import { useAuth } from '@/context/AuthContext';
-import { Button } from '@/components/styledComponents/Button';
+import { PhotoSection } from '@/components/styledComponents/profile/PhotoSection';
+import { PageSeparator } from '@/components/styledComponents/PageSeparator';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {
     ssr: false,
   });
-
-  const { user, logoutUser } = useAuth();
 
   return (
     <PrivateRoute>
@@ -19,11 +17,9 @@ export default function Web() {
         <Head>
           <title>cycplanner - Profile</title>
         </Head>
-        <StyledContainer variant="grid">
-          <h1>Profile page</h1>
-          <p>UID: {user?.uid}</p>
-          <p>EMAIL: {user?.email}</p>
-          <Button onClick={logoutUser} variant="outlined" text="Log out" />
+        <StyledContainer variant="page">
+          <PhotoSection />
+          <PageSeparator />
         </StyledContainer>
       </DynamicLayout>
     </PrivateRoute>

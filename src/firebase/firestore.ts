@@ -11,8 +11,10 @@ import {
   limit,
   startAfter,
 } from 'firebase/firestore';
+import { updateProfile, User } from 'firebase/auth';
 
 import { app } from './firebase';
+import { auth } from './auth';
 
 const db = getFirestore(app);
 
@@ -24,6 +26,24 @@ export const createEvent = async (event: IEvent) => {
     await updateDoc(docRef, { docID: docRef.id, event });
   } catch (err) {
     throw 'Oops, it looks like something went wrong while creating your event.';
+  }
+};
+
+export const updateProfilePicture = async (pictureURL: string | null) => {
+  try {
+    if (auth.currentUser)
+      await updateProfile(auth.currentUser, { photoURL: pictureURL });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const removeProfilePicture = async () => {
+  try {
+    if (auth.currentUser)
+      await updateProfile(auth.currentUser, { photoURL: null });
+  } catch (err) {
+    throw err;
   }
 };
 
