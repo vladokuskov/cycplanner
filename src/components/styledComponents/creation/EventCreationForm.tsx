@@ -7,7 +7,7 @@ import { nanoid } from '@reduxjs/toolkit';
 import { FileUploader } from 'react-drag-drop-files';
 import { parseString } from 'xml2js';
 import { GeoPoint } from '../../types/props/geoPoint.types';
-import { createEvent } from '@/firebase/firestore';
+import { createEvent } from '@/firebase/events';
 import { IEvent } from '../../types/styledComponents/event.types';
 import geohash from 'ngeohash';
 import { EventType } from './EventType';

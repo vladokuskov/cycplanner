@@ -1,5 +1,4 @@
 import { useAuth } from '@/context/AuthContext';
-import { removeProfilePicture, uploadImage } from '@/firebase/firestore';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from '../../Icon';
 import { useEffect, useRef, useState } from 'react';
@@ -18,6 +17,7 @@ import {
   ImageInput,
 } from './StyledPhotoSection';
 import { AvatarEditing } from './AvatarEditing';
+import { removeProfilePicture, uploadImage } from '@/firebase/profile';
 
 const PhotoSection = () => {
   const { user } = useAuth();

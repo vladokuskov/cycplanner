@@ -4,10 +4,9 @@ import Event from '../event/Event';
 import { useEffect, useState } from 'react';
 import { IEvent } from '@/components/types/styledComponents/event.types';
 import { useAppSelector } from '@/store/redux-hooks';
-import { getAllEvents } from '@/firebase/firestore';
+import { getAllEvents } from '@/firebase/events';
 import { Pagination } from './Pagination';
 import { SkeletonLoader } from '../skeleton/Skeleton';
-import { EventsFilter } from '@/components/types/props/eventsFilter.types';
 import { Loading } from '@/components/types/props/loadingState.types';
 import { ErrorMessage } from '../ErrorMessage';
 

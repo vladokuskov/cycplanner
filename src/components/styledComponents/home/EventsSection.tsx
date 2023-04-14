@@ -5,7 +5,7 @@ import HomeInfo from '@/components/styledComponents/home/HomeInfo';
 import { EventFilter } from '@/components/styledComponents/event-filter/EventFilter';
 import { useEffect, useState } from 'react';
 import { IEvent } from '@/components/types/styledComponents/event.types';
-import { getLastEvenets } from '@/firebase/firestore';
+import { getLastEvenets } from '@/firebase/events';
 import Event from '../event/Event';
 import { useAppSelector } from '@/store/redux-hooks';
 import geohash from 'ngeohash';
