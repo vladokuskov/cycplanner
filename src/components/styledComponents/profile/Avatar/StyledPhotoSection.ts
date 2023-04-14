@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 
-export const PhotoSectioWrapper = styled.section`
+export const AvatarSectioWrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,8 +36,8 @@ export const AvatarWrapper = styled.div`
   position: relative;
 `;
 
-export const AvatarUpload = styled.div`
-  cursor: pointer;
+export const AvatarUpload = styled.div<{ isDropdownOpen?: boolean }>`
+  cursor: ${({ isDropdownOpen }) => (isDropdownOpen ? 'default' : 'pointer')};
   position: relative;
   border-radius: 50%;
 `;
@@ -111,61 +111,14 @@ export const DrodpownButton = styled.button<{ isDisabled?: boolean }>`
   padding: 0.5rem 0;
   color: #2c2c2c;
   transition: 0.1s;
+  cursor: ${({ isDisabled }) => (isDisabled ? 'default' : 'pointer')};
   &:hover,
   &:focus {
-    background-color: #f1f1f1;
+    background-color: ${({ isDisabled }) =>
+      isDisabled ? 'transparent' : '#f1f1f1'};
   }
   &:active {
-    background-color: #e9e9e9;
+    background-color: ${({ isDisabled }) =>
+      isDisabled ? 'transparent' : '#e9e9e9'};
   }
-`;
-
-export const AvatarEditingWindowWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  width: 100%;
-  height: 100vh;
-  background-color: #00000068;
-  z-index: 5000;
-`;
-
-export const AvatarEditingWindow = styled.div`
-  width: 100%;
-  max-width: 30rem;
-  background-color: #f7f7f7;
-  border: 0.015rem solid #e7e7e7;
-  border-radius: 0.3rem;
-  margin: 5rem 1rem;
-  div {
-    padding: 1rem;
-  }
-`;
-
-export const AvatarEditingTitle = styled.h3`
-  font-family: 'Roboto';
-  font-size: 0.9rem;
-  color: #2c2c2c;
-  font-weight: 400;
-`;
-
-export const AvatarEditingHeader = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 0.015rem solid #e7e7e7;
-`;
-
-export const AvatarEditingBody = styled.div`
-  width: 100%;
-  height: 8rem;
-`;
-
-export const AvatarEditingFooter = styled.div`
-  width: 100%;
-  border-top: 0.015rem solid #e7e7e7;
 `;

@@ -1,22 +1,15 @@
 import { useAuth } from '@/context/AuthContext';
 import { removeProfilePicture, uploadImage } from '@/firebase/firestore';
-import { faClose, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from '../../Icon';
 import { useEffect, useRef, useState } from 'react';
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
-import { Button } from '../../Button';
 import {
-  PhotoSectioWrapper,
+  AvatarSectioWrapper,
   Title,
   AvatarChangingWrapper,
   Avatar,
   AvatarPlaceholder,
-  AvatarEditingBody,
-  AvatarEditingFooter,
-  AvatarEditingHeader,
-  AvatarEditingTitle,
-  AvatarEditingWindow,
-  AvatarEditingWindowWrapper,
   AvatarUpload,
   AvatarWrapper,
   EditIcon,
@@ -24,6 +17,7 @@ import {
   DrodpownButton,
   ImageInput,
 } from './StyledPhotoSection';
+import { AvatarEditing } from './AvatarEditing';
 
 const PhotoSection = () => {
   const { user } = useAuth();
@@ -91,11 +85,12 @@ const PhotoSection = () => {
   }, [isDropdownOpen]);
 
   return (
-    <PhotoSectioWrapper>
+    <AvatarSectioWrapper>
       <Title>My profile</Title>
       <AvatarChangingWrapper>
         <AvatarWrapper ref={uploadPhotoRef}>
           <AvatarUpload
+            isDropdownOpen={isDropdownOpen}
             role="button"
             onClick={handleDropdownOpen}
             title="Edit profile photo"
@@ -127,7 +122,7 @@ const PhotoSection = () => {
                 Upload a photo
               </DrodpownButton>
               <DrodpownButton
-                isDisabled
+                isDisabled={user?.photoURL === null}
                 title="Remove photo"
                 disabled={user?.photoURL === null}
                 onClick={handleAvatarRemoving}
@@ -145,32 +140,13 @@ const PhotoSection = () => {
         />
       </AvatarChangingWrapper>
       {isAvatarEditing && (
-        <AvatarEditingWindowWrapper>
-          <AvatarEditingWindow>
-            <AvatarEditingHeader>
-              <AvatarEditingTitle>
-                Crop your new profile picture
-              </AvatarEditingTitle>
-              <Button
-                variant="icon"
-                icon={faClose}
-                onClick={handleAvatarEditingClose}
-              />
-            </AvatarEditingHeader>
-            <AvatarEditingBody></AvatarEditingBody>
-            <AvatarEditingFooter>
-              <Button
-                variant="filled"
-                text="Set new profile picture"
-                onClick={handleAvatarUpload}
-                size="sm2"
-                full
-              />
-            </AvatarEditingFooter>
-          </AvatarEditingWindow>
-        </AvatarEditingWindowWrapper>
+        <AvatarEditing
+          file={file}
+          handleAvatarEditingClose={handleAvatarEditingClose}
+          handleAvatarUpload={handleAvatarUpload}
+        />
       )}
-    </PhotoSectioWrapper>
+    </AvatarSectioWrapper>
   );
 };
 

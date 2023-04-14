@@ -3,16 +3,13 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 import StyledContainer from '@/components/styledComponents/StyledContainer';
-import { PhotoSection } from '@/components/styledComponents/profile/PhotoSection/PhotoSection';
+import { PhotoSection } from '@/components/styledComponents/profile/Avatar/AvatarSection';
 import { PageSeparator } from '@/components/styledComponents/PageSeparator';
-import { useAuth } from '@/context/AuthContext';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {
     ssr: false,
   });
-
-  const { logoutUser } = useAuth();
 
   return (
     <PrivateRoute>
