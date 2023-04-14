@@ -7,6 +7,7 @@ import {
   where,
   addDoc,
   getFirestore,
+  updateDoc,
 } from 'firebase/firestore';
 
 import { getAuth } from 'firebase/auth';
@@ -19,6 +20,8 @@ import {
   signOut,
   updateProfile,
 } from 'firebase/auth';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { storage } from './firestore';
 
 export const db = getFirestore(app);
 const providerGoogle = new GoogleAuthProvider();
@@ -48,7 +51,7 @@ export const logInWithEmailAndPassword = async (
   password: string
 ) => {
   try {
-    const res = await signInWithEmailAndPassword(auth, email, password);
+    await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
     throw err;
   }

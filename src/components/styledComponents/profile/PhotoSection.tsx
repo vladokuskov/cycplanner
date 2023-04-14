@@ -1,10 +1,11 @@
 import { useAuth } from '@/context/AuthContext';
-import { removeProfilePicture } from '@/firebase/firestore';
+import { removeProfilePicture, uploadImage } from '@/firebase/firestore';
 import Image from 'next/image';
 import styled from 'styled-components';
 import { Button } from '../Button';
 import { faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from '../Icon';
+import { useRef, useState } from 'react';
 
 const PhotoSectioWrapper = styled.section`
   display: flex;
@@ -67,18 +68,35 @@ const PhotoPlaceholder = styled.div`
   font-size: 2rem;
 `;
 
+const ImageInput = styled.input`
+  display: none;
+`;
+
 const PhotoSection = () => {
   const { user } = useAuth();
-
-  const handlePhotoUpload = async () => {};
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [image, setImage] = useState<File | null>(null);
 
   const handleRemovePhoto = async () => {
     try {
-      user && (await removeProfilePicture());
+      await removeProfilePicture();
     } catch (err) {
       console.log(err);
     }
   };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && user) {
+      const image = e.target.files[0];
+      await uploadImage(image);
+      setImage(image);
+    }
+  };
+
+  const handleUploadButtonClick = () => {
+    inputRef.current?.click();
+  };
+
   return (
     <PhotoSectioWrapper>
       <Title>My profile</Title>
@@ -98,7 +116,18 @@ const PhotoSection = () => {
             </PhotoPlaceholder>
           )}
         </PhotoWrapper>
-        <Button variant="filled" text="Upload photo" />
+        <Button
+          variant="filled"
+          text="Upload photo"
+          onClick={handleUploadButtonClick}
+        />
+        <p>{image ? image.name : ''}</p>
+        <ImageInput
+          ref={inputRef}
+          type="file"
+          accept="image/png, image/jpeg"
+          onChange={handleImageUpload}
+        />
         <Button
           variant="danger"
           text="Remove"
