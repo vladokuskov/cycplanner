@@ -3,9 +3,8 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 import StyledContainer from '@/components/styledComponents/StyledContainer';
-import { PhotoSection } from '@/components/styledComponents/profile/PhotoSection';
+import { PhotoSection } from '@/components/styledComponents/profile/PhotoSection/PhotoSection';
 import { PageSeparator } from '@/components/styledComponents/PageSeparator';
-import { Button } from '@/components/styledComponents/Button';
 import { useAuth } from '@/context/AuthContext';
 
 export default function Web() {
