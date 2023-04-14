@@ -86,7 +86,7 @@ const EditIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  bottom: -0.2rem;
+  bottom: -0.6rem;
   right: calc(50% - 0.75rem);
   padding: 0.3rem;
   width: 1.5rem;
@@ -96,7 +96,7 @@ const EditIcon = styled.div`
   color: #292929;
 `;
 
-const DetailsDropdown = styled.div`
+const DetailsDropdown = styled.dialog`
   position: absolute;
   width: 10rem;
   height: 5.5rem;
@@ -104,9 +104,8 @@ const DetailsDropdown = styled.div`
   border: 0.015rem solid #e7e7e7;
   border-radius: 0.5rem;
   padding: 0.1rem 0;
-  bottom: calc(-100%);
-  right: calc(-50% + 1.3rem);
-  margin: 0;
+  bottom: -100%;
+  margin: -1rem -2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -129,11 +128,13 @@ const DrodpownButton = styled.button`
   width: 100%;
   padding: 0.5rem 0;
   color: #2c2c2c;
+  transition: 0.1s;
   &:hover,
   &:focus {
     background-color: #f1f1f1;
   }
   &:active {
+    background-color: #e9e9e9;
   }
 `;
 
@@ -146,7 +147,13 @@ const PhotoSection = () => {
 
   const handleRemovePhoto = async () => {
     try {
-      await removeProfilePicture();
+      const result = window.confirm(
+        'Are you sure you want to delete your user profile photo?'
+      );
+      if (result) {
+        await removeProfilePicture();
+      }
+      setIsDropdownOpen(false);
     } catch (err) {
       console.log(err);
     }
@@ -188,9 +195,15 @@ const PhotoSection = () => {
     <PhotoSectioWrapper>
       <Title>My profile</Title>
       <Subtitle>Update photo</Subtitle>
+      <dialog>123</dialog>
       <PhotoChangingWrapper>
         <PhotoWrapper ref={uploadPhotoRef}>
-          <AvatarUpload role="button" onClick={handleDropdownOpen} tabIndex={0}>
+          <AvatarUpload
+            role="button"
+            onClick={handleDropdownOpen}
+            title="Edit profile photo"
+            tabIndex={0}
+          >
             {user?.photoURL ? (
               <Photo
                 src={user?.photoURL}
@@ -209,10 +222,15 @@ const PhotoSection = () => {
           </AvatarUpload>
           {isDropdownOpen && (
             <DetailsDropdown>
-              <DrodpownButton title="Upload a photo">
+              <DrodpownButton
+                title="Upload a photo"
+                onClick={handleUploadButtonClick}
+              >
                 Upload a photo
               </DrodpownButton>
-              <DrodpownButton title="Remove photo">Remove photo</DrodpownButton>
+              <DrodpownButton title="Remove photo" onClick={handleRemovePhoto}>
+                Remove photo
+              </DrodpownButton>
             </DetailsDropdown>
           )}
         </PhotoWrapper>
