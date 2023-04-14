@@ -3,9 +3,10 @@ import { removeProfilePicture, uploadImage } from '@/firebase/firestore';
 import Image from 'next/image';
 import styled from 'styled-components';
 import { Button } from '../Button';
-import { faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from '../Icon';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 
 const PhotoSectioWrapper = styled.section`
   display: flex;
@@ -50,10 +51,18 @@ const PhotoChangingWrapper = styled.div`
 
 const PhotoWrapper = styled.div`
   border-radius: 50%;
+  position: relative;
+`;
+
+const AvatarUpload = styled.div`
+  cursor: pointer;
+  position: relative;
+  border-radius: 50%;
 `;
 
 const Photo = styled(Image)`
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 const PhotoPlaceholder = styled.div`
@@ -72,10 +81,68 @@ const ImageInput = styled.input`
   display: none;
 `;
 
+const EditIcon = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: -0.2rem;
+  right: calc(50% - 0.75rem);
+  padding: 0.3rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.2rem;
+  background-color: #fbfbfb;
+  color: #292929;
+`;
+
+const DetailsDropdown = styled.div`
+  position: absolute;
+  width: 10rem;
+  height: 5.5rem;
+  background-color: #f7f7f7;
+  border: 0.015rem solid #e7e7e7;
+  border-radius: 0.5rem;
+  padding: 0.1rem 0;
+  bottom: calc(-100%);
+  right: calc(-50% + 1.3rem);
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  :after {
+    content: '';
+    position: absolute;
+    top: -0.8rem;
+    right: 4.1rem;
+    border-width: 0.8rem 0.8rem 0 0.8rem;
+    border-style: solid;
+    border-color: #e7e7e7 transparent transparent transparent;
+    transform: rotate(180deg);
+  }
+`;
+
+const DrodpownButton = styled.button`
+  font-family: 'Roboto';
+  font-size: 0.9rem;
+  width: 100%;
+  padding: 0.5rem 0;
+  color: #2c2c2c;
+  &:hover,
+  &:focus {
+    background-color: #f1f1f1;
+  }
+  &:active {
+  }
+`;
+
 const PhotoSection = () => {
   const { user } = useAuth();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [image, setImage] = useState<File | null>(null);
+  const uploadPhotoRef = useRef<HTMLDivElement>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
   const handleRemovePhoto = async () => {
     try {
@@ -89,7 +156,7 @@ const PhotoSection = () => {
     if (e.target.files && user) {
       const image = e.target.files[0];
       await uploadImage(image);
-      setImage(image);
+      setFile(image);
     }
   };
 
@@ -97,42 +164,63 @@ const PhotoSection = () => {
     inputRef.current?.click();
   };
 
+  const handleDropdownOpen = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e: MouseEvent) => {
+      if (
+        isDropdownOpen &&
+        uploadPhotoRef.current &&
+        !uploadPhotoRef.current.contains(e.target as Node)
+      ) {
+        setIsDropdownOpen((prev) => !prev);
+      }
+    };
+    document.addEventListener('mousedown', checkIfClickedOutside);
+    return () => {
+      document.removeEventListener('mousedown', checkIfClickedOutside);
+    };
+  }, [isDropdownOpen]);
+
   return (
     <PhotoSectioWrapper>
       <Title>My profile</Title>
       <Subtitle>Update photo</Subtitle>
       <PhotoChangingWrapper>
-        <PhotoWrapper>
-          {user?.photoURL ? (
-            <Photo
-              src={user?.photoURL}
-              alt="User picture"
-              width={100}
-              height={100}
-            />
-          ) : (
-            <PhotoPlaceholder>
-              <Icon icon={faUser} />
-            </PhotoPlaceholder>
+        <PhotoWrapper ref={uploadPhotoRef}>
+          <AvatarUpload role="button" onClick={handleDropdownOpen} tabIndex={0}>
+            {user?.photoURL ? (
+              <Photo
+                src={user?.photoURL}
+                alt="User picture"
+                width={100}
+                height={100}
+              />
+            ) : (
+              <PhotoPlaceholder>
+                <Icon icon={faUser} />
+              </PhotoPlaceholder>
+            )}
+            <EditIcon>
+              <Icon icon={faPenToSquare} />
+            </EditIcon>
+          </AvatarUpload>
+          {isDropdownOpen && (
+            <DetailsDropdown>
+              <DrodpownButton title="Upload a photo">
+                Upload a photo
+              </DrodpownButton>
+              <DrodpownButton title="Remove photo">Remove photo</DrodpownButton>
+            </DetailsDropdown>
           )}
         </PhotoWrapper>
-        <Button
-          variant="filled"
-          text="Upload photo"
-          onClick={handleUploadButtonClick}
-        />
-        <p>{image ? image.name : ''}</p>
         <ImageInput
           ref={inputRef}
           type="file"
           accept="image/png, image/jpeg"
           onChange={handleImageUpload}
-        />
-        <Button
-          variant="danger"
-          text="Remove"
-          icon={faTrash}
-          onClick={handleRemovePhoto}
         />
       </PhotoChangingWrapper>
     </PhotoSectioWrapper>

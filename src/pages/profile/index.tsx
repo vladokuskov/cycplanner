@@ -24,7 +24,6 @@ export default function Web() {
         <StyledContainer variant="page">
           <PhotoSection />
           <PageSeparator />
-          <Button text="Log out" onClick={logoutUser} />
         </StyledContainer>
       </DynamicLayout>
     </PrivateRoute>
