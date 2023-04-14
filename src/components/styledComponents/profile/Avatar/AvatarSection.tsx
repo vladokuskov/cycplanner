@@ -122,6 +122,7 @@ const PhotoSection = () => {
                 Upload a photo
               </DrodpownButton>
               <DrodpownButton
+                danger={true}
                 isDisabled={user?.photoURL === null}
                 title="Remove photo"
                 disabled={user?.photoURL === null}

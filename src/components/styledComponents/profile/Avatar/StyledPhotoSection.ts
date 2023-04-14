@@ -104,12 +104,15 @@ export const DetailsDropdown = styled.div`
   }
 `;
 
-export const DrodpownButton = styled.button<{ isDisabled?: boolean }>`
+export const DrodpownButton = styled.button<{
+  isDisabled?: boolean;
+  danger?: boolean;
+}>`
   font-family: 'Roboto';
   font-size: 0.9rem;
   width: 100%;
   padding: 0.5rem 0;
-  color: #2c2c2c;
+  color: ${({ danger }) => (danger ? '#e62e2e' : '#2c2c2c')};
   transition: 0.1s;
   cursor: ${({ isDisabled }) => (isDisabled ? 'default' : 'pointer')};
   &:hover,

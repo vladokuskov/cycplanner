@@ -66,8 +66,8 @@ const AvatarImage = styled.img`
   width: 6rem;
   object-fit: cover;
   object-position: center;
-  border-radius: 50%; /* add a circle border */
-  box-shadow: 0 0 0 0.2rem #fff, 0 0 0.2rem 0.3rem #888; /* add a border and shadow */
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.2rem #fff, 0 0 0.2rem 0.3rem #888888a2; /* add a border and shadow */
 `;
 
 const AvatarEditing = ({
@@ -87,6 +87,7 @@ const AvatarEditing = ({
           <Button
             variant="icon"
             icon={faClose}
+            text="Close"
             onClick={handleAvatarEditingClose}
           />
         </AvatarEditingHeader>
