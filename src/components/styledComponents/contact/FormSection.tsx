@@ -68,23 +68,25 @@ const FormSection = () => {
       <Title>Contact us</Title>
       <FormWrapper onSubmit={handleSubmit}>
         <Input
+          fieldType="text"
           name="name"
           variant="outlined-icon"
           icon={faUser}
           placeholder="Your name"
           value={contactForm.name}
           onChange={handleFormChange}
-          required={true}
+          required
           full
         />
         <Input
+          fieldType="email"
           name="email"
           variant="outlined-icon"
           icon={faEnvelope}
           placeholder="Your email"
           value={contactForm.email}
           onChange={handleFormChange}
-          required={true}
+          required
           full
         />
         <Input
@@ -94,7 +96,7 @@ const FormSection = () => {
           placeholder="Your messasge"
           value={contactForm.message}
           onChange={handleFormChange}
-          required={true}
+          required
           full
         />
         <Button

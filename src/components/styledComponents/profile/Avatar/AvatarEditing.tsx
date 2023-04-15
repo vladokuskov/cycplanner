@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Button } from '../../Button';
 
 type AvatarEditing = {
+  isUploading: boolean;
   file: File | null;
   handleAvatarEditingClose: () => void;
   handleAvatarUpload: () => void;
@@ -71,6 +72,7 @@ const AvatarImage = styled.img`
 `;
 
 const AvatarEditing = ({
+  isUploading,
   file,
   handleAvatarEditingClose,
   handleAvatarUpload,
@@ -101,6 +103,7 @@ const AvatarEditing = ({
             onClick={handleAvatarUpload}
             size="sm2"
             full
+            disabled={isUploading}
           />
         </AvatarEditingFooter>
       </AvatarEditingWindow>

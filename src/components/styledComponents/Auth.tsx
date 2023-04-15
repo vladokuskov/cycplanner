@@ -328,6 +328,7 @@ export default function Auth({ variant }: AuthPage) {
               />
             )}
             <Input
+              fieldType="email"
               value={email}
               variant="auth"
               icon={faEnvelope}
@@ -341,6 +342,7 @@ export default function Auth({ variant }: AuthPage) {
               danger={!isFormValidated}
             />
             <Input
+              fieldType="password"
               isPassShowed={showPassword}
               value={password}
               variant="auth-pass"

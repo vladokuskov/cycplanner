@@ -267,7 +267,7 @@ const EventCreationForm = () => {
             buttonType="submit"
             text={isCreatingEvent ? undefined : 'Create event'}
             icon={isCreatingEvent ? faCircleNotch : null}
-            isAnimated={isCreatingEvent}
+            rotate={isCreatingEvent}
             disabled={isCreatingEvent}
             size="md1"
             full

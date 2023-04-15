@@ -1,7 +1,11 @@
 import { Input } from '../types/styledComponents/input.types';
 import styled, { css } from 'styled-components';
 import { Icon } from './Icon';
-import { faMagnifyingGlass, faClose } from '@fortawesome/free-solid-svg-icons';
+import {
+  faMagnifyingGlass,
+  faClose,
+  faCircleNotch,
+} from '@fortawesome/free-solid-svg-icons';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 
 const InputMainWrapper = styled.div<Input>`
@@ -77,6 +81,7 @@ const StyledInput = styled.input<Input>`
         ? '2px solid #fc6666'
         : '2px solid #999999'};
     `}
+
   ${({ variant }) =>
     variant === 'search'
       ? css`
@@ -197,7 +202,7 @@ const InputIcon = styled.span<Input>`
   transition: 0.2s;
   position: absolute;
   left: 0.5rem;
-  ${({ variant, danger }) =>
+  ${({ variant }) =>
     variant === 'search'
       ? css`
           left: auto;
@@ -226,15 +231,26 @@ const Input = ({
   onClick,
   placeholder,
   name,
+  fieldType = 'text',
+  loading = false,
 }: Input) => {
   return (
     <InputMainWrapper variant={variant} full={full} danger={danger}>
       {(variant === 'auth' ||
         variant === 'auth-pass' ||
         variant === 'outlined-icon' ||
-        (variant === 'search' && value?.length === 0)) && (
+        variant === 'search') && (
         <InputIcon variant={variant} danger={danger} className="icon">
-          <Icon icon={variant === 'search' ? faMagnifyingGlass : icon} />
+          <Icon
+            icon={
+              variant === 'search' && loading
+                ? faCircleNotch
+                : variant === 'search' && !loading && value?.length === 0
+                ? faMagnifyingGlass
+                : icon
+            }
+            spinning={loading ? 'true' : 'false'}
+          />
         </InputIcon>
       )}
       <InputWrapper>
@@ -261,11 +277,16 @@ const Input = ({
           />
         ) : (
           <StyledInput
+            loading={loading}
             type={
-              variant === 'auth-pass' && !isPassShowed
+              fieldType === 'email'
+                ? 'email'
+                : fieldType === 'password' && !isPassShowed
                 ? 'password'
-                : variant === 'auth-pass' && isPassShowed
+                : fieldType === 'password' && isPassShowed
                 ? 'text'
+                : fieldType === 'number'
+                ? 'number'
                 : 'text'
             }
             danger={danger}
@@ -281,7 +302,7 @@ const Input = ({
           />
         )}
       </InputWrapper>
-      {((variant === 'search' && value?.length !== 0) ||
+      {((variant === 'search' && value?.length !== 0 && !loading) ||
         (variant === 'auth-pass' && value?.length !== 0)) && (
         <InputButton
           type="button"

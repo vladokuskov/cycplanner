@@ -10,6 +10,7 @@ export type Input = {
   label?: string;
   value?: string;
   required?: boolean;
+  fieldType?: 'text' | 'email' | 'password' | 'number';
   isPassShowed?: boolean;
   icon?: any;
   full?: boolean;
@@ -20,4 +21,5 @@ export type Input = {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  loading?: boolean;
 };

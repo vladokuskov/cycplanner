@@ -26,6 +26,7 @@ const PhotoSection = () => {
   const [file, setFile] = useState<File | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [isAvatarEditing, setIsAvatarEditing] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
 
   const handleAvatarRemoving = async () => {
     try {
@@ -61,9 +62,11 @@ const PhotoSection = () => {
   };
 
   const handleAvatarUpload = async () => {
+    setIsUploading(true);
     if (file) {
       await uploadImage(file);
     }
+    setIsUploading(false);
     setIsAvatarEditing(false);
     setFile(null);
   };
@@ -142,6 +145,7 @@ const PhotoSection = () => {
       </AvatarChangingWrapper>
       {isAvatarEditing && (
         <AvatarEditing
+          isUploading={isUploading}
           file={file}
           handleAvatarEditingClose={handleAvatarEditingClose}
           handleAvatarUpload={handleAvatarUpload}
