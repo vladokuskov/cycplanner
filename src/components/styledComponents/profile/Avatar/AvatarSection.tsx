@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react';
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import {
   AvatarSectioWrapper,
-  Title,
   AvatarChangingWrapper,
   Avatar,
   AvatarPlaceholder,
@@ -15,7 +14,8 @@ import {
   DetailsDropdown,
   DrodpownButton,
   ImageInput,
-} from './StyledPhotoSection';
+  SubTitle,
+} from './StyledAvatarSection';
 import { AvatarEditing } from './AvatarEditing';
 import { removeProfilePicture, uploadImage } from '@/firebase/profile';
 
@@ -89,7 +89,7 @@ const PhotoSection = () => {
 
   return (
     <AvatarSectioWrapper>
-      <Title>My profile</Title>
+      <SubTitle>Update photo</SubTitle>
       <AvatarChangingWrapper>
         <AvatarWrapper ref={uploadPhotoRef}>
           <AvatarUpload

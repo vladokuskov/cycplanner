@@ -1,6 +1,16 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 
+export const SubTitle = styled.h3`
+  text-align: center;
+  width: 100%;
+  color: #2c2c2c50;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1rem;
+`;
+
 export const AvatarSectioWrapper = styled.section`
   display: flex;
   flex-direction: column;
@@ -8,16 +18,6 @@ export const AvatarSectioWrapper = styled.section`
   justify-content: center;
   width: 100%;
   padding: 1rem;
-`;
-
-export const Title = styled.h1`
-  width: 100%;
-  text-align: center;
-  color: rgba(32, 32, 32, 0.77);
-  font-style: normal;
-  font-weight: 600;
-  font-size: 2rem;
-  line-height: 3rem;
 `;
 
 export const AvatarChangingWrapper = styled.div`
