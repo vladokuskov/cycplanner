@@ -8,7 +8,7 @@ import { LocationStatus } from '@/components/types/props/geocoder.types';
 import { Button } from '../Button';
 import { Input } from '../Input';
 import { SelectorLabel } from './RangePicker';
-import { faLocation } from '@fortawesome/free-solid-svg-icons';
+import { faCircleNotch, faLocation } from '@fortawesome/free-solid-svg-icons';
 
 const GeocoderMainWrapper = styled.div`
   width: 100%;
@@ -246,8 +246,12 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
         </GeocoderInputWrapper>
         <Button
           variant="icon-bg"
-          icon={faLocation}
-          text="Fetch location"
+          icon={
+            locationStatus === LocationStatus.fetching
+              ? faCircleNotch
+              : faLocation
+          }
+          isAnimated={locationStatus === LocationStatus.fetching}
           status={
             locationStatus === LocationStatus.error
               ? 'error'

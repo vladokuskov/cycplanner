@@ -19,4 +19,5 @@ export type Button = {
   bold?: boolean;
   disabled?: boolean;
   status?: 'default' | 'error' | 'success';
+  isAnimated?: boolean;
 };

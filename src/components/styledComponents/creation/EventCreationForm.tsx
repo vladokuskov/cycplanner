@@ -11,6 +11,7 @@ import { createEvent } from '@/firebase/events';
 import { IEvent } from '../../types/styledComponents/event.types';
 import geohash from 'ngeohash';
 import { EventType } from './EventType';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
 const PageTitle = styled.h2`
   margin-top: 2rem;
@@ -264,7 +265,9 @@ const EventCreationForm = () => {
         <FormFooterWrapper>
           <Button
             buttonType="submit"
-            text={isCreatingEvent ? 'Creating' : 'Create event'}
+            text={isCreatingEvent ? undefined : 'Create event'}
+            icon={isCreatingEvent ? faCircleNotch : null}
+            isAnimated={isCreatingEvent}
             disabled={isCreatingEvent}
             size="md1"
             full

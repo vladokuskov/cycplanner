@@ -267,6 +267,7 @@ const Button = ({
   bold = false,
   disabled = false,
   status = 'default',
+  isAnimated = false,
 }: Button) => {
   return (
     <StyledButton
@@ -282,12 +283,12 @@ const Button = ({
       status={status}
       icon={icon}
     >
-      {variant !== 'icon' && variant !== 'icon-bg' && (
+      {text && text?.length !== 0 && variant !== 'icon' && (
         <ButtonText>{text}</ButtonText>
       )}
       {icon && (
         <ButtonIcon variant={variant}>
-          <Icon icon={icon} />
+          <Icon icon={icon} isAnimated={isAnimated} />
         </ButtonIcon>
       )}
     </StyledButton>
