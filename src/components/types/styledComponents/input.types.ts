@@ -21,5 +21,5 @@ export type Input = {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  loading?: boolean;
+  isloading?: boolean;
 };

@@ -234,7 +234,7 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
       <GeocoderWrapper>
         <GeocoderInputWrapper ref={ref}>
           <Input
-            loading={isGeocoderLoading}
+            isloading={isGeocoderLoading}
             variant="search"
             value={geocoderValue}
             onChange={handleChangeGeocoder}

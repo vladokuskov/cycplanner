@@ -232,7 +232,7 @@ const Input = ({
   placeholder,
   name,
   fieldType = 'text',
-  loading = false,
+  isloading,
 }: Input) => {
   return (
     <InputMainWrapper variant={variant} full={full} danger={danger}>
@@ -241,16 +241,16 @@ const Input = ({
         variant === 'outlined-icon' ||
         variant === 'search') && (
         <InputIcon variant={variant} danger={danger} className="icon">
-          <Icon
-            icon={
-              variant === 'search' && loading
-                ? faCircleNotch
-                : variant === 'search' && !loading && value?.length === 0
-                ? faMagnifyingGlass
-                : icon
-            }
-            spinning={loading ? 'true' : 'false'}
-          />
+          {variant === 'search' && isloading && (
+            <Icon
+              icon={faCircleNotch}
+              spinning={isloading ? 'true' : 'false'}
+            />
+          )}
+          {variant === 'search' && !isloading && value?.length === 0 && (
+            <Icon icon={faMagnifyingGlass} />
+          )}
+          {variant !== 'search' && <Icon icon={icon} />}
         </InputIcon>
       )}
       <InputWrapper>
@@ -277,7 +277,7 @@ const Input = ({
           />
         ) : (
           <StyledInput
-            loading={loading}
+            isloading={isloading}
             type={
               fieldType === 'email'
                 ? 'email'
@@ -302,7 +302,7 @@ const Input = ({
           />
         )}
       </InputWrapper>
-      {((variant === 'search' && value?.length !== 0 && !loading) ||
+      {((variant === 'search' && value?.length !== 0 && !isloading) ||
         (variant === 'auth-pass' && value?.length !== 0)) && (
         <InputButton
           type="button"
@@ -324,6 +324,7 @@ const Input = ({
                 ? faEye
                 : faEyeSlash
             }
+            spinning="false"
           />
         </InputButton>
       )}
