@@ -11,31 +11,20 @@ const InputMainWrapper = styled.div<Input>`
   justify-content: center;
   transition: 0.2s;
   margin: 0;
-  ${({ variant, full, danger }) =>
+  ${({ variant, full }) =>
     css`
       background-color: ${variant === 'search' ? '#DDDDDD' : 'transparent'};
       color: ${variant === 'search' ? '#474747' : '#2C2C2C'};
-      border-radius: ${variant === 'search' ? '8px' : '10px'};
-      border: ${variant === 'search'
-        ? 'none'
-        : danger === true
-        ? '2px solid #e62e2e'
-        : '2px solid #999999'};
+      border-radius: ${variant === 'search' ? '0.5rem' : '0.625rem'};
+      border: none;
       width: ${full === true ? '100%' : 'auto'};
     `};
-
-  ${({ variant, danger }) =>
+  ${({ variant }) =>
     css`
       &:hover,
       &:focus {
-        background-color: ${variant === 'search' ? '#e6e6e6' : 'transparent'};
-        border-color: ${danger === true ? '#ff3737' : '#acacac'};
         .icon {
-          color: ${variant === 'search'
-            ? '#7a7a7ab3'
-            : danger === true
-            ? '#ff3737'
-            : '#acacac'};
+          color: ${variant === 'search' ? '#7a7a7ab3' : '#acacac'};
         }
       }
     `}
@@ -68,20 +57,25 @@ const Label = styled.label<Input>`
 const StyledInput = styled.input<Input>`
   font-family: 'Roboto', sans-serif;
   width: 100%;
-  border: none;
   margin: 0;
   padding: 0;
   background-color: transparent;
   font-weight: 500;
   color: #696969;
   -webkit-tap-highlight-color: transparent;
+  transition: 0.2s;
   ::placeholder {
     opacity: 0.3;
     font-weight: 400;
   }
-  ${({ variant }) =>
+  ${({ variant, danger }) =>
     css`
-      border-radius: ${variant === 'search' ? '8px' : '10px'};
+      border-radius: ${variant === 'search' ? '0.5rem' : '0.625rem'};
+      border: ${variant === 'search'
+        ? '2px solid transparent'
+        : danger === true
+        ? '2px solid #fc6666'
+        : '2px solid #999999'};
     `}
   ${({ variant }) =>
     variant === 'search'
@@ -105,8 +99,19 @@ const StyledInput = styled.input<Input>`
         css`
           padding: 0.6rem 0.6rem 0.6rem 2.2rem;
         `}
-                 
-        &:focus {
+
+  &:hover {
+    background-color: ${({ variant }) =>
+      variant === 'search' ? '#e6e6e66e' : 'transparent'};
+    border-color: ${({ variant, danger }) =>
+      variant === 'search'
+        ? 'transparent'
+        : danger === true
+        ? '#ff8585'
+        : '#bebebe'};
+  }
+
+  &:focus {
     outline: none;
     box-shadow: none;
   }
@@ -118,15 +123,17 @@ const StyledInput = styled.input<Input>`
 
   &:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px #a3d168;
-    ${({ variant }) =>
-      css`
-        border-radius: ${variant === 'search' ? '8px' : '10px'} !important;
-      `}
+    outline-offset: 0;
+    border-color: #a3d168 !important;
+    border-radius: ${({ variant }) =>
+      variant === 'search' ? '0.5rem' : '0.625rem'};
+    background-color: ${({ variant }) =>
+      variant === 'search' ? '#e6e6e66e' : '#a3ee4211'};
   }
 `;
 
 const StyledTextarea = styled.textarea<Input>`
+  -webkit-tap-highlight-color: transparent;
   font-family: 'Roboto', sans-serif;
   border: none;
   margin: 0;
@@ -135,14 +142,26 @@ const StyledTextarea = styled.textarea<Input>`
   padding: 0.3rem;
   max-width: 100%;
   width: 100%;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   min-height: 2.1rem;
   font-weight: 500;
   resize: vertical;
+  transition: 0.2s;
   color: #696969;
+  ${({ variant, danger }) =>
+    css`
+      border: ${variant === 'search'
+        ? 'none'
+        : danger === true
+        ? '2px solid #fc6666'
+        : '2px solid #999999'};
+    `}
   ::placeholder {
     opacity: 0.3;
     font-weight: 400;
+  }
+  &:hover {
+    border-color: ${({ danger }) => (danger === true ? '#ff8585' : '#bebebe')};
   }
   &:focus {
     outline: none;
@@ -156,18 +175,17 @@ const StyledTextarea = styled.textarea<Input>`
 
   &:focus-visible {
     outline: none;
-    box-shadow: none;
-    ${({ variant }) =>
-      css`
-        border-radius: ${variant === 'search' ? '8px' : '10px'} !important;
-      `}
+    outline-offset: 0;
+    border-color: #a3d168 !important;
+    border-radius: 0.625rem;
+    background-color: #a3ee4211;
   }
 `;
 
 const InputButton = styled.button<Input>`
   position: absolute;
   padding: 0 0.5rem;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   ${({ variant }) =>
     css`
       color: ${variant === 'search' ? '#5a5a5a' : '#999999'};
@@ -190,7 +208,7 @@ const InputIcon = styled.span<Input>`
           variant === 'auth-pass' ||
           variant === 'outlined-icon') &&
         css`
-          color: ${danger === true ? '#e62e2e' : '#5a5a5ab3'};
+          color: #5a5a5ab3;
           font-size: 1.4rem;
         `}
 `;
@@ -230,6 +248,7 @@ const Input = ({
         )}
         {variant === 'textarea' ? (
           <StyledTextarea
+            danger={danger}
             name={name}
             value={value}
             variant={variant}
@@ -249,6 +268,7 @@ const Input = ({
                 ? 'text'
                 : 'text'
             }
+            danger={danger}
             name={name}
             value={value}
             variant={variant}
