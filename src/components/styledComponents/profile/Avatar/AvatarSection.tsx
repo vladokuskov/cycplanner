@@ -14,7 +14,6 @@ import {
   DetailsDropdown,
   DrodpownButton,
   ImageInput,
-  SubTitle,
 } from './StyledAvatarSection';
 import { AvatarEditing } from './AvatarEditing';
 import { removeProfilePicture, uploadImage } from '@/firebase/profile';
@@ -89,7 +88,6 @@ const PhotoSection = () => {
 
   return (
     <AvatarSectioWrapper>
-      <SubTitle>Update photo</SubTitle>
       <AvatarChangingWrapper>
         <AvatarWrapper ref={uploadPhotoRef}>
           <AvatarUpload

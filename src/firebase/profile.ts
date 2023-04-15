@@ -6,7 +6,7 @@ import {
   where,
   doc,
 } from 'firebase/firestore';
-import { updateProfile } from 'firebase/auth';
+import { updateProfile, updateEmail } from 'firebase/auth';
 import {
   deleteObject,
   getDownloadURL,
@@ -16,6 +16,51 @@ import {
 
 import { auth } from './auth';
 import { db, storage } from './firebase';
+
+export const updateProfileNameEmail = async (name: string, email: string) => {
+  const user = auth.currentUser;
+  try {
+    if (user) {
+      user?.displayName !== name &&
+        name.length !== 0 &&
+        (await updateProfile(user, { displayName: name }));
+
+      if (email.length !== 0) {
+        await updateEmail(user, email);
+
+        await updateEventNames(user.uid, name);
+      }
+    }
+  } catch (err) {
+    throw err;
+  }
+};
+
+const updateEventNames = async (uid: string, username: string | null) => {
+  const eventsRef = collection(db, 'events');
+  const q = query(eventsRef, where('event.metadata.author.uid', '==', uid));
+
+  const snapshot = await getDocs(q);
+
+  snapshot.forEach((event) => {
+    const eventId = event.id;
+    const data = event.data().event;
+    const author = data.metadata.author;
+
+    updateDoc(doc(db, 'events', eventId), {
+      event: {
+        ...data,
+        metadata: {
+          ...data.metadata,
+          author: {
+            ...author,
+            username: username,
+          },
+        },
+      },
+    });
+  });
+};
 
 const updateEventPhotoUrls = async (uid: string, photoUrl: string | null) => {
   const eventsRef = collection(db, 'events');

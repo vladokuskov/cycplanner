@@ -51,6 +51,7 @@ const FormSection = () => {
 
     setIsSending(true);
 
+    // Imitating API
     const newTimer = setTimeout(() => {
       setContactForm({ name: '', email: '', message: '' });
       setIsSending(false);
