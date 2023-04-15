@@ -8,15 +8,15 @@ const spin = keyframes`
 `;
 
 const AnimatedIcon = styled(FontAwesomeIcon)<Icon>`
-  ${({ isAnimated }) =>
-    isAnimated &&
+  ${({ spinning }) =>
+    spinning === 'true' &&
     css`
       animation: ${spin} 0.5s linear infinite;
     `}
 `;
 
-const Icon = ({ icon, isAnimated = false }: Icon) => {
-  return <AnimatedIcon icon={icon} isAnimated={isAnimated} />;
+const Icon = ({ icon, spinning = 'false' }: Icon) => {
+  return <AnimatedIcon icon={icon} spinning={spinning} />;
 };
 
 export { Icon };

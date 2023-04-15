@@ -251,7 +251,7 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
               ? faCircleNotch
               : faLocation
           }
-          isAnimated={locationStatus === LocationStatus.fetching}
+          rotate={locationStatus === LocationStatus.fetching}
           status={
             locationStatus === LocationStatus.error
               ? 'error'

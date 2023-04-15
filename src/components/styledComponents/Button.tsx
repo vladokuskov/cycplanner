@@ -267,7 +267,7 @@ const Button = ({
   bold = false,
   disabled = false,
   status = 'default',
-  isAnimated = false,
+  rotate,
 }: Button) => {
   return (
     <StyledButton
@@ -288,7 +288,7 @@ const Button = ({
       )}
       {icon && (
         <ButtonIcon variant={variant}>
-          <Icon icon={icon} isAnimated={isAnimated} />
+          <Icon icon={icon} spinning={rotate ? 'true' : 'false'} />
         </ButtonIcon>
       )}
     </StyledButton>
