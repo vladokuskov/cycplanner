@@ -2,7 +2,7 @@
 
 # cycplanner
 
-`cycplanner` is a web application that allows users to create, organize, and join cycling events in their area. This project was created using React, Next.js, and Firebase.
+`cycplanner` is a full-stack web application that allows users to create, organize, and join cycling events in their area. This project was created using React, Next.js, and Firebase.
 
 ### Features
 
