@@ -100,11 +100,9 @@ const FormSection = () => {
           full
         />
         <Button
-          variant="filled"
           buttonType="submit"
           text={isSending ? 'Sending' : 'Send'}
           disabled={isSending}
-          onClick={handleSubmit}
         />
       </FormWrapper>
     </FormSectionWrapper>
