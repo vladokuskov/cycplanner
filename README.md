@@ -4,9 +4,9 @@
 
 `cycplanner` is a full-stack web application that allows users to create, organize, and join cycling events in their area. This project was created using React, Next.js, and Firebase.
 
-### Features
+Live - https://cycplanner.vercel.app/
 
-CycPlanner includes the following features:
+### Features
 
     * Sign up and sign in functionality using Firebase Authentication.
     * Create, edit, and delete cycling events.
@@ -16,8 +16,6 @@ CycPlanner includes the following features:
     * View and edit your profile information.
 
 ### Technology Stack
-
-'cycplanner' was built using the following technology stack:
 
     React
     Next.js
