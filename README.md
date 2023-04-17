@@ -28,7 +28,7 @@ Live - https://cycplanner.vercel.app/
 
    1. Clone the repository: `git clone https://github.com/swappnet/cycplanner.git`.
    2. Install dependencies: `npm install`.
-   3. Set up a Firebase project and add your Firebase configuration to .env.local file in the root directory. You can use the `.env.local.example` file as a template.
+   3. Set up a Firebase project and add your Firebase configuration to `.env.local` file in the root directory. You can use the `.env.local.example` file as a template.
    4. Start the development server: `npm run dev`.
    5. Open http://localhost:3000 in your browser to view the app.
 
