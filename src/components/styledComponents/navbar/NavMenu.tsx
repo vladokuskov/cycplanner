@@ -84,11 +84,12 @@ const MenuFooter = styled.div`
   gap: 2rem;
 `;
 
-const MenuFooterButtonsWrapper = styled.div`
+const MenuFooterButtonsWrapper = styled.div<{ variant: 'logged' | 'guest' }>`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: ${({ variant }) =>
+    variant === 'guest' ? 'flex-start' : 'space-between'};
   gap: 0.5rem;
 `;
 const MenuFooterButtonsLabel = styled.p`
@@ -100,7 +101,7 @@ const MenuFooterButtonsLabel = styled.p`
 `;
 
 const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
-  const { user } = useAuth();
+  const { user, logoutUser } = useAuth();
 
   return (
     <MenuMainWrapper>
@@ -156,14 +157,23 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
                   onClick={() => router.push('/create')}
                 />
               )}
-              <ProfilePreview
-                variant="default"
-                photoURL={user?.photoURL}
-                name={user.displayName}
-              />
+              <MenuFooterButtonsWrapper variant="logged">
+                <ProfilePreview
+                  variant="default"
+                  photoURL={user?.photoURL}
+                  name={user.displayName}
+                />
+                <Button
+                  variant="danger"
+                  text="Sign out"
+                  size="sm1"
+                  bold
+                  onClick={() => logoutUser()}
+                />
+              </MenuFooterButtonsWrapper>
             </>
           ) : (
-            <MenuFooterButtonsWrapper>
+            <MenuFooterButtonsWrapper variant="guest">
               <Button
                 variant="outlined"
                 text="Sign up"
