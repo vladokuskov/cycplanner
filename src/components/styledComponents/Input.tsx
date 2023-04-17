@@ -15,6 +15,8 @@ const InputMainWrapper = styled.div<Input>`
   justify-content: center;
   transition: 0.2s;
   margin: 0;
+  margin-top: ${({ variant, label }) =>
+    variant === 'outlined' && label?.length !== 0 ? '1.5rem' : '0'};
   ${({ variant, full }) =>
     css`
       background-color: ${variant === 'search' ? '#DDDDDD' : 'transparent'};
@@ -42,10 +44,15 @@ const InputWrapper = styled.div<Input>`
 
 const Label = styled.label<Input>`
   position: absolute;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
   ${({ variant }) =>
-    variant === 'outlined' || variant === 'textarea'
+    variant === 'outlined'
       ? css`
+          letter-spacing: -0.025em;
+          font-weight: 400;
+          font-style: normal;
+          font-size: 0.9rem;
+          line-height: 31px;
           top: -1.7rem;
           color: rgba(32, 32, 32, 0.77);
         `
@@ -59,7 +66,7 @@ const Label = styled.label<Input>`
 `;
 
 const StyledInput = styled.input<Input>`
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
   width: 100%;
   margin: 0;
   padding: 0;
@@ -256,8 +263,7 @@ const Input = ({
       <InputWrapper>
         {(variant === 'auth' ||
           variant === 'auth-pass' ||
-          variant === 'outlined' ||
-          variant === 'textarea') && (
+          variant === 'outlined') && (
           <Label htmlFor={variant} variant={variant}>
             {label}
           </Label>
