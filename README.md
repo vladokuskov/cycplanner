@@ -21,7 +21,7 @@ Live - https://cycplanner.vercel.app/
     React
     Next.js
     Firebase
-    Sass
+    Styled Components
     TypeScript
 
 ### Contributing
