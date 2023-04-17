@@ -1,10 +1,8 @@
-import { FirebaseError } from 'firebase/app';
-
-interface FormValidationProps {
+type FormValidationProps = {
   email: string;
   username?: string;
   password: string;
-}
+};
 
 export const validateAuth = async ({
   email,
@@ -33,23 +31,5 @@ export const validateAuth = async ({
     }
   }
 
-  // Form is valid, return true or any other data you want
   return true;
-};
-
-export const getErrorMessage = (error: FirebaseError) => {
-  switch (error.code) {
-    case 'auth/user-not-found':
-      return 'Invalid email or password';
-    case 'auth/wrong-password':
-      return 'Invalid email or password';
-    case 'auth/too-many-requests':
-      return 'Too many unsuccessful login attempts. Please try again later.';
-    case 'auth/weak-password':
-      return 'Please enter a password that is at least 8 characters long.';
-    case 'auth/email-already-in-use':
-      return 'This email already exists, please choose another.';
-    default:
-      return error.message;
-  }
 };
