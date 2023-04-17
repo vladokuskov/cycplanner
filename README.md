@@ -1,12 +1,13 @@
-![Commits](https://img.shields.io/github/commit-activity/m/swappnet/cycplanner)
+<img align='center' src="public/assets/logo.svg" width="300px">
 
-# cycplanner
+![Commits](https://img.shields.io/github/commit-activity/m/swappnet/cycplanner)
+[![Website cycroute.netlify.app](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://cycplanner.vercel.app/)
 
 `cycplanner` is a full-stack web application that allows users to create, organize, and join cycling events in their area. This project was created using React, Next.js, and Firebase.
 
-### Features
+Live - https://cycplanner.vercel.app/
 
-CycPlanner includes the following features:
+### Features
 
     * Sign up and sign in functionality using Firebase Authentication.
     * Create, edit, and delete cycling events.
@@ -16,8 +17,6 @@ CycPlanner includes the following features:
     * View and edit your profile information.
 
 ### Technology Stack
-
-'cycplanner' was built using the following technology stack:
 
     React
     Next.js
