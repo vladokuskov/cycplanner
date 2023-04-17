@@ -1,4 +1,4 @@
-import Auth from '@/components/styledComponents/Auth';
+import Auth from '@/components/styledComponents/auth/Auth';
 import RestrictedRoute from '@/modules/ResctrictedRoute';
 import Head from 'next/head';
 
