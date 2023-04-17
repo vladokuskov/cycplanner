@@ -29,7 +29,7 @@ const EventFormWrapper = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 1.5rem;
 `;
 
 const FormMainWrapper = styled.div`
@@ -63,7 +63,7 @@ const InputsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 0.5rem;
 `;
 
 const EventTypesWrapper = styled.div`
