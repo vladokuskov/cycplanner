@@ -68,7 +68,7 @@ const AvatarImage = styled.img`
   object-fit: cover;
   object-position: center;
   border-radius: 50%;
-  box-shadow: 0 0 0 0.2rem #fff, 0 0 0.2rem 0.3rem #888888a2; /* add a border and shadow */
+  box-shadow: 0 0 0 0.2rem #fff, 0 0 0.2rem 0.3rem #888888a2;
 `;
 
 const AvatarEditing = ({

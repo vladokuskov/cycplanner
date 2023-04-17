@@ -11,6 +11,7 @@ import {
 } from '@/components/styledComponents/profile/StyledProfile';
 import { EditSection } from '@/components/styledComponents/profile/EditSection/EditSection';
 import { useAuth } from '@/context/AuthContext';
+import { useEffect, useState } from 'react';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {
@@ -19,6 +20,12 @@ export default function Web() {
 
   const { user } = useAuth();
 
+  const [userName, setUserName] = useState(user?.displayName);
+
+  useEffect(() => {
+    setUserName(user?.displayName);
+  }, [user]);
+
   return (
     <PrivateRoute>
       <DynamicLayout>
@@ -26,7 +33,7 @@ export default function Web() {
           <title>cycplanner - Profile</title>
         </Head>
         <StyledContainer variant="page">
-          <Title>Welcome, {user?.displayName}</Title>
+          <Title>Welcome, {userName}</Title>
           <ProfileEditingSection>
             <PhotoSection />
             <EditSection />

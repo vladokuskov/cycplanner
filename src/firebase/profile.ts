@@ -6,7 +6,18 @@ import {
   where,
   doc,
 } from 'firebase/firestore';
-import { updateProfile, updateEmail } from 'firebase/auth';
+import {
+  updateProfile,
+  updatePassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  ProviderId,
+  reauthenticateWithPopup,
+  reauthenticateWithCredential,
+  AuthCredential,
+  EmailAuthProvider,
+  EmailAuthCredential,
+} from 'firebase/auth';
 import {
   deleteObject,
   getDownloadURL,
@@ -17,18 +28,46 @@ import {
 import { auth } from './auth';
 import { db, storage } from './firebase';
 
-export const updateProfileNameEmail = async (name: string, email: string) => {
+export const updateUserPassword = async (
+  oldPassword: string,
+  password: string
+) => {
   const user = auth.currentUser;
+  const providerType = auth.currentUser?.providerId;
+
   try {
     if (user) {
-      user?.displayName !== name &&
-        name.length !== 0 &&
-        (await updateProfile(user, { displayName: name }));
+      if (providerType === ProviderId.GOOGLE) {
+        const googleProvider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, googleProvider);
+        await reauthenticateWithPopup(result.user, googleProvider);
+      } else {
+        if (user.email) {
+          const credential = EmailAuthProvider.credential(
+            user.email,
+            oldPassword
+          );
+          await reauthenticateWithCredential(user, credential);
+        }
+      }
 
-      if (email.length !== 0) {
-        await updateEmail(user, email);
+      if (password.length !== 0) {
+        await updatePassword(user, password);
+      }
+    }
+  } catch (err) {
+    throw err;
+  }
+};
 
-        await updateEventNames(user.uid, name);
+export const updateProfileName = async (name: string) => {
+  const user = auth.currentUser;
+
+  try {
+    if (user) {
+      if (user?.displayName !== name && name.length !== 0) {
+        await updateProfile(user, { displayName: name });
+        updateEventNames(user?.uid, name);
       }
     }
   } catch (err) {
