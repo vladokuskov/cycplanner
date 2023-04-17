@@ -1,4 +1,4 @@
-import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { faCircleNotch, faClose } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { Button } from '../../Button';
 
@@ -99,11 +99,13 @@ const AvatarEditing = ({
         <AvatarEditingFooter>
           <Button
             variant="filled"
-            text="Set new profile picture"
+            text={isUploading ? undefined : 'Set new profile picture'}
+            icon={isUploading ? faCircleNotch : null}
             onClick={handleAvatarUpload}
             size="sm2"
             full
             disabled={isUploading}
+            rotate={isUploading}
           />
         </AvatarEditingFooter>
       </AvatarEditingWindow>
