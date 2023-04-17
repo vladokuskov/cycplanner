@@ -10,6 +10,7 @@ import {
   Title,
 } from '@/components/styledComponents/profile/StyledProfile';
 import { EditSection } from '@/components/styledComponents/profile/EditSection/EditSection';
+import { ProfileDeleteSection } from '@/components/styledComponents/profile/DeleteSection/ProfileDeleteSection';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {
@@ -29,6 +30,7 @@ export default function Web() {
             <EditSection />
           </ProfileEditingSection>
           <PageSeparator />
+          <ProfileDeleteSection />
         </StyledContainer>
       </DynamicLayout>
     </PrivateRoute>

@@ -14,9 +14,7 @@ import {
   ProviderId,
   reauthenticateWithPopup,
   reauthenticateWithCredential,
-  AuthCredential,
   EmailAuthProvider,
-  EmailAuthCredential,
 } from 'firebase/auth';
 import {
   deleteObject,
