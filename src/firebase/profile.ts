@@ -125,7 +125,7 @@ const updateEventPhotoUrls = async (uid: string, photoUrl: string | null) => {
   });
 };
 
-export const uploadImage = async (image: File) => {
+export const uploadAvatar = async (image: File) => {
   const user = auth.currentUser;
   try {
     if (user && user.photoURL) {

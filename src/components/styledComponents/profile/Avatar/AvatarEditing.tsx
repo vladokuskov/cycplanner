@@ -1,13 +1,10 @@
 import { faCircleNotch, faClose } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { Button } from '../../Button';
-
-type AvatarEditing = {
-  isUploading: boolean;
-  file: File | null;
-  handleAvatarEditingClose: () => void;
-  handleAvatarUpload: () => void;
-};
+import React, { useRef, useState } from 'react';
+import AvatarEditor from 'react-avatar-editor';
+import { RangeSlider } from '../../RangeSlider';
+import { AvatarEditing } from '@/components/types/props/avatarEditing.types';
 
 const AvatarEditingWindowWrapper = styled.div`
   position: fixed;
@@ -50,42 +47,55 @@ const AvatarEditingHeader = styled.div`
 
 const AvatarEditingBody = styled.div`
   width: 100%;
-  height: 8rem;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 0.2rem;
 `;
 
 const AvatarEditingFooter = styled.div`
   width: 100%;
+  height: 100%;
   border-top: 0.015rem solid #e7e7e7;
-`;
-
-const AvatarImage = styled.img`
-  max-width: 100%;
-  height: 6rem;
-  width: 6rem;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 50%;
-  box-shadow: 0 0 0 0.2rem #fff, 0 0 0.2rem 0.3rem #888888a2;
 `;
 
 const AvatarEditing = ({
   isUploading,
-  file,
+  initialImage,
   handleAvatarEditingClose,
   handleAvatarUpload,
 }: AvatarEditing) => {
-  const tempAvatarUrl = file ? URL.createObjectURL(file) : undefined;
+  const tempAvatarUrl = initialImage
+    ? URL.createObjectURL(initialImage)
+    : undefined;
+  const editorRef = useRef<AvatarEditor | null>(null);
+  const [scale, setScale] = useState<number>(1);
+
+  const saveChanges = () => {
+    if (editorRef.current && initialImage) {
+      const canvas = editorRef.current.getImageScaledToCanvas();
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const changedImage = new File([blob], initialImage.name, {
+            type: initialImage.type,
+          });
+          handleAvatarUpload(changedImage);
+        }
+      }, initialImage.type);
+    }
+  };
+
+  const handleScaleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setScale(+e.target.value);
+  };
 
   return (
     <AvatarEditingWindowWrapper>
       <AvatarEditingWindow>
         <AvatarEditingHeader>
-          <AvatarEditingTitle>
-            Preview your new profile picture
-          </AvatarEditingTitle>
+          <AvatarEditingTitle>Crop your new profile picture</AvatarEditingTitle>
           <Button
             variant="icon"
             icon={faClose}
@@ -94,14 +104,34 @@ const AvatarEditing = ({
           />
         </AvatarEditingHeader>
         <AvatarEditingBody>
-          <AvatarImage src={tempAvatarUrl} alt=""></AvatarImage>
+          {tempAvatarUrl && (
+            <AvatarEditor
+              ref={editorRef}
+              image={tempAvatarUrl}
+              width={200}
+              height={200}
+              border={50}
+              borderRadius={100}
+              color={[255, 255, 255, 0.6]}
+              scale={scale}
+              rotate={0}
+            />
+          )}
+          <RangeSlider
+            step={0.1}
+            startValue={1}
+            endValue={3}
+            value={scale}
+            onChange={handleScaleChange}
+            label="Scale"
+          />
         </AvatarEditingBody>
         <AvatarEditingFooter>
           <Button
             variant="filled"
-            text={isUploading ? undefined : 'Set new profile picture'}
+            text={isUploading ? 'Saving changes' : 'Set new profile picture'}
             icon={isUploading ? faCircleNotch : null}
-            onClick={handleAvatarUpload}
+            onClick={saveChanges}
             size="sm2"
             full
             disabled={isUploading}

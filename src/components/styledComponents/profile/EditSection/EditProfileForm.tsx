@@ -78,7 +78,7 @@ const EditProfileForm = () => {
       )}
       <Button
         buttonType="submit"
-        text={isSaving ? undefined : 'Save Changes'}
+        text={isSaving ? 'Saving' : 'Save Changes'}
         icon={isSaving ? faCircleNotch : null}
         rotate={isSaving}
         disabled={
