@@ -43,7 +43,9 @@ const ProfileInformationSection = () => {
             <EditPasswordForm />
           </ProfileSubSection>
         </InformationEditWrapper>
-        <PhotoSection />
+        <ProfileSubSection title="User photo">
+          <PhotoSection />
+        </ProfileSubSection>
       </InformationSectionWrapper>
     </ProfileSection>
   );

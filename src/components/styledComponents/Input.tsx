@@ -46,7 +46,7 @@ const Label = styled.label<Input>`
   position: absolute;
   font-family: 'Roboto';
   ${({ variant }) =>
-    variant === 'outlined'
+    variant !== 'auth' && variant !== 'auth-pass'
       ? css`
           letter-spacing: -0.025em;
           font-weight: 400;
@@ -54,7 +54,7 @@ const Label = styled.label<Input>`
           font-size: 0.9rem;
           line-height: 31px;
           top: -1.7rem;
-          color: rgba(32, 32, 32, 0.77);
+          color: rgba(72, 72, 72, 0.77);
         `
       : (variant === 'auth' || variant === 'auth-pass') &&
         css`
