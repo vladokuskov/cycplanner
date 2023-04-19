@@ -8,7 +8,7 @@ const StyledContainer = styled.div<ContainerVariant>`
       width: 100%;
       height: 100%;
       max-width: 75rem;
-      min-height: 100vh;
+      min-height: 87vh;
       margin: 0 auto;
       background-color: #fbfbfb;
       display: flex;

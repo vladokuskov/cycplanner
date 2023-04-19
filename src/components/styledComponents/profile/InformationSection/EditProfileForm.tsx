@@ -48,9 +48,8 @@ const EditProfileForm = () => {
 
     try {
       await updateProfileName(name);
-      window.location.reload();
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
+      setValidationResponse(err);
     }
 
     setIsSaving(false);
@@ -61,7 +60,11 @@ const EditProfileForm = () => {
   ) => {
     const { name, value } = e.target;
 
-    setEditProfileForm((prev) => ({ ...prev, [name]: value }));
+    if (name === 'name' && value.length > 35) {
+      return null;
+    } else {
+      setEditProfileForm((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   return (

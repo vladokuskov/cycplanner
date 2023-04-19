@@ -57,7 +57,6 @@ export const updateUserPassword = async (
     throw err;
   }
 };
-
 export const updateProfileName = async (name: string) => {
   const user = auth.currentUser;
 
@@ -65,7 +64,7 @@ export const updateProfileName = async (name: string) => {
     if (user) {
       if (user?.displayName !== name && name.length !== 0) {
         await updateProfile(user, { displayName: name });
-        updateEventNames(user?.uid, name);
+        await updateEventNames(user?.uid, name);
       }
     }
   } catch (err) {
@@ -133,13 +132,12 @@ export const uploadAvatar = async (image: File) => {
       await deleteObject(photoRef);
     }
 
-    // upload new image
     const fileRef = ref(storage, `images/${user?.uid}/${image.name}`);
     await uploadBytes(fileRef, image);
 
     const downloadURL = await getDownloadURL(fileRef);
 
-    user && (await updateEventPhotoUrls(user.uid, downloadURL)); // update with the new downloadURL value
+    user && (await updateEventPhotoUrls(user.uid, downloadURL));
     user && (await updateProfile(user, { photoURL: downloadURL }));
   } catch (err) {
     throw err;
