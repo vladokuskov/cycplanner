@@ -37,6 +37,7 @@ const PhotoSection = () => {
       console.log(err);
     }
     setIsDropdownOpen(false);
+    window.location.reload();
   };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
