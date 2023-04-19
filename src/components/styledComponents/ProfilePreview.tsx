@@ -73,12 +73,25 @@ const PreviewName = styled.p`
   }
 `;
 
+const PreviewInfoWrapper = styled.div`
+  display: grid;
+`;
+const PreviewDescription = styled.p`
+  font-family: 'Roboto';
+  font-size: 0.8rem;
+  line-height: 0.8rem;
+  letter-spacing: 0.029em;
+  font-weight: 400;
+  color: #7e7e7e;
+`;
+
 const ProfilePreviewButton = styled.button``;
 
 const ProfilePreview = ({
   variant,
   photoURL,
   name,
+  description,
   onClick,
 }: ProfilePreview) => {
   return variant === 'no-link' ? (
@@ -92,7 +105,12 @@ const ProfilePreview = ({
           </PhotoPlaceholder>
         )}
       </PhotoWrapper>
-      <PreviewName>{name}</PreviewName>
+      <PreviewInfoWrapper>
+        <PreviewName>{name}</PreviewName>
+        {description && description.length !== 0 && (
+          <PreviewDescription>{description}</PreviewDescription>
+        )}
+      </PreviewInfoWrapper>
     </ProfilePreviewWrapper>
   ) : variant === 'button' ? (
     <ProfilePreviewButton onClick={onClick}>
@@ -120,7 +138,14 @@ const ProfilePreview = ({
             </PhotoPlaceholder>
           )}
         </PhotoWrapper>
-        {(variant !== 'photo' || !name) && <PreviewName>{name}</PreviewName>}
+        {(variant !== 'photo' || !name) && (
+          <PreviewInfoWrapper>
+            <PreviewName>{name}</PreviewName>
+            {description && description.length !== 0 && (
+              <PreviewDescription>{description}</PreviewDescription>
+            )}
+          </PreviewInfoWrapper>
+        )}
       </ProfilePreviewWrapper>
     </Link>
   );

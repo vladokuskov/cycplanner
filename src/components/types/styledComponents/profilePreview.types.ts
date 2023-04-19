@@ -8,5 +8,6 @@ export type ProfilePreview = {
     | 'button';
   photoURL?: string | null;
   name?: string | null;
+  description?: string | null;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 };

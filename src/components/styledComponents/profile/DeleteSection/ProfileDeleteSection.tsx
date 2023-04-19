@@ -2,7 +2,6 @@ import { useAuth } from '@/context/AuthContext';
 import { deleteUser } from 'firebase/auth';
 import styled from 'styled-components';
 import { Button } from '../../Button';
-import { Title } from '../StyledProfile';
 
 const ProfileDeleteSectionWrapper = styled.section`
   width: 100%;
@@ -34,7 +33,6 @@ const ProfileDeleteSection = () => {
 
   return (
     <ProfileDeleteSectionWrapper>
-      <Title>Danger Zone</Title>
       <Button
         text="Delete account"
         variant="danger"

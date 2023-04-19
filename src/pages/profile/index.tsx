@@ -3,19 +3,17 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 import StyledContainer from '@/components/styledComponents/StyledContainer';
-import { PhotoSection } from '@/components/styledComponents/profile/Avatar/AvatarSection';
-import { PageSeparator } from '@/components/styledComponents/PageSeparator';
-import {
-  ProfileEditingSection,
-  Title,
-} from '@/components/styledComponents/profile/StyledProfile';
-import { EditSection } from '@/components/styledComponents/profile/EditSection/EditSection';
-import { ProfileDeleteSection } from '@/components/styledComponents/profile/DeleteSection/ProfileDeleteSection';
+import { useState } from 'react';
+import { ProfileSidebar } from '@/components/styledComponents/profile/ProfileSidebar';
+import { ProfileMainSection } from '@/components/styledComponents/profile/MainSection/ProfileMainSection';
+import { ProfileSections } from '@/components/types/props/Profile/profile';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {
     ssr: false,
   });
+  const [activeSection, setActiveSection] =
+    useState<ProfileSections>('information');
 
   return (
     <PrivateRoute>
@@ -24,13 +22,13 @@ export default function Web() {
           <title>cycplanner - Profile</title>
         </Head>
         <StyledContainer variant="page">
-          <Title>My profile</Title>
-          <ProfileEditingSection>
-            <PhotoSection />
-            <EditSection />
-          </ProfileEditingSection>
-          <PageSeparator />
-          <ProfileDeleteSection />
+          <StyledContainer variant="profile-page">
+            <ProfileSidebar
+              changeSection={(section) => setActiveSection(section)}
+              activeSection={activeSection}
+            />
+            <ProfileMainSection acitveSection={activeSection} />
+          </StyledContainer>
         </StyledContainer>
       </DynamicLayout>
     </PrivateRoute>

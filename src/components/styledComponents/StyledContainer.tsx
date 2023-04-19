@@ -37,6 +37,28 @@ const StyledContainer = styled.div<ContainerVariant>`
         grid-template-columns: 3fr 7fr;
       }
     `}
+
+    ${({ variant }) =>
+    variant === 'profile-page' &&
+    css`
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+      grid-template-areas:
+        'main'
+        'sidebar-left';
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      @media (min-width: 680px) {
+        grid-template-columns: 2fr 7fr;
+        grid-template-rows: auto;
+        grid-template-areas:
+          'main'
+          'sidebar-left';
+      }
+    `}
 `;
 
 export const StyledPageContainer = styled.div`
