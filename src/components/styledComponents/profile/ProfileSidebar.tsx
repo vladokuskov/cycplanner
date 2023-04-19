@@ -7,11 +7,11 @@ import { ProfilePreview } from '../ProfilePreview';
 
 const SidebarWrapper = styled.div`
   width: 100%;
-  height: 100%;
   padding: 1rem;
   border-bottom: 0.05rem solid #d3d3d3;
   @media (min-width: 680px) {
     border-bottom: none;
+    height: 100%;
   }
 `;
 
