@@ -16,13 +16,13 @@ import {
   ImageInput,
 } from './StyledAvatarSection';
 import { AvatarEditing } from './AvatarEditing';
-import { removeProfilePicture, uploadImage } from '@/firebase/profile';
+import { removeProfilePicture, uploadAvatar } from '@/firebase/profile';
 
 const PhotoSection = () => {
   const { user } = useAuth();
   const inputRef = useRef<HTMLInputElement>(null);
-  const uploadPhotoRef = useRef<HTMLDivElement>(null);
-  const [file, setFile] = useState<File | null>(null);
+  const uploadAvatarRef = useRef<HTMLDivElement>(null);
+  const [initialImage, setInitialImage] = useState<File | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [isAvatarEditing, setIsAvatarEditing] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false);
@@ -42,7 +42,7 @@ const PhotoSection = () => {
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && user) {
       const image = e.target.files[0];
-      setFile(image);
+      setInitialImage(image);
       setIsAvatarEditing(true);
     }
   };
@@ -57,25 +57,25 @@ const PhotoSection = () => {
 
   const handleAvatarEditingClose = () => {
     setIsAvatarEditing(false);
-    setFile(null);
+    setInitialImage(null);
   };
 
-  const handleAvatarUpload = async (image: File) => {
+  const handleAvatarUpload = async (changedImage: File) => {
     setIsUploading(true);
-    if (file) {
-      await uploadImage(image);
+    if (initialImage) {
+      await uploadAvatar(changedImage);
     }
     setIsUploading(false);
     setIsAvatarEditing(false);
-    setFile(null);
+    setInitialImage(null);
   };
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
       if (
         isDropdownOpen &&
-        uploadPhotoRef.current &&
-        !uploadPhotoRef.current.contains(e.target as Node)
+        uploadAvatarRef.current &&
+        !uploadAvatarRef.current.contains(e.target as Node)
       ) {
         setIsDropdownOpen((prev) => !prev);
       }
@@ -89,7 +89,7 @@ const PhotoSection = () => {
   return (
     <AvatarSectioWrapper>
       <AvatarChangingWrapper>
-        <AvatarWrapper ref={uploadPhotoRef}>
+        <AvatarWrapper ref={uploadAvatarRef}>
           <AvatarUpload
             isDropdownOpen={isDropdownOpen}
             role="button"
@@ -144,7 +144,7 @@ const PhotoSection = () => {
       {isAvatarEditing && (
         <AvatarEditing
           isUploading={isUploading}
-          file={file}
+          initialImage={initialImage}
           handleAvatarEditingClose={handleAvatarEditingClose}
           handleAvatarUpload={handleAvatarUpload}
         />
