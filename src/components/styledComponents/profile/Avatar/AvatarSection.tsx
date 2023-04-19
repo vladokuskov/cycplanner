@@ -68,6 +68,7 @@ const PhotoSection = () => {
     setIsUploading(false);
     setIsAvatarEditing(false);
     setInitialImage(null);
+    window.location.reload();
   };
 
   useEffect(() => {
