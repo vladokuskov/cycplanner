@@ -60,10 +60,10 @@ const PhotoSection = () => {
     setFile(null);
   };
 
-  const handleAvatarUpload = async () => {
+  const handleAvatarUpload = async (image: File) => {
     setIsUploading(true);
     if (file) {
-      await uploadImage(file);
+      await uploadImage(image);
     }
     setIsUploading(false);
     setIsAvatarEditing(false);
