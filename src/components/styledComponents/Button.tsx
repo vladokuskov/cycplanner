@@ -242,7 +242,21 @@ const StyledButton = styled.button<Button>`
             background-color: #d6eeb6;
           }
         `
-      : ''}
+      : disabled &&
+        variant === 'text-icon' &&
+        css`
+          background-color: rgba(225, 225, 225, 0.26);
+          color: #c8c8c8;
+          &:hover,
+          &:focus {
+            background-color: rgba(225, 225, 225, 0.26);
+            color: #c8c8c8;
+          }
+          &:active {
+            background-color: rgba(225, 225, 225, 0.26);
+            color: #c8c8c8;
+          }
+        `}
 `;
 
 const ButtonText = styled.span``;
