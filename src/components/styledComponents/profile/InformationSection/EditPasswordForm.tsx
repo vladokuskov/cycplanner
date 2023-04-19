@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Button } from '../../Button';
 import { Input } from '../../Input';
 import { updateUserPassword } from '@/firebase/profile';
-import { FailedText, SubTitle } from '../StyledProfile';
+import { FailedText } from '../StyledProfile';
 import { convertFirebaseError } from '@/utils/convertFirebaseError';
 
 const Form = styled.form`
@@ -19,6 +19,9 @@ const Form = styled.form`
   gap: 0.8rem;
   button {
     align-self: flex-end;
+  }
+  @media (max-width: 525px) {
+    max-width: 100%;
   }
 `;
 
@@ -71,7 +74,6 @@ const EditPasswordForm = () => {
 
   return (
     <Form onSubmit={handleSave}>
-      <SubTitle>Change password</SubTitle>
       <Input
         fieldType="text"
         value={editPasswordForm.oldPassword}

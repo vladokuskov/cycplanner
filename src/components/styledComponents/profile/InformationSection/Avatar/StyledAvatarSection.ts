@@ -1,28 +1,17 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 
-export const SubTitle = styled.h3`
-  text-align: center;
-  width: 100%;
-  color: #2c2c2c50;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1rem;
-  line-height: 1rem;
-`;
-
 export const AvatarSectioWrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
-  padding: 1rem;
+  height: 100%;
+  margin-right: 2.5rem;
 `;
 
 export const AvatarChangingWrapper = styled.div`
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
   widows: 100%;
   display: flex;
   flex-direction: column;

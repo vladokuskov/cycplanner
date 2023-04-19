@@ -1,6 +1,6 @@
 import { useAuth } from '@/context/AuthContext';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { Icon } from '../../Icon';
+import { Icon } from '../../../Icon';
 import { useEffect, useRef, useState } from 'react';
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import {
@@ -33,11 +33,11 @@ const PhotoSection = () => {
         'Are you sure you want to delete your user profile photo?'
       );
       result && (await removeProfilePicture());
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }
     setIsDropdownOpen(false);
-    window.location.reload();
   };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {

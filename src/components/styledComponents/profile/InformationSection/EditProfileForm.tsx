@@ -5,7 +5,7 @@ import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { Button } from '../../Button';
 import { Input } from '../../Input';
-import { FailedText, SubTitle } from '../StyledProfile';
+import { FailedText } from '../StyledProfile';
 
 const Form = styled.form`
   width: 100%;
@@ -17,6 +17,9 @@ const Form = styled.form`
   gap: 0.8rem;
   button {
     align-self: flex-end;
+  }
+  @media (max-width: 525px) {
+    max-width: 100%;
   }
 `;
 
@@ -62,7 +65,6 @@ const EditProfileForm = () => {
 
   return (
     <Form onSubmit={handleSave}>
-      <SubTitle>Edit profile</SubTitle>
       <Input
         fieldType="text"
         value={editProfileForm.name}
