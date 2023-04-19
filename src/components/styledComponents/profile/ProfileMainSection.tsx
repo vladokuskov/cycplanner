@@ -1,7 +1,7 @@
 import { ProfileSections } from '@/components/types/props/Profile/profile';
 import styled from 'styled-components';
-import { ProfileInformationSection } from './ProfileInformationSection';
-import { ProfileSettingsSection } from './ProfileSettingsSection';
+import { ProfileInformationSection } from './InformationSection/ProfileInformationSection';
+import { ProfileSettingsSection } from './SettingsSection/ProfileSettingsSection';
 
 const MainSectionWrapper = styled.section`
   width: 100%;

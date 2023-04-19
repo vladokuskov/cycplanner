@@ -36,6 +36,8 @@ const PhotoWrapper = styled.div`
   justify-content: center;
   width: 2.3rem;
   height: 2.3rem;
+  min-width: 2.3rem;
+  min-height: 2.3rem;
   border: none;
   border-radius: 50%;
   @media (min-width: 680px) {
@@ -49,6 +51,7 @@ const Photo = styled.img`
   border-radius: 50%;
   object-fit: cover;
 `;
+
 const PhotoPlaceholder = styled.div`
   display: flex;
   align-items: center;

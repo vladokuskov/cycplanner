@@ -32,8 +32,10 @@ const PhotoSection = () => {
       const result = window.confirm(
         'Are you sure you want to delete your user profile photo?'
       );
-      result && (await removeProfilePicture());
-      window.location.reload();
+      if (result) {
+        await removeProfilePicture();
+        window.location.reload();
+      }
     } catch (err) {
       console.log(err);
     }

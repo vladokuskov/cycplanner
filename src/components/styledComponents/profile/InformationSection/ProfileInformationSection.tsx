@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { PhotoSection } from './InformationSection/Avatar/AvatarSection';
-import { EditProfileForm } from './InformationSection/EditProfileForm';
-import { ProfileSection, ProfileSubSection } from './StyledProfileSection';
-import { EditPasswordForm } from './InformationSection/EditPasswordForm';
+import { PhotoSection } from './Avatar/AvatarSection';
+import { EditProfileForm } from './EditProfileForm';
+import { ProfileSection, ProfileSubSection } from '../StyledProfileSection';
+import { EditPasswordForm } from './EditPasswordForm';
 
 const InformationSectionWrapper = styled.div`
   width: 100%;
@@ -43,7 +43,7 @@ const ProfileInformationSection = () => {
             <EditPasswordForm />
           </ProfileSubSection>
         </InformationEditWrapper>
-        <ProfileSubSection title="User photo">
+        <ProfileSubSection title="Profile photo">
           <PhotoSection />
         </ProfileSubSection>
       </InformationSectionWrapper>

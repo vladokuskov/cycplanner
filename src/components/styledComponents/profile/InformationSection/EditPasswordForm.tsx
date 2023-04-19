@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useAuth } from '@/context/AuthContext';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { Button } from '../../Button';
@@ -9,7 +8,6 @@ import { FailedText } from '../StyledProfile';
 import { convertFirebaseError } from '@/utils/convertFirebaseError';
 
 const Form = styled.form`
-  margin-top: 1.5rem;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -34,7 +32,6 @@ type EditPasswordForm = {
 const EditPasswordForm = () => {
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [validationResponse, setValidationResponse] = useState<any>('');
-  const { user } = useAuth();
 
   const [editPasswordForm, setEditPasswordForm] = useState<EditPasswordForm>({
     oldPassword: '',

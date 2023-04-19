@@ -48,6 +48,7 @@ const EditProfileForm = () => {
 
     try {
       await updateProfileName(name);
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }
