@@ -5,11 +5,11 @@ import { Button } from '../../Button';
 
 const ProfileDeleteSectionWrapper = styled.section`
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 1rem;
-  margin-bottom: 5rem;
 `;
 
 const ProfileDeleteSection = () => {
