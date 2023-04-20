@@ -7,7 +7,7 @@ import {
 } from '@/firebase/auth';
 
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -43,6 +43,7 @@ export default function Auth({ variant }: AuthPage) {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [confirmationPassword, setConfirmationPassword] = useState<string>('');
   const [isFormValidated, setIsFormValidated] = useState<boolean>(true);
   const [validationResponse, setValidationResponse] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -77,7 +78,10 @@ export default function Auth({ variant }: AuthPage) {
 
     try {
       const isValid = await validateAuth({ email, username, password });
-      if (isValid) {
+      if (isValid && confirmationPassword !== password) {
+        setValidationResponse('Passwords do not match');
+        return null;
+      } else if (isValid) {
         await registerWithEmailAndPassword(username, email, password);
 
         setEmail('');
@@ -101,6 +105,8 @@ export default function Auth({ variant }: AuthPage) {
       setValidationResponse(convertFirebaseError(err.code));
     }
   };
+
+  const isPasswordsEqual = () => confirmationPassword === password;
 
   return (
     <AuthLayoutWrapper>
@@ -179,6 +185,24 @@ export default function Auth({ variant }: AuthPage) {
               required
               danger={!isFormValidated}
             />
+            {variant === 'signup' && (
+              <Input
+                fieldType="password"
+                isPassShowed={showPassword}
+                value={confirmationPassword}
+                variant="auth-pass"
+                icon={faKey}
+                onChange={(
+                  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+                ) => setConfirmationPassword(e.target.value)}
+                onClick={handleTogglePasswordVisibility}
+                label="Repeat password"
+                placeholder="Enter password"
+                full
+                required
+                danger={!isFormValidated || !isPasswordsEqual()}
+              />
+            )}
             {validationResponse.length > 0 && (
               <FailedText>{validationResponse}</FailedText>
             )}

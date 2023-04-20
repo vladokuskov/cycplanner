@@ -9,7 +9,6 @@ import {
   getFirestore,
 } from 'firebase/firestore';
 
-import { getAuth } from 'firebase/auth';
 import {
   GoogleAuthProvider,
   signInWithPopup,
@@ -18,6 +17,7 @@ import {
   sendPasswordResetEmail,
   signOut,
   updateProfile,
+  getAuth,
 } from 'firebase/auth';
 
 export const db = getFirestore(app);
