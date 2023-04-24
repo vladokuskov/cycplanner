@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 import { IEvent } from '../../types/styledComponents/event.types';
 import { ProfilePreview } from '../ProfilePreview';
 import { Button } from '../Button';
@@ -9,9 +10,12 @@ import {
   faUserCircle,
 } from '@fortawesome/free-regular-svg-icons';
 import { useRouter } from 'next/router';
+import { useMemo } from 'react';
+import { SkeletonLoader } from '../skeleton/Skeleton';
 
 const EventWrapper = styled.div`
   max-width: 43rem;
+  min-width: 16rem;
   width: 100%;
   background-color: #f1f1f1;
   border-radius: 10px;
@@ -40,7 +44,6 @@ const EventMainWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 0.5rem;
-
   @media (min-width: 680px) {
     flex-direction: row;
     padding-bottom: 0.5rem;
@@ -57,21 +60,14 @@ const EventContentWrapper = styled.div`
   gap: 0.5rem;
 `;
 
-const EventSeparator = styled.div`
-  opacity: 0.3;
-  width: 80%;
-  height: 0.1rem;
-  padding: 0 1rem;
-  border-radius: 10px;
-  background-color: #9b9b9b;
-  @media (min-width: 680px) {
-    height: 13rem;
-    padding: 0;
-    width: 0.15rem;
-  }
+const EventMapWrapper = styled.div`
+  width: 100%;
+  padding: 1rem;
+  padding-top: 0;
+  height: 13rem;
+  border-radius: 8px;
+  z-index: 1;
 `;
-
-const EventMapWrapper = styled.div``;
 
 const ContentInfoWrapper = styled.div`
   width: 100%;
@@ -147,6 +143,15 @@ const DetailLocation = styled.a`
 const Event = (event: IEvent) => {
   const router = useRouter();
 
+  const Map = useMemo(
+    () =>
+      dynamic(() => import('../EventMap/Map'), {
+        loading: () => <SkeletonLoader variant="event-map" />,
+        ssr: false,
+      }),
+    []
+  );
+
   const shareEvent = () => {
     const baseURL = location.href;
 
@@ -217,7 +222,9 @@ const Event = (event: IEvent) => {
             <Button variant="filled" text="Participate" size="sm2" />
           </ContentButtonsWrapper>
         </EventContentWrapper>
-        <EventMapWrapper></EventMapWrapper>
+        <EventMapWrapper>
+          <Map route={event.route} />
+        </EventMapWrapper>
       </EventMainWrapper>
     </EventWrapper>
   );
