@@ -152,10 +152,11 @@ const Event = (event: IEvent) => {
     []
   );
 
-  const shareEvent = () => {
-    const baseURL = location.href;
-
-    navigator.clipboard.writeText(`${baseURL}event/${event.id}`);
+  const copyEventDetailURL = async () => {
+    const baseURL = window.location.href;
+    if (baseURL) {
+      await navigator.clipboard.writeText(`${baseURL}event/${event.id}`);
+    }
   };
 
   const handleRedirect = () => {
@@ -174,7 +175,7 @@ const Event = (event: IEvent) => {
           variant="icon"
           icon={faShareNodes}
           size="md3"
-          onClick={shareEvent}
+          onClick={copyEventDetailURL}
         />
       </EventHeaderWrapper>
       <EventMainWrapper>
