@@ -22,7 +22,7 @@ export const downloadGPXFile = async (route: GeoPoint[]) => {
   <trk>
     <name>${filename}</name>
     <type>Cycling</type>
-    <trkseg>;
+    <trkseg>
       ${route
         .map((point) => `<trkpt lat="${point.lat}" lon="${point.lon}"></trkpt>`)
         .join('\n\t')}

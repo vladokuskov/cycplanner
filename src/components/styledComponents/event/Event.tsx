@@ -189,7 +189,7 @@ const Event = (event: IEvent) => {
             </EventDetailWrapper>
             <EventDetailWrapper>
               <DetailTitle>Distance:</DetailTitle>
-              <DetailDescription>{event.distance}</DetailDescription>
+              <DetailDescription>{event.distance} km</DetailDescription>
             </EventDetailWrapper>
             <EventDetailWrapper>
               <DetailTitle>Location:</DetailTitle>

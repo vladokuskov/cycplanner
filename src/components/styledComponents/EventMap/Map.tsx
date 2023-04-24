@@ -1,6 +1,6 @@
 import { GeoPoint } from '@/components/types/props/geoPoint.types';
 import { useEffect, useState } from 'react';
-import { MapContainer, Polyline, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, Polyline, TileLayer } from 'react-leaflet';
 import styled from 'styled-components';
 import { SkeletonLoader } from '../skeleton/Skeleton';
 
@@ -39,6 +39,32 @@ const MapOverlayWrapper = styled.div`
 const Map = ({ route }: { route: GeoPoint[] | null | undefined }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [map, setMap] = useState<L.Map | null>(null);
+  const [isMaximized, setIsMaximized] = useState<boolean>(false);
+
+  const startPoint = route?.[0];
+  const finishPoint = route?.[route.length - 1];
+
+  const greenIcon = new L.Icon({
+    iconUrl:
+      'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+    shadowUrl:
+      'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+  });
+
+  const redIcon = new L.Icon({
+    iconUrl:
+      'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+    shadowUrl:
+      'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+  });
 
   useEffect(() => {
     setIsMounted(true);
@@ -60,7 +86,7 @@ const Map = ({ route }: { route: GeoPoint[] | null | undefined }) => {
           variant="icon"
           icon={faCloudDownloadAlt}
           size="md3"
-          text="Download route"
+          text="Download GPX route"
           disabled={!route}
           onClick={() => route && downloadGPXFile(route)}
         />
@@ -85,11 +111,24 @@ const Map = ({ route }: { route: GeoPoint[] | null | undefined }) => {
           borderRadius: '8px',
         }}
         ref={setMap}
+        dragging={false}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        {startPoint && (
+          <Marker
+            position={[+startPoint.lat, +startPoint.lon]}
+            icon={greenIcon}
+          />
+        )}
+        {finishPoint && (
+          <Marker
+            position={[+finishPoint.lat, +finishPoint.lon]}
+            icon={redIcon}
+          />
+        )}
         {route && (
           <Polyline
             positions={route.map((geoPoint) => [+geoPoint.lat, +geoPoint.lon])}
