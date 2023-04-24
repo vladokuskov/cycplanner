@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { Skeleton } from '@/components/types/styledComponents/skeleton.types';
-import { EventSkeleton } from './EventSkeleton';
+import { EventSkeleton, EventSkeletonMap } from './EventSkeleton';
 
 const shimmer = keyframes`
   0% {
@@ -54,14 +54,14 @@ const SkeletonLoader = ({ variant }: Skeleton) => {
             <EventSkeleton key={count} />
           ))}
         </>
+      ) : variant === 'event-events' ? (
+        <>
+          {eventsSkeletons.map((_, count) => (
+            <EventSkeleton key={count} />
+          ))}
+        </>
       ) : (
-        variant === 'event-events' && (
-          <>
-            {eventsSkeletons.map((_, count) => (
-              <EventSkeleton key={count} />
-            ))}
-          </>
-        )
+        variant === 'event-map' && <EventSkeletonMap />
       )}
     </MainSkeletonWrapper>
   );

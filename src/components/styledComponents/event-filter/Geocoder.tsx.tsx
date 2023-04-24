@@ -35,7 +35,7 @@ const GeocoderResultsWrapper = styled.ul`
   border-radius: 8px;
   box-shadow: 0px 5px 15px -1px rgba(0, 0, 0, 0.09);
   background-color: #e5e5e5;
-  z-index: 1;
+  z-index: 2;
 `;
 
 const ResultWrapper = styled.li`

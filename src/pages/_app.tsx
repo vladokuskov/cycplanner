@@ -1,4 +1,5 @@
 import GlobalStyle from '@/styles/GlobalStyle';
+import 'leaflet/dist/leaflet.css';
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 

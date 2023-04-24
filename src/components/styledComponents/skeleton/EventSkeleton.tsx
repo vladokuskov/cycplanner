@@ -1,19 +1,22 @@
 import styled from 'styled-components';
 
-const EventSkeletonWrapper = styled.div`
+export const EventSkeleton = styled.div`
   width: 100%;
   max-width: 43rem;
-  height: 16.5rem;
+  height: calc(16.5rem + 15rem);
   display: flex;
   align-items: flex-start;
   justify-content: center;
   background-color: none;
   gap: 1rem;
   background-color: #d6d6d6ab;
+  @media (min-width: 680px) {
+    height: 16.5rem;
+  }
 `;
 
-const EventSkeleton = () => {
-  return <EventSkeletonWrapper></EventSkeletonWrapper>;
-};
-
-export { EventSkeleton };
+export const EventSkeletonMap = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #d6d6d6ab;
+`;
