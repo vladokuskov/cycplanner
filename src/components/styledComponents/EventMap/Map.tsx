@@ -1,23 +1,24 @@
-import { GeoPoint } from '@/components/types/props/geoPoint.types';
-import { useEffect, useState } from 'react';
 import { MapContainer, Marker, Polyline, TileLayer } from 'react-leaflet';
-import styled from 'styled-components';
-import { SkeletonLoader } from '../skeleton/Skeleton';
-
 import * as L from 'leaflet';
+import { useEffect, useState } from 'react';
+import { downloadGPXFile } from '@/utils/downloadRoute';
+
+import { SkeletonLoader } from '../skeleton/Skeleton';
 import { Button } from '../Button';
 import {
   faCloudDownloadAlt,
+  faCompress,
   faExpand,
 } from '@fortawesome/free-solid-svg-icons';
-import { downloadGPXFile } from '@/utils/downloadRoute';
+import styled, { css } from 'styled-components';
+import { EventMap } from '@/components/types/styledComponents/eventMap.types';
 
 const MapWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
 `;
-const MapOverlayWrapper = styled.div`
+const MapOverlayWrapper = styled.div<{ isMapMaximized: boolean }>`
   position: absolute;
   display: flex;
   justify-content: space-between;
@@ -34,41 +35,50 @@ const MapOverlayWrapper = styled.div`
     #dcdcdcca 0%,
     rgba(217, 217, 217, 0) 100%
   );
+  ${({ isMapMaximized }) =>
+    isMapMaximized &&
+    css`
+      background: linear-gradient(
+        180deg,
+        #dcdcdcca 30%,
+        rgba(217, 217, 217, 0) 100%
+      );
+      height: 2.5rem;
+    `}
 `;
 
-const Map = ({ route }: { route: GeoPoint[] | null | undefined }) => {
+const greenIcon = new L.Icon({
+  iconUrl:
+    'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+  shadowUrl:
+    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+const redIcon = new L.Icon({
+  iconUrl:
+    'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+  shadowUrl:
+    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+const Map = ({ route, isMapMaximized, handleMapMaximizing }: EventMap) => {
   const [isMounted, setIsMounted] = useState(false);
   const [map, setMap] = useState<L.Map | null>(null);
-  const [isMaximized, setIsMaximized] = useState<boolean>(false);
-
-  const startPoint = route?.[0];
-  const finishPoint = route?.[route.length - 1];
-
-  const greenIcon = new L.Icon({
-    iconUrl:
-      'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-    shadowUrl:
-      'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41],
-  });
-
-  const redIcon = new L.Icon({
-    iconUrl:
-      'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
-    shadowUrl:
-      'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41],
-  });
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  const startPoint = route?.[0];
+  const finishPoint = route?.[route.length - 1];
 
   useEffect(() => {
     if (isMounted && map && route) {
@@ -77,11 +87,11 @@ const Map = ({ route }: { route: GeoPoint[] | null | undefined }) => {
       );
       map.fitBounds(bounds);
     }
-  }, [isMounted, route, map]);
+  }, [isMounted, route, map, isMapMaximized]);
 
   return isMounted ? (
     <MapWrapper>
-      <MapOverlayWrapper>
+      <MapOverlayWrapper isMapMaximized={isMapMaximized}>
         <Button
           variant="icon"
           icon={faCloudDownloadAlt}
@@ -90,18 +100,20 @@ const Map = ({ route }: { route: GeoPoint[] | null | undefined }) => {
           disabled={!route}
           onClick={() => route && downloadGPXFile(route)}
         />
+
         <Button
           variant="icon"
-          icon={faExpand}
+          icon={!isMapMaximized ? faExpand : faCompress}
           size="md3"
-          text="Maximize map"
+          text={!isMapMaximized ? 'Maximize map' : 'Minimize map'}
           disabled={!route}
+          onClick={() => handleMapMaximizing()}
         />
       </MapOverlayWrapper>
       <MapContainer
         attributionControl={false}
         zoomControl={false}
-        scrollWheelZoom={false}
+        scrollWheelZoom={true}
         center={[50, 30]}
         zoom={13}
         style={{
@@ -111,7 +123,7 @@ const Map = ({ route }: { route: GeoPoint[] | null | undefined }) => {
           borderRadius: '8px',
         }}
         ref={setMap}
-        dragging={false}
+        dragging={true}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import dynamic from 'next/dynamic';
 import { IEvent } from '../../types/styledComponents/event.types';
 import { ProfilePreview } from '../ProfilePreview';
@@ -10,10 +10,11 @@ import {
   faUserCircle,
 } from '@fortawesome/free-regular-svg-icons';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { SkeletonLoader } from '../skeleton/Skeleton';
 
 const EventWrapper = styled.div`
+  position: relative;
   max-width: 43rem;
   min-width: 16rem;
   width: 100%;
@@ -60,13 +61,29 @@ const EventContentWrapper = styled.div`
   gap: 0.5rem;
 `;
 
-const EventMapWrapper = styled.div`
+const MapPlaceholder = styled.div`
   width: 100%;
-  padding: 1rem;
-  padding-top: 0;
+  padding: 0 1rem 1rem 1rem;
+  height: 13rem;
+  border-radius: 8px;
+`;
+
+const EventMapWrapper = styled.div<{ isMapMaximized: boolean }>`
+  width: 100%;
+  padding: 0 1rem 1rem 1rem;
   height: 13rem;
   border-radius: 8px;
   z-index: 1;
+  ${({ isMapMaximized }) =>
+    isMapMaximized &&
+    css`
+      padding: 0.3rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    `}
 `;
 
 const ContentInfoWrapper = styled.div`
@@ -142,6 +159,11 @@ const DetailLocation = styled.a`
 
 const Event = (event: IEvent) => {
   const router = useRouter();
+  const [isMapMaximized, setIsMapMaximized] = useState<boolean>(false);
+
+  const handleMapMaximizing = () => {
+    setIsMapMaximized((prev) => !prev);
+  };
 
   const Map = useMemo(
     () =>
@@ -223,9 +245,14 @@ const Event = (event: IEvent) => {
             <Button variant="filled" text="Participate" size="sm2" />
           </ContentButtonsWrapper>
         </EventContentWrapper>
-        <EventMapWrapper>
-          <Map route={event.route} />
+        <EventMapWrapper isMapMaximized={isMapMaximized}>
+          <Map
+            route={event.route}
+            isMapMaximized={isMapMaximized}
+            handleMapMaximizing={handleMapMaximizing}
+          />
         </EventMapWrapper>
+        {isMapMaximized && <MapPlaceholder />}
       </EventMainWrapper>
     </EventWrapper>
   );
