@@ -4,12 +4,13 @@ import { MapContainer, Polyline, TileLayer } from 'react-leaflet';
 import styled from 'styled-components';
 import { SkeletonLoader } from '../skeleton/Skeleton';
 
-import * as L from 'leaflet'; // Leaflet import
+import * as L from 'leaflet';
 import { Button } from '../Button';
 import {
   faCloudDownloadAlt,
   faExpand,
 } from '@fortawesome/free-solid-svg-icons';
+import { downloadGPXFile } from '@/utils/downloadRoute';
 
 const MapWrapper = styled.div`
   position: relative;
@@ -61,6 +62,7 @@ const Map = ({ route }: { route: GeoPoint[] | null | undefined }) => {
           size="md3"
           text="Download route"
           disabled={!route}
+          onClick={() => route && downloadGPXFile(route)}
         />
         <Button
           variant="icon"
