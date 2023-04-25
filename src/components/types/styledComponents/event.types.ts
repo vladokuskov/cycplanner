@@ -11,6 +11,7 @@ export interface IEvent {
     likes?: number;
     createdAt?: number;
   };
+  bookmarkedUsers?: [];
   title?: string;
   description?: string;
   distance?: string;

@@ -31,9 +31,13 @@ const StyledContainer = styled.div<ContainerVariant>`
       min-height: 100vh;
       margin: 0 auto;
       background-color: #fbfbfb;
-      display: grid;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
       padding: 1rem;
       @media (min-width: 680px) {
+        display: grid;
         grid-template-columns: 3fr 7fr;
       }
     `}

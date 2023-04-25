@@ -1,3 +1,4 @@
+import { EventsFilter } from '@/components/types/props/eventsFilter.types';
 import { GeoPoint } from '@/components/types/props/geoPoint.types';
 import { IEvent } from '@/components/types/styledComponents/event.types';
 import {
@@ -9,8 +10,37 @@ import {
   orderBy,
   limit,
   startAfter,
+  where,
+  doc,
 } from 'firebase/firestore';
+import { auth } from './auth';
+
 import { db } from './firebase';
+
+export const updateEventBookmarks = async (userId: string, eventId: string) => {
+  try {
+    const eventsRef = collection(db, 'events');
+    const q = query(eventsRef, where('event.id', '==', eventId));
+    const snapshot = await getDocs(q);
+
+    snapshot.forEach((event) => {
+      const eventId = event.data().docID;
+      const data = event.data().event;
+      const isBookmarked = data.bookmarkedUsers.includes(userId);
+
+      updateDoc(doc(db, 'events', eventId), {
+        event: {
+          ...data,
+          bookmarkedUsers: isBookmarked
+            ? data.bookmarkedUsers.filter((id: string) => id !== userId)
+            : [...data.bookmarkedUsers, userId],
+        },
+      });
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 export const createEvent = async (event: IEvent) => {
   try {
@@ -47,9 +77,11 @@ export const getLastEvenets = async (
 
 export const getAllEvents = async (
   selectedSorting?: 'oldest' | 'newest',
+  selectedFilter?: EventsFilter,
   pageNumber = 1,
   itemsPerPage = 10
 ) => {
+  const user = auth.currentUser;
   const q = collection(db, 'events');
   const sortingOrder = selectedSorting === 'newest' ? 'desc' : 'asc';
 
@@ -58,6 +90,22 @@ export const getAllEvents = async (
     orderBy('event.metadata.createdAt', sortingOrder),
     limit(itemsPerPage)
   );
+
+  if (selectedFilter === 'favourite' && user) {
+    sortedEvents = query(
+      q,
+      where(`event.bookmarkedUsers`, 'array-contains', user.uid),
+      limit(itemsPerPage)
+    );
+  }
+
+  if (selectedFilter === 'my-events' && user) {
+    sortedEvents = query(
+      q,
+      where(`event.metadata.author.uid`, `==`, user.uid),
+      limit(itemsPerPage)
+    );
+  }
 
   if (pageNumber > 1) {
     const lastEvent = await getDocs(
