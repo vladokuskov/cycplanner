@@ -39,7 +39,7 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { convertFirebaseError } from '@/utils/convertFirebaseError';
 import { FailedText } from '../ProfilePage/StyledProfile.styles';
 
-export default function Auth({ variant }: Auth) {
+const Auth = ({ variant }: Auth) => {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -236,4 +236,6 @@ export default function Auth({ variant }: Auth) {
       </AuthWrapper>
     </AuthLayoutWrapper>
   );
-}
+};
+
+export { Auth };
