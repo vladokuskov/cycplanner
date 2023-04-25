@@ -116,6 +116,12 @@ const ContentButtonsWrapper = styled.div<{ isBookmarked: boolean }>`
       isBookmarked &&
       css`
         color: #e25c5c;
+        &:hover {
+          color: #f37676;
+        }
+        &:active {
+          color: #e25c5c;
+        }
       `}
   }
 `;

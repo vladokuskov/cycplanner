@@ -162,12 +162,11 @@ const StyledButton = styled.button<Button>`
           color: #2c2c2c;
           border: none;
           padding: 0;
-          &:hover,
-          &:focus {
+          &:hover {
             color: #808080;
           }
           &:active {
-            color: #6b6b6b;
+            color: #2c2c2c;
           }
         `
       : variant === 'danger'
