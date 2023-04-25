@@ -1,4 +1,4 @@
-import { ProfileSidebar } from '@/components/types/props/Profile/profile';
+import { ProfileSidebar } from '@/components/types/shared/Profile/profile';
 import { useAuth } from '@/context/AuthContext';
 import { faGear, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';

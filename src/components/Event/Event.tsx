@@ -50,7 +50,7 @@ const Event = (event: IEvent) => {
 
   const Map = useMemo(
     () =>
-      dynamic(() => import('../styledComponents/EventMap/Map'), {
+      dynamic(() => import('../EventMap/Map'), {
         loading: () => <SkeletonLoader variant="event-map" />,
         ssr: false,
       }),

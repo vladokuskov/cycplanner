@@ -4,7 +4,7 @@ import { Button } from '../../../../Button/Button';
 import React, { useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { RangeSlider } from '../../../../RangeSlider/RangeSlider';
-import { AvatarEditing } from '@/components/types/props/Profile/avatarEditing.types';
+import { AvatarEditing } from '@/components/types/shared/Profile/avatarEditing.types';
 
 const AvatarEditingWindowWrapper = styled.div`
   position: fixed;

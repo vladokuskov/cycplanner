@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import PageTitle from '@/components/PageTitle/PageTitle';
 import HomeInfo from '@/components/styledComponents/home/HomeInfo';
-import { EventFilter } from '@/components/styledComponents/event-filter/EventFilter';
+import { EventFilter } from '@/components/EventFilter/EventFilter/EventFilter';
 import { useEffect, useState } from 'react';
 import { IEvent } from '@/components/types/shared/event.types';
 import { getLastEvenets } from '@/firebase/events';
@@ -10,7 +10,7 @@ import Event from '../../Event/Event';
 import { useAppSelector } from '@/store/redux-hooks';
 import geohash from 'ngeohash';
 import { SkeletonLoader } from '../../skeleton/Skeleton';
-import { Loading } from '@/components/types/props/loadingState.types';
+import { Loading } from '@/components/types/shared/loadingState.types';
 import { ErrorMessage } from '../../ErrorMessage/ErrorMessage';
 
 const EventsSectionWrapper = styled.section`

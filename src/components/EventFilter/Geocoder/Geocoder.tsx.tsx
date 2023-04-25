@@ -1,54 +1,19 @@
 import { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import {
+  GeocoderMainWrapper,
+  GeocoderWrapper,
+  GeocoderInputWrapper,
+  GeocoderResultsWrapper,
+  ResultWrapper,
+} from './Geocoder.styles';
 
-import { GeoPoint } from '@/components/types/props/geoPoint.types';
-import { Geocoder } from '@/components/types/props/geocoder.types';
-import { LocationStatus } from '@/components/types/props/geocoder.types';
+import { GeoPoint } from '../../types/shared/geoPoint.types';
+import { Geocoder, LocationStatus } from '../../types/shared/geocoder.types';
 
 import { Button } from '../../Button/Button';
 import { Input } from '../../Input/Input';
-import { SelectorLabel } from './RangePicker';
+import { SelectorLabel } from '../RangePicker/RangePicker.styles';
 import { faCircleNotch, faLocation } from '@fortawesome/free-solid-svg-icons';
-
-const GeocoderMainWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 0.3rem;
-`;
-const GeocoderWrapper = styled.div`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-`;
-const GeocoderInputWrapper = styled.div`
-  width: 100%;
-  position: relative;
-`;
-const GeocoderResultsWrapper = styled.ul`
-  position: absolute;
-  top: 2.2rem;
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: 0px 5px 15px -1px rgba(0, 0, 0, 0.09);
-  background-color: #e5e5e5;
-  z-index: 2;
-`;
-
-const ResultWrapper = styled.li`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid rgb(138, 138, 138);
-  &:last-child {
-    border-bottom: none;
-  }
-`;
 
 const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
   const [reversedLocation, setReversedLocation] = useState<string>('London');

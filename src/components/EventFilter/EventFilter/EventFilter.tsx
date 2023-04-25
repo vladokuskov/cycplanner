@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-
-import Geocoder from './Geocoder.tsx';
-import { SortingPicker } from './SortingPicker';
-import RangePicker from './RangePicker';
+import Geocoder from '../Geocoder/Geocoder.tsx';
+import { SortingPicker } from '../SortingPicker/SortingPicker';
+import RangePicker from '../RangePicker/RangePicker';
+import { FilterWrapper, FilterSelectorsWrapper } from './EventFilter.styles';
 
 import { useAppDispatch, useAppSelector } from '@/store/redux-hooks';
 import {
@@ -11,28 +10,7 @@ import {
   updateRange,
 } from '@/store/filterReducer';
 
-import { GeoPoint } from '@/components/types/props/geoPoint.types';
-
-const FilterWrapper = styled.div`
-  margin-top: 0.5rem;
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
-  gap: 0.8rem;
-  @media (min-width: 680px) {
-    align-items: center;
-  }
-`;
-
-const FilterSelectorsWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  gap: 1rem;
-  align-items: flex-end;
-`;
+import { GeoPoint } from '../../types/shared/geoPoint.types';
 
 const EventFilter = () => {
   const dispatch = useAppDispatch();

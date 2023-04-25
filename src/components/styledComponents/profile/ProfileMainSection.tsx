@@ -1,4 +1,4 @@
-import { ProfileSections } from '@/components/types/props/Profile/profile';
+import { ProfileSections } from '@/components/types/shared/Profile/profile';
 import styled from 'styled-components';
 import { ProfileInformationSection } from './InformationSection/ProfileInformationSection';
 import { ProfileSettingsSection } from './SettingsSection/ProfileSettingsSection';
