@@ -100,7 +100,7 @@ const ContentInfoWrapper = styled.div`
   gap: 0.4rem;
 `;
 
-const ContentButtonsWrapper = styled.div`
+const ContentButtonsWrapper = styled.div<{ isBookmarked: boolean }>`
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   width: 100%;
@@ -110,6 +110,13 @@ const ContentButtonsWrapper = styled.div`
   gap: 1rem;
   @media (min-width: 680px) {
     margin-bottom: 0;
+  }
+  .bookmarkBtn {
+    ${({ isBookmarked }) =>
+      isBookmarked &&
+      css`
+        color: #e25c5c;
+      `}
   }
 `;
 
@@ -254,8 +261,9 @@ const Event = (event: IEvent) => {
               </DetailLocation>
             </EventDetailWrapper>
           </ContentInfoWrapper>
-          <ContentButtonsWrapper>
+          <ContentButtonsWrapper isBookmarked={isBookmarked}>
             <Button
+              className="bookmarkBtn"
               variant="icon"
               icon={isBookmarked ? filledHeart : emptyHeart}
               size="xl2"
