@@ -103,6 +103,11 @@ const MenuFooterButtonsLabel = styled.p`
 const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
   const { user, logoutUser } = useAuth();
 
+  const handleSignOut = () => {
+    logoutUser();
+    router.push(`/login`);
+  };
+
   return (
     <MenuMainWrapper>
       <MenuWrapper sticky={sticky}>
@@ -168,7 +173,7 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
                   text="Sign out"
                   size="sm1"
                   bold
-                  onClick={() => logoutUser()}
+                  onClick={handleSignOut}
                 />
               </MenuFooterButtonsWrapper>
             </>
