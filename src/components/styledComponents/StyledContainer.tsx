@@ -46,16 +46,13 @@ const StyledContainer = styled.div<ContainerVariant>`
     variant === 'profile-page' &&
     css`
       width: 100%;
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: auto auto;
-      grid-template-areas:
-        'main'
-        'sidebar-left';
-      align-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       justify-content: center;
       gap: 2rem;
       @media (min-width: 680px) {
+        display: grid;
         grid-template-columns: 2fr 7fr;
         grid-template-rows: auto;
         grid-template-areas:

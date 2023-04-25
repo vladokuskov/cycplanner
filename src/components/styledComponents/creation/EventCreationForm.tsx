@@ -96,6 +96,7 @@ const EventCreationForm = () => {
       likes: 0,
       createdAt: Date.now(),
     },
+    participating: { submitedUsers: [user ? user.uid : ''], awaitingUsers: [] },
     bookmarkedUsers: [],
     title: '',
     description: '',
@@ -173,6 +174,10 @@ const EventCreationForm = () => {
         },
         likes: 0,
         createdAt: Date.now(),
+      },
+      participating: {
+        submitedUsers: [user ? user.uid : ''],
+        awaitingUsers: [],
       },
       bookmarkedUsers: [],
       title: '',

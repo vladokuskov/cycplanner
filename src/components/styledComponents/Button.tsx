@@ -176,12 +176,14 @@ const StyledButton = styled.button<Button>`
           border: 2px solid #e62e2e;
           &:hover,
           &:focus {
-            color: #ff3737;
+            background-color: #ff3737;
+            color: #ffffff;
             border-color: #ff3737;
           }
           &:active {
-            color: #f13434;
-            border-color: #f13434;
+            background-color: #e62e2e;
+            color: #ffffff;
+            border-color: #e62e2e;
           }
         `
       : ''};

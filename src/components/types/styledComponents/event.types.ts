@@ -11,6 +11,7 @@ export interface IEvent {
     likes?: number;
     createdAt?: number;
   };
+  participating?: { submitedUsers: string[]; awaitingUsers: string[] };
   bookmarkedUsers?: [];
   title?: string;
   description?: string;
@@ -21,4 +22,10 @@ export interface IEvent {
     hash?: string;
   };
   route?: GeoPoint[] | null;
+}
+
+export enum Participating {
+  none,
+  awaiting,
+  participated,
 }

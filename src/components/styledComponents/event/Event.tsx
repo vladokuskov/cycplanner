@@ -1,184 +1,54 @@
-import styled, { css } from 'styled-components';
 import dynamic from 'next/dynamic';
-import { IEvent } from '../../types/styledComponents/event.types';
+import { useRouter } from 'next/router';
+import { useEffect, useMemo, useState } from 'react';
+import {
+  IEvent,
+  Participating,
+} from '../../types/styledComponents/event.types';
+import {
+  DetailLocation,
+  DetailDescription,
+  DetailTitle,
+  EventDetailWrapper,
+  EventDescription,
+  EventTitle,
+  ContentButtonsWrapper,
+  ContentInfoWrapper,
+  EventMapWrapper,
+  MapPlaceholder,
+  EventContentWrapper,
+  EventMainWrapper,
+  EventHeaderWrapper,
+  EventWrapper,
+} from './StyledEvent';
 import { ProfilePreview } from '../ProfilePreview';
 import { Button } from '../Button';
 import {
   faShareNodes,
   faHeart as filledHeart,
+  faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faHeart as emptyHeart,
   faComment,
   faUserCircle,
+  faClockFour,
 } from '@fortawesome/free-regular-svg-icons';
-import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
+
 import { SkeletonLoader } from '../skeleton/Skeleton';
 import { useAuth } from '@/context/AuthContext';
-import { updateEventBookmarks } from '@/firebase/events';
-
-const EventWrapper = styled.div`
-  position: relative;
-  max-width: 43rem;
-  min-width: 16rem;
-  width: 100%;
-  background-color: #f1f1f1;
-  border-radius: 10px;
-  margin-bottom: 1rem;
-  h3,
-  h4,
-  p,
-  a {
-    font-family: 'Roboto';
-    font-style: normal;
-  }
-`;
-
-const EventHeaderWrapper = styled.div`
-  width: 100%;
-  padding: 1rem 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const EventMainWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 0.5rem;
-  @media (min-width: 680px) {
-    flex-direction: row;
-    padding-bottom: 0.5rem;
-  }
-`;
-
-const EventContentWrapper = styled.div`
-  width: 100%;
-  padding: 0.1rem 0.9rem 0.1rem 0.9rem;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
-  gap: 0.5rem;
-`;
-
-const MapPlaceholder = styled.div`
-  width: 100%;
-  padding: 0 1rem 1rem 1rem;
-  height: 13rem;
-  border-radius: 8px;
-`;
-
-const EventMapWrapper = styled.div<{ isMapMaximized: boolean }>`
-  width: 100%;
-  padding: 0 1rem 1rem 1rem;
-  height: 13rem;
-  border-radius: 8px;
-  z-index: 1;
-  ${({ isMapMaximized }) =>
-    isMapMaximized &&
-    css`
-      padding: 0.3rem;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    `}
-`;
-
-const ContentInfoWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
-  gap: 0.4rem;
-`;
-
-const ContentButtonsWrapper = styled.div<{ isBookmarked: boolean }>`
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1rem;
-  @media (min-width: 680px) {
-    margin-bottom: 0;
-  }
-  .bookmarkBtn {
-    ${({ isBookmarked }) =>
-      isBookmarked &&
-      css`
-        color: #e25c5c;
-        &:hover {
-          color: #f37676;
-        }
-        &:active {
-          color: #e25c5c;
-        }
-      `}
-  }
-`;
-
-const EventTitle = styled.h3`
-  font-weight: 500;
-  font-size: 1.3rem;
-  line-height: 23px;
-
-  color: #2c2c2c;
-`;
-
-const EventDescription = styled.p`
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.2rem;
-  color: #656565;
-`;
-
-const EventDetailWrapper = styled.div`
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.2rem;
-`;
-
-const DetailTitle = styled.h4`
-  font-weight: 500;
-  font-size: 1rem;
-  line-height: 1.2rem;
-  color: #454545;
-`;
-const DetailDescription = styled.p`
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.2rem;
-  color: #656565;
-`;
-
-const DetailLocation = styled.a`
-  cursor: pointer;
-  text-decoration: underline;
-  text-decoration-color: #656565;
-  text-underline-offset: 0.1rem;
-  &:hover,
-  &:focus {
-    text-decoration-color: #979797;
-    p {
-      color: #979797;
-    }
-  }
-`;
+import {
+  updateEventBookmarks,
+  updateEventParticipating,
+} from '@/firebase/events';
 
 const Event = (event: IEvent) => {
   const router = useRouter();
   const { user } = useAuth();
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
+  const [participatingStatus, setParticipatingStatus] = useState<Participating>(
+    Participating.none
+  );
   const [isMapMaximized, setIsMapMaximized] = useState<boolean>(false);
 
   const Map = useMemo(
@@ -197,7 +67,28 @@ const Event = (event: IEvent) => {
         setIsBookmarked(isBookmarked);
       }
     };
+
+    const checkIsParticipated = async () => {
+      if (user && user.uid && event.participating?.submitedUsers) {
+        const isParticipated = event.participating?.submitedUsers.includes(
+          user.uid as never
+        );
+        const isAwaiting = event.participating?.awaitingUsers.includes(
+          user.uid as never
+        );
+        if (isParticipated) {
+          setParticipatingStatus(Participating.participated);
+        } else if (isAwaiting) {
+          setParticipatingStatus(Participating.awaiting);
+        }
+      } else if (!user) {
+        setParticipatingStatus(Participating.none);
+      }
+    };
+
     checkIsBookmarked();
+
+    checkIsParticipated();
   }, [user]);
 
   const handleMapMaximizing = () => {
@@ -219,6 +110,22 @@ const Event = (event: IEvent) => {
     if (user && event.id) {
       await updateEventBookmarks(user?.uid, event.id);
       setIsBookmarked((prev) => !prev);
+    } else if (!user) {
+      router.push('/login');
+    }
+  };
+
+  const handleParticipating = async () => {
+    if (user && event.id) {
+      await updateEventParticipating(user?.uid, event.id);
+      if (participatingStatus === Participating.none) {
+        setParticipatingStatus(Participating.awaiting);
+      } else if (
+        participatingStatus === Participating.awaiting ||
+        participatingStatus === Participating.participated
+      ) {
+        setParticipatingStatus(Participating.none);
+      }
     } else if (!user) {
       router.push('/login');
     }
@@ -253,7 +160,7 @@ const Event = (event: IEvent) => {
               <DetailDescription>{event.distance} km</DetailDescription>
             </EventDetailWrapper>
             <EventDetailWrapper>
-              <DetailTitle>Location:</DetailTitle>
+              <DetailTitle>Start location:</DetailTitle>
               <DetailLocation
                 title="View on Google Maps"
                 target="_blank"
@@ -267,7 +174,10 @@ const Event = (event: IEvent) => {
               </DetailLocation>
             </EventDetailWrapper>
           </ContentInfoWrapper>
-          <ContentButtonsWrapper isBookmarked={isBookmarked}>
+          <ContentButtonsWrapper
+            isBookmarked={isBookmarked}
+            participated={participatingStatus}
+          >
             <Button
               className="bookmarkBtn"
               variant="icon"
@@ -287,7 +197,28 @@ const Event = (event: IEvent) => {
               size="xl2"
               onClick={handleRedirectToDetail}
             />
-            <Button variant="filled" text="Participate" size="sm2" />
+            {user?.uid !== event.metadata.author.uid && (
+              <Button
+                className="participateBtn"
+                variant="filled"
+                text={
+                  participatingStatus === Participating.participated
+                    ? 'Participated'
+                    : participatingStatus === Participating.awaiting
+                    ? 'Pending'
+                    : 'Participate'
+                }
+                icon={
+                  participatingStatus === Participating.participated
+                    ? faCheck
+                    : participatingStatus === Participating.awaiting
+                    ? faClockFour
+                    : null
+                }
+                size="sm2"
+                onClick={handleParticipating}
+              />
+            )}
           </ContentButtonsWrapper>
         </EventContentWrapper>
         <EventMapWrapper isMapMaximized={isMapMaximized}>

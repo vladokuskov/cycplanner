@@ -17,6 +17,39 @@ import { auth } from './auth';
 
 import { db } from './firebase';
 
+export const updateEventParticipating = async (
+  userId: string,
+  eventId: string
+) => {
+  try {
+    const eventsRef = collection(db, 'events');
+    const q = query(eventsRef, where('event.id', '==', eventId));
+    const snapshot = await getDocs(q);
+
+    snapshot.forEach((event) => {
+      const eventId = event.data().docID;
+      const data = event.data().event;
+      const isParticipated = data.participating.awaitingUsers.includes(userId);
+
+      updateDoc(doc(db, 'events', eventId), {
+        event: {
+          ...data,
+          participating: {
+            ...data.participating,
+            awaitingUsers: isParticipated
+              ? data.participating.awaitingUsers.filter(
+                  (id: string) => id !== userId
+                )
+              : [...data.participating.awaitingUsers, userId],
+          },
+        },
+      });
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const updateEventBookmarks = async (userId: string, eventId: string) => {
   try {
     const eventsRef = collection(db, 'events');
@@ -95,6 +128,14 @@ export const getAllEvents = async (
     sortedEvents = query(
       q,
       where(`event.bookmarkedUsers`, 'array-contains', user.uid),
+      limit(itemsPerPage)
+    );
+  }
+
+  if (selectedFilter === 'participated' && user) {
+    sortedEvents = query(
+      q,
+      where(`event.participating.submitedUsers`, 'array-contains', user.uid),
       limit(itemsPerPage)
     );
   }
