@@ -99,6 +99,14 @@ export const getAllEvents = async (
     );
   }
 
+  if (selectedFilter === 'my-events' && user) {
+    sortedEvents = query(
+      q,
+      where(`event.metadata.author.uid`, `==`, user.uid),
+      limit(itemsPerPage)
+    );
+  }
+
   if (pageNumber > 1) {
     const lastEvent = await getDocs(
       query(
