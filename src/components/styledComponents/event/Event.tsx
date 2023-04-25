@@ -81,6 +81,8 @@ const Event = (event: IEvent) => {
         } else if (isAwaiting) {
           setParticipatingStatus(Participating.awaiting);
         }
+      } else if (!user) {
+        setParticipatingStatus(Participating.none);
       }
     };
 
