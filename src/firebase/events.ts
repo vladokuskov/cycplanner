@@ -1,3 +1,4 @@
+import { EventsFilter } from '@/components/types/props/eventsFilter.types';
 import { GeoPoint } from '@/components/types/props/geoPoint.types';
 import { IEvent } from '@/components/types/styledComponents/event.types';
 import {
@@ -12,6 +13,7 @@ import {
   where,
   doc,
 } from 'firebase/firestore';
+import { auth } from './auth';
 
 import { db } from './firebase';
 
@@ -75,9 +77,11 @@ export const getLastEvenets = async (
 
 export const getAllEvents = async (
   selectedSorting?: 'oldest' | 'newest',
+  selectedFilter?: EventsFilter,
   pageNumber = 1,
   itemsPerPage = 10
 ) => {
+  const user = auth.currentUser;
   const q = collection(db, 'events');
   const sortingOrder = selectedSorting === 'newest' ? 'desc' : 'asc';
 
@@ -86,6 +90,14 @@ export const getAllEvents = async (
     orderBy('event.metadata.createdAt', sortingOrder),
     limit(itemsPerPage)
   );
+
+  if (selectedFilter === 'favourite' && user) {
+    sortedEvents = query(
+      q,
+      where(`event.bookmarkedUsers`, 'array-contains', user.uid),
+      limit(itemsPerPage)
+    );
+  }
 
   if (pageNumber > 1) {
     const lastEvent = await getDocs(

@@ -62,6 +62,7 @@ const EventsSection = () => {
       try {
         const { events, totalEvents } = await getAllEvents(
           selectedSorting,
+          selectedFilter,
           currentPage,
           10
         );
@@ -75,7 +76,7 @@ const EventsSection = () => {
     };
 
     getEvents();
-  }, [geoPoint, selectedSorting, selectedRange, currentPage]);
+  }, [geoPoint, selectedSorting, selectedRange, currentPage, selectedFilter]);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -86,7 +87,7 @@ const EventsSection = () => {
       <PageTitle>Events</PageTitle>
       <EventFilter />
       <EventsWrapper>
-        {events && (
+        {events && events.length !== 0 && (
           <Pagination
             itemsPerPage={10}
             totalItems={totalEvents}
@@ -99,12 +100,13 @@ const EventsSection = () => {
         ) : loadingState === Loading.success ? (
           <>
             {!events && <ErrorMessage variant="no-events" />}
+            {events?.length === 0 && <ErrorMessage variant="no-events" />}
             {events && events.map((data) => <Event key={data.id} {...data} />)}
           </>
         ) : (
           <ErrorMessage variant="loading" />
         )}
-        {events && events?.length > 1 && (
+        {events && events.length !== 0 && events.length > 2 && (
           <Pagination
             itemsPerPage={10}
             totalItems={totalEvents}
