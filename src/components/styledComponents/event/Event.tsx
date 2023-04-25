@@ -3,15 +3,20 @@ import dynamic from 'next/dynamic';
 import { IEvent } from '../../types/styledComponents/event.types';
 import { ProfilePreview } from '../ProfilePreview';
 import { Button } from '../Button';
-import { faShareNodes } from '@fortawesome/free-solid-svg-icons';
 import {
-  faHeart,
+  faShareNodes,
+  faHeart as filledHeart,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faHeart as emptyHeart,
   faComment,
   faUserCircle,
 } from '@fortawesome/free-regular-svg-icons';
 import { useRouter } from 'next/router';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { SkeletonLoader } from '../skeleton/Skeleton';
+import { useAuth } from '@/context/AuthContext';
+import { updateEventBookmarks } from '@/firebase/events';
 
 const EventWrapper = styled.div`
   position: relative;
@@ -159,11 +164,9 @@ const DetailLocation = styled.a`
 
 const Event = (event: IEvent) => {
   const router = useRouter();
+  const { user } = useAuth();
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const [isMapMaximized, setIsMapMaximized] = useState<boolean>(false);
-
-  const handleMapMaximizing = () => {
-    setIsMapMaximized((prev) => !prev);
-  };
 
   const Map = useMemo(
     () =>
@@ -174,6 +177,20 @@ const Event = (event: IEvent) => {
     []
   );
 
+  useEffect(() => {
+    const checkIsBookmarked = async () => {
+      if (user && user.uid && event.bookmarkedUsers) {
+        const isBookmarked = event.bookmarkedUsers.includes(user.uid as never);
+        setIsBookmarked(isBookmarked);
+      }
+    };
+    checkIsBookmarked();
+  }, [user]);
+
+  const handleMapMaximizing = () => {
+    setIsMapMaximized((prev) => !prev);
+  };
+
   const copyEventDetailURL = async () => {
     const baseURL = window.location.href;
     if (baseURL) {
@@ -181,8 +198,17 @@ const Event = (event: IEvent) => {
     }
   };
 
-  const handleRedirect = () => {
+  const handleRedirectToDetail = () => {
     router.push(`event/${event.id}`);
+  };
+
+  const handleBookmaring = async () => {
+    if (user && event.id) {
+      await updateEventBookmarks(user?.uid, event.id);
+      setIsBookmarked((prev) => !prev);
+    } else if (!user) {
+      router.push('/login');
+    }
   };
 
   return (
@@ -229,18 +255,23 @@ const Event = (event: IEvent) => {
             </EventDetailWrapper>
           </ContentInfoWrapper>
           <ContentButtonsWrapper>
-            <Button variant="icon" icon={faHeart} size="xl2" />
+            <Button
+              variant="icon"
+              icon={isBookmarked ? filledHeart : emptyHeart}
+              size="xl2"
+              onClick={handleBookmaring}
+            />
             <Button
               variant="icon"
               icon={faComment}
               size="xl2"
-              onClick={handleRedirect}
+              onClick={handleRedirectToDetail}
             />
             <Button
               variant="icon"
               icon={faUserCircle}
               size="xl2"
-              onClick={handleRedirect}
+              onClick={handleRedirectToDetail}
             />
             <Button variant="filled" text="Participate" size="sm2" />
           </ContentButtonsWrapper>

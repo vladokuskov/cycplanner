@@ -9,8 +9,36 @@ import {
   orderBy,
   limit,
   startAfter,
+  where,
+  doc,
 } from 'firebase/firestore';
+
 import { db } from './firebase';
+
+export const updateEventBookmarks = async (userId: string, eventId: string) => {
+  try {
+    const eventsRef = collection(db, 'events');
+    const q = query(eventsRef, where('event.id', '==', eventId));
+    const snapshot = await getDocs(q);
+
+    snapshot.forEach((event) => {
+      const eventId = event.data().docID;
+      const data = event.data().event;
+      const isBookmarked = data.bookmarkedUsers.includes(userId);
+
+      updateDoc(doc(db, 'events', eventId), {
+        event: {
+          ...data,
+          bookmarkedUsers: isBookmarked
+            ? data.bookmarkedUsers.filter((id: string) => id !== userId)
+            : [...data.bookmarkedUsers, userId],
+        },
+      });
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 export const createEvent = async (event: IEvent) => {
   try {
