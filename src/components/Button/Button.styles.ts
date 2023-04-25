@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Button } from './button.types';
+import { Button } from './IButton';
 
 const sizes = {
   sm1: css`

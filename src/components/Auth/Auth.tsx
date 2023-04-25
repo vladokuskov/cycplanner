@@ -37,7 +37,7 @@ import { faArrowLeftLong, faKey } from '@fortawesome/free-solid-svg-icons';
 import { validateAuth } from '@/utils/validateAuth';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { convertFirebaseError } from '@/utils/convertFirebaseError';
-import { FailedText } from '../styledComponents/profile/StyledProfile';
+import { FailedText } from '../ProfilePage/StyledProfile.styles';
 
 export default function Auth({ variant }: Auth) {
   const [username, setUsername] = useState<string>('');

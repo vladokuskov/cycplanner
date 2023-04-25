@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import { ChildrenProps } from '@/components/types/props/routeChildren.types';
+import { ChildrenProps } from '@/components/types/shared/routeChildren.types';
 import { useAuth } from '@/context/AuthContext';
 
 export default function RestrictedRoute({ children }: ChildrenProps) {

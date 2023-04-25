@@ -1,6 +1,6 @@
-import { EventsFilter } from '@/components/types/props/eventsFilter.types';
-import { GeoPoint } from '@/components/types/props/geoPoint.types';
+import { EventsFilter } from '@/components/types/shared/eventsFilter.types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { GeoPoint } from '@/components/types/shared/geoPoint.types';
 
 export interface FilterState {
   range: number;

@@ -1,4 +1,4 @@
-import { GeoPoint } from '@/components/types/props/geoPoint.types';
+import { GeoPoint } from '@/components/types/shared/geoPoint.types';
 import downloadjs from 'downloadjs';
 
 export const downloadGPXFile = async (route: GeoPoint[]) => {

@@ -5,8 +5,8 @@ import Head from 'next/head';
 import StyledContainer from '@/components/StyledContainer/StyledContainer';
 import { useState } from 'react';
 import { ProfileSections } from '@/components/types/shared/Profile/profile';
-import { ProfileSidebar } from '@/components/styledComponents/profile/ProfileSidebar';
-import { ProfileMainSection } from '@/components/styledComponents/profile/ProfileMainSection';
+import { ProfileSidebar } from '@/components/ProfilePage/ProfileSidebar';
+import { ProfileMainSection } from '@/components/ProfilePage/ProfileMainSection';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {

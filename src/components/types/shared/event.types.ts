@@ -1,4 +1,4 @@
-import { GeoPoint } from '../props/geoPoint.types';
+import { GeoPoint } from './geoPoint.types';
 
 export interface IEvent {
   id?: string;

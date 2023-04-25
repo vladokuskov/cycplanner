@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import Navbar from '@/components/styledComponents/navbar/Navbar';
+import Navbar from '@/components/Navigation/NavBar/NavBar';
 import StyledContainer from '@/components/StyledContainer/StyledContainer';
 import Footer from '@/components/Footer/Footer';
 

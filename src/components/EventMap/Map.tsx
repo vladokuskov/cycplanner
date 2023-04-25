@@ -11,7 +11,7 @@ import {
   faExpand,
 } from '@fortawesome/free-solid-svg-icons';
 import { MapWrapper, MapOverlayWrapper } from './Map.styles';
-import { EventMap } from '@/components/types/shared/eventMap.types';
+import { EventMap } from '@/components/EventMap/Map.types';
 
 const greenIcon = new L.Icon({
   iconUrl:

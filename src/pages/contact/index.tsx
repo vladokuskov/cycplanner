@@ -1,9 +1,9 @@
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import StyledContainer from '@/components/StyledContainer/StyledContainer';
-import { BannerSection } from '@/components/styledComponents/contact/BannerSection';
+import { BannerSection } from '@/components/ContactPage/BannerSection/BannerSection';
 import { PageSeparator } from '@/components/PageSeparator/PageSeparator';
-import { FormSection } from '@/components/styledComponents/contact/FormSection';
+import { FormSection } from '@/components/ContactPage/FormSection/FormSection';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {

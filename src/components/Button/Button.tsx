@@ -1,4 +1,4 @@
-import { Button } from './button.types';
+import { Button } from './IButton';
 import { Icon } from '../Icon/Icon';
 import { StyledButton, ButtonIcon, ButtonText } from './Button.styles';
 
