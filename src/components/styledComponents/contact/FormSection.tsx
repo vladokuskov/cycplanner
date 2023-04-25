@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Input } from '../Input';
+import { Input } from '../../Input/Input';
 import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
 import { useState } from 'react';
 import { Button } from '../../Button/Button';

@@ -1,9 +1,9 @@
 import PrivateRoute from '@/modules/PrivateRoute';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import StyledContainer from '@/components/styledComponents/StyledContainer';
+import StyledContainer from '@/components/StyledContainer/StyledContainer';
 import { EventCreationForm } from '@/components/styledComponents/creation/EventCreationForm';
-import { PageSeparator } from '@/components/styledComponents/PageSeparator';
+import { PageSeparator } from '@/components/PageSeparator/PageSeparator';
 import { RandomQuote } from '@/components/styledComponents/creation/RandomQuote';
 
 export default function Web() {

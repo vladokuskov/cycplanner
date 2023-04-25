@@ -1,10 +1,7 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
-import {
-  IEvent,
-  Participating,
-} from '../../types/styledComponents/event.types';
+import { IEvent, Participating } from '../types/shared/event.types';
 import {
   DetailLocation,
   DetailDescription,
@@ -20,9 +17,9 @@ import {
   EventMainWrapper,
   EventHeaderWrapper,
   EventWrapper,
-} from './StyledEvent';
-import { ProfilePreview } from '../ProfilePreview';
-import { Button } from '../../Button/Button';
+} from './Event.styles.ts';
+import { ProfilePreview } from '../ProfilePreview/ProfilePreview';
+import { Button } from '../Button/Button';
 import {
   faShareNodes,
   faHeart as filledHeart,
@@ -53,7 +50,7 @@ const Event = (event: IEvent) => {
 
   const Map = useMemo(
     () =>
-      dynamic(() => import('../EventMap/Map'), {
+      dynamic(() => import('../styledComponents/EventMap/Map'), {
         loading: () => <SkeletonLoader variant="event-map" />,
         ssr: false,
       }),

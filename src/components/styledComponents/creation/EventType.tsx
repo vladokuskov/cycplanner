@@ -1,4 +1,4 @@
-import { IEventType } from '@/components/types/styledComponents/eventType';
+import { IEventType } from '@/components/types/shared/eventType';
 import styled from 'styled-components';
 
 const EventTypeWrapper = styled.div`

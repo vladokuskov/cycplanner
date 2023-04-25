@@ -27,11 +27,4 @@ const ProgressBar = styled.div`
   transform: translate3d(0, 0, 0);
 `;
 
-function Loader() {
-  return (
-    <LoadingBar>
-      <ProgressBar />
-    </LoadingBar>
-  );
-}
-export { Loader };
+export { LoadingBar, ProgressBar };

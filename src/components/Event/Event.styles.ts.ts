@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Participating } from '@/components/types/styledComponents/event.types';
+import { Participating } from '@/components/types/shared/event.types';
 
 const EventWrapper = styled.div`
   position: relative;

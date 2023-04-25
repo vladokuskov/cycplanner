@@ -1,6 +1,4 @@
-import React from 'react';
 import styled from 'styled-components';
-import { IRangeSlider } from '../types/styledComponents/rangeSlider.types';
 
 const RangeSliderWrapper = styled.div`
   display: flex;
@@ -12,7 +10,7 @@ const RangeSliderWrapper = styled.div`
 const Label = styled.label`
   font-family: 'Roboto';
   font-size: 0.9rem;
-  color: #2c2c2c; ;
+  color: #2c2c2c;
 `;
 const StyledRangeSlider = styled.input`
   -webkit-appearance: none;
@@ -63,28 +61,4 @@ const StyledRangeSlider = styled.input`
   }
 `;
 
-const RangeSlider = ({
-  value,
-  startValue,
-  endValue,
-  label,
-  onChange,
-  step,
-}: IRangeSlider) => {
-  return (
-    <RangeSliderWrapper>
-      {label && <Label htmlFor="rangeSlider">{label}</Label>}
-      <StyledRangeSlider
-        name="rangeSlider"
-        type="range"
-        min={startValue}
-        max={endValue}
-        value={value}
-        step={step}
-        onChange={onChange}
-      />
-    </RangeSliderWrapper>
-  );
-};
-
-export { RangeSlider };
+export { StyledRangeSlider, Label, RangeSliderWrapper };

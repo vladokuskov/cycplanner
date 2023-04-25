@@ -3,7 +3,7 @@ import { useAuth } from '@/context/AuthContext';
 import { faGear, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { Button } from '../../Button/Button';
-import { ProfilePreview } from '../ProfilePreview';
+import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
 
 const SidebarWrapper = styled.div`
   width: 100%;

@@ -1,15 +1,12 @@
 import styled, { css } from 'styled-components';
 import Link from 'next/link';
-import {
-  NavMenu,
-  NavbarWrapper,
-} from '@/components/types/styledComponents/navbar.types';
+import { NavMenu, NavbarWrapper } from '@/components/types/shared/navbar.types';
 import { Icon } from '../../Icon/Icon';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '../../Button/Button';
-import { ProfilePreview } from '../ProfilePreview';
+import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
 
 const MenuMainWrapper = styled.aside`
   @media (min-width: 680px) {

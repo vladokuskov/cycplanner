@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useEffect, useRef } from 'react';
 import { Button } from '../../Button/Button';
-import { ProfileMenu } from '@/components/types/styledComponents/profileMenu.types';
+import { ProfileMenu } from '@/components/types/shared/profileMenu.types';
 import { useRouter } from 'next/router';
 import { faPlus, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';

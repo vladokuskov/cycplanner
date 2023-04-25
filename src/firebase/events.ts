@@ -1,6 +1,6 @@
 import { EventsFilter } from '@/components/types/props/eventsFilter.types';
 import { GeoPoint } from '@/components/types/props/geoPoint.types';
-import { IEvent } from '@/components/types/styledComponents/event.types';
+import { IEvent } from '@/components/types/shared/event.types';
 import {
   getDocs,
   query,

@@ -1,4 +1,4 @@
-export type IRangeSlider = {
+export type RangeSlider = {
   value: number;
   startValue: number;
   endValue: number;

@@ -3,8 +3,8 @@ import Head from 'next/head';
 
 import StyledContainer, {
   StyledPageContainer,
-} from '@/components/styledComponents/StyledContainer';
-import { PageSeparator } from '@/components/styledComponents/PageSeparator';
+} from '@/components/StyledContainer/StyledContainer';
+import { PageSeparator } from '@/components/PageSeparator/PageSeparator';
 import { StartSection } from '@/components/styledComponents/home/StartSection';
 import { EventsSection } from '@/components/styledComponents/home/EventsSection';
 

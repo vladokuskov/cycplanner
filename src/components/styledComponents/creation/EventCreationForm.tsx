@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
 import { Button } from '../../Button/Button';
-import { Input } from '../Input';
+import { Input } from '../../Input/Input';
 import { useAuth } from '@/context/AuthContext';
 import { nanoid } from '@reduxjs/toolkit';
 import { FileUploader } from 'react-drag-drop-files';
 import { parseString } from 'xml2js';
 import { GeoPoint } from '../../types/props/geoPoint.types';
 import { createEvent } from '@/firebase/events';
-import { IEvent } from '../../types/styledComponents/event.types';
+import { IEvent } from '../../types/shared/event.types';
 import geohash from 'ngeohash';
 import { EventType } from './EventType';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';

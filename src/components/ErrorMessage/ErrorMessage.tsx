@@ -1,7 +1,7 @@
 import { ErrorMessageWrapper, Title, Description } from './ErrorMessage.styles';
 import { Button } from '../Button/Button';
 import { faRefresh } from '@fortawesome/free-solid-svg-icons';
-import { ErrorMessage } from '../types/styledComponents/errorMesssage.types';
+import { ErrorMessage } from '../types/shared/errorMesssage.types';
 import { useRouter } from 'next/router';
 
 const ErrorMessage = ({ variant }: ErrorMessage) => {

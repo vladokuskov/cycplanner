@@ -2,7 +2,7 @@ import PrivateRoute from '@/modules/PrivateRoute';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
-import StyledContainer from '@/components/styledComponents/StyledContainer';
+import StyledContainer from '@/components/StyledContainer/StyledContainer';
 import { EventsSidebar } from '@/components/styledComponents/events/EventsSidebar';
 import { EventsSection } from '@/components/styledComponents/events/EventsSection';
 

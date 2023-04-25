@@ -6,7 +6,7 @@ import { Geocoder } from '@/components/types/props/geocoder.types';
 import { LocationStatus } from '@/components/types/props/geocoder.types';
 
 import { Button } from '../../Button/Button';
-import { Input } from '../Input';
+import { Input } from '../../Input/Input';
 import { SelectorLabel } from './RangePicker';
 import { faCircleNotch, faLocation } from '@fortawesome/free-solid-svg-icons';
 

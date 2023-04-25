@@ -3,7 +3,7 @@ import * as L from 'leaflet';
 import { useEffect, useState } from 'react';
 import { downloadGPXFile } from '@/utils/downloadRoute';
 
-import { SkeletonLoader } from '../skeleton/Skeleton';
+import { SkeletonLoader } from '../../skeleton/Skeleton';
 import { Button } from '../../Button/Button';
 import {
   faCloudDownloadAlt,
@@ -11,7 +11,7 @@ import {
   faExpand,
 } from '@fortawesome/free-solid-svg-icons';
 import styled, { css } from 'styled-components';
-import { EventMap } from '@/components/types/styledComponents/eventMap.types';
+import { EventMap } from '@/components/types/shared/eventMap.types';
 
 const MapWrapper = styled.div`
   position: relative;

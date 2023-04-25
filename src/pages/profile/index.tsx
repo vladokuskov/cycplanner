@@ -2,7 +2,7 @@ import PrivateRoute from '@/modules/PrivateRoute';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
-import StyledContainer from '@/components/styledComponents/StyledContainer';
+import StyledContainer from '@/components/StyledContainer/StyledContainer';
 import { useState } from 'react';
 import { ProfileSections } from '@/components/types/props/Profile/profile';
 import { ProfileSidebar } from '@/components/styledComponents/profile/ProfileSidebar';

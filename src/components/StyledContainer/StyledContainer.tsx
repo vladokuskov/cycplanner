@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { ContainerVariant } from '../types/styledComponents/container.types';
+import { ContainerVariant } from '../types/shared/container.types';
 
 const StyledContainer = styled.div<ContainerVariant>`
   ${({ variant }) =>

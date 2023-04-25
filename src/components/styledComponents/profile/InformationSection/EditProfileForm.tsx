@@ -4,7 +4,7 @@ import { updateProfileName } from '@/firebase/profile';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { Button } from '../../../Button/Button';
-import { Input } from '../../Input';
+import { Input } from '../../../Input/Input';
 import { FailedText } from '../StyledProfile';
 
 const Form = styled.form`

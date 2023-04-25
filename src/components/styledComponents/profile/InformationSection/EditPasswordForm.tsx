@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { Button } from '../../../Button/Button';
-import { Input } from '../../Input';
+import { Input } from '../../../Input/Input';
 import { updateUserPassword } from '@/firebase/profile';
 import { FailedText } from '../StyledProfile';
 import { convertFirebaseError } from '@/utils/convertFirebaseError';

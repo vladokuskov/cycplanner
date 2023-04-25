@@ -4,7 +4,7 @@ import { auth } from '@/firebase/auth';
 import { createContext } from 'react';
 import { User } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
-import { Loader } from '@/components/styledComponents/Loader';
+import { Loader } from '@/components/Loader/Loader';
 
 export type AuthContext = {
   user: User | null;

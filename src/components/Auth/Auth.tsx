@@ -12,7 +12,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Input } from '../styledComponents/Input';
+import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
 import {
   AuthLayoutWrapper,

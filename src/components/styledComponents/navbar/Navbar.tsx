@@ -1,4 +1,4 @@
-import { NavbarWrapper } from '@/components/types/styledComponents/navbar.types';
+import { NavbarWrapper } from '@/components/types/shared/navbar.types';
 import styled, { css, keyframes } from 'styled-components';
 
 import { useEffect, useState, useRef } from 'react';
@@ -10,7 +10,7 @@ import NavMenu from './NavMenu';
 
 import { faBars, faClose } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '@/context/AuthContext';
-import { ProfilePreview } from '../ProfilePreview';
+import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
 import { ProfileMenu } from './ProfileMenu';
 
 const smoothSticky = keyframes`

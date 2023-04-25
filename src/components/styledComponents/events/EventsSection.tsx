@@ -1,12 +1,12 @@
 import { EventFilter } from '../event-filter/EventFilter';
 import styled from 'styled-components';
-import Event from '../event/Event';
+import Event from '../../Event/Event';
 import { useEffect, useState } from 'react';
-import { IEvent } from '@/components/types/styledComponents/event.types';
+import { IEvent } from '@/components/types/shared/event.types';
 import { useAppSelector } from '@/store/redux-hooks';
 import { getAllEvents } from '@/firebase/events';
 import { Pagination } from './Pagination';
-import { SkeletonLoader } from '../skeleton/Skeleton';
+import { SkeletonLoader } from '../../skeleton/Skeleton';
 import { Loading } from '@/components/types/props/loadingState.types';
 import { ErrorMessage } from '../../ErrorMessage/ErrorMessage';
 

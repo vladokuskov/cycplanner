@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import StyledContainer from '@/components/styledComponents/StyledContainer';
+import StyledContainer from '@/components/StyledContainer/StyledContainer';
 import { BannerSection } from '@/components/styledComponents/contact/BannerSection';
-import { PageSeparator } from '@/components/styledComponents/PageSeparator';
+import { PageSeparator } from '@/components/PageSeparator/PageSeparator';
 import { FormSection } from '@/components/styledComponents/contact/FormSection';
 
 export default function Web() {
