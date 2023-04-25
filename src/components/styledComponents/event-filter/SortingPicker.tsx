@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { SelectorLabel } from './RangePicker';
-import { Button } from '../Button';
+import { Button } from '../../Button/Button';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
 import { Sorting } from '@/components/types/props/sorting.types';
 

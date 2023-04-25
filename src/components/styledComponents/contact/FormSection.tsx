@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Input } from '../Input';
 import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
 import { useState } from 'react';
-import { Button } from '../Button';
+import { Button } from '../../Button/Button';
 
 const FormSectionWrapper = styled.section`
   width: 100%;

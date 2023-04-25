@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { ProfilePreview } from '../types/styledComponents/profilePreview.types';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { Icon } from './Icon';
+import { Icon } from '../Icon/Icon';
 import Link from 'next/link';
 
 const ProfilePreviewWrapper = styled.div<ProfilePreview>`

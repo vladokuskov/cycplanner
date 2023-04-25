@@ -1,6 +1,5 @@
-import { Button } from '../types/styledComponents/button.types';
 import styled, { css } from 'styled-components';
-import { Icon } from './Icon';
+import { Button } from './button.types';
 
 const sizes = {
   sm1: css`
@@ -80,7 +79,7 @@ const StyledButton = styled.button<Button>`
       : size === 'xl3'
       ? sizes.xl3
       : ''}
-  ${({ variant }) =>
+    ${({ variant }) =>
     variant === 'default'
       ? css`
           background-color: transparent;
@@ -270,44 +269,4 @@ const ButtonIcon = styled.span<Button>`
     `}
 `;
 
-const Button = ({
-  text,
-  variant = 'filled',
-  onClick,
-  icon,
-  size = 'sm3',
-  full = false,
-  buttonType = 'default',
-  className,
-  bold = false,
-  disabled = false,
-  status = 'default',
-  rotate,
-}: Button) => {
-  return (
-    <StyledButton
-      className={className}
-      onClick={onClick}
-      title={text}
-      variant={variant}
-      size={size}
-      full={full}
-      type={buttonType === 'default' ? 'button' : 'submit'}
-      bold={bold}
-      disabled={disabled}
-      status={status}
-      icon={icon}
-    >
-      {text && text?.length !== 0 && variant !== 'icon' && (
-        <ButtonText>{text}</ButtonText>
-      )}
-      {icon && (
-        <ButtonIcon variant={variant}>
-          <Icon icon={icon} spinning={rotate ? 'true' : 'false'} />
-        </ButtonIcon>
-      )}
-    </StyledButton>
-  );
-};
-
-export { Button };
+export { StyledButton, ButtonText, ButtonIcon };

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useEffect, useRef } from 'react';
-import { Button } from '../Button';
+import { Button } from '../../Button/Button';
 import { ProfileMenu } from '@/components/types/styledComponents/profileMenu.types';
 import { useRouter } from 'next/router';
 import { faPlus, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';

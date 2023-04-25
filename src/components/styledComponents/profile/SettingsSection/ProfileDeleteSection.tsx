@@ -1,7 +1,7 @@
 import { useAuth } from '@/context/AuthContext';
 import { deleteUser } from 'firebase/auth';
 import styled from 'styled-components';
-import { Button } from '../../Button';
+import { Button } from '../../../Button/Button';
 
 const ProfileDeleteSectionWrapper = styled.section`
   width: 100%;

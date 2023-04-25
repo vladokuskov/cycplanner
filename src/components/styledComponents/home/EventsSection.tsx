@@ -11,7 +11,7 @@ import { useAppSelector } from '@/store/redux-hooks';
 import geohash from 'ngeohash';
 import { SkeletonLoader } from '../skeleton/Skeleton';
 import { Loading } from '@/components/types/props/loadingState.types';
-import { ErrorMessage } from '../ErrorMessage';
+import { ErrorMessage } from '../../ErrorMessage/ErrorMessage';
 
 const EventsSectionWrapper = styled.section`
   width: 100%;

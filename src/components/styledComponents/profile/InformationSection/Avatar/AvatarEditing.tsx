@@ -1,6 +1,6 @@
 import { faCircleNotch, faClose } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import { Button } from '../../../Button';
+import { Button } from '../../../../Button/Button';
 import React, { useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { RangeSlider } from '../../../RangeSlider';

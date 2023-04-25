@@ -8,7 +8,7 @@ import { getAllEvents } from '@/firebase/events';
 import { Pagination } from './Pagination';
 import { SkeletonLoader } from '../skeleton/Skeleton';
 import { Loading } from '@/components/types/props/loadingState.types';
-import { ErrorMessage } from '../ErrorMessage';
+import { ErrorMessage } from '../../ErrorMessage/ErrorMessage';
 
 export const PageTitle = styled.h2`
   color: rgba(32, 32, 32, 0.77);

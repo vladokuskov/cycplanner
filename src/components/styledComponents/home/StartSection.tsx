@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from '../Button';
+import { Button } from '../../Button/Button';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
 import Banner from '../../../assets/home-banner.svg';

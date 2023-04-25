@@ -22,7 +22,7 @@ import {
   EventWrapper,
 } from './StyledEvent';
 import { ProfilePreview } from '../ProfilePreview';
-import { Button } from '../Button';
+import { Button } from '../../Button/Button';
 import {
   faShareNodes,
   faHeart as filledHeart,

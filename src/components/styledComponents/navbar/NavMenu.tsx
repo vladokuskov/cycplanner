@@ -4,11 +4,11 @@ import {
   NavMenu,
   NavbarWrapper,
 } from '@/components/types/styledComponents/navbar.types';
-import { Icon } from '../Icon';
+import { Icon } from '../../Icon/Icon';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '@/context/AuthContext';
-import { Button } from '../Button';
+import { Button } from '../../Button/Button';
 import { ProfilePreview } from '../ProfilePreview';
 
 const MenuMainWrapper = styled.aside`

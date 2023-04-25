@@ -1,6 +1,6 @@
 import { useAuth } from '@/context/AuthContext';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { Icon } from '../../../Icon';
+import { Icon } from '../../../../Icon/Icon';
 import { useEffect, useRef, useState } from 'react';
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import {

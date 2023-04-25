@@ -1,6 +1,6 @@
 import { Input } from '../types/styledComponents/input.types';
 import styled, { css } from 'styled-components';
-import { Icon } from './Icon';
+import { Icon } from '../Icon/Icon';
 import {
   faMagnifyingGlass,
   faClose,

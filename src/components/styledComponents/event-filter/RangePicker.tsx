@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { useState, useEffect, useRef } from 'react';
-import { Button } from '../Button';
+import { Button } from '../../Button/Button';
 import { Range } from '@/components/types/props/RangeSelector.types';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 

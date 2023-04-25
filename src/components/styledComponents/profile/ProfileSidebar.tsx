@@ -2,7 +2,7 @@ import { ProfileSidebar } from '@/components/types/props/Profile/profile';
 import { useAuth } from '@/context/AuthContext';
 import { faGear, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import { Button } from '../Button';
+import { Button } from '../../Button/Button';
 import { ProfilePreview } from '../ProfilePreview';
 
 const SidebarWrapper = styled.div`

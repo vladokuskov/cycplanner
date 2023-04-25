@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import { Button } from '../Button';
+import { Button } from '../../Button/Button';
 import { Input } from '../Input';
 import { useAuth } from '@/context/AuthContext';
 import { nanoid } from '@reduxjs/toolkit';

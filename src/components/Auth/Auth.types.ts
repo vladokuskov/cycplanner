@@ -1,3 +1,3 @@
-export type AuthPage = {
+export type Auth = {
   variant: 'login' | 'signup';
 };

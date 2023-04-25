@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { downloadGPXFile } from '@/utils/downloadRoute';
 
 import { SkeletonLoader } from '../skeleton/Skeleton';
-import { Button } from '../Button';
+import { Button } from '../../Button/Button';
 import {
   faCloudDownloadAlt,
   faCompress,

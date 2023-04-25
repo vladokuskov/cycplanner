@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 
 import Link from 'next/link';
-import { Button } from '../Button';
+import { Button } from '../../Button/Button';
 import NavMenu from './NavMenu';
 
 import { faBars, faClose } from '@fortawesome/free-solid-svg-icons';

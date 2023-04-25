@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 import Navbar from '@/components/styledComponents/navbar/Navbar';
 import StyledContainer from '@/components/styledComponents/StyledContainer';
-import Footer from '@/components/styledComponents/Footer';
+import Footer from '@/components/Footer/Footer';
 
 interface Props {
   children?: ReactNode;

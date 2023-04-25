@@ -1,4 +1,4 @@
-import { AuthPage } from '../../types/props/authPage.types';
+import { Auth } from './Auth.types';
 
 import {
   logInWithEmailAndPassword,
@@ -7,13 +7,13 @@ import {
 } from '@/firebase/auth';
 
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Input } from '../Input';
-import { Button } from '../Button';
+import { Input } from '../styledComponents/Input';
+import { Button } from '../Button/Button';
 import {
   AuthLayoutWrapper,
   AuthWrapper,
@@ -30,16 +30,16 @@ import {
   AltHeaderWrapper,
   AltTitle,
   AltButtonsWrapper,
-} from './StyledAuth';
+} from './Auth.styles';
 
 import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faArrowLeftLong, faKey } from '@fortawesome/free-solid-svg-icons';
 import { validateAuth } from '@/utils/validateAuth';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { convertFirebaseError } from '@/utils/convertFirebaseError';
-import { FailedText } from '../profile/StyledProfile';
+import { FailedText } from '../styledComponents/profile/StyledProfile';
 
-export default function Auth({ variant }: AuthPage) {
+export default function Auth({ variant }: Auth) {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');

@@ -3,7 +3,7 @@ import { useAuth } from '@/context/AuthContext';
 import { updateProfileName } from '@/firebase/profile';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import { Button } from '../../Button';
+import { Button } from '../../../Button/Button';
 import { Input } from '../../Input';
 import { FailedText } from '../StyledProfile';
 

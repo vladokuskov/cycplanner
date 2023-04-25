@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import styled from 'styled-components';
 
 const LayoutWrapper = styled.div`
@@ -40,17 +39,4 @@ const Description = styled.p`
   font-family: 'Roboto';
 `;
 
-const FourOFour = () => {
-  return (
-    <LayoutWrapper>
-      <Title>Oops, page not found :c</Title>
-      <Description>
-        Go back to the homepage and navigate to the page you were trying to
-        reach from there.
-      </Description>
-      <Link href="/">Go to Home page</Link>
-    </LayoutWrapper>
-  );
-};
-
-export { FourOFour };
+export { Title, Description, LayoutWrapper };

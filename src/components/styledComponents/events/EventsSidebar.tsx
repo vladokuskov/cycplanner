@@ -8,7 +8,7 @@ import {
 import { faBarsStaggered } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import { Button } from '../Button';
+import { Button } from '../../Button/Button';
 import { updateEventsFilter } from '@/store/filterReducer';
 
 const EventsSidebarWrapper = styled.aside`

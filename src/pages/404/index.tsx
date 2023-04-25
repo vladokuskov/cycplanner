@@ -1,4 +1,4 @@
-import { FourOFour } from '@/components/styledComponents/404';
+import { FourOFour } from '@/components/404/404';
 
 export default function Web() {
   return <FourOFour />;
