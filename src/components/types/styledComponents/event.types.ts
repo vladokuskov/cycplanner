@@ -23,3 +23,9 @@ export interface IEvent {
   };
   route?: GeoPoint[] | null;
 }
+
+export enum Participating {
+  none,
+  awaiting,
+  participated,
+}
