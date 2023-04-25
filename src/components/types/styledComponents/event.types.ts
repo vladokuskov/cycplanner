@@ -11,6 +11,7 @@ export interface IEvent {
     likes?: number;
     createdAt?: number;
   };
+  participating?: { submitedUsers: string[]; awaitingUsers: string[] };
   bookmarkedUsers?: [];
   title?: string;
   description?: string;

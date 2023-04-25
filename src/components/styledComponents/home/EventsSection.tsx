@@ -134,6 +134,7 @@ const EventsSection = () => {
           ) : loadingState === Loading.success ? (
             <>
               {!events && <ErrorMessage variant="no-events" />}
+              {events?.length === 0 && <ErrorMessage variant="no-events" />}
               {events &&
                 events.map((data) => <Event key={data.id} {...data} />)}
             </>
@@ -141,9 +142,11 @@ const EventsSection = () => {
             <ErrorMessage variant="loading" />
           )}
         </BodyEventsWrapper>
-        <Link href="/events" title="See more events" className="more-link">
-          See more ..
-        </Link>
+        {events && events.length > 0 && (
+          <Link href="/events" title="See more events" className="more-link">
+            See more ..
+          </Link>
+        )}
       </HomeEventsBodyWrapper>
     </EventsSectionWrapper>
   );
