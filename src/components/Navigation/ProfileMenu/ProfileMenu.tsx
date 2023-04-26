@@ -39,9 +39,9 @@ const ProfileMenu = ({ name, navRef, onClose, isOpen }: ProfileMenu) => {
   }, [isOpen]);
 
   const handleSignOut = () => {
+    router.push(`/login`);
     logoutUser();
     onClose();
-    router.push(`/login`);
   };
 
   const handleRouteChange = (e: string) => {

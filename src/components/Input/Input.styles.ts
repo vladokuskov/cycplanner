@@ -33,11 +33,21 @@ const InputWrapper = styled.div<Input>`
   position: relative;
   width: 100%;
   height: 100%;
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Works for Firefox */
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
 `;
 
 const Label = styled.label<Input>`
   position: absolute;
-  font-family: 'Roboto';
+  font-family: 'Inter';
   ${({ variant }) =>
     variant !== 'auth' && variant !== 'auth-pass'
       ? css`
@@ -71,6 +81,7 @@ const StyledInput = styled.input<Input>`
   ::placeholder {
     opacity: 0.3;
     font-weight: 400;
+    font-size: 0.9rem;
   }
   ${({ variant, danger }) =>
     css`
@@ -164,6 +175,7 @@ const StyledTextarea = styled.textarea<Input>`
   ::placeholder {
     opacity: 0.3;
     font-weight: 400;
+    font-size: 0.9rem;
   }
   &:hover {
     border-color: ${({ danger }) => (danger === true ? '#ff8585' : '#bebebe')};

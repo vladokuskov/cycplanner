@@ -83,6 +83,7 @@ const PreviewDescription = styled.p`
   letter-spacing: 0.029em;
   font-weight: 400;
   color: #7e7e7e;
+  margin-top: 0.1rem;
 `;
 
 const ProfilePreviewButton = styled.button``;

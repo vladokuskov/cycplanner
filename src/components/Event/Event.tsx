@@ -1,7 +1,3 @@
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
-import { IEvent, Participating } from '../types/shared/event.types';
 import {
   DetailLocation,
   DetailDescription,
@@ -18,6 +14,11 @@ import {
   EventHeaderWrapper,
   EventWrapper,
 } from './Event.styles.ts';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { useEffect, useMemo, useState } from 'react';
+import { IEvent, Participating } from '../types/shared/event.types';
+
 import { ProfilePreview } from '../ProfilePreview/ProfilePreview';
 import { Button } from '../Button/Button';
 import {
@@ -47,6 +48,14 @@ const Event = (event: IEvent) => {
     Participating.none
   );
   const [isMapMaximized, setIsMapMaximized] = useState<boolean>(false);
+
+  const humanDate =
+    event.metadata.createdAt &&
+    new Date(event.metadata.createdAt).toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
 
   const Map = useMemo(
     () =>
@@ -133,6 +142,7 @@ const Event = (event: IEvent) => {
       <EventHeaderWrapper>
         <ProfilePreview
           name={event.metadata.author.username}
+          description={humanDate ? humanDate : ''}
           photoURL={event.metadata.author.photoUrl}
           variant="no-link"
         />

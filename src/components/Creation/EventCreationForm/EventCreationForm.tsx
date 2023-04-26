@@ -59,16 +59,6 @@ const EventCreationForm = () => {
     setEventForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleDistanceInput = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { value } = event.target;
-    const regex = /^[0-9\b]+$/;
-    if (value === '' || (regex.test(value) && value.length < 6)) {
-      setEventForm((prev) => ({ ...prev, distance: value }));
-    }
-  };
-
   const handleFileUpload = (file: File) => {
     setFile(file);
 
@@ -182,13 +172,14 @@ const EventCreationForm = () => {
             />
             <Input
               full
+              fieldType="number"
               label="Distance (km)"
               placeholder="Enter Distance"
               variant="outlined"
               name="distance"
               required
               value={eventForm.distance}
-              onChange={handleDistanceInput}
+              onChange={handleFormChange}
             />
             <EventTypesWrapper>
               <Input

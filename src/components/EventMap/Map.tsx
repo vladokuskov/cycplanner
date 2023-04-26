@@ -13,26 +13,18 @@ import {
 import { MapWrapper, MapOverlayWrapper } from './Map.styles';
 import { EventMap } from '@/components/EventMap/Map.types';
 
-const greenIcon = new L.Icon({
-  iconUrl:
-    'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-  shadowUrl:
-    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41],
+const startMarker = new L.Icon({
+  alt: '',
+  iconUrl: '/map/start-marker.svg',
+  iconSize: [33, 33],
+  iconAnchor: [9, 25],
 });
 
-const redIcon = new L.Icon({
-  iconUrl:
-    'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
-  shadowUrl:
-    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+const finishMarker = new L.Icon({
+  alt: '',
+  iconUrl: '/map/finish-marker.svg',
   iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41],
+  iconAnchor: [9, 31],
 });
 
 const Map = ({ route, isMapMaximized, handleMapMaximizing }: EventMap) => {
@@ -52,6 +44,7 @@ const Map = ({ route, isMapMaximized, handleMapMaximizing }: EventMap) => {
         route.map((geoPoint) => [+geoPoint.lat, +geoPoint.lon])
       );
       map.fitBounds(bounds);
+      map.invalidateSize();
     }
   }, [isMounted, route, map, isMapMaximized]);
 
@@ -98,13 +91,13 @@ const Map = ({ route, isMapMaximized, handleMapMaximizing }: EventMap) => {
         {startPoint && (
           <Marker
             position={[+startPoint.lat, +startPoint.lon]}
-            icon={greenIcon}
+            icon={startMarker}
           />
         )}
         {finishPoint && (
           <Marker
             position={[+finishPoint.lat, +finishPoint.lon]}
-            icon={redIcon}
+            icon={finishMarker}
           />
         )}
         {route && (
