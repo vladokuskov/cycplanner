@@ -16,6 +16,7 @@ export type Input = {
   full?: boolean;
   placeholder?: string;
   name?: string;
+  className?: string;
   onChangeArea?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

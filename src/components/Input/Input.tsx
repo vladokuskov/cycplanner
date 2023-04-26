@@ -15,6 +15,7 @@ import {
   StyledInput,
   Label,
 } from './Input.styles';
+import { useState } from 'react';
 
 const Input = ({
   variant,
@@ -32,6 +33,7 @@ const Input = ({
   fieldType = 'text',
   isloading,
 }: Input) => {
+  const [isFocused, setIsFocused] = useState(false);
   return (
     <InputMainWrapper variant={variant} full={full} danger={danger}>
       {(variant === 'auth' ||
@@ -55,7 +57,17 @@ const Input = ({
         {(variant === 'auth' ||
           variant === 'auth-pass' ||
           variant === 'outlined') && (
-          <Label htmlFor={variant} variant={variant}>
+          <Label
+            htmlFor={variant}
+            variant={variant}
+            className={
+              isFocused
+                ? ''
+                : variant === 'auth' || variant === 'auth-pass'
+                ? 'center'
+                : ''
+            }
+          >
             {label}
           </Label>
         )}
@@ -75,6 +87,8 @@ const Input = ({
         ) : (
           <StyledInput
             isloading={isloading}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
             type={
               fieldType === 'email'
                 ? 'email'
