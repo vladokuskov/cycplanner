@@ -110,7 +110,68 @@ export const getLastEvenets = async (
 
 export const getAllEvents = async (
   selectedSorting?: 'oldest' | 'newest',
-  selectedFilter?: EventsFilter,
+  pageNumber = 1,
+  itemsPerPage = 10
+) => {
+  const q = collection(db, 'events');
+  const sortingOrder = selectedSorting === 'newest' ? 'desc' : 'asc';
+
+  let eventsQuery = query(
+    q,
+    orderBy('event.metadata.createdAt', sortingOrder),
+    limit(itemsPerPage)
+  );
+
+  if (pageNumber > 1) {
+    const lastEvent = await getDocs(
+      query(
+        q,
+        orderBy('event.metadata.createdAt', sortingOrder),
+        limit((pageNumber - 1) * itemsPerPage + 1)
+      )
+    )
+      .then((snap) => snap.docs[snap.docs.length - 1])
+      .then((doc) => doc?.data().event?.metadata?.createdAt);
+
+    if (lastEvent) {
+      eventsQuery = query(
+        q,
+        orderBy('event.metadata.createdAt', sortingOrder),
+        startAfter(lastEvent),
+        limit(itemsPerPage)
+      );
+    }
+  }
+
+  const totalEventsQuery = query(q);
+  const totalEventsSnapshot = await getDocs(totalEventsQuery);
+  const totalEvents = totalEventsSnapshot.size;
+
+  const eventsSnapShot = await getDocs(eventsQuery);
+  let events = eventsSnapShot.docs.map((doc) => doc.data().event);
+
+  // Sort the events based on the selected sorting
+  if (selectedSorting === 'newest') {
+    events.sort((a, b) => {
+      return (
+        new Date(b.metadata.createdAt).getTime() -
+        new Date(a.metadata.createdAt).getTime()
+      );
+    });
+  } else {
+    events.sort((a, b) => {
+      return (
+        new Date(a.metadata.createdAt).getTime() -
+        new Date(b.metadata.createdAt).getTime()
+      );
+    });
+  }
+
+  return { events, totalEvents };
+};
+
+export const getMyEvents = async (
+  selectedSorting?: 'oldest' | 'newest',
   pageNumber = 1,
   itemsPerPage = 10
 ) => {
@@ -118,31 +179,141 @@ export const getAllEvents = async (
   const q = collection(db, 'events');
   const sortingOrder = selectedSorting === 'newest' ? 'desc' : 'asc';
 
-  let eventsQuery = query(q, limit(itemsPerPage));
+  let eventsQuery = query(
+    q,
+    where(`event.metadata.author.uid`, `==`, user && user.uid),
+    limit(itemsPerPage)
+  );
 
-  if (selectedFilter === 'favourite' && user) {
-    eventsQuery = query(
-      q,
-      where(`event.bookmarkedUsers`, 'array-contains', user.uid),
-      limit(itemsPerPage)
-    );
+  if (pageNumber > 1) {
+    const lastEvent = await getDocs(
+      query(
+        q,
+        orderBy('event.metadata.createdAt', sortingOrder),
+        limit((pageNumber - 1) * itemsPerPage + 1)
+      )
+    )
+      .then((snap) => snap.docs[snap.docs.length - 1])
+      .then((doc) => doc?.data().event?.metadata?.createdAt);
+
+    if (lastEvent) {
+      eventsQuery = query(
+        q,
+        orderBy('event.metadata.createdAt', sortingOrder),
+        startAfter(lastEvent),
+        limit(itemsPerPage)
+      );
+    }
   }
 
-  if (selectedFilter === 'participated' && user) {
-    eventsQuery = query(
-      q,
-      where(`event.participating.submitedUsers`, 'array-contains', user.uid),
-      limit(itemsPerPage)
-    );
+  const totalEventsQuery = query(q);
+  const totalEventsSnapshot = await getDocs(totalEventsQuery);
+  const totalEvents = totalEventsSnapshot.size;
+
+  const eventsSnapShot = await getDocs(eventsQuery);
+  let events = eventsSnapShot.docs.map((doc) => doc.data().event);
+
+  // Sort the events based on the selected sorting
+  if (selectedSorting === 'newest') {
+    events.sort((a, b) => {
+      return (
+        new Date(b.metadata.createdAt).getTime() -
+        new Date(a.metadata.createdAt).getTime()
+      );
+    });
+  } else {
+    events.sort((a, b) => {
+      return (
+        new Date(a.metadata.createdAt).getTime() -
+        new Date(b.metadata.createdAt).getTime()
+      );
+    });
   }
 
-  if (selectedFilter === 'my-events' && user) {
-    eventsQuery = query(
-      q,
-      where(`event.metadata.author.uid`, `==`, user.uid),
-      limit(itemsPerPage)
-    );
+  return { events, totalEvents };
+};
+
+export const getParticipatedEvents = async (
+  selectedSorting?: 'oldest' | 'newest',
+  pageNumber = 1,
+  itemsPerPage = 10
+) => {
+  const user = auth.currentUser;
+  const q = collection(db, 'events');
+  const sortingOrder = selectedSorting === 'newest' ? 'desc' : 'asc';
+
+  let eventsQuery = query(
+    q,
+    where(
+      `event.participating.submitedUsers`,
+      'array-contains',
+      user && user.uid
+    ),
+    limit(itemsPerPage)
+  );
+
+  if (pageNumber > 1) {
+    const lastEvent = await getDocs(
+      query(
+        q,
+        orderBy('event.metadata.createdAt', sortingOrder),
+        limit((pageNumber - 1) * itemsPerPage + 1)
+      )
+    )
+      .then((snap) => snap.docs[snap.docs.length - 1])
+      .then((doc) => doc?.data().event?.metadata?.createdAt);
+
+    if (lastEvent) {
+      eventsQuery = query(
+        q,
+        orderBy('event.metadata.createdAt', sortingOrder),
+        startAfter(lastEvent),
+        limit(itemsPerPage)
+      );
+    }
   }
+
+  const totalEventsQuery = query(q);
+  const totalEventsSnapshot = await getDocs(totalEventsQuery);
+  const totalEvents = totalEventsSnapshot.size;
+
+  const eventsSnapShot = await getDocs(eventsQuery);
+  let events = eventsSnapShot.docs.map((doc) => doc.data().event);
+
+  // Sort the events based on the selected sorting
+  if (selectedSorting === 'newest') {
+    events.sort((a, b) => {
+      return (
+        new Date(b.metadata.createdAt).getTime() -
+        new Date(a.metadata.createdAt).getTime()
+      );
+    });
+  } else {
+    events.sort((a, b) => {
+      return (
+        new Date(a.metadata.createdAt).getTime() -
+        new Date(b.metadata.createdAt).getTime()
+      );
+    });
+  }
+
+  return { events, totalEvents };
+};
+
+export const getFavouriteEvents = async (
+  selectedSorting?: 'oldest' | 'newest',
+  pageNumber = 1,
+  itemsPerPage = 10
+) => {
+  const user = auth.currentUser;
+  const q = collection(db, 'events');
+  const sortingOrder = selectedSorting === 'newest' ? 'desc' : 'asc';
+
+  let eventsQuery = query(
+    q,
+    where(`event.bookmarkedUsers`, 'array-contains', user && user.uid),
+    limit(itemsPerPage)
+  );
 
   if (pageNumber > 1) {
     const lastEvent = await getDocs(

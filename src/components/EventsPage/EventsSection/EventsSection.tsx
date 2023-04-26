@@ -8,14 +8,25 @@ import Event from '../../Event/Event';
 import { useEffect, useState } from 'react';
 import { IEvent } from '@/components/types/shared/event.types';
 import { useAppSelector } from '@/store/redux-hooks';
-import { getAllEvents } from '@/firebase/events';
+import {
+  getAllEvents,
+  getMyEvents,
+  getParticipatedEvents,
+  getFavouriteEvents,
+} from '@/firebase/events';
 import { Pagination } from '../Pagination/Pagination';
 import { SkeletonLoader } from '../../skeleton/Skeleton';
 import { Loading } from '@/components/types/shared/loadingState.types';
 import { ErrorMessage } from '../../ErrorMessage/ErrorMessage';
 
 const EventsSection = () => {
-  const [events, setEvents] = useState<IEvent[] | null>(null);
+  const [allEvents, setAllEvents] = useState<IEvent[] | null>(null);
+  const [myEvents, setMyEvents] = useState<IEvent[] | null>(null);
+  const [participatedEvents, setParticipatedEvents] = useState<IEvent[] | null>(
+    null
+  );
+  const [favouriteEvents, setFavouriteEvents] = useState<IEvent[] | null>(null);
+
   const [loadingState, setLoadingState] = useState<Loading>(Loading.loading);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalEvents, setTotalEvents] = useState<number>(0);
@@ -33,14 +44,40 @@ const EventsSection = () => {
     setLoadingState(Loading.loading);
     const getEvents = async () => {
       try {
-        const { events, totalEvents } = await getAllEvents(
-          selectedSorting,
-          selectedFilter,
-          currentPage,
-          10
-        );
-        setEvents(events);
-        setTotalEvents(totalEvents);
+        if (selectedFilter === 'all') {
+          const { events, totalEvents } = await getAllEvents(
+            selectedSorting,
+            currentPage,
+            10
+          );
+          setAllEvents(events);
+          setTotalEvents(totalEvents);
+        } else if (selectedFilter === 'my-events') {
+          const { events, totalEvents } = await getMyEvents(
+            selectedSorting,
+            currentPage,
+            10
+          );
+          setMyEvents(events);
+          setTotalEvents(totalEvents);
+        } else if (selectedFilter === 'participated') {
+          const { events, totalEvents } = await getParticipatedEvents(
+            selectedSorting,
+            currentPage,
+            10
+          );
+          console.log(events);
+          setParticipatedEvents(events);
+          setTotalEvents(totalEvents);
+        } else if (selectedFilter === 'favourite') {
+          const { events, totalEvents } = await getFavouriteEvents(
+            selectedSorting,
+            currentPage,
+            10
+          );
+          setFavouriteEvents(events);
+          setTotalEvents(totalEvents);
+        }
         setLoadingState(Loading.success);
       } catch (err) {
         console.log(err);
@@ -60,7 +97,7 @@ const EventsSection = () => {
       <PageTitle>Events</PageTitle>
       <EventFilter />
       <EventsWrapper>
-        {events && events.length !== 0 && (
+        {(allEvents || myEvents || participatedEvents || favouriteEvents) && (
           <Pagination
             itemsPerPage={10}
             totalItems={totalEvents}
@@ -72,20 +109,37 @@ const EventsSection = () => {
           <SkeletonLoader variant="event-events" />
         ) : loadingState === Loading.success ? (
           <>
-            {!events && <ErrorMessage variant="no-events" />}
-            {events?.length === 0 && <ErrorMessage variant="no-events" />}
-            {events && events.map((data) => <Event key={data.id} {...data} />)}
+            {(!allEvents && selectedFilter === 'all') ||
+              (!myEvents && selectedFilter === 'my-events') ||
+              (!participatedEvents && selectedFilter === 'participated') ||
+              (!favouriteEvents && selectedFilter === 'favourite' && (
+                <ErrorMessage variant="no-events" />
+              ))}
+            {(allEvents?.length === 0 && selectedFilter === 'all') ||
+              (myEvents?.length === 0 && selectedFilter === 'my-events') ||
+              (participatedEvents?.length === 0 &&
+                selectedFilter === 'participated') ||
+              (favouriteEvents?.length === 0 &&
+                selectedFilter === 'favourite' && (
+                  <ErrorMessage variant="no-events" />
+                ))}
+            {allEvents &&
+              selectedFilter === 'all' &&
+              allEvents.map((data) => <Event key={data.id} {...data} />)}
+            {myEvents &&
+              selectedFilter === 'my-events' &&
+              myEvents.map((data) => <Event key={data.id} {...data} />)}
+            {participatedEvents &&
+              selectedFilter === 'participated' &&
+              participatedEvents.map((data) => (
+                <Event key={data.id} {...data} />
+              ))}
+            {favouriteEvents &&
+              selectedFilter === 'favourite' &&
+              favouriteEvents.map((data) => <Event key={data.id} {...data} />)}
           </>
         ) : (
           <ErrorMessage variant="loading" />
-        )}
-        {events && events.length !== 0 && events.length > 2 && (
-          <Pagination
-            itemsPerPage={10}
-            totalItems={totalEvents}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
         )}
       </EventsWrapper>
     </EventSectionWrapper>
