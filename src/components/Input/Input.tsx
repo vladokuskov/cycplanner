@@ -88,7 +88,13 @@ const Input = ({
           <StyledInput
             isloading={isloading}
             onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            onBlur={() => {
+              if (value?.length !== 0) {
+                setIsFocused(true);
+              } else {
+                setIsFocused(false);
+              }
+            }}
             type={
               fieldType === 'email'
                 ? 'email'
