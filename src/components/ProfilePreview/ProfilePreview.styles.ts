@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { ProfilePreview } from './ProfilePreview.types';
+import Image from 'next/image';
 
 const ProfilePreviewWrapper = styled.div<ProfilePreview>`
   display: inline-flex;
@@ -37,14 +38,10 @@ const PhotoWrapper = styled.div`
   min-height: 2.3rem;
   border: none;
   border-radius: 50%;
-  @media (min-width: 680px) {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
 `;
-const Photo = styled.img`
-  width: 100%;
-  height: 100%;
+const Photo = styled(Image)`
+  width: 2.3rem;
+  height: 2.3rem;
   border-radius: 50%;
   object-fit: cover;
 `;

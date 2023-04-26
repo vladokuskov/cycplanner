@@ -24,7 +24,7 @@ const ProfilePreview = ({
     <ProfilePreviewWrapper variant={variant}>
       <PhotoWrapper>
         {photoURL && photoURL.length > 0 ? (
-          <Photo src={photoURL} alt="" />
+          <Photo src={photoURL} alt="" width={120} height={120} />
         ) : (
           <PhotoPlaceholder>
             <Icon icon={faUser} />
@@ -43,7 +43,7 @@ const ProfilePreview = ({
       <ProfilePreviewWrapper variant={variant}>
         <PhotoWrapper>
           {photoURL && photoURL.length > 0 ? (
-            <Photo src={photoURL} alt="" />
+            <Photo src={photoURL} alt="" width={120} height={120} />
           ) : (
             <PhotoPlaceholder>
               <Icon icon={faUser} />
@@ -57,7 +57,7 @@ const ProfilePreview = ({
       <ProfilePreviewWrapper variant={variant}>
         <PhotoWrapper>
           {photoURL && photoURL.length > 0 ? (
-            <Photo src={photoURL} alt="" />
+            <Photo src={photoURL} alt="" width={120} height={120} />
           ) : (
             <PhotoPlaceholder>
               <Icon icon={faUser} />
