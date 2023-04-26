@@ -149,7 +149,6 @@ const Auth = ({ variant }: Auth) => {
                   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
                 ) => setUsername(e.target.value)}
                 label="Username"
-                placeholder="Enter username"
                 full
                 required
                 danger={!isFormValidated}
@@ -164,7 +163,6 @@ const Auth = ({ variant }: Auth) => {
                 e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
               ) => setEmail(e.target.value)}
               label="Email"
-              placeholder="Enter email"
               full
               required
               danger={!isFormValidated}
@@ -180,7 +178,6 @@ const Auth = ({ variant }: Auth) => {
               ) => setPassword(e.target.value)}
               onClick={handleTogglePasswordVisibility}
               label="Password"
-              placeholder="Enter password"
               full
               required
               danger={!isFormValidated}
@@ -197,7 +194,6 @@ const Auth = ({ variant }: Auth) => {
                 ) => setConfirmationPassword(e.target.value)}
                 onClick={handleTogglePasswordVisibility}
                 label="Repeat password"
-                placeholder="Enter password"
                 full
                 required
                 danger={!isFormValidated || !isPasswordsEqual()}

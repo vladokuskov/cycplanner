@@ -44,10 +44,11 @@ const InputWrapper = styled.div<Input>`
     -moz-appearance: textfield;
   }
 `;
-
 const Label = styled.label<Input>`
   position: absolute;
   font-family: 'Inter';
+  transition: 0.2s;
+  pointer-events: none;
   ${({ variant }) =>
     variant !== 'auth' && variant !== 'auth-pass'
       ? css`
@@ -57,7 +58,7 @@ const Label = styled.label<Input>`
           font-size: 0.9rem;
           line-height: 31px;
           top: -1.7rem;
-          color: rgba(72, 72, 72, 0.77);
+          color: rgba(72, 72, 72, 0.67);
         `
       : (variant === 'auth' || variant === 'auth-pass') &&
         css`
@@ -65,6 +66,11 @@ const Label = styled.label<Input>`
           left: 2.5rem;
           font-size: 0.9rem;
           color: #999999df;
+          &.center {
+            top: 50%;
+            transform: translateY(-50%);
+            left: 2.5rem;
+          }
         `};
 `;
 
