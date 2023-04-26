@@ -118,14 +118,10 @@ export const getAllEvents = async (
   const q = collection(db, 'events');
   const sortingOrder = selectedSorting === 'newest' ? 'desc' : 'asc';
 
-  let sortedEvents = query(
-    q,
-    orderBy('event.metadata.createdAt', sortingOrder),
-    limit(itemsPerPage)
-  );
+  let eventsQuery = query(q, limit(itemsPerPage));
 
   if (selectedFilter === 'favourite' && user) {
-    sortedEvents = query(
+    eventsQuery = query(
       q,
       where(`event.bookmarkedUsers`, 'array-contains', user.uid),
       limit(itemsPerPage)
@@ -133,7 +129,7 @@ export const getAllEvents = async (
   }
 
   if (selectedFilter === 'participated' && user) {
-    sortedEvents = query(
+    eventsQuery = query(
       q,
       where(`event.participating.submitedUsers`, 'array-contains', user.uid),
       limit(itemsPerPage)
@@ -141,7 +137,7 @@ export const getAllEvents = async (
   }
 
   if (selectedFilter === 'my-events' && user) {
-    sortedEvents = query(
+    eventsQuery = query(
       q,
       where(`event.metadata.author.uid`, `==`, user.uid),
       limit(itemsPerPage)
@@ -160,7 +156,7 @@ export const getAllEvents = async (
       .then((doc) => doc?.data().event?.metadata?.createdAt);
 
     if (lastEvent) {
-      sortedEvents = query(
+      eventsQuery = query(
         q,
         orderBy('event.metadata.createdAt', sortingOrder),
         startAfter(lastEvent),
@@ -173,8 +169,25 @@ export const getAllEvents = async (
   const totalEventsSnapshot = await getDocs(totalEventsQuery);
   const totalEvents = totalEventsSnapshot.size;
 
-  const querySnapShot = await getDocs(sortedEvents);
-  const events = querySnapShot.docs.map((doc) => doc.data().event);
+  const eventsSnapShot = await getDocs(eventsQuery);
+  let events = eventsSnapShot.docs.map((doc) => doc.data().event);
+
+  // Sort the events based on the selected sorting
+  if (selectedSorting === 'newest') {
+    events.sort((a, b) => {
+      return (
+        new Date(b.metadata.createdAt).getTime() -
+        new Date(a.metadata.createdAt).getTime()
+      );
+    });
+  } else {
+    events.sort((a, b) => {
+      return (
+        new Date(a.metadata.createdAt).getTime() -
+        new Date(b.metadata.createdAt).getTime()
+      );
+    });
+  }
 
   return { events, totalEvents };
 };
