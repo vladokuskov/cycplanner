@@ -23,6 +23,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   return getLayout(
     <>
       <GlobalStyle />
+      <Head>
+        <title>cycplanner</title>
+      </Head>
       <AuthProvider>
         <Provider store={store}>
           <Component {...pageProps} />

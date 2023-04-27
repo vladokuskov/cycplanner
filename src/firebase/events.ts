@@ -86,6 +86,26 @@ export const createEvent = async (event: IEvent) => {
   }
 };
 
+export const getEventsID = async () => {
+  let q = collection(db, 'events');
+
+  const events = query(q);
+
+  const querySnapShot = await getDocs(events);
+  const eventsID = querySnapShot.docs.map((doc) => doc.data().event.id);
+  return eventsID;
+};
+
+export const getDetailEvent = async (eventID: string | string[]) => {
+  let q = collection(db, 'events');
+
+  const events = query(q, where('event.id', '==', eventID));
+
+  const querySnapShot = await getDocs(events);
+  const event = querySnapShot.docs.map((doc) => doc.data().event);
+  return event[0];
+};
+
 export const getLastEvenets = async (
   geoPoint: GeoPoint,
   hash: string,
