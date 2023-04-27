@@ -6,9 +6,7 @@ import {
 } from '@/firebase/events';
 import {
   faClockFour,
-  faEdit,
   faHeart as emptyHeart,
-  faPenToSquare,
   faTrashAlt,
 } from '@fortawesome/free-regular-svg-icons';
 import {
@@ -170,6 +168,20 @@ const EditingSection = styled.div`
   gap: 0.5rem;
 `;
 
+const DetailLocation = styled.a`
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: #656565;
+  text-underline-offset: 0.1rem;
+  &:hover,
+  &:focus {
+    text-decoration-color: #979797;
+    p {
+      color: #979797;
+    }
+  }
+`;
+
 const DetailMainSection = ({ event }: { event: IEvent | null }) => {
   const Map = useMemo(
     () =>
@@ -320,7 +332,7 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
           <Button
             variant="text-icon"
             text={isEditing ? 'Close' : 'Edit'}
-            icon={isEditing ? faClose : faEdit}
+            icon={isEditing ? faClose : faPen}
             size="sm2"
             bold
             onClick={handleEditing}
@@ -357,6 +369,20 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
           <InfoDetail>
             <DetailTitle>Distance:</DetailTitle>
             <DetailDescription>{event?.distance} km</DetailDescription>
+          </InfoDetail>
+          <InfoDetail>
+            <DetailTitle>Start location:</DetailTitle>
+            <DetailLocation
+              title="View on Google Maps"
+              target="_blank"
+              href={`https://www.google.com/maps/search/?api=1&query=${event?.location.geoPoint?.lat},${event?.location.geoPoint?.lon}`}
+            >
+              <DetailDescription>{`${event?.location.geoPoint?.lat
+                ?.toString()
+                .substring(0, 6)}, ${event?.location.geoPoint?.lon
+                ?.toString()
+                .substring(0, 6)}`}</DetailDescription>
+            </DetailLocation>
           </InfoDetail>
         </InfoDetailsWrapper>
       </InfoWrapper>

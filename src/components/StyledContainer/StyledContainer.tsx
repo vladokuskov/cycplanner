@@ -56,7 +56,7 @@ const StyledContainer = styled.div<ContainerVariant>`
       grid-template-columns: 1fr;
       @media (min-width: 680px) {
         display: grid;
-        grid-template-columns: 7fr 3fr;
+        grid-template-columns: 6fr 4fr;
       }
     `}
 
