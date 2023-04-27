@@ -12,6 +12,7 @@ import {
   startAfter,
   where,
   doc,
+  deleteDoc,
 } from 'firebase/firestore';
 import { auth } from './auth';
 
@@ -104,6 +105,18 @@ export const getDetailEvent = async (eventID: string | string[]) => {
   const querySnapShot = await getDocs(events);
   const event = querySnapShot.docs.map((doc) => doc.data().event);
   return event[0];
+};
+
+export const deleteEvent = async (eventID: string) => {
+  const q = collection(db, 'events');
+
+  const events = query(q, where('event.id', '==', eventID));
+
+  const querySnapshot = await getDocs(events);
+
+  querySnapshot.forEach(async (doc) => {
+    await deleteDoc(doc.ref);
+  });
 };
 
 export const getLastEvenets = async (
