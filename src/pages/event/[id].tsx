@@ -7,6 +7,8 @@ import { getDetailEvent } from '@/firebase/events';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Loading } from '@/components/types/shared/loadingState.types';
+import { DetailMainSection } from '@/components/EventDetail/DetailMainSection';
+import { DetailSidebarSection } from '@/components/EventDetail/DetailSidebarSection';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {
@@ -49,7 +51,8 @@ export default function Web() {
             <p>Loading</p>
           ) : loading === Loading.success ? (
             <StyledContainer variant="detail-page">
-              {event && event.title}
+              <DetailMainSection event={event} />
+              <DetailSidebarSection event={event} />
             </StyledContainer>
           ) : (
             <p>Error occured</p>

@@ -171,8 +171,8 @@ const StyledButton = styled.button<Button>`
       : variant === 'danger'
       ? css`
           background-color: transparent;
-          color: #e62e2e;
-          border: 2px solid #e62e2e;
+          color: #f77;
+          border: 2px solid #f77;
           &:hover,
           &:focus {
             background-color: #ff3737;
