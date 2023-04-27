@@ -70,7 +70,7 @@ const AvatarEditing = ({
             />
           )}
           <RangeSlider
-            step={0.1}
+            step={0.001}
             startValue={1}
             endValue={3}
             value={scale}
