@@ -13,6 +13,7 @@ import {
   EventMainWrapper,
   EventHeaderWrapper,
   EventWrapper,
+  ButtonWrapper,
 } from './Event.styles.ts';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -198,12 +199,16 @@ const Event = (event: IEvent) => {
               size="xl2"
               onClick={handleRedirectToDetail}
             />
-            <Button
-              variant="icon"
-              icon={faUserCircle}
-              size="xl2"
-              onClick={handleRedirectToDetail}
-            />
+            <ButtonWrapper>
+              <p> {event.participating?.submitedUsers.length}</p>
+              <Button
+                variant="icon"
+                icon={faUserCircle}
+                size="xl2"
+                onClick={handleRedirectToDetail}
+              />
+            </ButtonWrapper>
+
             {user?.uid !== event.metadata.author.uid && (
               <Button
                 className="participateBtn"
