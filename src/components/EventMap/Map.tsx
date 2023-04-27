@@ -1,4 +1,5 @@
 import { MapContainer, Marker, Polyline, TileLayer } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 import * as L from 'leaflet';
 import { useEffect, useState } from 'react';
 import { downloadGPXFile } from '@/utils/downloadRoute';

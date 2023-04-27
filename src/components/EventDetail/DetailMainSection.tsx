@@ -1,6 +1,6 @@
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import styled from 'styled-components';
-import Map from '../EventMap/Map';
 import { IEvent } from '../types/shared/event.types';
 
 const DetailMainSectionWrapper = styled.section`
@@ -24,10 +24,12 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
     setIsMapMaximized((prev) => !prev);
   };
 
+  const LazyMap = dynamic(() => import('../EventMap/Map'), { ssr: false });
+
   return (
     <DetailMainSectionWrapper>
       <MapWrapper>
-        <Map
+        <LazyMap
           route={event?.route}
           isMapMaximized={isMapMaximized}
           handleMapMaximizing={handleMapMaximizing}
