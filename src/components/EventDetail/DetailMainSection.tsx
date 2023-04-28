@@ -11,11 +11,9 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import {
   faCheck,
-  faClose,
   faHeart as filledHeart,
-  faPen,
+  faShareNodes,
 } from '@fortawesome/free-solid-svg-icons';
-import { is } from 'immer/dist/internal';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
@@ -44,6 +42,7 @@ const MapWrapper = styled.div<{ isMapMaximized: boolean }>`
   width: 100%;
   max-height: ${({ isMapMaximized }) => (isMapMaximized ? '20rem' : '15rem')};
   height: 100%;
+  min-height: 15rem;
   @media (min-width: 680px) {
     max-height: ${({ isMapMaximized }) => (isMapMaximized ? '25rem' : '15rem')};
   }
@@ -115,7 +114,7 @@ const ControlsWrapper = styled.div<{
   align-items: center;
   justify-content: flex-end;
   padding: 0.4rem 0;
-  gap: 0.5rem;
+  gap: 1rem;
   .participateBtn {
     ${({ participated }) =>
       participated === Participating.participated
@@ -159,7 +158,7 @@ const ControlsWrapper = styled.div<{
 const EditingSection = styled.div`
   width: 100%;
   padding: 0.3rem 1rem;
-  background-color: #dfdfdf7d;
+  background-color: #e7e7e7;
   border-radius: 15px;
   transition: 0.2s;
   display: flex;
@@ -198,7 +197,7 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
   const handleMapMaximizing = () => {
     setIsMapMaximized((prev) => !prev);
   };
-  const [isEditing, setIsEditing] = useState(false);
+
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const [participatingStatus, setParticipatingStatus] = useState<Participating>(
     Participating.none
@@ -246,22 +245,28 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
 
   const handleParticipating = async () => {
     if (user && event?.id) {
-      await updateEventParticipating(user?.uid, event.id);
       if (participatingStatus === Participating.none) {
+        await updateEventParticipating(user?.uid, event.id);
         setParticipatingStatus(Participating.awaiting);
-      } else if (
-        participatingStatus === Participating.awaiting ||
-        participatingStatus === Participating.participated
-      ) {
+      } else if (participatingStatus === Participating.awaiting) {
+        await updateEventParticipating(user?.uid, event.id);
         setParticipatingStatus(Participating.none);
+      } else if (participatingStatus === Participating.participated) {
+        try {
+          const result = window.confirm(
+            'Are you sure you want to cancel participating?'
+          );
+          if (result && event && event.id) {
+            await updateEventParticipating(user?.uid, event.id);
+            setParticipatingStatus(Participating.none);
+          }
+        } catch (err) {
+          console.log(err);
+        }
       }
     } else if (!user) {
       router.push('/login');
     }
-  };
-
-  const handleEditing = () => {
-    setIsEditing((prev) => !prev);
   };
 
   const handleEventDelete = async () => {
@@ -275,6 +280,15 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
       }
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const copyEventDetailURL = async () => {
+    const baseURL = window.location.href;
+    if (baseURL) {
+      await navigator.clipboard.writeText(
+        `${baseURL}event/${event && event.id}`
+      );
     }
   };
 
@@ -299,6 +313,12 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
         isBookmarked={isBookmarked}
         participated={participatingStatus}
       >
+        <Button
+          variant="icon"
+          icon={faShareNodes}
+          size="md3"
+          onClick={copyEventDetailURL}
+        />
         <Button
           className="bookmarkBtn"
           variant="icon"
@@ -330,18 +350,6 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
         )}
         {user?.uid === event?.metadata.author.uid && (
           <Button
-            variant="text-icon"
-            text={isEditing ? 'Close' : 'Edit'}
-            icon={isEditing ? faClose : faPen}
-            size="sm2"
-            bold
-            onClick={handleEditing}
-          />
-        )}
-      </ControlsWrapper>
-      {isEditing && user?.uid === event?.metadata.author.uid && (
-        <EditingSection>
-          <Button
             variant="icon"
             status="error"
             text="Delete event"
@@ -350,8 +358,8 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
             bold
             onClick={handleEventDelete}
           />
-        </EditingSection>
-      )}
+        )}
+      </ControlsWrapper>
       <InfoWrapper>
         <ProfilePreview
           name={event?.metadata.author.username}

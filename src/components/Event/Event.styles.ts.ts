@@ -182,6 +182,7 @@ const ButtonWrapper = styled.div`
     font-weight: 600;
     font-size: 0.8rem;
     pointer-events: none;
+    color: #959595;
   }
 `;
 
