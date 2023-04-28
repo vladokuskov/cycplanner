@@ -170,6 +170,12 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
                         variant="no-link"
                         name={participant.name}
                         photoURL={participant.photoUrl}
+                        description={
+                          user?.uid === participant.uid &&
+                          user?.uid === event?.metadata.author.uid
+                            ? 'Event organizator'
+                            : ''
+                        }
                       />
                       {user?.uid === event?.metadata.author.uid &&
                         user?.uid !== participant.uid && (
@@ -197,6 +203,12 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
                         variant="no-link"
                         name={participant.name}
                         photoURL={participant.photoUrl}
+                        description={
+                          user?.uid === participant.uid &&
+                          user?.uid === event?.metadata.author.uid
+                            ? 'Event organizator'
+                            : ''
+                        }
                       />
                       {user?.uid === event?.metadata.author.uid &&
                         user?.uid !== participant.uid && (
