@@ -28,11 +28,11 @@ export const approveUserParticipating = async (
     const q = query(eventsRef, where('event.id', '==', eventId));
     const snapshot = await getDocs(q);
 
-    snapshot.forEach((event) => {
+    snapshot.forEach(async (event) => {
       const eventId = event.data().docID;
       const data = event.data().event;
 
-      updateDoc(doc(db, 'events', eventId), {
+      await updateDoc(doc(db, 'events', eventId), {
         event: {
           ...data,
           participating: {
@@ -59,11 +59,11 @@ export const removeUserFromParticipating = async (
     const q = query(eventsRef, where('event.id', '==', eventId));
     const snapshot = await getDocs(q);
 
-    snapshot.forEach((event) => {
+    snapshot.forEach(async (event) => {
       const eventId = event.data().docID;
       const data = event.data().event;
 
-      updateDoc(doc(db, 'events', eventId), {
+      await updateDoc(doc(db, 'events', eventId), {
         event: {
           ...data,
           participating: {

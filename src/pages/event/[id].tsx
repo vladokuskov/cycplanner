@@ -7,8 +7,8 @@ import { getDetailEvent } from '@/firebase/events';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Loading } from '@/components/types/shared/loadingState.types';
-import { DetailMainSection } from '@/components/EventDetail/DetailMainSection';
-import { DetailSidebarSection } from '@/components/EventDetail/DetailSidebarSection';
+import { DetailMainSection } from '@/components/EventDetail/DetailMain/DetailMainSection';
+import { DetailSidebarSection } from '@/components/EventDetail/DetailSidebar/DetailSidebarSection';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {
