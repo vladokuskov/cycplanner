@@ -164,7 +164,6 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
           <>
             {selectedFilter === 'submitted'
               ? submittedUsers?.map((participant: any, i) => {
-                  console.log(participant);
                   return (
                     <UserControlWrapper key={i}>
                       <ProfilePreview
@@ -197,7 +196,7 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
                       <ProfilePreview
                         variant="no-link"
                         name={participant.name}
-                        photoURL={participant.photoURL}
+                        photoURL={participant.photoUrl}
                       />
                       {user?.uid === event?.metadata.author.uid &&
                         user?.uid !== participant.uid && (
