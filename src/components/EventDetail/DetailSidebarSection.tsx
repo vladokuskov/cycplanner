@@ -164,9 +164,9 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
           <SwitchButton
             onClick={() => handleFilterChange('submited')}
             disabled={selectedFilter === 'submited'}
-            title="Submited participants"
+            title="Participants"
           >
-            Submited
+            Participants
           </SwitchButton>
           <SwitchButton
             onClick={() => handleFilterChange('awaiting')}
