@@ -108,9 +108,20 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
     if (event && event?.id && event.participating) {
       try {
         await approveUserParticipating(event?.id, participantId);
-        await fetchData(
-          eventParticipatingUsers.submitedUsers,
-          eventParticipatingUsers.awaitingUsers
+
+        setEventParticipatingUsers((prevState) => ({
+          ...prevState,
+          submitedUsers: [...prevState.submitedUsers, participantId],
+          awaitingUsers: prevState.awaitingUsers.filter(
+            (userId) => userId !== participantId
+          ),
+        }));
+
+        fetchData(
+          eventParticipatingUsers.submitedUsers.concat(participantId),
+          eventParticipatingUsers.awaitingUsers.filter(
+            (userId) => userId !== participantId
+          )
         );
       } catch (err) {
         setLoadingState(Loading.error);
