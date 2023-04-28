@@ -22,41 +22,42 @@ import { faCheckCircle, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { Button } from '../../Button/Button';
 
 const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
-  const [eventParticipatingUsers, setEventParticipatingUsers] = useState({
-    submitedUsers: [] as string[],
-    awaitingUsers: [] as string[],
+  const [eventUsers, setEventUsers] = useState({
+    submitted: [] as string[],
+    awaiting: [] as string[],
   });
 
   const [loadingState, setLoadingState] = useState<Loading>(Loading.loading);
-  const [selectedFilter, setSelectedFilter] = useState<string>('submited');
-  const [submitedUsers, setSubmitedUsers] = useState<DocumentData[] | null>(
+  const [selectedFilter, setSelectedFilter] = useState<string>('submitted');
+  const [submittedUsers, setSubmittedUsers] = useState<DocumentData[] | null>(
     null
   );
   const [awaitingUsers, setAwaitingUsers] = useState<DocumentData[] | null>(
     null
   );
+
   const { user } = useAuth();
 
   useEffect(() => {
     if (event && event.participating) {
-      setEventParticipatingUsers({
-        submitedUsers: event.participating?.submitedUsers,
-        awaitingUsers: event.participating?.awaitingUsers,
+      setEventUsers({
+        submitted: event.participating?.submitedUsers,
+        awaiting: event.participating?.awaitingUsers,
       });
     }
   }, []);
 
   const fetchData = async (
-    submitedUsersArray: string[],
+    submittedUsersArray: string[],
     awaitingUsersArray: string[]
   ) => {
     try {
-      const { submited, awaiting } = await getUsers(
-        submitedUsersArray,
+      const { submitted, awaiting } = await getUsers(
+        submittedUsersArray,
         awaitingUsersArray
       );
 
-      setSubmitedUsers(submited);
+      setSubmittedUsers(submitted);
       setAwaitingUsers(awaiting);
 
       setLoadingState(Loading.success);
@@ -64,8 +65,6 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
       setLoadingState(Loading.error);
     }
   };
-
-  console.log(eventParticipatingUsers.awaitingUsers);
 
   const handleFilterChange = (filter: string) => {
     setSelectedFilter(filter);
@@ -79,23 +78,19 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
       if (result && event && event?.id && event.participating) {
         await removeUserFromParticipating(event?.id, participantId);
 
-        setEventParticipatingUsers((prevState) => ({
+        setEventUsers((prevState) => ({
           ...prevState,
-          submitedUsers: prevState.submitedUsers.filter(
+          submitted: prevState.submitted.filter(
             (userId) => userId !== participantId
           ),
-          awaitingUsers: prevState.awaitingUsers.filter(
+          awaiting: prevState.awaiting.filter(
             (userId) => userId !== participantId
           ),
         }));
 
         fetchData(
-          eventParticipatingUsers.submitedUsers.filter(
-            (userId) => userId !== participantId
-          ),
-          eventParticipatingUsers.awaitingUsers.filter(
-            (userId) => userId !== participantId
-          )
+          eventUsers.submitted.filter((userId) => userId !== participantId),
+          eventUsers.awaiting.filter((userId) => userId !== participantId)
         );
       }
     } catch (err) {
@@ -109,19 +104,17 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
       try {
         await approveUserParticipating(event?.id, participantId);
 
-        setEventParticipatingUsers((prevState) => ({
+        setEventUsers((prevState) => ({
           ...prevState,
-          submitedUsers: [...prevState.submitedUsers, participantId],
-          awaitingUsers: prevState.awaitingUsers.filter(
+          submitted: [...prevState.submitted, participantId],
+          awaiting: prevState.awaiting.filter(
             (userId) => userId !== participantId
           ),
         }));
 
         fetchData(
-          eventParticipatingUsers.submitedUsers.concat(participantId),
-          eventParticipatingUsers.awaitingUsers.filter(
-            (userId) => userId !== participantId
-          )
+          eventUsers.submitted.concat(participantId),
+          eventUsers.awaiting.filter((userId) => userId !== participantId)
         );
       } catch (err) {
         setLoadingState(Loading.error);
@@ -149,8 +142,8 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
       {user?.uid === event?.metadata.author.uid && (
         <SwitcherWrapper>
           <SwitchButton
-            onClick={() => handleFilterChange('submited')}
-            disabled={selectedFilter === 'submited'}
+            onClick={() => handleFilterChange('submitted')}
+            disabled={selectedFilter === 'submitted'}
             title="Participants"
           >
             Participants
@@ -169,14 +162,15 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
           <p>Loading</p>
         ) : loadingState === Loading.success ? (
           <>
-            {selectedFilter === 'submited'
-              ? submitedUsers?.map((participant: any, i) => {
+            {selectedFilter === 'submitted'
+              ? submittedUsers?.map((participant: any, i) => {
+                  console.log(participant);
                   return (
                     <UserControlWrapper key={i}>
                       <ProfilePreview
                         variant="no-link"
                         name={participant.name}
-                        photoURL={participant.photoURL}
+                        photoURL={participant.photoUrl}
                       />
                       {user?.uid === event?.metadata.author.uid &&
                         user?.uid !== participant.uid && (

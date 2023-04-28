@@ -177,7 +177,7 @@ const ButtonWrapper = styled.div`
   p {
     position: absolute;
     top: -0.3rem;
-    right: -0.3rem;
+    right: -0.6rem;
     color: #2c2c2c;
     font-weight: 600;
     font-size: 0.8rem;

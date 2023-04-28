@@ -162,9 +162,8 @@ export const getUsers = async (
   submitedUsers: string[],
   awaitingUsers: string[]
 ) => {
-  let submited: DocumentData[] = [];
+  let submitted: DocumentData[] = [];
   let awaiting: DocumentData[] = [];
-
   let q = collection(db, 'users');
 
   await Promise.all(
@@ -173,7 +172,7 @@ export const getUsers = async (
       const querySnapShot = await getDocs(user);
       const data = querySnapShot.docs.map((doc) => doc.data());
 
-      submited.push(...data);
+      submitted.push(...data);
     })
   );
 
@@ -186,7 +185,7 @@ export const getUsers = async (
     })
   );
 
-  return { submited, awaiting };
+  return { submitted, awaiting };
 };
 
 export const getEventsID = async () => {

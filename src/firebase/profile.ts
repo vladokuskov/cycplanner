@@ -60,10 +60,20 @@ export const updateUserPassword = async (
 export const updateProfileName = async (name: string) => {
   const user = auth.currentUser;
 
+  const usersRef = collection(db, 'users');
+  const querySnapshot = await getDocs(
+    query(usersRef, where('uid', '==', user?.uid))
+  );
+
   try {
     if (user) {
       if (user?.displayName !== name && name.length !== 0) {
         await updateProfile(user, { displayName: name });
+        if (!querySnapshot.empty) {
+          const docId = querySnapshot.docs[0].id;
+          const docRef = doc(db, 'users', docId);
+          await updateDoc(docRef, { name: name });
+        }
         await updateEventNames(user?.uid, name);
       }
     }
@@ -126,6 +136,12 @@ const updateEventPhotoUrls = async (uid: string, photoUrl: string | null) => {
 
 export const uploadAvatar = async (image: File) => {
   const user = auth.currentUser;
+
+  const usersRef = collection(db, 'users');
+  const querySnapshot = await getDocs(
+    query(usersRef, where('uid', '==', user?.uid))
+  );
+
   try {
     if (user && user.photoURL) {
       const photoRef = ref(storage, user.photoURL);
@@ -139,6 +155,11 @@ export const uploadAvatar = async (image: File) => {
 
     user && (await updateEventPhotoUrls(user.uid, downloadURL));
     user && (await updateProfile(user, { photoURL: downloadURL }));
+    if (!querySnapshot.empty) {
+      const docId = querySnapshot.docs[0].id;
+      const docRef = doc(db, 'users', docId);
+      await updateDoc(docRef, { photoUrl: downloadURL });
+    }
   } catch (err) {
     throw err;
   }
@@ -147,6 +168,11 @@ export const uploadAvatar = async (image: File) => {
 export const removeProfilePicture = async () => {
   try {
     const user = auth.currentUser;
+
+    const usersRef = collection(db, 'users');
+    const querySnapshot = await getDocs(
+      query(usersRef, where('uid', '==', user?.uid))
+    );
 
     if (user && user.photoURL) {
       const photoRef = ref(storage, user.photoURL);
@@ -157,6 +183,11 @@ export const removeProfilePicture = async () => {
       await updateEventPhotoUrls(user.uid, '');
 
       await updateProfile(user, { photoURL: '' });
+      if (!querySnapshot.empty) {
+        const docId = querySnapshot.docs[0].id;
+        const docRef = doc(db, 'users', docId);
+        await updateDoc(docRef, { photoUrl: '' });
+      }
       const photoRef = ref(storage, user.photoURL || '');
       if (photoRef.parent) {
         deleteObject(photoRef.parent);

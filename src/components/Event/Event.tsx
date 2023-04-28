@@ -210,7 +210,7 @@ const Event = (event: IEvent) => {
               onClick={handleRedirectToDetail}
             />
             <ButtonWrapper>
-              <p> {event.participating?.submitedUsers.length}</p>
+              <p>{event.participating?.submitedUsers.length}</p>
               <Button
                 variant="icon"
                 icon={faUserCircle}

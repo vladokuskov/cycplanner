@@ -7,6 +7,7 @@ import {
   where,
   addDoc,
   getFirestore,
+  updateDoc,
 } from 'firebase/firestore';
 
 import {
@@ -31,11 +32,15 @@ export const signInWithGoogle = async () => {
     const q = query(collection(db, 'users'), where('uid', '==', user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      await addDoc(collection(db, 'users'), {
+      const docRef = await addDoc(collection(db, 'users'), {
         uid: user.uid,
         name: user.displayName,
         authProvider: 'google',
         email: user.email,
+      });
+
+      await updateDoc(docRef, {
+        docID: docRef.id,
       });
     }
   } catch (err) {
@@ -66,12 +71,16 @@ export const registerWithEmailAndPassword = async (
     await updateProfile(user, {
       displayName: username,
     });
-    await addDoc(collection(db, 'users'), {
+    const docRef = await addDoc(collection(db, 'users'), {
       uid: user.uid,
       name: username,
       photoUrl: null,
       authProvider: 'local',
       email,
+    });
+
+    await updateDoc(docRef, {
+      docID: docRef.id,
     });
   } catch (err) {
     throw err;
