@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { Loading } from '@/components/types/shared/loadingState.types';
 import { DetailMainSection } from '@/components/EventDetail/DetailMain/DetailMainSection';
 import { DetailSidebarSection } from '@/components/EventDetail/DetailSidebar/DetailSidebarSection';
+import { SkeletonLoader } from '@/components/skeleton/Skeleton';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {
@@ -48,7 +49,7 @@ export default function Web() {
         </Head>
         <StyledContainer variant="page">
           {loading === Loading.loading ? (
-            <p>Loading</p>
+            <SkeletonLoader variant="detail-page" />
           ) : loading === Loading.success ? (
             <StyledContainer variant="detail-page">
               <DetailMainSection event={event} />

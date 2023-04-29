@@ -4,10 +4,17 @@ import {
   EventSkeleton,
   EventSkeletonMap,
 } from './Skeleton.styles';
+import { DetailSkeleton } from './DetailSkeleton/DetailSkeleton';
+import {
+  AuthorTitle,
+  AuthorImagePlaceholder,
+  AuthorWrapper,
+} from './DetailSkeleton/DetailSkeleton.styles';
 
 const SkeletonLoader = ({ variant }: Skeleton) => {
   const homeSkeletons = Array.from({ length: 3 });
   const eventsSkeletons = Array.from({ length: 10 });
+  const users = Array.from({ length: 15 });
   return (
     <MainSkeletonWrapper>
       {variant === 'event-home' ? (
@@ -22,8 +29,21 @@ const SkeletonLoader = ({ variant }: Skeleton) => {
             <EventSkeleton key={count} />
           ))}
         </>
+      ) : variant === 'event-map' ? (
+        <EventSkeletonMap />
+      ) : variant === 'detail-page' ? (
+        <DetailSkeleton />
       ) : (
-        variant === 'event-map' && <EventSkeletonMap />
+        variant === 'users' && (
+          <>
+            {users.map((_, count) => (
+              <AuthorWrapper key={count}>
+                <AuthorImagePlaceholder />
+                <AuthorTitle />
+              </AuthorWrapper>
+            ))}
+          </>
+        )
       )}
     </MainSkeletonWrapper>
   );

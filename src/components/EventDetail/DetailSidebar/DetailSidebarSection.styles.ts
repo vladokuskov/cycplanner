@@ -10,7 +10,7 @@ const DetailSidebarSectionWrapper = styled.section`
   justify-content: flex-start;
   flex-direction: column;
   @media (min-width: 680px) {
-    width: 80%;
+    width: 90%;
     padding: 1rem;
     border: none;
     margin: 0 auto;
@@ -29,10 +29,13 @@ const SwitcherWrapper = styled.div`
   background-color: #d9d9d9;
   border-radius: 8px;
   padding: 0.2rem;
-
-  max-width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
   margin: 0 auto;
   margin-top: 0.5rem;
+  gap: 0.3rem;
 `;
 
 const SwitchButton = styled.button`

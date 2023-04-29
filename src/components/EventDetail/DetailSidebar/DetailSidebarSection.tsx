@@ -20,6 +20,7 @@ import { IEvent } from '../../types/shared/event.types';
 import { Loading } from '../../types/shared/loadingState.types';
 import { faCheckCircle, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { Button } from '../../Button/Button';
+import { SkeletonLoader } from '@/components/skeleton/Skeleton';
 
 const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
   const [eventUsers, setEventUsers] = useState({
@@ -134,7 +135,7 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
         event.participating.awaitingUsers
       );
     }
-  }, [event]);
+  }, []);
 
   return (
     <DetailSidebarSectionWrapper>
@@ -159,7 +160,7 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
       )}
       <ParticipantsList>
         {loadingState === Loading.loading ? (
-          <p>Loading</p>
+          <SkeletonLoader variant="users" />
         ) : loadingState === Loading.success ? (
           <>
             {selectedFilter === 'submitted'

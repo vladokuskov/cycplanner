@@ -18,6 +18,7 @@ const DetailMainSectionWrapper = styled.section`
 
 const MapWrapper = styled.div<{ isMapMaximized: boolean }>`
   width: 100%;
+  display: grid;
   max-height: ${({ isMapMaximized }) => (isMapMaximized ? '20rem' : '15rem')};
   height: 100%;
   min-height: 15rem;
@@ -90,9 +91,12 @@ const ControlsWrapper = styled.div<{
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding: 0.4rem 0;
   gap: 1rem;
+  @media (min-width: 680px) {
+    justify-content: flex-end;
+  }
   .participateBtn {
     ${({ participated }) =>
       participated === Participating.participated
