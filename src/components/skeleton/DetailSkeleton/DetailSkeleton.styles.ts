@@ -53,6 +53,12 @@ const ButtonsWrapper = styled.div`
   }
 `;
 
+const AuthorMainWrapper = styled.div`
+  margin-top: 0.5rem;
+  width: 100%;
+  background-color: transparent !important;
+`;
+
 const AuthorWrapper = styled.div`
   width: 100%;
   background-color: transparent !important;
@@ -62,8 +68,8 @@ const AuthorWrapper = styled.div`
   gap: 0.3rem;
 `;
 const AuthorImagePlaceholder = styled.div`
-  width: 2rem;
-  height: 2rem;
+  width: 2.3rem;
+  height: 2.3rem;
   border-radius: 50% !important;
   border: none;
 `;
@@ -84,15 +90,13 @@ const BigTitle = styled.div`
 const MediumTitle = styled.div`
   width: 100%;
   height: 1.2rem;
-  max-width: 75%;
+
   margin-top: 0.3rem;
 `;
 
 const SmallTitle = styled.div`
   width: 100%;
   height: 1rem;
-  max-width: 65%;
-  margin-top: 0.5rem;
 `;
 
 const ButtonSkeleton = styled.div`
@@ -107,8 +111,9 @@ const DescriptionWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 0.3rem;
-  margin-top: 2rem;
+  gap: 0.2rem;
+  margin-top: 0.8rem;
+  max-width: 75%;
 `;
 
 const DetailsWrapper = styled.div`
@@ -118,8 +123,9 @@ const DetailsWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 0.3rem;
+  gap: 0.4rem;
   margin-top: 0.5rem;
+  max-width: 15rem;
 `;
 
 const UsersList = styled.div`
@@ -148,4 +154,5 @@ export {
   SidebarSection,
   MainSection,
   MapSkeleton,
+  AuthorMainWrapper,
 };

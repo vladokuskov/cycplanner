@@ -141,9 +141,7 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
   const copyEventDetailURL = async () => {
     const baseURL = window.location.href;
     if (baseURL) {
-      await navigator.clipboard.writeText(
-        `${baseURL}event/${event && event.id}`
-      );
+      await navigator.clipboard.writeText(`${baseURL}${event && event.id}`);
     }
   };
 

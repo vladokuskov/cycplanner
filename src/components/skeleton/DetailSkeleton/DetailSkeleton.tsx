@@ -14,11 +14,12 @@ import {
   SidebarSection,
   MainSection,
   MapSkeleton,
+  AuthorMainWrapper,
 } from './DetailSkeleton.styles';
 
 const DetailSkeleton = () => {
   const buttons = Array.from({ length: 3 });
-  const description = Array.from({ length: 3 });
+  const description = Array.from({ length: 2 });
   const details = Array.from({ length: 3 });
   const users = Array.from({ length: 15 });
 
@@ -31,10 +32,13 @@ const DetailSkeleton = () => {
             <ButtonSkeleton key={count} />
           ))}
         </ButtonsWrapper>
-        <AuthorWrapper>
-          <AuthorImagePlaceholder />
-          <AuthorTitle />
-        </AuthorWrapper>
+        <AuthorMainWrapper>
+          <AuthorWrapper>
+            <AuthorImagePlaceholder />
+            <AuthorTitle />
+          </AuthorWrapper>
+        </AuthorMainWrapper>
+
         <BigTitle />
         <DescriptionWrapper>
           {description.map((_, count) => (
@@ -49,6 +53,7 @@ const DetailSkeleton = () => {
         </DetailsWrapper>
       </MainSection>
       <SidebarSection>
+        <BigTitle />
         <BigTitle />
         <UsersList>
           {users.map((_, count) => (
