@@ -172,6 +172,20 @@ const DetailDescription = styled.p`
   color: #656565;
 `;
 
+const ButtonWrapper = styled.div`
+  position: relative;
+  p {
+    position: absolute;
+    top: -0.3rem;
+    right: -0.6rem;
+    color: #2c2c2c;
+    font-weight: 600;
+    font-size: 0.8rem;
+    pointer-events: none;
+    color: #959595;
+  }
+`;
+
 const DetailLocation = styled.a`
   cursor: pointer;
   text-decoration: underline;
@@ -201,4 +215,5 @@ export {
   EventMainWrapper,
   EventHeaderWrapper,
   EventWrapper,
+  ButtonWrapper,
 };

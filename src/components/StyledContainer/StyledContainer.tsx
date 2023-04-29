@@ -31,7 +31,6 @@ const StyledContainer = styled.div<ContainerVariant>`
       min-height: 100vh;
       margin: 0 auto;
       background-color: #fbfbfb;
-
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -39,6 +38,27 @@ const StyledContainer = styled.div<ContainerVariant>`
       @media (min-width: 680px) {
         display: grid;
         grid-template-columns: 3fr 7fr;
+      }
+    `}
+
+    ${({ variant }) =>
+    variant === 'detail-page' &&
+    css`
+      width: 100%;
+      max-width: 75rem;
+      min-height: 100vh;
+      margin: 0 auto;
+      background-color: #fbfbfb;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 1rem;
+      grid-template-columns: 1fr;
+      @media (min-width: 680px) {
+        display: grid;
+        align-items: flex-start;
+        grid-template-columns: 6fr 4fr;
       }
     `}
 

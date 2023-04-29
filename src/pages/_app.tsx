@@ -1,5 +1,5 @@
 import GlobalStyle from '@/styles/GlobalStyle';
-import 'leaflet/dist/leaflet.css';
+
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 
@@ -23,6 +23,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   return getLayout(
     <>
       <GlobalStyle />
+      <Head>
+        <title>cycplanner</title>
+      </Head>
       <AuthProvider>
         <Provider store={store}>
           <Component {...pageProps} />

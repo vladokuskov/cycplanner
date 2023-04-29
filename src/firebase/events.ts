@@ -12,10 +12,77 @@ import {
   startAfter,
   where,
   doc,
+  deleteDoc,
+  DocumentData,
 } from 'firebase/firestore';
 import { auth } from './auth';
 
 import { db } from './firebase';
+
+export const approveUserParticipating = async (
+  eventId: string,
+  participantId: string
+) => {
+  try {
+    const eventsRef = collection(db, 'events');
+    const q = query(eventsRef, where('event.id', '==', eventId));
+    const snapshot = await getDocs(q);
+
+    snapshot.forEach(async (event) => {
+      const eventId = event.data().docID;
+      const data = event.data().event;
+
+      await updateDoc(doc(db, 'events', eventId), {
+        event: {
+          ...data,
+          participating: {
+            ...data.participating,
+            submitedUsers: [...data.participating.submitedUsers, participantId],
+            awaitingUsers: data.participating.awaitingUsers.filter(
+              (id: string) => id !== participantId
+            ),
+          },
+        },
+      });
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const removeUserFromParticipating = async (
+  eventId: string,
+  participantId: string
+) => {
+  try {
+    const eventsRef = collection(db, 'events');
+    const q = query(eventsRef, where('event.id', '==', eventId));
+    const snapshot = await getDocs(q);
+
+    snapshot.forEach(async (event) => {
+      const eventId = event.data().docID;
+      const data = event.data().event;
+
+      await updateDoc(doc(db, 'events', eventId), {
+        event: {
+          ...data,
+          participating: {
+            ...data.participating,
+            submitedUsers: data.participating.submitedUsers.filter(
+              (id: string) => id !== participantId
+            ),
+
+            awaitingUsers: data.participating.awaitingUsers.filter(
+              (id: string) => id !== participantId
+            ),
+          },
+        },
+      });
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 export const updateEventParticipating = async (
   userId: string,
@@ -29,18 +96,23 @@ export const updateEventParticipating = async (
     snapshot.forEach((event) => {
       const eventId = event.data().docID;
       const data = event.data().event;
-      const isParticipated = data.participating.awaitingUsers.includes(userId);
+      const isParticipated = data.participating.submitedUsers.includes(userId);
+      const isAwaiting = data.participating.awaitingUsers.includes(userId);
 
       updateDoc(doc(db, 'events', eventId), {
         event: {
           ...data,
           participating: {
             ...data.participating,
-            awaitingUsers: isParticipated
-              ? data.participating.awaitingUsers.filter(
-                  (id: string) => id !== userId
-                )
-              : [...data.participating.awaitingUsers, userId],
+            submitedUsers: data.participating.submitedUsers.filter(
+              (id: string) => id !== userId
+            ),
+            awaitingUsers:
+              isAwaiting || isParticipated
+                ? data.participating.awaitingUsers.filter(
+                    (id: string) => id !== userId
+                  )
+                : [...data.participating.awaitingUsers, userId],
           },
         },
       });
@@ -84,6 +156,68 @@ export const createEvent = async (event: IEvent) => {
   } catch (err) {
     throw 'Oops, it looks like something went wrong while creating your event.';
   }
+};
+
+export const getUsers = async (
+  submitedUsers: string[],
+  awaitingUsers: string[]
+) => {
+  let submitted: DocumentData[] = [];
+  let awaiting: DocumentData[] = [];
+  let q = collection(db, 'users');
+
+  await Promise.all(
+    submitedUsers.map(async (userId) => {
+      const user = query(q, where('uid', '==', userId));
+      const querySnapShot = await getDocs(user);
+      const data = querySnapShot.docs.map((doc) => doc.data());
+
+      submitted.push(...data);
+    })
+  );
+
+  await Promise.all(
+    awaitingUsers.map(async (userId) => {
+      const user = query(q, where('uid', '==', userId));
+      const querySnapShot = await getDocs(user);
+      const data = querySnapShot.docs.map((doc) => doc.data());
+      awaiting.push(...data);
+    })
+  );
+
+  return { submitted, awaiting };
+};
+
+export const getEventsID = async () => {
+  let q = collection(db, 'events');
+
+  const events = query(q);
+
+  const querySnapShot = await getDocs(events);
+  const eventsID = querySnapShot.docs.map((doc) => doc.data().event.id);
+  return eventsID;
+};
+
+export const getDetailEvent = async (eventID: string | string[]) => {
+  let q = collection(db, 'events');
+
+  const events = query(q, where('event.id', '==', eventID));
+
+  const querySnapShot = await getDocs(events);
+  const event = querySnapShot.docs.map((doc) => doc.data().event);
+  return event[0];
+};
+
+export const deleteEvent = async (eventID: string) => {
+  const q = collection(db, 'events');
+
+  const events = query(q, where('event.id', '==', eventID));
+
+  const querySnapshot = await getDocs(events);
+
+  querySnapshot.forEach(async (doc) => {
+    await deleteDoc(doc.ref);
+  });
 };
 
 export const getLastEvenets = async (

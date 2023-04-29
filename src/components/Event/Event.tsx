@@ -13,6 +13,7 @@ import {
   EventMainWrapper,
   EventHeaderWrapper,
   EventWrapper,
+  ButtonWrapper,
 } from './Event.styles.ts';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -123,14 +124,24 @@ const Event = (event: IEvent) => {
 
   const handleParticipating = async () => {
     if (user && event.id) {
-      await updateEventParticipating(user?.uid, event.id);
       if (participatingStatus === Participating.none) {
+        await updateEventParticipating(user?.uid, event.id);
         setParticipatingStatus(Participating.awaiting);
-      } else if (
-        participatingStatus === Participating.awaiting ||
-        participatingStatus === Participating.participated
-      ) {
+      } else if (participatingStatus === Participating.awaiting) {
+        await updateEventParticipating(user?.uid, event.id);
         setParticipatingStatus(Participating.none);
+      } else if (participatingStatus === Participating.participated) {
+        try {
+          const result = window.confirm(
+            'Are you sure you want to cancel participating?'
+          );
+          if (result && event && event.id) {
+            await updateEventParticipating(user?.uid, event.id);
+            setParticipatingStatus(Participating.none);
+          }
+        } catch (err) {
+          console.log(err);
+        }
       }
     } else if (!user) {
       router.push('/login');
@@ -198,12 +209,16 @@ const Event = (event: IEvent) => {
               size="xl2"
               onClick={handleRedirectToDetail}
             />
-            <Button
-              variant="icon"
-              icon={faUserCircle}
-              size="xl2"
-              onClick={handleRedirectToDetail}
-            />
+            <ButtonWrapper>
+              <p>{event.participating?.submitedUsers.length}</p>
+              <Button
+                variant="icon"
+                icon={faUserCircle}
+                size="xl2"
+                onClick={handleRedirectToDetail}
+              />
+            </ButtonWrapper>
+
             {user?.uid !== event.metadata.author.uid && (
               <Button
                 className="participateBtn"
