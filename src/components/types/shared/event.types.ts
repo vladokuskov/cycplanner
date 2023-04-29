@@ -10,6 +10,7 @@ export interface IEvent {
     };
     likes?: number;
     createdAt?: number;
+    lastUpdatedAt?: number;
   };
   participating?: { submitedUsers: string[]; awaitingUsers: string[] };
   bookmarkedUsers?: [];

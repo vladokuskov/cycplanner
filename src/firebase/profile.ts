@@ -57,6 +57,7 @@ export const updateUserPassword = async (
     throw err;
   }
 };
+
 export const updateProfileName = async (name: string) => {
   const user = auth.currentUser;
 
@@ -145,7 +146,10 @@ export const uploadAvatar = async (image: File) => {
   try {
     if (user && user.photoURL) {
       const photoRef = ref(storage, user.photoURL);
-      await deleteObject(photoRef);
+      try {
+        await getDownloadURL(photoRef);
+        await deleteObject(photoRef);
+      } catch (error) {}
     }
 
     const fileRef = ref(storage, `images/${user?.uid}/${image.name}`);
@@ -194,6 +198,6 @@ export const removeProfilePicture = async () => {
       }
     }
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 };

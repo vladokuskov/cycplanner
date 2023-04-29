@@ -1,4 +1,4 @@
-import { app } from './firebase';
+import { app, storage } from './firebase';
 
 import {
   query,
@@ -42,6 +42,8 @@ export const signInWithGoogle = async () => {
       await updateDoc(docRef, {
         docID: docRef.id,
       });
+
+      user && (await updateProfile(user, { photoURL: '' }));
     }
   } catch (err) {
     throw err;

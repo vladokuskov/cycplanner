@@ -21,7 +21,6 @@ import { EventType } from '../EventType/EventType';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
 const EventCreationForm = () => {
-  const { user } = useAuth();
   const [file, setFile] = useState<null | File>(null);
   const [route, setRoute] = useState<null | GeoPoint[]>(null);
   const [isCreatingEvent, setIsCreatingEvent] = useState(false);
@@ -29,8 +28,9 @@ const EventCreationForm = () => {
     isError: false,
     error: '',
   });
+  const { user } = useAuth();
 
-  const [eventForm, setEventForm] = useState<IEvent>({
+  const INITIAL_EVENT_FORM_STATE: IEvent = {
     id: nanoid(),
     metadata: {
       author: {
@@ -40,6 +40,7 @@ const EventCreationForm = () => {
       },
       likes: 0,
       createdAt: Date.now(),
+      lastUpdatedAt: Date.now(),
     },
     participating: { submitedUsers: [user ? user.uid : ''], awaitingUsers: [] },
     bookmarkedUsers: [],
@@ -47,9 +48,11 @@ const EventCreationForm = () => {
     description: '',
     distance: '',
     type: '',
-    location: { geoPoint: { lat: null, lon: null }, hash: '' },
-    route: route,
-  });
+    location: { geoPoint: { lat: null, lon: null } },
+    route: null,
+  };
+
+  const [eventForm, setEventForm] = useState<IEvent>(INITIAL_EVENT_FORM_STATE);
 
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -99,29 +102,7 @@ const EventCreationForm = () => {
   const resetForm = () => {
     setFile(null);
     setRoute(null);
-    setEventForm({
-      id: nanoid(),
-      metadata: {
-        author: {
-          username: user?.displayName,
-          photoUrl: user?.photoURL,
-          uid: user?.uid,
-        },
-        likes: 0,
-        createdAt: Date.now(),
-      },
-      participating: {
-        submitedUsers: [user ? user.uid : ''],
-        awaitingUsers: [],
-      },
-      bookmarkedUsers: [],
-      title: '',
-      description: '',
-      distance: '',
-      type: '',
-      location: { geoPoint: { lat: null, lon: null } },
-      route: null,
-    });
+    setEventForm(INITIAL_EVENT_FORM_STATE);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
