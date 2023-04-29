@@ -14,6 +14,7 @@ import {
   EventHeaderWrapper,
   EventWrapper,
   ButtonWrapper,
+  CopiedMessage,
 } from './Event.styles.ts';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -49,6 +50,7 @@ const Event = (event: IEvent) => {
     Participating.none
   );
   const [isMapMaximized, setIsMapMaximized] = useState<boolean>(false);
+  const [isCopied, setIsCopied] = useState(false);
 
   const humanDate =
     event.metadata.createdAt &&
@@ -106,6 +108,11 @@ const Event = (event: IEvent) => {
     const baseURL = window.location.href;
     if (baseURL) {
       await navigator.clipboard.writeText(`${baseURL}event/${event.id}`);
+      setIsCopied(true);
+
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
     }
   };
 
@@ -157,12 +164,16 @@ const Event = (event: IEvent) => {
           photoURL={event.metadata.author.photoUrl}
           variant="no-link"
         />
-        <Button
-          variant="icon"
-          icon={faShareNodes}
-          size="md3"
-          onClick={copyEventDetailURL}
-        />
+        {!isCopied ? (
+          <Button
+            variant="icon"
+            icon={faShareNodes}
+            size="md3"
+            onClick={copyEventDetailURL}
+          />
+        ) : (
+          <CopiedMessage>Copied</CopiedMessage>
+        )}
       </EventHeaderWrapper>
       <EventMainWrapper>
         <EventContentWrapper>

@@ -19,7 +19,6 @@ import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 import {
   DetailLocation,
-  EditingSection,
   ControlsWrapper,
   DetailMainSectionWrapper,
   InfoDetail,
@@ -35,6 +34,7 @@ import { Button } from '../../Button/Button';
 import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
 import { SkeletonLoader } from '../../skeleton/Skeleton';
 import { IEvent, Participating } from '../../types/shared/event.types';
+import { CopiedMessage } from '@/components/Event/Event.styles.ts';
 
 const DetailMainSection = ({ event }: { event: IEvent | null }) => {
   const Map = useMemo(
@@ -57,6 +57,7 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
   const [participatingStatus, setParticipatingStatus] = useState<Participating>(
     Participating.none
   );
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     const checkIsBookmarked = async () => {
@@ -142,6 +143,11 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
     const baseURL = window.location.href;
     if (baseURL) {
       await navigator.clipboard.writeText(`${baseURL}${event && event.id}`);
+      setIsCopied(true);
+
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
     }
   };
 
@@ -166,12 +172,16 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
         isBookmarked={isBookmarked}
         participated={participatingStatus}
       >
-        <Button
-          variant="icon"
-          icon={faShareNodes}
-          size="md3"
-          onClick={copyEventDetailURL}
-        />
+        {!isCopied ? (
+          <Button
+            variant="icon"
+            icon={faShareNodes}
+            size="md3"
+            onClick={copyEventDetailURL}
+          />
+        ) : (
+          <CopiedMessage>Copied</CopiedMessage>
+        )}
         <Button
           className="bookmarkBtn"
           variant="icon"

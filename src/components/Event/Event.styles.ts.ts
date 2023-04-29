@@ -18,6 +18,18 @@ const EventWrapper = styled.div`
   }
 `;
 
+const CopiedMessage = styled.p`
+  transition: 0.2s;
+  background-color: #d0d0d0;
+  color: #fff;
+  padding: 0.2rem 0.4rem;
+  font-weight: 500;
+  letter-spacing: 0.03rem;
+  border: none;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  pointer-events: none;
+`;
 const EventHeaderWrapper = styled.div`
   width: 100%;
   padding: 1rem 0.9rem;
@@ -216,4 +228,5 @@ export {
   EventHeaderWrapper,
   EventWrapper,
   ButtonWrapper,
+  CopiedMessage,
 };

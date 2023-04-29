@@ -137,18 +137,6 @@ const ControlsWrapper = styled.div<{
   }
 `;
 
-const EditingSection = styled.div`
-  width: 100%;
-  padding: 0.3rem 1rem;
-  background-color: #e7e7e7;
-  border-radius: 15px;
-  transition: 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.5rem;
-`;
-
 const DetailLocation = styled.a`
   cursor: pointer;
   text-decoration: underline;
@@ -165,7 +153,6 @@ const DetailLocation = styled.a`
 
 export {
   DetailLocation,
-  EditingSection,
   ControlsWrapper,
   DetailMainSectionWrapper,
   InfoDetail,
