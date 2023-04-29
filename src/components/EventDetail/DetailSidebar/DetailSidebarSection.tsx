@@ -172,8 +172,7 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
                         name={participant.name}
                         photoURL={participant.photoUrl}
                         description={
-                          user?.uid === participant.uid &&
-                          user?.uid === event?.metadata.author.uid
+                          event?.metadata.author.uid === participant.uid
                             ? 'Event organizator'
                             : ''
                         }
@@ -205,8 +204,7 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
                         name={participant.name}
                         photoURL={participant.photoUrl}
                         description={
-                          user?.uid === participant.uid &&
-                          user?.uid === event?.metadata.author.uid
+                          event?.metadata.author.uid === participant.uid
                             ? 'Event organizator'
                             : ''
                         }
