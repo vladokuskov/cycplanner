@@ -19,12 +19,9 @@ const DetailMainSectionWrapper = styled.section`
 
 const MapWrapper = styled.div<{ isMapMaximized: boolean }>`
   width: 100%;
-  display: grid;
-  max-height: ${({ isMapMaximized }) => (isMapMaximized ? '20rem' : '15rem')};
-  height: 100%;
-  min-height: 15rem;
+  height: ${({ isMapMaximized }) => (isMapMaximized ? '20rem' : '15rem')};
   @media (min-width: 680px) {
-    max-height: ${({ isMapMaximized }) => (isMapMaximized ? '25rem' : '15rem')};
+    height: ${({ isMapMaximized }) => (isMapMaximized ? '25rem' : '15rem')};
   }
 `;
 

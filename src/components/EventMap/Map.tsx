@@ -48,6 +48,7 @@ const Map = ({ route, isMapMaximized, handleMapMaximizing }: EventMap) => {
         route.map((geoPoint) => [+geoPoint.lat, +geoPoint.lon])
       );
       map.fitBounds(bounds);
+
       map.invalidateSize();
     }
   }, [isMounted, route, map, isMapMaximized]);
@@ -74,7 +75,7 @@ const Map = ({ route, isMapMaximized, handleMapMaximizing }: EventMap) => {
         />
       </MapOverlayWrapper>
       <MapContainer
-        attributionControl={false}
+        attributionControl={isMapMaximized}
         zoomControl={false}
         scrollWheelZoom={true}
         center={[50, 30]}

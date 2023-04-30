@@ -34,4 +34,4 @@ const MapOverlayWrapper = styled.div<{ isMapMaximized: boolean }>`
     `}
 `;
 
-export { MapWrapper, MapOverlayWrapper };
+export { MapOverlayWrapper, MapWrapper };
