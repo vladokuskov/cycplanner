@@ -1,23 +1,27 @@
-import { EventsFilter } from '@/components/types/shared/eventsFilter.types';
-import { GeoPoint } from '@/components/types/shared/geoPoint.types';
-import { IEvent } from '@/components/types/shared/event.types';
 import {
-  getDocs,
-  query,
-  collection,
   addDoc,
-  updateDoc,
-  orderBy,
-  limit,
-  startAfter,
-  where,
-  doc,
+  collection,
   deleteDoc,
+  doc,
   DocumentData,
+  endAt,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  startAfter,
+  startAt,
+  updateDoc,
+  where,
 } from 'firebase/firestore';
-import { auth } from './auth';
 
+import { IEvent } from '@/components/types/shared/event.types';
+import { GeoPoint } from '@/components/types/shared/geoPoint.types';
+
+import { auth } from './auth';
 import { db } from './firebase';
+
+const geofire = require('geofire-common');
 
 export const approveUserParticipating = async (
   eventId: string,
@@ -46,7 +50,7 @@ export const approveUserParticipating = async (
       });
     });
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 };
 
@@ -80,7 +84,7 @@ export const removeUserFromParticipating = async (
       });
     });
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 };
 
@@ -118,11 +122,11 @@ export const updateEventParticipating = async (
       });
     });
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 };
 
-export const updateEventBookmarks = async (userId: string, eventId: string) => {
+export const updateFavoriteEvents = async (userId: string, eventId: string) => {
   try {
     const eventsRef = collection(db, 'events');
     const q = query(eventsRef, where('event.id', '==', eventId));
@@ -131,19 +135,19 @@ export const updateEventBookmarks = async (userId: string, eventId: string) => {
     snapshot.forEach((event) => {
       const eventId = event.data().docID;
       const data = event.data().event;
-      const isBookmarked = data.bookmarkedUsers.includes(userId);
+      const isFavorite = data.favoriteUsers.includes(userId);
 
       updateDoc(doc(db, 'events', eventId), {
         event: {
           ...data,
-          bookmarkedUsers: isBookmarked
-            ? data.bookmarkedUsers.filter((id: string) => id !== userId)
-            : [...data.bookmarkedUsers, userId],
+          favoriteUsers: isFavorite
+            ? data.favoriteUsers.filter((id: string) => id !== userId)
+            : [...data.favoriteUsers, userId],
         },
       });
     });
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 };
 
@@ -220,98 +224,97 @@ export const deleteEvent = async (eventID: string) => {
   });
 };
 
-export const getLastEvenets = async (
+export const getLastEvents = async (
   geoPoint: GeoPoint,
-  hash: string,
-  selectedSorting: 'oldest' | 'newest',
   selectedRange: number
 ) => {
-  let q = collection(db, 'events');
+  const q = collection(db, 'events');
 
-  const sortedEvents = query(
-    q,
-    orderBy(
-      'event.metadata.createdAt',
-      selectedSorting === 'newest' ? 'desc' : 'asc'
-    ),
-    limit(3)
-  );
+  const center = [+geoPoint.lat, +geoPoint.lon];
+  const radiusInM = selectedRange * 1000;
 
-  const querySnapShot = await getDocs(sortedEvents);
-  const events = querySnapShot.docs.map((doc) => doc.data().event);
+  const bounds = geofire.geohashQueryBounds(center, radiusInM);
+
+  const promises = [];
+
+  for (const b of bounds) {
+    const geoEvents = query(
+      q,
+      orderBy('event.location.hash'),
+      startAt(b[0]),
+      endAt(b[1]),
+      limit(3)
+    );
+    const querySnapShot = await getDocs(geoEvents);
+    promises.push(querySnapShot);
+  }
+
+  const querySnapshots = await Promise.all(promises);
+
+  const events = [] as IEvent[];
+
+  querySnapshots.forEach((snapshot) => {
+    snapshot.docs.forEach((doc) => {
+      events.push(doc.data().event);
+    });
+  });
+
   return events;
 };
 
 export const getAllEvents = async (
-  selectedSorting?: 'oldest' | 'newest',
+  geoPoint: GeoPoint,
+  selectedRange: number,
   pageNumber = 1,
   itemsPerPage = 10
 ) => {
   const q = collection(db, 'events');
-  const sortingOrder = selectedSorting === 'newest' ? 'desc' : 'asc';
 
-  let eventsQuery = query(
-    q,
-    orderBy('event.metadata.createdAt', sortingOrder),
-    limit(itemsPerPage)
-  );
+  const center = [+geoPoint.lat, +geoPoint.lon];
+  const radiusInM = selectedRange * 1000;
 
-  if (pageNumber > 1) {
-    const lastEvent = await getDocs(
-      query(
+  const bounds = geofire.geohashQueryBounds(center, radiusInM);
+
+  let events = [] as IEvent[];
+
+  for (const b of bounds) {
+    let geoEventsQuery = query(
+      q,
+      orderBy('event.location.hash'),
+      startAt(b[0]),
+      endAt(b[1]),
+      limit(itemsPerPage)
+    );
+
+    if (pageNumber > 1) {
+      const lastDoc = events[events.length - 1]?.metadata?.createdAt;
+
+      geoEventsQuery = query(
         q,
-        orderBy('event.metadata.createdAt', sortingOrder),
-        limit((pageNumber - 1) * itemsPerPage + 1)
-      )
-    )
-      .then((snap) => snap.docs[snap.docs.length - 1])
-      .then((doc) => doc?.data().event?.metadata?.createdAt);
-
-    if (lastEvent) {
-      eventsQuery = query(
-        q,
-        orderBy('event.metadata.createdAt', sortingOrder),
-        startAfter(lastEvent),
+        orderBy('event.location.hash'),
+        startAt(b[0]),
+        endAt(b[1]),
+        startAfter(lastDoc),
         limit(itemsPerPage)
       );
     }
+
+    const geoEventsSnapshot = await getDocs(geoEventsQuery);
+
+    const geoEvents = geoEventsSnapshot.docs.map((doc) => doc.data().event);
+    events = events.concat(geoEvents);
   }
 
   const totalEventsQuery = query(q);
   const totalEventsSnapshot = await getDocs(totalEventsQuery);
   const totalEvents = totalEventsSnapshot.size;
 
-  const eventsSnapShot = await getDocs(eventsQuery);
-  let events = eventsSnapShot.docs.map((doc) => doc.data().event);
-
-  // Sort the events based on the selected sorting
-  if (selectedSorting === 'newest') {
-    events.sort((a, b) => {
-      return (
-        new Date(b.metadata.createdAt).getTime() -
-        new Date(a.metadata.createdAt).getTime()
-      );
-    });
-  } else {
-    events.sort((a, b) => {
-      return (
-        new Date(a.metadata.createdAt).getTime() -
-        new Date(b.metadata.createdAt).getTime()
-      );
-    });
-  }
-
   return { events, totalEvents };
 };
 
-export const getMyEvents = async (
-  selectedSorting?: 'oldest' | 'newest',
-  pageNumber = 1,
-  itemsPerPage = 10
-) => {
+export const getMyEvents = async (pageNumber = 1, itemsPerPage = 10) => {
   const user = auth.currentUser;
   const q = collection(db, 'events');
-  const sortingOrder = selectedSorting === 'newest' ? 'desc' : 'asc';
 
   let eventsQuery = query(
     q,
@@ -321,22 +324,13 @@ export const getMyEvents = async (
 
   if (pageNumber > 1) {
     const lastEvent = await getDocs(
-      query(
-        q,
-        orderBy('event.metadata.createdAt', sortingOrder),
-        limit((pageNumber - 1) * itemsPerPage + 1)
-      )
+      query(q, limit((pageNumber - 1) * itemsPerPage + 1))
     )
       .then((snap) => snap.docs[snap.docs.length - 1])
       .then((doc) => doc?.data().event?.metadata?.createdAt);
 
     if (lastEvent) {
-      eventsQuery = query(
-        q,
-        orderBy('event.metadata.createdAt', sortingOrder),
-        startAfter(lastEvent),
-        limit(itemsPerPage)
-      );
+      eventsQuery = query(q, startAfter(lastEvent), limit(itemsPerPage));
     }
   }
 
@@ -347,34 +341,15 @@ export const getMyEvents = async (
   const eventsSnapShot = await getDocs(eventsQuery);
   let events = eventsSnapShot.docs.map((doc) => doc.data().event);
 
-  // Sort the events based on the selected sorting
-  if (selectedSorting === 'newest') {
-    events.sort((a, b) => {
-      return (
-        new Date(b.metadata.createdAt).getTime() -
-        new Date(a.metadata.createdAt).getTime()
-      );
-    });
-  } else {
-    events.sort((a, b) => {
-      return (
-        new Date(a.metadata.createdAt).getTime() -
-        new Date(b.metadata.createdAt).getTime()
-      );
-    });
-  }
-
   return { events, totalEvents };
 };
 
 export const getParticipatedEvents = async (
-  selectedSorting?: 'oldest' | 'newest',
   pageNumber = 1,
   itemsPerPage = 10
 ) => {
   const user = auth.currentUser;
   const q = collection(db, 'events');
-  const sortingOrder = selectedSorting === 'newest' ? 'desc' : 'asc';
 
   let eventsQuery = query(
     q,
@@ -388,22 +363,13 @@ export const getParticipatedEvents = async (
 
   if (pageNumber > 1) {
     const lastEvent = await getDocs(
-      query(
-        q,
-        orderBy('event.metadata.createdAt', sortingOrder),
-        limit((pageNumber - 1) * itemsPerPage + 1)
-      )
+      query(q, limit((pageNumber - 1) * itemsPerPage + 1))
     )
       .then((snap) => snap.docs[snap.docs.length - 1])
       .then((doc) => doc?.data().event?.metadata?.createdAt);
 
     if (lastEvent) {
-      eventsQuery = query(
-        q,
-        orderBy('event.metadata.createdAt', sortingOrder),
-        startAfter(lastEvent),
-        limit(itemsPerPage)
-      );
+      eventsQuery = query(q, startAfter(lastEvent), limit(itemsPerPage));
     }
   }
 
@@ -414,59 +380,28 @@ export const getParticipatedEvents = async (
   const eventsSnapShot = await getDocs(eventsQuery);
   let events = eventsSnapShot.docs.map((doc) => doc.data().event);
 
-  // Sort the events based on the selected sorting
-  if (selectedSorting === 'newest') {
-    events.sort((a, b) => {
-      return (
-        new Date(b.metadata.createdAt).getTime() -
-        new Date(a.metadata.createdAt).getTime()
-      );
-    });
-  } else {
-    events.sort((a, b) => {
-      return (
-        new Date(a.metadata.createdAt).getTime() -
-        new Date(b.metadata.createdAt).getTime()
-      );
-    });
-  }
-
   return { events, totalEvents };
 };
 
-export const getFavouriteEvents = async (
-  selectedSorting?: 'oldest' | 'newest',
-  pageNumber = 1,
-  itemsPerPage = 10
-) => {
+export const getFavoriteEvents = async (pageNumber = 1, itemsPerPage = 10) => {
   const user = auth.currentUser;
   const q = collection(db, 'events');
-  const sortingOrder = selectedSorting === 'newest' ? 'desc' : 'asc';
 
   let eventsQuery = query(
     q,
-    where(`event.bookmarkedUsers`, 'array-contains', user && user.uid),
+    where(`event.favoriteUsers`, 'array-contains', user && user.uid),
     limit(itemsPerPage)
   );
 
   if (pageNumber > 1) {
     const lastEvent = await getDocs(
-      query(
-        q,
-        orderBy('event.metadata.createdAt', sortingOrder),
-        limit((pageNumber - 1) * itemsPerPage + 1)
-      )
+      query(q, limit((pageNumber - 1) * itemsPerPage + 1))
     )
       .then((snap) => snap.docs[snap.docs.length - 1])
       .then((doc) => doc?.data().event?.metadata?.createdAt);
 
     if (lastEvent) {
-      eventsQuery = query(
-        q,
-        orderBy('event.metadata.createdAt', sortingOrder),
-        startAfter(lastEvent),
-        limit(itemsPerPage)
-      );
+      eventsQuery = query(q, startAfter(lastEvent), limit(itemsPerPage));
     }
   }
 
@@ -476,23 +411,6 @@ export const getFavouriteEvents = async (
 
   const eventsSnapShot = await getDocs(eventsQuery);
   let events = eventsSnapShot.docs.map((doc) => doc.data().event);
-
-  // Sort the events based on the selected sorting
-  if (selectedSorting === 'newest') {
-    events.sort((a, b) => {
-      return (
-        new Date(b.metadata.createdAt).getTime() -
-        new Date(a.metadata.createdAt).getTime()
-      );
-    });
-  } else {
-    events.sort((a, b) => {
-      return (
-        new Date(a.metadata.createdAt).getTime() -
-        new Date(b.metadata.createdAt).getTime()
-      );
-    });
-  }
 
   return { events, totalEvents };
 };

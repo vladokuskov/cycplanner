@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+
 import { Participating } from '@/components/types/shared/event.types';
 
 const EventWrapper = styled.div`
@@ -96,7 +97,7 @@ const ContentInfoWrapper = styled.div`
 `;
 
 const ContentButtonsWrapper = styled.div<{
-  isBookmarked: boolean;
+  isFavorite: boolean;
   participated: Participating;
 }>`
   margin-top: 0.5rem;
@@ -134,8 +135,8 @@ const ContentButtonsWrapper = styled.div<{
             }
           `}
   }
-  .bookmarkBtn {
-    ${({ isBookmarked }) =>
+  .favoriteBtn {
+    ${({ isFavorite: isBookmarked }) =>
       isBookmarked &&
       css`
         color: #e25c5c;
@@ -213,20 +214,20 @@ const DetailLocation = styled.a`
 `;
 
 export {
-  DetailLocation,
-  DetailDescription,
-  DetailTitle,
-  EventDetailWrapper,
-  EventDescription,
-  EventTitle,
+  ButtonWrapper,
   ContentButtonsWrapper,
   ContentInfoWrapper,
-  EventMapWrapper,
-  MapPlaceholder,
-  EventContentWrapper,
-  EventMainWrapper,
-  EventHeaderWrapper,
-  EventWrapper,
-  ButtonWrapper,
   CopiedMessage,
+  DetailDescription,
+  DetailLocation,
+  DetailTitle,
+  EventContentWrapper,
+  EventDescription,
+  EventDetailWrapper,
+  EventHeaderWrapper,
+  EventMainWrapper,
+  EventMapWrapper,
+  EventTitle,
+  EventWrapper,
+  MapPlaceholder,
 };

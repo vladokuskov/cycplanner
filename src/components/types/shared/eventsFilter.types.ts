@@ -1,1 +1,1 @@
-export type EventsFilter = 'all' | 'my-events' | 'participated' | 'favourite';
+export type EventsFilter = 'all' | 'my-events' | 'participated' | 'favorite';

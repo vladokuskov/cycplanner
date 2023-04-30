@@ -1,5 +1,6 @@
-import { Participating } from '@/components/types/shared/event.types';
 import styled, { css } from 'styled-components';
+
+import { Participating } from '@/components/types/shared/event.types';
 
 const DetailMainSectionWrapper = styled.section`
   width: 100%;
@@ -85,7 +86,7 @@ const InfoDetail = styled.div`
 `;
 
 const ControlsWrapper = styled.div<{
-  isBookmarked: boolean;
+  isFavorite: boolean;
   participated: Participating;
 }>`
   width: 100%;
@@ -122,9 +123,9 @@ const ControlsWrapper = styled.div<{
             }
           `}
   }
-  .bookmarkBtn {
-    ${({ isBookmarked }) =>
-      isBookmarked &&
+  .favoriteBtn {
+    ${({ isFavorite }) =>
+      isFavorite &&
       css`
         color: #e25c5c;
         &:hover {
@@ -152,15 +153,15 @@ const DetailLocation = styled.a`
 `;
 
 export {
-  DetailLocation,
   ControlsWrapper,
+  Description,
+  DetailDescription,
+  DetailLocation,
   DetailMainSectionWrapper,
+  DetailTitle,
   InfoDetail,
   InfoDetailsWrapper,
-  DetailDescription,
-  DetailTitle,
-  Description,
-  Title,
   InfoWrapper,
   MapWrapper,
+  Title,
 };

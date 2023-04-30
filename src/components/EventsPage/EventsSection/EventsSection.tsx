@@ -1,23 +1,25 @@
-import { EventFilter } from '../../EventFilter/EventFilter/EventFilter';
-import {
-  PageTitle,
-  EventSectionWrapper,
-  EventsWrapper,
-} from './EventsSection.styles';
-import Event from '../../Event/Event';
 import { useEffect, useState } from 'react';
+
 import { IEvent } from '@/components/types/shared/event.types';
-import { useAppSelector } from '@/store/redux-hooks';
+import { Loading } from '@/components/types/shared/loadingState.types';
 import {
   getAllEvents,
+  getFavoriteEvents,
   getMyEvents,
   getParticipatedEvents,
-  getFavouriteEvents,
 } from '@/firebase/events';
-import { Pagination } from '../Pagination/Pagination';
-import { SkeletonLoader } from '../../skeleton/Skeleton';
-import { Loading } from '@/components/types/shared/loadingState.types';
+import { useAppSelector } from '@/store/redux-hooks';
+
 import { ErrorMessage } from '../../ErrorMessage/ErrorMessage';
+import Event from '../../Event/Event';
+import { EventFilter } from '../../EventFilter/EventFilter/EventFilter';
+import { SkeletonLoader } from '../../skeleton/Skeleton';
+import { Pagination } from '../Pagination/Pagination';
+import {
+  EventSectionWrapper,
+  EventsWrapper,
+  PageTitle,
+} from './EventsSection.styles';
 
 const EventsSection = () => {
   const [allEvents, setAllEvents] = useState<IEvent[] | null>(null);
@@ -25,11 +27,12 @@ const EventsSection = () => {
   const [participatedEvents, setParticipatedEvents] = useState<IEvent[] | null>(
     null
   );
-  const [favouriteEvents, setFavouriteEvents] = useState<IEvent[] | null>(null);
+  const [favoriteEvents, setFavoriteEvents] = useState<IEvent[] | null>(null);
 
   const [loadingState, setLoadingState] = useState<Loading>(Loading.loading);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalEvents, setTotalEvents] = useState<number>(0);
+  let itemsPerPage = 10;
   const geoPoint = useAppSelector((state) => state.filterReducer.geoPoint);
 
   const selectedSorting = useAppSelector(
@@ -46,47 +49,40 @@ const EventsSection = () => {
       try {
         if (selectedFilter === 'all') {
           const { events, totalEvents } = await getAllEvents(
-            selectedSorting,
+            geoPoint,
+            selectedRange,
             currentPage,
-            10
+            itemsPerPage
           );
           setAllEvents(events);
           setTotalEvents(totalEvents);
         } else if (selectedFilter === 'my-events') {
-          const { events, totalEvents } = await getMyEvents(
-            selectedSorting,
-            currentPage,
-            10
-          );
+          const { events, totalEvents } = await getMyEvents(currentPage, 10);
           setMyEvents(events);
           setTotalEvents(totalEvents);
         } else if (selectedFilter === 'participated') {
           const { events, totalEvents } = await getParticipatedEvents(
-            selectedSorting,
             currentPage,
-            10
+            itemsPerPage
           );
-          console.log(events);
           setParticipatedEvents(events);
           setTotalEvents(totalEvents);
-        } else if (selectedFilter === 'favourite') {
-          const { events, totalEvents } = await getFavouriteEvents(
-            selectedSorting,
+        } else if (selectedFilter === 'favorite') {
+          const { events, totalEvents } = await getFavoriteEvents(
             currentPage,
-            10
+            itemsPerPage
           );
-          setFavouriteEvents(events);
+          setFavoriteEvents(events);
           setTotalEvents(totalEvents);
         }
         setLoadingState(Loading.success);
       } catch (err) {
-        console.log(err);
         setLoadingState(Loading.error);
       }
     };
 
     getEvents();
-  }, [geoPoint, selectedSorting, selectedRange, currentPage, selectedFilter]);
+  }, [geoPoint, selectedRange, currentPage, selectedFilter, itemsPerPage]);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -97,7 +93,7 @@ const EventsSection = () => {
       <PageTitle>Events</PageTitle>
       <EventFilter />
       <EventsWrapper>
-        {(allEvents || myEvents || participatedEvents || favouriteEvents) && (
+        {(allEvents || myEvents || participatedEvents || favoriteEvents) && (
           <Pagination
             itemsPerPage={10}
             totalItems={totalEvents}
@@ -112,15 +108,15 @@ const EventsSection = () => {
             {(!allEvents && selectedFilter === 'all') ||
               (!myEvents && selectedFilter === 'my-events') ||
               (!participatedEvents && selectedFilter === 'participated') ||
-              (!favouriteEvents && selectedFilter === 'favourite' && (
+              (!favoriteEvents && selectedFilter === 'favorite' && (
                 <ErrorMessage variant="no-events" />
               ))}
             {(allEvents?.length === 0 && selectedFilter === 'all') ||
               (myEvents?.length === 0 && selectedFilter === 'my-events') ||
               (participatedEvents?.length === 0 &&
                 selectedFilter === 'participated') ||
-              (favouriteEvents?.length === 0 &&
-                selectedFilter === 'favourite' && (
+              (favoriteEvents?.length === 0 &&
+                selectedFilter === 'favorite' && (
                   <ErrorMessage variant="no-events" />
                 ))}
             {allEvents &&
@@ -134,9 +130,9 @@ const EventsSection = () => {
               participatedEvents.map((data) => (
                 <Event key={data.id} {...data} />
               ))}
-            {favouriteEvents &&
-              selectedFilter === 'favourite' &&
-              favouriteEvents.map((data) => <Event key={data.id} {...data} />)}
+            {favoriteEvents &&
+              selectedFilter === 'favorite' &&
+              favoriteEvents.map((data) => <Event key={data.id} {...data} />)}
           </>
         ) : (
           <ErrorMessage variant="loading" />
