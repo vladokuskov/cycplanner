@@ -1,22 +1,24 @@
-import { useAuth } from '@/context/AuthContext';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { Icon } from '../../../Icon/Icon';
 import { useEffect, useRef, useState } from 'react';
+
+import { useAuth } from '@/context/AuthContext';
+import { removeProfilePicture, uploadAvatar } from '@/firebase/profile';
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
+import { Icon } from '../../../Icon/Icon';
+import { AvatarEditing } from './AvatarEditing/AvatarEditing';
 import {
-  AvatarSectioWrapper,
-  AvatarChangingWrapper,
   Avatar,
+  AvatarChangingWrapper,
   AvatarPlaceholder,
+  AvatarSectionWrapper,
   AvatarUpload,
   AvatarWrapper,
-  EditIcon,
   DetailsDropdown,
-  DrodpownButton,
+  DropdownButton,
+  EditIcon,
   ImageInput,
 } from './StyledAvatarSection';
-import { AvatarEditing } from './AvatarEditing/AvatarEditing';
-import { removeProfilePicture, uploadAvatar } from '@/firebase/profile';
 
 const PhotoSection = () => {
   const { user } = useAuth();
@@ -91,7 +93,7 @@ const PhotoSection = () => {
   }, [isDropdownOpen]);
 
   return (
-    <AvatarSectioWrapper>
+    <AvatarSectionWrapper>
       <AvatarChangingWrapper>
         <AvatarWrapper ref={uploadAvatarRef}>
           <AvatarUpload
@@ -119,14 +121,14 @@ const PhotoSection = () => {
           </AvatarUpload>
           {isDropdownOpen && (
             <DetailsDropdown>
-              <DrodpownButton
+              <DropdownButton
                 title="Upload a photo"
                 disabled={isAvatarEditing}
                 onClick={handleUploadButtonClick}
               >
                 Upload a photo
-              </DrodpownButton>
-              <DrodpownButton
+              </DropdownButton>
+              <DropdownButton
                 danger={true}
                 isDisabled={user?.photoURL === null}
                 title="Remove photo"
@@ -134,7 +136,7 @@ const PhotoSection = () => {
                 onClick={handleAvatarRemoving}
               >
                 Remove photo
-              </DrodpownButton>
+              </DropdownButton>
             </DetailsDropdown>
           )}
         </AvatarWrapper>
@@ -153,7 +155,7 @@ const PhotoSection = () => {
           handleAvatarUpload={handleAvatarUpload}
         />
       )}
-    </AvatarSectioWrapper>
+    </AvatarSectionWrapper>
   );
 };
 

@@ -8,7 +8,7 @@ import PrivateRoute from '@/modules/PrivateRoute';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {
-    ssr: true,
+    ssr: false,
   });
   return (
     <PrivateRoute>

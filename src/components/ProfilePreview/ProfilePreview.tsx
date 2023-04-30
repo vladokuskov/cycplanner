@@ -1,17 +1,19 @@
-import { ProfilePreview } from './ProfilePreview.types';
+import Link from 'next/link';
+
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
+import { Icon } from '../Icon/Icon';
 import {
-  ProfilePreviewWrapper,
-  ProfilePreviewButton,
+  Photo,
+  PhotoPlaceholder,
+  PhotoWrapper,
   PreviewDescription,
   PreviewInfoWrapper,
   PreviewName,
-  PhotoPlaceholder,
-  Photo,
-  PhotoWrapper,
+  ProfilePreviewButton,
+  ProfilePreviewWrapper,
 } from './ProfilePreview.styles';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { Icon } from '../Icon/Icon';
-import Link from 'next/link';
+import { ProfilePreview } from './ProfilePreview.types';
 
 const ProfilePreview = ({
   variant,
@@ -24,7 +26,16 @@ const ProfilePreview = ({
     <ProfilePreviewWrapper variant={variant}>
       <PhotoWrapper>
         {photoURL && photoURL.length > 0 ? (
-          <Photo src={photoURL} alt="" width={120} height={120} />
+          <Photo
+            src={photoURL}
+            alt=""
+            width={120}
+            height={120}
+            blurDataURL={photoURL}
+            placeholder="blur"
+            priority={true}
+            quality={90}
+          />
         ) : (
           <PhotoPlaceholder>
             <Icon icon={faUser} />
@@ -43,7 +54,16 @@ const ProfilePreview = ({
       <ProfilePreviewWrapper variant={variant}>
         <PhotoWrapper>
           {photoURL && photoURL.length > 0 ? (
-            <Photo src={photoURL} alt="" width={120} height={120} />
+            <Photo
+              src={photoURL}
+              alt=""
+              width={120}
+              height={120}
+              blurDataURL={photoURL}
+              placeholder="blur"
+              priority={true}
+              quality={90}
+            />
           ) : (
             <PhotoPlaceholder>
               <Icon icon={faUser} />
@@ -57,7 +77,16 @@ const ProfilePreview = ({
       <ProfilePreviewWrapper variant={variant}>
         <PhotoWrapper>
           {photoURL && photoURL.length > 0 ? (
-            <Photo src={photoURL} alt="" width={120} height={120} />
+            <Photo
+              src={photoURL}
+              alt=""
+              width={120}
+              height={120}
+              blurDataURL={photoURL}
+              placeholder="blur"
+              priority={true}
+              quality={90}
+            />
           ) : (
             <PhotoPlaceholder>
               <Icon icon={faUser} />
