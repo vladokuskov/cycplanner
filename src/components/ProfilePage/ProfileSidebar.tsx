@@ -1,7 +1,10 @@
-import { ProfileSidebar } from '@/components/types/shared/Profile/profile';
-import { useAuth } from '@/context/AuthContext';
-import { faGear, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
+
+import { useAuth } from '@/context/AuthContext';
+import { changeSection } from '@/store/profileReducer';
+import { useAppDispatch, useAppSelector } from '@/store/redux-hooks';
+import { faGear, faUserAlt } from '@fortawesome/free-solid-svg-icons';
+
 import { Button } from '../Button/Button';
 import { ProfilePreview } from '../ProfilePreview/ProfilePreview';
 
@@ -41,8 +44,14 @@ const SidebarBody = styled.div`
   gap: 0.7rem;
 `;
 
-const ProfileSidebar = ({ changeSection, activeSection }: ProfileSidebar) => {
+const ProfileSidebar = () => {
   const { user } = useAuth();
+
+  const activeSection = useAppSelector(
+    (state) => state.profileReducer.activeProfileSection
+  );
+
+  const dispatch = useAppDispatch();
 
   return (
     <SidebarWrapper>
@@ -63,7 +72,7 @@ const ProfileSidebar = ({ changeSection, activeSection }: ProfileSidebar) => {
           variant="text-icon"
           text="Information"
           icon={faUserAlt}
-          onClick={() => changeSection('information')}
+          onClick={() => dispatch(changeSection('information'))}
           full
           disabled={activeSection === 'information'}
         />
@@ -71,7 +80,7 @@ const ProfileSidebar = ({ changeSection, activeSection }: ProfileSidebar) => {
           variant="text-icon"
           text="Settings"
           icon={faGear}
-          onClick={() => changeSection('settings')}
+          onClick={() => dispatch(changeSection('settings'))}
           full
           disabled={activeSection === 'settings'}
         />

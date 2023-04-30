@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -46,6 +46,7 @@ import {
 const Event = (event: IEvent) => {
   const router = useRouter();
   const { user } = useAuth();
+  const eventContentRef = useRef<HTMLDivElement>(null);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [participatingStatus, setParticipatingStatus] = useState<Participating>(
     Participating.none
@@ -156,8 +157,18 @@ const Event = (event: IEvent) => {
     }
   };
 
+  useEffect(() => {
+    if (isMapMaximized && eventContentRef.current) {
+      eventContentRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center',
+      });
+    }
+  }, [isMapMaximized]);
+
   return (
-    <EventWrapper>
+    <EventWrapper ref={eventContentRef}>
       <EventHeaderWrapper>
         <ProfilePreview
           name={event.metadata.author.username}

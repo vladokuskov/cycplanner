@@ -1,7 +1,7 @@
-import styled from 'styled-components';
 import Image from 'next/image';
+import styled from 'styled-components';
 
-export const AvatarSectioWrapper = styled.section`
+export const AvatarSectionWrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,6 +29,7 @@ export const AvatarUpload = styled.div<{ isDropdownOpen?: boolean }>`
   cursor: ${({ isDropdownOpen }) => (isDropdownOpen ? 'default' : 'pointer')};
   position: relative;
   border-radius: 50%;
+  -webkit-tap-highlight-color: none;
 `;
 
 export const Avatar = styled(Image)`
@@ -93,7 +94,7 @@ export const DetailsDropdown = styled.div`
   }
 `;
 
-export const DrodpownButton = styled.button<{
+export const DropdownButton = styled.button<{
   isDisabled?: boolean;
   danger?: boolean;
 }>`

@@ -1,10 +1,12 @@
-import filterReducer from './filterReducer';
-
 import { configureStore } from '@reduxjs/toolkit';
+
+import filterReducer from './filterReducer';
+import profileReducer from './profileReducer';
 
 export const store = configureStore({
   reducer: {
     filterReducer: filterReducer,
+    profileReducer: profileReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
