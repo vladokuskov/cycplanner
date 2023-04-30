@@ -1,5 +1,7 @@
-import { ProfileSections } from '@/components/types/shared/Profile/profile';
 import styled from 'styled-components';
+
+import { useAppSelector } from '@/store/redux-hooks';
+
 import { ProfileInformationSection } from './InformationSection/ProfileInformationSection';
 import { ProfileSettingsSection } from './SettingsSection/ProfileSettingsSection';
 
@@ -12,17 +14,17 @@ const MainSectionWrapper = styled.section`
   justify-content: flex-start;
 `;
 
-const ProfileMainSection = ({
-  acitveSection,
-}: {
-  acitveSection: ProfileSections;
-}) => {
+const ProfileMainSection = () => {
+  const activeSection = useAppSelector(
+    (state) => state.profileReducer.activeProfileSection
+  );
+
   return (
     <MainSectionWrapper>
-      {acitveSection === 'information' ? (
+      {activeSection === 'information' ? (
         <ProfileInformationSection />
       ) : (
-        acitveSection === 'settings' && <ProfileSettingsSection />
+        activeSection === 'settings' && <ProfileSettingsSection />
       )}
     </MainSectionWrapper>
   );
