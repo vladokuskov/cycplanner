@@ -8,6 +8,7 @@ import { IEvent } from '@/components/types/shared/event.types';
 import { Loading } from '@/components/types/shared/loadingState.types';
 import { getLastEvents } from '@/firebase/events';
 import { useAppSelector } from '@/store/redux-hooks';
+import { sortEvents } from '@/utils/sortEvents';
 
 import { ErrorMessage } from '../../ErrorMessage/ErrorMessage';
 import Event from '../../Event/Event';
@@ -45,7 +46,7 @@ const EventsSection = () => {
     };
 
     getEvents();
-  }, [geoPoint, selectedSorting, selectedRange]);
+  }, [geoPoint, selectedRange]);
 
   return (
     <EventsSectionWrapper>
@@ -65,7 +66,9 @@ const EventsSection = () => {
               {!events && <ErrorMessage variant="no-events" />}
               {events?.length === 0 && <ErrorMessage variant="no-events" />}
               {events &&
-                events.map((data) => <Event key={data.id} {...data} />)}
+                sortEvents(events, selectedSorting).map((data) => (
+                  <Event key={data.id} {...data} />
+                ))}
             </>
           ) : (
             <ErrorMessage variant="loading" />

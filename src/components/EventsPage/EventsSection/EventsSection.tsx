@@ -9,6 +9,7 @@ import {
   getParticipatedEvents,
 } from '@/firebase/events';
 import { useAppSelector } from '@/store/redux-hooks';
+import { sortEvents } from '@/utils/sortEvents';
 
 import { ErrorMessage } from '../../ErrorMessage/ErrorMessage';
 import Event from '../../Event/Event';
@@ -121,18 +122,24 @@ const EventsSection = () => {
                 ))}
             {allEvents &&
               selectedFilter === 'all' &&
-              allEvents.map((data) => <Event key={data.id} {...data} />)}
+              sortEvents(allEvents, selectedSorting).map((data) => (
+                <Event key={data.id} {...data} />
+              ))}
             {myEvents &&
               selectedFilter === 'my-events' &&
-              myEvents.map((data) => <Event key={data.id} {...data} />)}
+              sortEvents(myEvents, selectedSorting).map((data) => (
+                <Event key={data.id} {...data} />
+              ))}
             {participatedEvents &&
               selectedFilter === 'participated' &&
-              participatedEvents.map((data) => (
+              sortEvents(participatedEvents, selectedSorting).map((data) => (
                 <Event key={data.id} {...data} />
               ))}
             {favoriteEvents &&
               selectedFilter === 'favorite' &&
-              favoriteEvents.map((data) => <Event key={data.id} {...data} />)}
+              sortEvents(favoriteEvents, selectedSorting).map((data) => (
+                <Event key={data.id} {...data} />
+              ))}
           </>
         ) : (
           <ErrorMessage variant="loading" />
