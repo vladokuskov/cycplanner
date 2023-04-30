@@ -1,30 +1,34 @@
 import styled, { keyframes } from 'styled-components';
 
-const LoadingBar = styled.div`
-  height: 0.4rem;
+const LoadingWrapper = styled.div`
+  height: 100%;
   width: 100%;
-  background-color: #a3d168;
-  position: fixed;
   top: 0;
   left: 0;
   position: absolute;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 `;
 
-const progress = keyframes`
+export const progress = keyframes`
   0% {
-    width: 0%;
+    transform: scale(0.91);
+  }
+  50% {
+    transform: scale(1);
   }
   100% {
-    width: 100%;
+    transform: scale(0.91);
   }
 `;
 
-const ProgressBar = styled.div`
+const LogoImage = styled.img`
+  width: 100%;
   height: 100%;
-  background-color: #ebebeb;
-  animation: ${progress} 1s linear infinite;
-  will-change: width;
-  transform: translate3d(0, 0, 0);
+  max-width: 13rem;
+  max-height: 13rem;
+  animation: ${progress} 1.3s infinite;
 `;
 
-export { LoadingBar, ProgressBar };
+export { LoadingWrapper, LogoImage };

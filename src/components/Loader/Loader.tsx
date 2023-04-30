@@ -1,10 +1,10 @@
-import { LoadingBar, ProgressBar } from './Loader.styles';
+import { LoadingWrapper, LogoImage } from './Loader.styles';
 
 function Loader() {
   return (
-    <LoadingBar>
-      <ProgressBar />
-    </LoadingBar>
+    <LoadingWrapper>
+      <LogoImage src="/assets/logo.svg" alt="" />
+    </LoadingWrapper>
   );
 }
 export { Loader };

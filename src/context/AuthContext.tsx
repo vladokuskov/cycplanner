@@ -1,10 +1,9 @@
-import { logout, signInWithGoogle } from '@/firebase/auth';
-import { useState, useEffect, useContext } from 'react';
-import { auth } from '@/firebase/auth';
-import { createContext } from 'react';
-import { User } from 'firebase/auth';
-import { onAuthStateChanged } from 'firebase/auth';
+import { createContext, useContext, useEffect, useState } from 'react';
+
+import { onAuthStateChanged, User } from 'firebase/auth';
+
 import { Loader } from '@/components/Loader/Loader';
+import { auth, logout, signInWithGoogle } from '@/firebase/auth';
 
 export type AuthContext = {
   user: User | null;
