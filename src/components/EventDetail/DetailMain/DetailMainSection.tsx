@@ -1,8 +1,14 @@
+import { useEffect, useMemo, useState } from 'react';
+
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+
+import { CopiedMessage } from '@/components/Event/Event.styles.ts';
 import { useAuth } from '@/context/AuthContext';
 import {
   deleteEvent,
-  updateEventBookmarks,
   updateEventParticipating,
+  updateFavoriteEvents,
 } from '@/firebase/events';
 import {
   faClockFour,
@@ -14,27 +20,24 @@ import {
   faHeart as filledHeart,
   faShareNodes,
 } from '@fortawesome/free-solid-svg-icons';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
-import {
-  DetailLocation,
-  ControlsWrapper,
-  DetailMainSectionWrapper,
-  InfoDetail,
-  InfoDetailsWrapper,
-  DetailDescription,
-  DetailTitle,
-  Description,
-  Title,
-  InfoWrapper,
-  MapWrapper,
-} from './DetailMainSection.styles';
+
 import { Button } from '../../Button/Button';
 import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
 import { SkeletonLoader } from '../../skeleton/Skeleton';
 import { IEvent, Participating } from '../../types/shared/event.types';
-import { CopiedMessage } from '@/components/Event/Event.styles.ts';
+import {
+  ControlsWrapper,
+  Description,
+  DetailDescription,
+  DetailLocation,
+  DetailMainSectionWrapper,
+  DetailTitle,
+  InfoDetail,
+  InfoDetailsWrapper,
+  InfoWrapper,
+  MapWrapper,
+  Title,
+} from './DetailMainSection.styles';
 
 const DetailMainSection = ({ event }: { event: IEvent | null }) => {
   const Map = useMemo(
@@ -53,17 +56,17 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
     setIsMapMaximized((prev) => !prev);
   };
 
-  const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [participatingStatus, setParticipatingStatus] = useState<Participating>(
     Participating.none
   );
   const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
-    const checkIsBookmarked = async () => {
-      if (user && user.uid && event?.bookmarkedUsers) {
-        const isBookmarked = event.bookmarkedUsers.includes(user.uid as never);
-        setIsBookmarked(isBookmarked);
+    const checkIsFavorite = async () => {
+      if (user && user.uid && event?.favoriteUsers) {
+        const isFavorite = event.favoriteUsers.includes(user.uid as never);
+        setIsFavorite(isFavorite);
       }
     };
 
@@ -85,15 +88,15 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
       }
     };
 
-    checkIsBookmarked();
+    checkIsFavorite();
 
     checkIsParticipated();
   }, [user]);
 
-  const handleBookmaring = async () => {
+  const handleFavorite = async () => {
     if (user && event?.id) {
-      await updateEventBookmarks(user?.uid, event.id);
-      setIsBookmarked((prev) => !prev);
+      await updateFavoriteEvents(user?.uid, event.id);
+      setIsFavorite((prev) => !prev);
     } else if (!user) {
       router.push('/login');
     }
@@ -169,7 +172,7 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
         />
       </MapWrapper>
       <ControlsWrapper
-        isBookmarked={isBookmarked}
+        isFavorite={isFavorite}
         participated={participatingStatus}
       >
         {!isCopied ? (
@@ -183,11 +186,11 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
           <CopiedMessage>Copied</CopiedMessage>
         )}
         <Button
-          className="bookmarkBtn"
+          className="favoriteBtn"
           variant="icon"
-          icon={isBookmarked ? filledHeart : emptyHeart}
+          icon={isFavorite ? filledHeart : emptyHeart}
           size="xl2"
-          onClick={handleBookmaring}
+          onClick={handleFavorite}
         />
         {user?.uid !== event?.metadata.author.uid && (
           <Button

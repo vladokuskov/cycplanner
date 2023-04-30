@@ -1,23 +1,26 @@
+import { useEffect, useState } from 'react';
+
 import Link from 'next/link';
+
+import { EventFilter } from '@/components/EventFilter/EventFilter/EventFilter';
+import PageTitle from '@/components/PageTitle/PageTitle';
+import { IEvent } from '@/components/types/shared/event.types';
+import { Loading } from '@/components/types/shared/loadingState.types';
+import { getLastEvents } from '@/firebase/events';
+import { useAppSelector } from '@/store/redux-hooks';
+import { sortEvents } from '@/utils/sortEvents';
+
+import { ErrorMessage } from '../../ErrorMessage/ErrorMessage';
+import Event from '../../Event/Event';
+import { SkeletonLoader } from '../../skeleton/Skeleton';
+import HomeInfo from '../HomeInfo/HomeInfo';
 import {
   BodyEventsWrapper,
-  HomeEventsBodyWrapper,
-  HeaderTitleWrapper,
-  HomeEventsHeaderWrapper,
   EventsSectionWrapper,
+  HeaderTitleWrapper,
+  HomeEventsBodyWrapper,
+  HomeEventsHeaderWrapper,
 } from './EventsSection.styles';
-import PageTitle from '@/components/PageTitle/PageTitle';
-import HomeInfo from '../HomeInfo/HomeInfo';
-import { EventFilter } from '@/components/EventFilter/EventFilter/EventFilter';
-import { useEffect, useState } from 'react';
-import { IEvent } from '@/components/types/shared/event.types';
-import { getLastEvenets } from '@/firebase/events';
-import Event from '../../Event/Event';
-import { useAppSelector } from '@/store/redux-hooks';
-import geohash from 'ngeohash';
-import { SkeletonLoader } from '../../skeleton/Skeleton';
-import { Loading } from '@/components/types/shared/loadingState.types';
-import { ErrorMessage } from '../../ErrorMessage/ErrorMessage';
 
 const EventsSection = () => {
   const [events, setEvents] = useState<IEvent[] | null>(null);
@@ -33,12 +36,7 @@ const EventsSection = () => {
     setLoadingState(Loading.loading);
     const getEvents = async () => {
       try {
-        const response = await getLastEvenets(
-          geoPoint,
-          geohash.encode(geoPoint.lat, geoPoint.lon),
-          selectedSorting,
-          selectedRange
-        );
+        const response = await getLastEvents(geoPoint, selectedRange);
         setEvents(response);
         setLoadingState(Loading.success);
       } catch (err) {
@@ -48,7 +46,7 @@ const EventsSection = () => {
     };
 
     getEvents();
-  }, [geoPoint, selectedSorting, selectedRange]);
+  }, [geoPoint, selectedRange]);
 
   return (
     <EventsSectionWrapper>
@@ -68,7 +66,9 @@ const EventsSection = () => {
               {!events && <ErrorMessage variant="no-events" />}
               {events?.length === 0 && <ErrorMessage variant="no-events" />}
               {events &&
-                events.map((data) => <Event key={data.id} {...data} />)}
+                sortEvents(events, selectedSorting).map((data) => (
+                  <Event key={data.id} {...data} />
+                ))}
             </>
           ) : (
             <ErrorMessage variant="loading" />

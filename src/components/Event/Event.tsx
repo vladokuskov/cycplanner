@@ -1,51 +1,52 @@
-import {
-  DetailLocation,
-  DetailDescription,
-  DetailTitle,
-  EventDetailWrapper,
-  EventDescription,
-  EventTitle,
-  ContentButtonsWrapper,
-  ContentInfoWrapper,
-  EventMapWrapper,
-  MapPlaceholder,
-  EventContentWrapper,
-  EventMainWrapper,
-  EventHeaderWrapper,
-  EventWrapper,
-  ButtonWrapper,
-  CopiedMessage,
-} from './Event.styles.ts';
+import { useEffect, useMemo, useState } from 'react';
+
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
-import { IEvent, Participating } from '../types/shared/event.types';
 
-import { ProfilePreview } from '../ProfilePreview/ProfilePreview';
-import { Button } from '../Button/Button';
-import {
-  faShareNodes,
-  faHeart as filledHeart,
-  faCheck,
-} from '@fortawesome/free-solid-svg-icons';
-import {
-  faHeart as emptyHeart,
-  faComment,
-  faUserCircle,
-  faClockFour,
-} from '@fortawesome/free-regular-svg-icons';
-
-import { SkeletonLoader } from '../skeleton/Skeleton';
 import { useAuth } from '@/context/AuthContext';
 import {
-  updateEventBookmarks,
   updateEventParticipating,
+  updateFavoriteEvents,
 } from '@/firebase/events';
+import {
+  faClockFour,
+  faComment,
+  faHeart as emptyHeart,
+  faUserCircle,
+} from '@fortawesome/free-regular-svg-icons';
+import {
+  faCheck,
+  faHeart as filledHeart,
+  faShareNodes,
+} from '@fortawesome/free-solid-svg-icons';
+
+import { Button } from '../Button/Button';
+import { ProfilePreview } from '../ProfilePreview/ProfilePreview';
+import { SkeletonLoader } from '../skeleton/Skeleton';
+import { IEvent, Participating } from '../types/shared/event.types';
+import {
+  ButtonWrapper,
+  ContentButtonsWrapper,
+  ContentInfoWrapper,
+  CopiedMessage,
+  DetailDescription,
+  DetailLocation,
+  DetailTitle,
+  EventContentWrapper,
+  EventDescription,
+  EventDetailWrapper,
+  EventHeaderWrapper,
+  EventMainWrapper,
+  EventMapWrapper,
+  EventTitle,
+  EventWrapper,
+  MapPlaceholder,
+} from './Event.styles.ts';
 
 const Event = (event: IEvent) => {
   const router = useRouter();
   const { user } = useAuth();
-  const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [participatingStatus, setParticipatingStatus] = useState<Participating>(
     Participating.none
   );
@@ -70,10 +71,10 @@ const Event = (event: IEvent) => {
   );
 
   useEffect(() => {
-    const checkIsBookmarked = async () => {
-      if (user && user.uid && event.bookmarkedUsers) {
-        const isBookmarked = event.bookmarkedUsers.includes(user.uid as never);
-        setIsBookmarked(isBookmarked);
+    const checkIsFavorite = async () => {
+      if (user && user.uid && event.favoriteUsers) {
+        const isFavorite = event.favoriteUsers.includes(user.uid as never);
+        setIsFavorite(isFavorite);
       }
     };
 
@@ -95,7 +96,7 @@ const Event = (event: IEvent) => {
       }
     };
 
-    checkIsBookmarked();
+    checkIsFavorite();
 
     checkIsParticipated();
   }, [user]);
@@ -120,10 +121,10 @@ const Event = (event: IEvent) => {
     router.push(`event/${event.id}`);
   };
 
-  const handleBookmaring = async () => {
+  const handleFavorite = async () => {
     if (user && event.id) {
-      await updateEventBookmarks(user?.uid, event.id);
-      setIsBookmarked((prev) => !prev);
+      await updateFavoriteEvents(user?.uid, event.id);
+      setIsFavorite((prev) => !prev);
     } else if (!user) {
       router.push('/login');
     }
@@ -204,15 +205,15 @@ const Event = (event: IEvent) => {
             </EventDetailWrapper>
           </ContentInfoWrapper>
           <ContentButtonsWrapper
-            isBookmarked={isBookmarked}
+            isFavorite={isFavorite}
             participated={participatingStatus}
           >
             <Button
-              className="bookmarkBtn"
+              className="favoriteBtn"
               variant="icon"
-              icon={isBookmarked ? filledHeart : emptyHeart}
+              icon={isFavorite ? filledHeart : emptyHeart}
               size="xl2"
-              onClick={handleBookmaring}
+              onClick={handleFavorite}
             />
             <Button
               variant="icon"

@@ -1,4 +1,7 @@
+import { useRouter } from 'next/router';
+
 import { EventsFilter } from '@/components/types/shared/eventsFilter.types';
+import { updateEventsFilter } from '@/store/filterReducer';
 import { useAppDispatch, useAppSelector } from '@/store/redux-hooks';
 import {
   faCalendar,
@@ -6,10 +9,9 @@ import {
   faUser,
 } from '@fortawesome/free-regular-svg-icons';
 import { faBarsStaggered } from '@fortawesome/free-solid-svg-icons';
-import { useRouter } from 'next/router';
-import { EventsSidebarWrapper } from './EventsSidebar.styles';
+
 import { Button } from '../../Button/Button';
-import { updateEventsFilter } from '@/store/filterReducer';
+import { EventsSidebarWrapper } from './EventsSidebar.styles';
 
 const EventsSidebar = () => {
   const router = useRouter();
@@ -59,10 +61,10 @@ const EventsSidebar = () => {
       <Button
         variant="default"
         icon={faHeart}
-        text="Favourite"
+        text="Favorite"
         full
-        disabled={selectedFilter === 'favourite'}
-        onClick={() => changeFilter('favourite')}
+        disabled={selectedFilter === 'favorite'}
+        onClick={() => changeFilter('favorite')}
       />
     </EventsSidebarWrapper>
   );

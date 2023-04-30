@@ -13,7 +13,7 @@ export interface IEvent {
     lastUpdatedAt?: number;
   };
   participating?: { submitedUsers: string[]; awaitingUsers: string[] };
-  bookmarkedUsers?: [];
+  favoriteUsers?: [];
   title?: string;
   description?: string;
   distance?: string;
