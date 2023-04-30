@@ -1,18 +1,21 @@
-import { MapContainer, Marker, Polyline, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import * as L from 'leaflet';
-import { useEffect, useState } from 'react';
-import { downloadGPXFile } from '@/utils/downloadRoute';
 
-import { SkeletonLoader } from '../skeleton/Skeleton';
-import { Button } from '../Button/Button';
+import { useEffect, useState } from 'react';
+
+import * as L from 'leaflet';
+import { MapContainer, Marker, Polyline, TileLayer } from 'react-leaflet';
+
+import { EventMap } from '@/components/EventMap/Map.types';
+import { downloadGPXFile } from '@/utils/downloadRoute';
 import {
   faCloudDownloadAlt,
   faCompress,
   faExpand,
 } from '@fortawesome/free-solid-svg-icons';
-import { MapWrapper, MapOverlayWrapper } from './Map.styles';
-import { EventMap } from '@/components/EventMap/Map.types';
+
+import { Button } from '../Button/Button';
+import { SkeletonLoader } from '../skeleton/Skeleton';
+import { MapOverlayWrapper, MapWrapper } from './Map.styles';
 
 const startMarker = new L.Icon({
   alt: '',
@@ -87,7 +90,7 @@ const Map = ({ route, isMapMaximized, handleMapMaximizing }: EventMap) => {
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png"
+          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {startPoint && (
           <Marker
