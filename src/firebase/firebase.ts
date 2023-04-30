@@ -3,19 +3,19 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 export const firebaseConfig = {
-  apiKey: 'AIzaSyCRTbkLz9NI9sFvzdZCvRN3uv4W9TkcvNc',
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
 
-  authDomain: 'cycplanner.firebaseapp.com',
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
 
-  projectId: 'cycplanner',
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
 
-  storageBucket: 'cycplanner.appspot.com',
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
 
-  messagingSenderId: '358644212861',
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
 
-  appId: '1:358644212861:web:25accfe46f0a4d46db7d14',
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 
-  measurementId: 'G-5WQQYC21KL',
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 export const app = initializeApp(firebaseConfig);
