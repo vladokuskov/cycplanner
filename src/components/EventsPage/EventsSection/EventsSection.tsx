@@ -45,7 +45,6 @@ const EventsSection = () => {
   );
 
   useEffect(() => {
-    setLoadingState(Loading.loading);
     const getEvents = async () => {
       try {
         if (selectedFilter === 'all') {
@@ -83,10 +82,21 @@ const EventsSection = () => {
     };
 
     getEvents();
-  }, [geoPoint, selectedRange, currentPage, selectedFilter, itemsPerPage]);
+  }, [
+    geoPoint,
+    selectedRange,
+    currentPage,
+    selectedFilter,
+    itemsPerPage,
+    loadingState,
+  ]);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
+  };
+
+  const handleLoadingChange = async (e: Loading) => {
+    setLoadingState(e);
   };
 
   return (
@@ -123,22 +133,38 @@ const EventsSection = () => {
             {allEvents &&
               selectedFilter === 'all' &&
               sortEvents(allEvents, selectedSorting).map((data) => (
-                <Event key={data.id} {...data} />
+                <Event
+                  key={data.id}
+                  event={data}
+                  handleLoadingChange={handleLoadingChange}
+                />
               ))}
             {myEvents &&
               selectedFilter === 'my-events' &&
               sortEvents(myEvents, selectedSorting).map((data) => (
-                <Event key={data.id} {...data} />
+                <Event
+                  key={data.id}
+                  event={data}
+                  handleLoadingChange={handleLoadingChange}
+                />
               ))}
             {participatedEvents &&
               selectedFilter === 'participated' &&
               sortEvents(participatedEvents, selectedSorting).map((data) => (
-                <Event key={data.id} {...data} />
+                <Event
+                  key={data.id}
+                  event={data}
+                  handleLoadingChange={handleLoadingChange}
+                />
               ))}
             {favoriteEvents &&
               selectedFilter === 'favorite' &&
               sortEvents(favoriteEvents, selectedSorting).map((data) => (
-                <Event key={data.id} {...data} />
+                <Event
+                  key={data.id}
+                  event={data}
+                  handleLoadingChange={handleLoadingChange}
+                />
               ))}
           </>
         ) : (

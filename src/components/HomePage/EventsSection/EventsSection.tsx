@@ -33,7 +33,6 @@ const EventsSection = () => {
   const selectedRange = useAppSelector((state) => state.filterReducer.range);
 
   useEffect(() => {
-    setLoadingState(Loading.loading);
     const getEvents = async () => {
       try {
         const response = await getLastEvents(geoPoint, selectedRange);
@@ -46,8 +45,11 @@ const EventsSection = () => {
     };
 
     getEvents();
-  }, [geoPoint, selectedRange]);
+  }, [geoPoint, selectedRange, loadingState]);
 
+  const handleLoadingChange = async (e: Loading) => {
+    setLoadingState(e);
+  };
   return (
     <EventsSectionWrapper>
       <HomeEventsHeaderWrapper>
@@ -67,7 +69,11 @@ const EventsSection = () => {
               {events?.length === 0 && <ErrorMessage variant="no-events" />}
               {events &&
                 sortEvents(events, selectedSorting).map((data) => (
-                  <Event key={data.id} {...data} />
+                  <Event
+                    key={data.id}
+                    event={data}
+                    handleLoadingChange={handleLoadingChange}
+                  />
                 ))}
             </>
           ) : (

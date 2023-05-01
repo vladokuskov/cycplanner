@@ -27,6 +27,7 @@ import { Button } from '../Button/Button';
 import { ProfilePreview } from '../ProfilePreview/ProfilePreview';
 import { SkeletonLoader } from '../skeleton/Skeleton';
 import { IEvent, Participating } from '../types/shared/event.types';
+import { Loading } from '../types/shared/loadingState.types';
 import {
   ButtonWrapper,
   ContentButtonsWrapper,
@@ -49,7 +50,13 @@ import {
   MapPlaceholder,
 } from './Event.styles.ts';
 
-const Event = (event: IEvent) => {
+const Event = ({
+  event,
+  handleLoadingChange,
+}: {
+  event: IEvent;
+  handleLoadingChange: (e: Loading) => void;
+}) => {
   const router = useRouter();
   const { user } = useAuth();
   const eventContentRef = useRef<HTMLDivElement>(null);
@@ -188,9 +195,9 @@ const Event = (event: IEvent) => {
         'Are you sure you want to delete your event?'
       );
       if (result && event && event.id) {
-        await deleteEvent(event?.id);
+        await deleteEvent(event.id);
         setIsEventMenuOpen(false);
-        window.location.reload();
+        handleLoadingChange(Loading.loading);
       }
     } catch (err) {
       console.log(err);

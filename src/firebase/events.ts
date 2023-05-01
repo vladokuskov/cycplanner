@@ -253,9 +253,15 @@ export const deleteEvent = async (eventID: string) => {
 
   const querySnapshot = await getDocs(events);
 
+  const updatePromises: void[] = [];
+
   querySnapshot.forEach(async (doc) => {
-    await deleteDoc(doc.ref);
+    const updatePromise = await deleteDoc(doc.ref);
+
+    updatePromises.push(updatePromise);
   });
+
+  await Promise.all(updatePromises);
 };
 
 export const getLastEvents = async (
