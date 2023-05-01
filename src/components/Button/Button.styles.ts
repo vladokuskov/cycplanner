@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 
-import { Button } from './IButton';
+import { Button } from './Button.types';
 
-const sizes = {
+const ButtonSizes = {
   sm1: css`
     padding: 0.4rem 0.8rem;
     font-size: 0.85rem;
@@ -62,23 +62,23 @@ const StyledButton = styled.button<Button>`
     `}
   ${({ size }) =>
     size === 'sm1'
-      ? sizes.sm1
+      ? ButtonSizes.sm1
       : size === 'sm2'
-      ? sizes.sm2
+      ? ButtonSizes.sm2
       : size === 'sm3'
-      ? sizes.sm3
+      ? ButtonSizes.sm3
       : size === 'md1'
-      ? sizes.md1
+      ? ButtonSizes.md1
       : size === 'md2'
-      ? sizes.md2
+      ? ButtonSizes.md2
       : size === 'md3'
-      ? sizes.md3
+      ? ButtonSizes.md3
       : size === 'xl1'
-      ? sizes.xl1
+      ? ButtonSizes.xl1
       : size === 'xl2'
-      ? sizes.xl2
+      ? ButtonSizes.xl2
       : size === 'xl3'
-      ? sizes.xl3
+      ? ButtonSizes.xl3
       : ''}
     ${({ variant }) =>
     variant === 'default'
@@ -266,9 +266,9 @@ const StyledButton = styled.button<Button>`
     `}
 `;
 
-const ButtonText = styled.span``;
+const StyledButtonText = styled.span``;
 
-const ButtonIcon = styled.span<Button>`
+const StyledButtonIcon = styled.span<Button>`
   ${({ variant }) =>
     variant === 'text-icon' &&
     css`
@@ -276,4 +276,4 @@ const ButtonIcon = styled.span<Button>`
     `}
 `;
 
-export { ButtonIcon, ButtonText, StyledButton };
+export { StyledButton, StyledButtonIcon, StyledButtonText };

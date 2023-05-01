@@ -1,19 +1,19 @@
-import { useState, useEffect, useRef } from 'react';
-import {
-  GeocoderMainWrapper,
-  GeocoderWrapper,
-  GeocoderInputWrapper,
-  GeocoderResultsWrapper,
-  ResultWrapper,
-} from './Geocoder.styles';
+import { useEffect, useRef, useState } from 'react';
 
-import { GeoPoint } from '../../types/shared/geoPoint.types';
-import { Geocoder, LocationStatus } from '../../types/shared/geocoder.types';
+import { faCircleNotch, faLocation } from '@fortawesome/free-solid-svg-icons';
 
 import { Button } from '../../Button/Button';
 import { Input } from '../../Input/Input';
+import { Geocoder, LocationStatus } from '../../types/shared/geocoder.types';
+import { GeoPoint } from '../../types/shared/geoPoint.types';
 import { SelectorLabel } from '../RangePicker/RangePicker.styles';
-import { faCircleNotch, faLocation } from '@fortawesome/free-solid-svg-icons';
+import {
+  GeocoderInputWrapper,
+  GeocoderMainWrapper,
+  GeocoderResultsWrapper,
+  GeocoderWrapper,
+  ResultWrapper,
+} from './Geocoder.styles';
 
 const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
   const [reversedLocation, setReversedLocation] = useState<string>('London');
@@ -199,7 +199,7 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
       <GeocoderWrapper>
         <GeocoderInputWrapper ref={ref}>
           <Input
-            isloading={isGeocoderLoading}
+            isLoading={isGeocoderLoading}
             variant="search"
             value={geocoderValue}
             onChange={handleChangeGeocoder}

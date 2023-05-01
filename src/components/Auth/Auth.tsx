@@ -12,14 +12,8 @@ import {
 import { convertFirebaseError } from '@/utils/convertFirebaseError';
 import { validateAuth } from '@/utils/validateAuth';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import {
-  faEnvelope,
-  faUser,
-} from '@fortawesome/free-regular-svg-icons';
-import {
-  faArrowLeftLong,
-  faKey,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faArrowLeftLong, faKey } from '@fortawesome/free-solid-svg-icons';
 
 import { Button } from '../Button/Button';
 import { Input } from '../Input/Input';
@@ -174,7 +168,7 @@ const Auth = ({ variant }: Auth) => {
               fieldType="password"
               isPassShowed={showPassword}
               value={password}
-              variant="auth-pass"
+              variant="auth"
               icon={faKey}
               onChange={(
                 e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -190,7 +184,7 @@ const Auth = ({ variant }: Auth) => {
                 fieldType="password"
                 isPassShowed={showPassword}
                 value={confirmationPassword}
-                variant="auth-pass"
+                variant="auth"
                 icon={faKey}
                 onChange={(
                   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
