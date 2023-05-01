@@ -27,7 +27,6 @@ import { Button } from '../Button/Button';
 import { ProfilePreview } from '../ProfilePreview/ProfilePreview';
 import { SkeletonLoader } from '../skeleton/Skeleton';
 import { IEvent, Participating } from '../types/shared/event.types';
-import { Loading } from '../types/shared/loadingState.types';
 import {
   ButtonWrapper,
   ContentButtonsWrapper,
@@ -52,10 +51,10 @@ import {
 
 const Event = ({
   event,
-  handleLoadingChange,
+  handleForceFetch,
 }: {
   event: IEvent;
-  handleLoadingChange: (e: Loading) => void;
+  handleForceFetch: () => void;
 }) => {
   const router = useRouter();
   const { user } = useAuth();
@@ -197,7 +196,7 @@ const Event = ({
       if (result && event && event.id) {
         await deleteEvent(event.id);
         setIsEventMenuOpen(false);
-        handleLoadingChange(Loading.loading);
+        handleForceFetch();
       }
     } catch (err) {
       console.log(err);

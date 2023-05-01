@@ -29,6 +29,7 @@ const EventsSection = () => {
     null
   );
   const [favoriteEvents, setFavoriteEvents] = useState<IEvent[] | null>(null);
+  const [forceFetch, setForceFetch] = useState(false);
 
   const [loadingState, setLoadingState] = useState<Loading>(Loading.loading);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -46,6 +47,7 @@ const EventsSection = () => {
 
   useEffect(() => {
     const getEvents = async () => {
+      setLoadingState(Loading.loading);
       try {
         if (selectedFilter === 'all') {
           const { events, totalEvents } = await getAllEvents(
@@ -88,15 +90,15 @@ const EventsSection = () => {
     currentPage,
     selectedFilter,
     itemsPerPage,
-    loadingState,
+    forceFetch,
   ]);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
-  const handleLoadingChange = async (e: Loading) => {
-    setLoadingState(e);
+  const handleForceFetch = () => {
+    setForceFetch((prev) => !prev);
   };
 
   return (
@@ -116,27 +118,27 @@ const EventsSection = () => {
           <SkeletonLoader variant="event-events" />
         ) : loadingState === Loading.success ? (
           <>
-            {(!allEvents && selectedFilter === 'all') ||
+            {((!allEvents && selectedFilter === 'all') ||
               (!myEvents && selectedFilter === 'my-events') ||
               (!participatedEvents && selectedFilter === 'participated') ||
-              (!favoriteEvents && selectedFilter === 'favorite' && (
-                <ErrorMessage variant="no-events" />
-              ))}
-            {(allEvents?.length === 0 && selectedFilter === 'all') ||
+              (!favoriteEvents && selectedFilter === 'favorite')) && (
+              <ErrorMessage variant="no-events" />
+            )}
+            {((allEvents?.length === 0 && selectedFilter === 'all') ||
               (myEvents?.length === 0 && selectedFilter === 'my-events') ||
               (participatedEvents?.length === 0 &&
                 selectedFilter === 'participated') ||
               (favoriteEvents?.length === 0 &&
-                selectedFilter === 'favorite' && (
-                  <ErrorMessage variant="no-events" />
-                ))}
+                selectedFilter === 'favorite')) && (
+              <ErrorMessage variant="no-events" />
+            )}
             {allEvents &&
               selectedFilter === 'all' &&
               sortEvents(allEvents, selectedSorting).map((data) => (
                 <Event
                   key={data.id}
                   event={data}
-                  handleLoadingChange={handleLoadingChange}
+                  handleForceFetch={handleForceFetch}
                 />
               ))}
             {myEvents &&
@@ -145,7 +147,7 @@ const EventsSection = () => {
                 <Event
                   key={data.id}
                   event={data}
-                  handleLoadingChange={handleLoadingChange}
+                  handleForceFetch={handleForceFetch}
                 />
               ))}
             {participatedEvents &&
@@ -154,7 +156,7 @@ const EventsSection = () => {
                 <Event
                   key={data.id}
                   event={data}
-                  handleLoadingChange={handleLoadingChange}
+                  handleForceFetch={handleForceFetch}
                 />
               ))}
             {favoriteEvents &&
@@ -163,7 +165,7 @@ const EventsSection = () => {
                 <Event
                   key={data.id}
                   event={data}
-                  handleLoadingChange={handleLoadingChange}
+                  handleForceFetch={handleForceFetch}
                 />
               ))}
           </>
