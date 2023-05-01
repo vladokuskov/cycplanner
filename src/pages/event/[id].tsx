@@ -1,15 +1,17 @@
-import PrivateRoute from '@/modules/PrivateRoute';
+import { useEffect, useState } from 'react';
+
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import StyledContainer from '@/components/StyledContainer/StyledContainer';
-import { IEvent } from '@/components/types/shared/event.types';
-import { getDetailEvent } from '@/firebase/events';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Loading } from '@/components/types/shared/loadingState.types';
+
 import { DetailMainSection } from '@/components/EventDetail/DetailMain/DetailMainSection';
 import { DetailSidebarSection } from '@/components/EventDetail/DetailSidebar/DetailSidebarSection';
 import { SkeletonLoader } from '@/components/skeleton/Skeleton';
+import StyledContainer from '@/components/StyledContainer/StyledContainer';
+import { IEvent } from '@/components/types/shared/event.types';
+import { Loading } from '@/components/types/shared/loadingState.types';
+import { getDetailEvent } from '@/firebase/events';
+import PrivateRoute from '@/modules/PrivateRoute';
 
 export default function Web() {
   const DynamicLayout = dynamic(() => import('@/modules/layout'), {
@@ -39,7 +41,11 @@ export default function Web() {
       }
     }
     fetchData();
-  }, []);
+  }, [loading]);
+
+  const handleLoadingChange = async (e: Loading) => {
+    setLoading(e);
+  };
 
   return (
     <PrivateRoute>
@@ -52,7 +58,10 @@ export default function Web() {
             <SkeletonLoader variant="detail-page" />
           ) : loading === Loading.success ? (
             <StyledContainer variant="detail-page">
-              <DetailMainSection event={event} />
+              <DetailMainSection
+                event={event}
+                handleLoadingChange={handleLoadingChange}
+              />
               <DetailSidebarSection event={event} />
             </StyledContainer>
           ) : (

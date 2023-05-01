@@ -15,6 +15,7 @@ import {
   where,
 } from 'firebase/firestore';
 
+import { IEditingForm } from '@/components/EventDetail/DetailMain/EditingForm/EditingEventForm';
 import { IEvent } from '@/components/types/shared/event.types';
 import { GeoPoint } from '@/components/types/shared/geoPoint.types';
 
@@ -23,6 +24,39 @@ import { db } from './firebase';
 
 const geofire = require('geofire-common');
 
+export const updateEvent = async (
+  eventId: string,
+  eventData: IEditingForm
+): Promise<void> => {
+  try {
+    const eventsRef = collection(db, 'events');
+    const q = query(eventsRef, where('event.id', '==', eventId));
+    const snapshot = await getDocs(q);
+
+    const updatePromises: Promise<void>[] = [];
+
+    snapshot.forEach(async (event) => {
+      const eventId = event.data().docID;
+      const data = event.data().event;
+
+      const updatePromise = updateDoc(doc(db, 'events', eventId), {
+        event: {
+          ...data,
+          title: eventData.title,
+          description: eventData.description,
+          type: eventData.type,
+          distance: eventData.distance,
+        },
+      });
+
+      updatePromises.push(updatePromise);
+    });
+
+    await Promise.all(updatePromises);
+  } catch (err) {
+    throw err;
+  }
+};
 export const approveUserParticipating = async (
   eventId: string,
   participantId: string
