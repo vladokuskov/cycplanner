@@ -1,28 +1,31 @@
-import { useEffect, useState, useRef } from 'react';
-import { useRouter } from 'next/router';
-import {
-  NavbarMainWrapper,
-  NavbarWrapper,
-  LogoWrapper,
-  LogoImage,
-  LinksWrapper,
-  SubLinksWrapper,
-  NavbarMenuWrapper,
-} from './NavBar.styles';
-import Link from 'next/link';
-import { Button } from '../../Button/Button';
-import NavMenu from '../NavMenu/NavMenu';
+import { useEffect, useRef, useState } from 'react';
 
-import { faBars, faClose } from '@fortawesome/free-solid-svg-icons';
+import { useClickOutside } from 'hooks/useClickOutside';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+
 import { useAuth } from '@/context/AuthContext';
+import { faBars, faClose } from '@fortawesome/free-solid-svg-icons';
+
+import { Button } from '../../Button/Button';
 import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
+import NavMenu from '../NavMenu/NavMenu';
 import { ProfileMenu } from '../ProfileMenu/ProfileMenu';
+import {
+  LinksWrapper,
+  LogoImage,
+  LogoWrapper,
+  NavbarMainWrapper,
+  NavbarMenuWrapper,
+  NavbarWrapper,
+  SubLinksWrapper,
+} from './NavBar.styles';
 
 const Navbar = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [isSticky, setIsSticky] = useState<boolean>(false);
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState<boolean>(false);
+  const [isMenuOpen, setIsMenuOpen] = useClickOutside(ref, false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useClickOutside(ref, false);
   const router = useRouter();
   const { user } = useAuth();
 
@@ -44,22 +47,6 @@ const Navbar = () => {
   const handleProfileMenuOpen = () => {
     setIsProfileMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);
   };
-
-  useEffect(() => {
-    const checkIfClickedOutside = (e: MouseEvent) => {
-      if (
-        isMenuOpen &&
-        ref.current &&
-        !ref.current.contains(e.target as Node)
-      ) {
-        setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);
-      }
-    };
-    document.addEventListener('mousedown', checkIfClickedOutside);
-    return () => {
-      document.removeEventListener('mousedown', checkIfClickedOutside);
-    };
-  }, [isMenuOpen]);
 
   const handleSticky = () => {
     const scrollTop = window.scrollY;
@@ -136,9 +123,7 @@ const Navbar = () => {
           {isProfileMenuOpen && (
             <ProfileMenu
               name={user?.displayName}
-              navRef={ref}
               onClose={handleProfileMenuClose}
-              isOpen={isProfileMenuOpen}
             />
           )}
         </SubLinksWrapper>

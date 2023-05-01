@@ -20,4 +20,5 @@ export type Button = {
   disabled?: boolean;
   status?: 'default' | 'error' | 'success';
   rotate?: boolean;
+  wider?: boolean;
 };

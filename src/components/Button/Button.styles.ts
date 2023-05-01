@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+
 import { Button } from './IButton';
 
 const sizes = {
@@ -257,6 +258,12 @@ const StyledButton = styled.button<Button>`
             color: #c8c8c8;
           }
         `}
+        ${({ wider }) =>
+    wider &&
+    css`
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    `}
 `;
 
 const ButtonText = styled.span``;
@@ -269,4 +276,4 @@ const ButtonIcon = styled.span<Button>`
     `}
 `;
 
-export { StyledButton, ButtonText, ButtonIcon };
+export { ButtonIcon, ButtonText, StyledButton };

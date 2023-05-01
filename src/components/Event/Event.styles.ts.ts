@@ -19,6 +19,62 @@ const EventWrapper = styled.div`
   }
 `;
 
+const HeaderButtonsWrapper = styled.div`
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+`;
+
+const EventMenu = styled.div`
+  position: absolute;
+  width: 10rem;
+  background-color: #f7f7f7;
+  border: 0.015rem solid #e7e7e7;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0;
+  bottom: calc(-100% - 1.5rem);
+  right: calc(50% - 2.95rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 2;
+  :after {
+    content: '';
+    position: absolute;
+    top: -0.8rem;
+    right: 0.5rem;
+    border-width: 0.8rem 0.8rem 0 0.8rem;
+    border-style: solid;
+    border-color: #e7e7e7 transparent transparent transparent;
+    transform: rotate(180deg);
+  }
+`;
+
+const EventMenuButton = styled.button<{
+  isDisabled?: boolean;
+  danger?: boolean;
+}>`
+  font-family: 'Roboto';
+  font-size: 0.9rem;
+  width: 100%;
+  padding: 0.5rem 0;
+  color: ${({ danger }) => (danger ? '#e62e2e' : '#2c2c2c')};
+  transition: 0.1s;
+  cursor: ${({ isDisabled }) => (isDisabled ? 'default' : 'pointer')};
+  &:hover,
+  &:focus {
+    background-color: ${({ isDisabled }) =>
+      isDisabled ? 'transparent' : '#f1f1f1'};
+  }
+  &:active {
+    background-color: ${({ isDisabled }) =>
+      isDisabled ? 'transparent' : '#e9e9e9'};
+  }
+`;
+
 const CopiedMessage = styled.p`
   transition: 0.2s;
   background-color: #d0d0d0;
@@ -227,7 +283,10 @@ export {
   EventHeaderWrapper,
   EventMainWrapper,
   EventMapWrapper,
+  EventMenu,
+  EventMenuButton,
   EventTitle,
   EventWrapper,
+  HeaderButtonsWrapper,
   MapPlaceholder,
 };

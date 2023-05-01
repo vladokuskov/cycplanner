@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
+import { useClickOutside } from 'hooks/useClickOutside';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
 import { useAuth } from '@/context/AuthContext';
 import {
+  deleteEvent,
   updateEventParticipating,
   updateFavoriteEvents,
 } from '@/firebase/events';
@@ -16,6 +18,7 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import {
   faCheck,
+  faEllipsisVertical,
   faHeart as filledHeart,
   faShareNodes,
 } from '@fortawesome/free-solid-svg-icons';
@@ -38,8 +41,11 @@ import {
   EventHeaderWrapper,
   EventMainWrapper,
   EventMapWrapper,
+  EventMenu,
+  EventMenuButton,
   EventTitle,
   EventWrapper,
+  HeaderButtonsWrapper,
   MapPlaceholder,
 } from './Event.styles.ts';
 
@@ -47,9 +53,14 @@ const Event = (event: IEvent) => {
   const router = useRouter();
   const { user } = useAuth();
   const eventContentRef = useRef<HTMLDivElement>(null);
+  const eventHeaderRef = useRef<HTMLDivElement>(null);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [participatingStatus, setParticipatingStatus] = useState<Participating>(
     Participating.none
+  );
+  const [isEventMenuOpen, setIsEventMenuOpen] = useClickOutside(
+    eventHeaderRef,
+    false
   );
   const [isMapMaximized, setIsMapMaximized] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -167,6 +178,25 @@ const Event = (event: IEvent) => {
     }
   }, [isMapMaximized]);
 
+  const handleEventMenuOpen = () => {
+    setIsEventMenuOpen((prev) => !prev);
+  };
+
+  const handleEventDelete = async () => {
+    try {
+      const result = window.confirm(
+        'Are you sure you want to delete your event?'
+      );
+      if (result && event && event.id) {
+        await deleteEvent(event?.id);
+        setIsEventMenuOpen(false);
+        window.location.reload();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <EventWrapper ref={eventContentRef}>
       <EventHeaderWrapper>
@@ -176,16 +206,34 @@ const Event = (event: IEvent) => {
           photoURL={event.metadata.author.photoUrl}
           variant="no-link"
         />
-        {!isCopied ? (
-          <Button
-            variant="icon"
-            icon={faShareNodes}
-            size="md3"
-            onClick={copyEventDetailURL}
-          />
-        ) : (
-          <CopiedMessage>Copied</CopiedMessage>
-        )}
+        <HeaderButtonsWrapper ref={eventHeaderRef}>
+          {!isCopied ? (
+            <Button
+              variant="icon"
+              icon={faShareNodes}
+              size="md3"
+              onClick={copyEventDetailURL}
+            />
+          ) : (
+            <CopiedMessage>Copied</CopiedMessage>
+          )}
+          {user?.uid === event?.metadata.author.uid && (
+            <Button
+              variant="icon"
+              icon={faEllipsisVertical}
+              size="md3"
+              onClick={handleEventMenuOpen}
+              wider
+            />
+          )}
+          {isEventMenuOpen && user?.uid === event?.metadata.author.uid && (
+            <EventMenu>
+              <EventMenuButton danger onClick={handleEventDelete}>
+                Delete event
+              </EventMenuButton>
+            </EventMenu>
+          )}
+        </HeaderButtonsWrapper>
       </EventHeaderWrapper>
       <EventMainWrapper>
         <EventContentWrapper>
