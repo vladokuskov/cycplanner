@@ -1,45 +1,50 @@
-import { Auth } from './Auth.types';
+import { useState } from 'react';
+
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import {
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from '@/firebase/auth';
-
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-
-import Image from 'next/image';
-import Link from 'next/link';
-
-import { Input } from '../Input/Input';
-import { Button } from '../Button/Button';
-import {
-  AuthLayoutWrapper,
-  AuthWrapper,
-  AuthAltSectionWrapper,
-  AuthBanner,
-  AuthFormWrapper,
-  AuthBannerWrapper,
-  AuthContentWrapper,
-  AuthHeaderWrapper,
-  HeaderLogoWrapper,
-  HeaderInfoWrapper,
-  HeaderTitle,
-  AuthLink,
-  AltHeaderWrapper,
-  AltTitle,
-  AltButtonsWrapper,
-} from './Auth.styles';
-
-import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
-import { faArrowLeftLong, faKey } from '@fortawesome/free-solid-svg-icons';
+import { convertFirebaseError } from '@/utils/convertFirebaseError';
 import { validateAuth } from '@/utils/validateAuth';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { convertFirebaseError } from '@/utils/convertFirebaseError';
+import {
+  faEnvelope,
+  faUser,
+} from '@fortawesome/free-regular-svg-icons';
+import {
+  faArrowLeftLong,
+  faKey,
+} from '@fortawesome/free-solid-svg-icons';
+
+import { Button } from '../Button/Button';
+import { Input } from '../Input/Input';
 import { FailedText } from '../ProfilePage/StyledProfile.styles';
+import {
+  StyledAltButtonsWrapper,
+  StyledAltHeaderWrapper,
+  StyledAltTitle,
+  StyledAuthAltSectionWrapper,
+  StyledAuthBanner,
+  StyledAuthBannerWrapper,
+  StyledAuthContentWrapper,
+  StyledAuthFormWrapper,
+  StyledAuthHeaderWrapper,
+  StyledAuthLayoutWrapper,
+  StyledAuthLink,
+  StyledAuthWrapper,
+  StyledHeaderInfoWrapper,
+  StyledHeaderLogoWrapper,
+  StyledHeaderTitle,
+} from './Auth.styles';
+import { Auth } from './Auth.types';
 
 const Auth = ({ variant }: Auth) => {
+  const router = useRouter();
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -48,7 +53,7 @@ const Auth = ({ variant }: Auth) => {
   const [validationResponse, setValidationResponse] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const router = useRouter();
+  const isPasswordsEqual = () => confirmationPassword === password;
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
@@ -106,11 +111,9 @@ const Auth = ({ variant }: Auth) => {
     }
   };
 
-  const isPasswordsEqual = () => confirmationPassword === password;
-
   return (
-    <AuthLayoutWrapper>
-      <AuthWrapper>
+    <StyledAuthLayoutWrapper>
+      <StyledAuthWrapper>
         <Button
           variant="icon"
           size="md3"
@@ -118,26 +121,26 @@ const Auth = ({ variant }: Auth) => {
           onClick={() => router.push('/')}
           className="back-button"
         />
-        <AuthContentWrapper>
-          <AuthHeaderWrapper>
-            <HeaderLogoWrapper>
-              <img src="/assets/logo.svg" alt="" />
-            </HeaderLogoWrapper>
-            <HeaderInfoWrapper>
-              <HeaderTitle>
+        <StyledAuthContentWrapper>
+          <StyledAuthHeaderWrapper>
+            <StyledHeaderLogoWrapper>
+              <Image src="/assets/logo.svg" alt="" width={80} height={50} />
+            </StyledHeaderLogoWrapper>
+            <StyledHeaderInfoWrapper>
+              <StyledHeaderTitle>
                 {variant === 'login' ? 'Welcome Back' : 'Create an account'}
-              </HeaderTitle>
-            </HeaderInfoWrapper>
+              </StyledHeaderTitle>
+            </StyledHeaderInfoWrapper>
             <Link href={variant === 'login' ? '/signup' : '/login'}>
-              <AuthLink>
+              <StyledAuthLink>
                 {`${
                   variant === 'login' ? "Don't" : 'Already'
                 } have an account?`}
                 <span>{`${variant === 'login' ? ' Sign up' : ' Log in'}`}</span>
-              </AuthLink>
+              </StyledAuthLink>
             </Link>
-          </AuthHeaderWrapper>
-          <AuthFormWrapper
+          </StyledAuthHeaderWrapper>
+          <StyledAuthFormWrapper
             onSubmit={variant === 'login' ? handleLogin : handleRegistration}
           >
             {variant === 'signup' && (
@@ -207,12 +210,12 @@ const Auth = ({ variant }: Auth) => {
               buttonType="submit"
               full
             />
-          </AuthFormWrapper>
-          <AuthAltSectionWrapper>
-            <AltHeaderWrapper>
-              <AltTitle>Or continue with</AltTitle>
-            </AltHeaderWrapper>
-            <AltButtonsWrapper>
+          </StyledAuthFormWrapper>
+          <StyledAuthAltSectionWrapper>
+            <StyledAltHeaderWrapper>
+              <StyledAltTitle>Or continue with</StyledAltTitle>
+            </StyledAltHeaderWrapper>
+            <StyledAltButtonsWrapper>
               <Button
                 text="Google"
                 variant="text-icon"
@@ -221,16 +224,16 @@ const Auth = ({ variant }: Auth) => {
                 bold
                 onClick={handleSignWithGoogle}
               />
-            </AltButtonsWrapper>
-          </AuthAltSectionWrapper>
-        </AuthContentWrapper>
-        <AuthBannerWrapper>
-          <AuthBanner>
+            </StyledAltButtonsWrapper>
+          </StyledAuthAltSectionWrapper>
+        </StyledAuthContentWrapper>
+        <StyledAuthBannerWrapper>
+          <StyledAuthBanner>
             <Image src="/assets/auth/auth-banner.webp" alt="" fill />
-          </AuthBanner>
-        </AuthBannerWrapper>
-      </AuthWrapper>
-    </AuthLayoutWrapper>
+          </StyledAuthBanner>
+        </StyledAuthBannerWrapper>
+      </StyledAuthWrapper>
+    </StyledAuthLayoutWrapper>
   );
 };
 
