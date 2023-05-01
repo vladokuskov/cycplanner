@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+
+import { useClickOutside } from 'hooks/useClickOutside';
 
 import { useAuth } from '@/context/AuthContext';
 import { removeProfilePicture, uploadAvatar } from '@/firebase/profile';
@@ -25,7 +27,10 @@ const PhotoSection = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const uploadAvatarRef = useRef<HTMLDivElement>(null);
   const [initialImage, setInitialImage] = useState<File | null>(null);
-  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useClickOutside(
+    uploadAvatarRef,
+    false
+  );
   const [isAvatarEditing, setIsAvatarEditing] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false);
 
@@ -75,22 +80,6 @@ const PhotoSection = () => {
     setInitialImage(null);
     window.location.reload();
   };
-
-  useEffect(() => {
-    const checkIfClickedOutside = (e: MouseEvent) => {
-      if (
-        isDropdownOpen &&
-        uploadAvatarRef.current &&
-        !uploadAvatarRef.current.contains(e.target as Node)
-      ) {
-        setIsDropdownOpen((prev) => !prev);
-      }
-    };
-    document.addEventListener('mousedown', checkIfClickedOutside);
-    return () => {
-      document.removeEventListener('mousedown', checkIfClickedOutside);
-    };
-  }, [isDropdownOpen]);
 
   return (
     <AvatarSectionWrapper>

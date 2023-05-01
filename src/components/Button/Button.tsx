@@ -1,6 +1,6 @@
-import { Button } from './IButton';
 import { Icon } from '../Icon/Icon';
-import { StyledButton, ButtonIcon, ButtonText } from './Button.styles';
+import { ButtonIcon, ButtonText, StyledButton } from './Button.styles';
+import { Button } from './IButton';
 
 const Button = ({
   text,
@@ -15,6 +15,7 @@ const Button = ({
   disabled = false,
   status = 'default',
   rotate,
+  wider = false,
 }: Button) => {
   return (
     <StyledButton
@@ -29,6 +30,7 @@ const Button = ({
       disabled={disabled}
       status={status}
       icon={icon}
+      wider={wider}
     >
       {text && text?.length !== 0 && variant !== 'icon' && (
         <ButtonText>{text}</ButtonText>

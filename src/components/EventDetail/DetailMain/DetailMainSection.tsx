@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
 import { CopiedMessage } from '@/components/Event/Event.styles.ts';
+import { Loading } from '@/components/types/shared/loadingState.types';
 import { useAuth } from '@/context/AuthContext';
 import {
   deleteEvent,
@@ -13,10 +14,12 @@ import {
 import {
   faClockFour,
   faHeart as emptyHeart,
+  faPenToSquare,
   faTrashAlt,
 } from '@fortawesome/free-regular-svg-icons';
 import {
   faCheck,
+  faClose,
   faHeart as filledHeart,
   faShareNodes,
 } from '@fortawesome/free-solid-svg-icons';
@@ -38,8 +41,15 @@ import {
   MapWrapper,
   Title,
 } from './DetailMainSection.styles';
+import { EditingEventForm } from './EditingForm/EditingEventForm';
 
-const DetailMainSection = ({ event }: { event: IEvent | null }) => {
+const DetailMainSection = ({
+  event,
+  handleLoadingChange,
+}: {
+  event: IEvent | null;
+  handleLoadingChange: (e: Loading) => void;
+}) => {
   const Map = useMemo(
     () =>
       dynamic(() => import('../../EventMap/Map'), {
@@ -55,12 +65,21 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
   const handleMapMaximizing = () => {
     setIsMapMaximized((prev) => !prev);
   };
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [participatingStatus, setParticipatingStatus] = useState<Participating>(
     Participating.none
   );
   const [isCopied, setIsCopied] = useState(false);
+
+  const humanDate =
+    event?.metadata.createdAt &&
+    new Date(event.metadata.createdAt).toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
 
   useEffect(() => {
     const checkIsFavorite = async () => {
@@ -100,6 +119,10 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
     } else if (!user) {
       router.push('/login');
     }
+  };
+
+  const handleEventEditing = () => {
+    setIsEditing((prev) => !prev);
   };
 
   const handleParticipating = async () => {
@@ -154,14 +177,6 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
     }
   };
 
-  const humanDate =
-    event?.metadata.createdAt &&
-    new Date(event.metadata.createdAt).toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-
   return (
     <DetailMainSectionWrapper>
       <MapWrapper isMapMaximized={isMapMaximized}>
@@ -215,15 +230,26 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
           />
         )}
         {user?.uid === event?.metadata.author.uid && (
-          <Button
-            variant="icon"
-            status="error"
-            text="Delete event"
-            icon={faTrashAlt}
-            size="md3"
-            bold
-            onClick={handleEventDelete}
-          />
+          <>
+            <Button
+              variant="icon"
+              text="Edit event"
+              icon={isEditing ? faClose : faPenToSquare}
+              size="md3"
+              bold
+              onClick={handleEventEditing}
+            />
+            <Button
+              className="deleteEventBtn"
+              variant="icon"
+              status="error"
+              text="Delete event"
+              icon={faTrashAlt}
+              size="md3"
+              bold
+              onClick={handleEventDelete}
+            />
+          </>
         )}
       </ControlsWrapper>
       <InfoWrapper>
@@ -233,6 +259,13 @@ const DetailMainSection = ({ event }: { event: IEvent | null }) => {
           photoURL={event?.metadata.author.photoUrl}
           variant="no-link"
         />
+        {isEditing && (
+          <EditingEventForm
+            event={event}
+            handleEventEditing={handleEventEditing}
+            handleLoadingChange={handleLoadingChange}
+          />
+        )}
         <Title>{event?.title}</Title>
         <Description>{event?.description}</Description>
         <InfoDetailsWrapper>

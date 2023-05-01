@@ -25,6 +25,31 @@ const MapWrapper = styled.div<{ isMapMaximized: boolean }>`
   }
 `;
 
+const EditingForm = styled.form`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 100%;
+  background: #fff8ba4f;
+  border-radius: 8px;
+  border: none;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+`;
+
+const EditingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.3rem;
+  width: 100%;
+  button {
+    align-self: flex-end;
+  }
+`;
+
 const InfoWrapper = styled.div`
   width: 100%;
   padding: 1rem 0;
@@ -92,8 +117,8 @@ const ControlsWrapper = styled.div<{
   justify-content: flex-start;
   padding: 0.4rem 0;
   gap: 1rem;
-  @media (min-width: 680px) {
-    justify-content: flex-end;
+  .deleteEventBtn {
+    margin-left: auto;
   }
   .participateBtn {
     ${({ participated }) =>
@@ -156,6 +181,8 @@ export {
   DetailLocation,
   DetailMainSectionWrapper,
   DetailTitle,
+  EditingContainer,
+  EditingForm,
   InfoDetail,
   InfoDetailsWrapper,
   InfoWrapper,

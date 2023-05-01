@@ -1,42 +1,27 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
+
+import { useRouter } from 'next/router';
+
+import { useAuth } from '@/context/AuthContext';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { faPlus, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+
+import { Button } from '../../Button/Button';
 import {
-  ProfileMenuListItem,
-  ProfileMenuListWrapper,
   AuthorTitle,
   AuthorWrapper,
   ProfileMenuFooter,
   ProfileMenuHeader,
+  ProfileMenuListItem,
+  ProfileMenuListWrapper,
   ProfileMenuWrapper,
 } from './ProfileMenu.styles';
-import { Button } from '../../Button/Button';
 import { ProfileMenu } from './ProfileMenu.types';
-import { useRouter } from 'next/router';
-import { faPlus, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
-import { useAuth } from '@/context/AuthContext';
 
-const ProfileMenu = ({ name, navRef, onClose, isOpen }: ProfileMenu) => {
+const ProfileMenu = ({ name, onClose }: ProfileMenu) => {
   const { logoutUser } = useAuth();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        navRef.current &&
-        !dropdownRef.current.contains(e.target as Node) &&
-        !navRef.current.contains(e.target as Node)
-      ) {
-        onClose();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen]);
 
   const handleSignOut = () => {
     router.push(`/login`);
