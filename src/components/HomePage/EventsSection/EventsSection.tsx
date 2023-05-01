@@ -41,7 +41,6 @@ const EventsSection = () => {
         setEvents(response);
         setLoadingState(Loading.success);
       } catch (err) {
-        console.log(err);
         setLoadingState(Loading.error);
       }
     };
@@ -68,8 +67,9 @@ const EventsSection = () => {
             <SkeletonLoader variant="event-home" />
           ) : loadingState === Loading.success ? (
             <>
-              {!events && <ErrorMessage variant="no-events" />}
-              {events?.length === 0 && <ErrorMessage variant="no-events" />}
+              {(events?.length === 0 || !events) && (
+                <ErrorMessage variant="no-events" />
+              )}
               {events &&
                 sortEvents(events, selectedSorting).map((data) => (
                   <Event
