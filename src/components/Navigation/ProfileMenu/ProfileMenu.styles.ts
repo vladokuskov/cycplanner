@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ProfileMenuWrapper = styled.div`
+const StyledProfileMenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,13 +21,13 @@ const ProfileMenuWrapper = styled.div`
   box-shadow: 0px 9px 21px -17px rgba(0, 0, 0, 0.233);
 `;
 
-const ProfileMenuHeader = styled.div`
+const StyledProfileMenuHeader = styled.div`
   width: 100%;
   background-color: #fafafa7f;
   border-radius: 10px 10px 0 0;
   border-bottom: 1px solid #d6d6d6;
 `;
-const ProfileMenuFooter = styled.div`
+const StyledProfileMenuFooter = styled.div`
   background-color: #fafafa7f;
   border-radius: 0 0 10px 10px;
   border-top: 1px solid #d6d6d6;
@@ -40,7 +40,7 @@ const ProfileMenuFooter = styled.div`
   justify-content: center;
 `;
 
-const AuthorWrapper = styled.div`
+const StyledAuthorWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -49,7 +49,7 @@ const AuthorWrapper = styled.div`
   padding: 0.5rem 1rem;
 `;
 
-const AuthorTitle = styled.p`
+const StyledAuthorTitle = styled.p`
   font-weight: 600;
   color: #303030;
   font-family: 'Inter';
@@ -57,7 +57,7 @@ const AuthorTitle = styled.p`
   margin: 0;
 `;
 
-const ProfileMenuListWrapper = styled.ul`
+const StyledProfileMenuListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -69,16 +69,16 @@ const ProfileMenuListWrapper = styled.ul`
   gap: 0.4rem;
 `;
 
-const ProfileMenuListItem = styled.li`
+const StyledProfileMenuListItem = styled.li`
   width: 100%;
 `;
 
 export {
-  ProfileMenuListItem,
-  ProfileMenuListWrapper,
-  AuthorTitle,
-  AuthorWrapper,
-  ProfileMenuFooter,
-  ProfileMenuHeader,
-  ProfileMenuWrapper,
+  StyledAuthorTitle,
+  StyledAuthorWrapper,
+  StyledProfileMenuFooter,
+  StyledProfileMenuHeader,
+  StyledProfileMenuListItem,
+  StyledProfileMenuListWrapper,
+  StyledProfileMenuWrapper,
 };

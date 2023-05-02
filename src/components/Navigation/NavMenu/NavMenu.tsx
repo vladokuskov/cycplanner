@@ -1,19 +1,20 @@
 import Link from 'next/link';
-import { NavMenu } from './NavMenu.types';
-import { Icon } from '../../Icon/Icon';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
 import { useAuth } from '@/context/AuthContext';
+import { faChevronRight, faPlus } from '@fortawesome/free-solid-svg-icons';
+
 import { Button } from '../../Button/Button';
-import {
-  MenuFooterButtonsLabel,
-  MenuFooterButtonsWrapper,
-  MenuFooter,
-  LinksWrapper,
-  MenuWrapper,
-  MenuMainWrapper,
-} from './NavMenu.styles';
+import { Icon } from '../../Icon/Icon';
 import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
+import {
+  StyledLinksWrapper,
+  StyledMenuFooter,
+  StyledMenuFooterButtonsLabel,
+  StyledMenuFooterButtonsWrapper,
+  StyledMenuMainWrapper,
+  StyledMenuWrapper,
+} from './NavMenu.styles';
+import { NavMenu } from './NavMenu.types';
 
 const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
   const { user, logoutUser } = useAuth();
@@ -24,9 +25,9 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
   };
 
   return (
-    <MenuMainWrapper>
-      <MenuWrapper sticky={sticky}>
-        <LinksWrapper>
+    <StyledMenuMainWrapper>
+      <StyledMenuWrapper sticky={sticky}>
+        <StyledLinksWrapper>
           <Link
             href="/"
             onClick={handleMenuClick}
@@ -63,8 +64,8 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
               <Icon icon={faChevronRight} />
             </span>
           </Link>
-        </LinksWrapper>
-        <MenuFooter>
+        </StyledLinksWrapper>
+        <StyledMenuFooter>
           {user ? (
             <>
               {router.pathname !== '/create' && (
@@ -77,7 +78,7 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
                   onClick={() => router.push('/create')}
                 />
               )}
-              <MenuFooterButtonsWrapper variant="logged">
+              <StyledMenuFooterButtonsWrapper variant="logged">
                 <ProfilePreview
                   variant="default"
                   photoURL={user?.photoURL}
@@ -90,10 +91,10 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
                   bold
                   onClick={handleSignOut}
                 />
-              </MenuFooterButtonsWrapper>
+              </StyledMenuFooterButtonsWrapper>
             </>
           ) : (
-            <MenuFooterButtonsWrapper variant="guest">
+            <StyledMenuFooterButtonsWrapper variant="guest">
               <Button
                 variant="outlined"
                 text="Sign up"
@@ -101,7 +102,7 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
                 bold
                 onClick={() => router.push('/signup')}
               />
-              <MenuFooterButtonsLabel>or</MenuFooterButtonsLabel>
+              <StyledMenuFooterButtonsLabel>or</StyledMenuFooterButtonsLabel>
               <Button
                 variant="default"
                 text="Log in"
@@ -109,11 +110,11 @@ const NavMenu = ({ sticky, handleMenuClick, router }: NavMenu) => {
                 bold
                 onClick={() => router.push('/login')}
               />
-            </MenuFooterButtonsWrapper>
+            </StyledMenuFooterButtonsWrapper>
           )}
-        </MenuFooter>
-      </MenuWrapper>
-    </MenuMainWrapper>
+        </StyledMenuFooter>
+      </StyledMenuWrapper>
+    </StyledMenuMainWrapper>
   );
 };
 

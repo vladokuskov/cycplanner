@@ -12,18 +12,12 @@ import {
 import { convertFirebaseError } from '@/utils/convertFirebaseError';
 import { validateAuth } from '@/utils/validateAuth';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import {
-  faEnvelope,
-  faUser,
-} from '@fortawesome/free-regular-svg-icons';
-import {
-  faArrowLeftLong,
-  faKey,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faArrowLeftLong, faKey } from '@fortawesome/free-solid-svg-icons';
 
 import { Button } from '../Button/Button';
 import { Input } from '../Input/Input';
-import { FailedText } from '../ProfilePage/StyledProfile.styles';
+import { StyledFailedText } from '../ProfilePage/StyledProfile.styles';
 import {
   StyledAltButtonsWrapper,
   StyledAltHeaderWrapper,
@@ -201,7 +195,7 @@ const Auth = ({ variant }: Auth) => {
               />
             )}
             {validationResponse.length > 0 && (
-              <FailedText>{validationResponse}</FailedText>
+              <StyledFailedText>{validationResponse}</StyledFailedText>
             )}
             <Button
               text={variant === 'login' ? 'Log in' : 'Sign up'}

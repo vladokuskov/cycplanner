@@ -1,17 +1,20 @@
-import { faCircleNotch, faClose } from '@fortawesome/free-solid-svg-icons';
-import {
-  AvatarEditingFooter,
-  AvatarEditingBody,
-  AvatarEditingHeader,
-  AvatarEditingTitle,
-  AvatarEditingWindow,
-  AvatarEditingWindowWrapper,
-} from './AvatarEditing.styles';
-import { Button } from '../../../../Button/Button';
 import React, { useRef, useState } from 'react';
+
 import AvatarEditor from 'react-avatar-editor';
-import { RangeSlider } from '../../../../RangeSlider/RangeSlider';
+
 import { AvatarEditing } from '@/components/types/shared/Profile/avatarEditing.types';
+import { faCircleNotch, faClose } from '@fortawesome/free-solid-svg-icons';
+
+import { Button } from '../../../../Button/Button';
+import { RangeSlider } from '../../../../RangeSlider/RangeSlider';
+import {
+  StyledAvatarEditingBody,
+  StyledAvatarEditingFooter,
+  StyledAvatarEditingHeader,
+  StyledAvatarEditingTitle,
+  StyledAvatarEditingWindow,
+  StyledAvatarEditingWindowWrapper,
+} from './AvatarEditing.styles';
 
 const AvatarEditing = ({
   isUploading,
@@ -24,6 +27,7 @@ const AvatarEditing = ({
     : undefined;
   const editorRef = useRef<AvatarEditor | null>(null);
   const [scale, setScale] = useState<number>(1);
+  const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
 
   const saveChanges = () => {
     if (editorRef.current && initialImage) {
@@ -43,19 +47,25 @@ const AvatarEditing = ({
     setScale(+e.target.value);
   };
 
+  const handlePositionChange = (position: { x: number; y: number }) => {
+    setPosition(position);
+  };
+
   return (
-    <AvatarEditingWindowWrapper>
-      <AvatarEditingWindow>
-        <AvatarEditingHeader>
-          <AvatarEditingTitle>Crop your new profile picture</AvatarEditingTitle>
+    <StyledAvatarEditingWindowWrapper>
+      <StyledAvatarEditingWindow>
+        <StyledAvatarEditingHeader>
+          <StyledAvatarEditingTitle>
+            Crop your new profile picture
+          </StyledAvatarEditingTitle>
           <Button
             variant="icon"
             icon={faClose}
             text="Close"
             onClick={handleAvatarEditingClose}
           />
-        </AvatarEditingHeader>
-        <AvatarEditingBody>
+        </StyledAvatarEditingHeader>
+        <StyledAvatarEditingBody>
           {tempAvatarUrl && (
             <AvatarEditor
               ref={editorRef}
@@ -67,6 +77,8 @@ const AvatarEditing = ({
               color={[255, 255, 255, 0.6]}
               scale={scale}
               rotate={0}
+              position={position}
+              onPositionChange={handlePositionChange}
             />
           )}
           <RangeSlider
@@ -77,8 +89,8 @@ const AvatarEditing = ({
             onChange={handleScaleChange}
             label="Scale"
           />
-        </AvatarEditingBody>
-        <AvatarEditingFooter>
+        </StyledAvatarEditingBody>
+        <StyledAvatarEditingFooter>
           <Button
             variant="filled"
             text={isUploading ? 'Saving changes' : 'Set new profile picture'}
@@ -89,9 +101,9 @@ const AvatarEditing = ({
             disabled={isUploading}
             rotate={isUploading}
           />
-        </AvatarEditingFooter>
-      </AvatarEditingWindow>
-    </AvatarEditingWindowWrapper>
+        </StyledAvatarEditingFooter>
+      </StyledAvatarEditingWindow>
+    </StyledAvatarEditingWindowWrapper>
   );
 };
 

@@ -40,12 +40,12 @@ const StyledInputWrapper = styled.div<Input>`
     margin: 0;
   }
 
-  /* Works for Firefox */
   input[type='number'] {
     appearance: textfield;
     -moz-appearance: textfield;
   }
 `;
+
 const StyledLabel = styled.label<Input>`
   position: absolute;
   font-family: 'Inter';

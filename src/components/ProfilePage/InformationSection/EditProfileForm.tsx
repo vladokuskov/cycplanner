@@ -1,13 +1,16 @@
+import { useState } from 'react';
+
 import styled from 'styled-components';
+
 import { useAuth } from '@/context/AuthContext';
 import { updateProfileName } from '@/firebase/profile';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+
 import { Button } from '../../Button/Button';
 import { Input } from '../../Input/Input';
-import { FailedText } from '../StyledProfile.styles';
+import { StyledFailedText } from '../StyledProfile.styles';
 
-const Form = styled.form`
+const StyledForm = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -68,7 +71,7 @@ const EditProfileForm = () => {
   };
 
   return (
-    <Form onSubmit={handleSave}>
+    <StyledForm onSubmit={handleSave}>
       <Input
         fieldType="text"
         value={editProfileForm.name}
@@ -80,7 +83,7 @@ const EditProfileForm = () => {
         full
       />
       {validationResponse.length > 0 && (
-        <FailedText>{validationResponse}</FailedText>
+        <StyledFailedText>{validationResponse}</StyledFailedText>
       )}
       <Button
         buttonType="submit"
@@ -94,7 +97,7 @@ const EditProfileForm = () => {
         }
         size="sm2"
       />
-    </Form>
+    </StyledForm>
   );
 };
 

@@ -1,8 +1,9 @@
 import React from 'react';
+
 import {
+  StyledLabel,
   StyledRangeSlider,
-  Label,
-  RangeSliderWrapper,
+  StyledRangeSliderWrapper,
 } from './RangeSlider.styles';
 import { RangeSlider } from './RangeSlider.types';
 
@@ -15,8 +16,8 @@ const RangeSlider = ({
   step,
 }: RangeSlider) => {
   return (
-    <RangeSliderWrapper>
-      {label && <Label htmlFor="rangeSlider">{label}</Label>}
+    <StyledRangeSliderWrapper>
+      {label && <StyledLabel htmlFor="rangeSlider">{label}</StyledLabel>}
       <StyledRangeSlider
         name="rangeSlider"
         type="range"
@@ -26,7 +27,7 @@ const RangeSlider = ({
         step={step}
         onChange={onChange}
       />
-    </RangeSliderWrapper>
+    </StyledRangeSliderWrapper>
   );
 };
 

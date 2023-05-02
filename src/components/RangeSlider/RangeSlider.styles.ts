@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-const RangeSliderWrapper = styled.div`
+const StyledRangeSliderWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
 `;
-const Label = styled.label`
+const StyledLabel = styled.label`
   font-family: 'Roboto';
   font-size: 0.9rem;
   color: #2c2c2c;
@@ -61,4 +61,4 @@ const StyledRangeSlider = styled.input`
   }
 `;
 
-export { StyledRangeSlider, Label, RangeSliderWrapper };
+export { StyledLabel, StyledRangeSlider, StyledRangeSliderWrapper };

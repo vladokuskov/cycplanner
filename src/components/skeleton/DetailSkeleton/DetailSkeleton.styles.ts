@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const MainSection = styled.div`
+const StyledMainSection = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@ const MainSection = styled.div`
   }
 `;
 
-const SidebarSection = styled.div`
+const StyledSidebarSection = styled.div`
   width: 100%;
   border-top: 1px solid #dfdfdf !important;
   border-radius: 0 !important;
@@ -33,14 +33,14 @@ const SidebarSection = styled.div`
   }
 `;
 
-const MapSkeleton = styled.div`
+const StyledMapSkeleton = styled.div`
   width: 100%;
   max-height: 15rem;
   height: 100%;
   min-height: 15rem;
 `;
 
-const ButtonsWrapper = styled.div`
+const StyledButtonsWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -53,13 +53,13 @@ const ButtonsWrapper = styled.div`
   }
 `;
 
-const AuthorMainWrapper = styled.div`
+const StyledAuthorMainWrapper = styled.div`
   margin-top: 0.5rem;
   width: 100%;
   background-color: transparent !important;
 `;
 
-const AuthorWrapper = styled.div`
+const StyledAuthorWrapper = styled.div`
   width: 100%;
   background-color: transparent !important;
   display: flex;
@@ -67,44 +67,44 @@ const AuthorWrapper = styled.div`
   justify-content: flex-start;
   gap: 0.3rem;
 `;
-const AuthorImagePlaceholder = styled.div`
+const StyledAuthorImagePlaceholder = styled.div`
   width: 2.3rem;
   height: 2.3rem;
   border-radius: 50% !important;
   border: none;
 `;
 
-const AuthorTitle = styled.div`
+const StyledAuthorTitle = styled.div`
   width: 100%;
   height: 1.2rem;
   max-width: 10rem;
 `;
 
-const BigTitle = styled.div`
+const StyledBigTitle = styled.div`
   width: 100%;
   height: 2rem;
   max-width: 80%;
   margin-top: 1rem;
 `;
 
-const MediumTitle = styled.div`
+const StyledMediumTitle = styled.div`
   width: 100%;
   height: 1.2rem;
 
   margin-top: 0.3rem;
 `;
 
-const SmallTitle = styled.div`
+const StyledSmallTitle = styled.div`
   width: 100%;
   height: 1rem;
 `;
 
-const ButtonSkeleton = styled.div`
+const StyledButtonSkeleton = styled.div`
   width: 2rem;
   height: 2rem;
 `;
 
-const DescriptionWrapper = styled.div`
+const StyledDescriptionWrapper = styled.div`
   width: 100%;
   background-color: transparent !important;
   flex-direction: column;
@@ -116,7 +116,7 @@ const DescriptionWrapper = styled.div`
   max-width: 75%;
 `;
 
-const DetailsWrapper = styled.div`
+const StyledDetailsWrapper = styled.div`
   width: 100%;
   background-color: transparent !important;
   flex-direction: column;
@@ -128,7 +128,7 @@ const DetailsWrapper = styled.div`
   max-width: 15rem;
 `;
 
-const UsersList = styled.div`
+const StyledUsersList = styled.div`
   width: 100%;
   background-color: transparent !important;
   margin-top: 1rem;
@@ -140,19 +140,19 @@ const UsersList = styled.div`
 `;
 
 export {
-  UsersList,
-  DetailsWrapper,
-  DescriptionWrapper,
-  ButtonSkeleton,
-  SmallTitle,
-  MediumTitle,
-  BigTitle,
-  AuthorTitle,
-  AuthorImagePlaceholder,
-  AuthorWrapper,
-  ButtonsWrapper,
-  SidebarSection,
-  MainSection,
-  MapSkeleton,
-  AuthorMainWrapper,
+  StyledAuthorImagePlaceholder,
+  StyledAuthorMainWrapper,
+  StyledAuthorTitle,
+  StyledAuthorWrapper,
+  StyledBigTitle,
+  StyledButtonSkeleton,
+  StyledButtonsWrapper,
+  StyledDescriptionWrapper,
+  StyledDetailsWrapper,
+  StyledMainSection,
+  StyledMapSkeleton,
+  StyledMediumTitle,
+  StyledSidebarSection,
+  StyledSmallTitle,
+  StyledUsersList,
 };

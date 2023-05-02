@@ -1,10 +1,10 @@
-import { LoadingWrapper, LogoImage } from './Loader.styles';
+import { StyledLoadingWrapper, StyledLogoImage } from './Loader.styles';
 
 function Loader() {
   return (
-    <LoadingWrapper>
-      <LogoImage src="/assets/logo.svg" alt="" />
-    </LoadingWrapper>
+    <StyledLoadingWrapper>
+      <StyledLogoImage src="/assets/logo.svg" alt="" />
+    </StyledLoadingWrapper>
   );
 }
 export { Loader };

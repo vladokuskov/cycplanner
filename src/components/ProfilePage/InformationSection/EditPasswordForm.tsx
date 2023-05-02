@@ -1,13 +1,16 @@
-import styled from 'styled-components';
-import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+
+import styled from 'styled-components';
+
+import { updateUserPassword } from '@/firebase/profile';
+import { convertFirebaseError } from '@/utils/convertFirebaseError';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+
 import { Button } from '../../Button/Button';
 import { Input } from '../../Input/Input';
-import { updateUserPassword } from '@/firebase/profile';
-import { FailedText } from '../StyledProfile.styles';
-import { convertFirebaseError } from '@/utils/convertFirebaseError';
+import { StyledFailedText } from '../StyledProfile.styles';
 
-const Form = styled.form`
+const StyledForm = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -70,7 +73,7 @@ const EditPasswordForm = () => {
   };
 
   return (
-    <Form onSubmit={handleSave}>
+    <StyledForm onSubmit={handleSave}>
       <Input
         fieldType="text"
         value={editPasswordForm.oldPassword}
@@ -105,7 +108,7 @@ const EditPasswordForm = () => {
         full
       />
       {validationResponse.length > 0 && (
-        <FailedText>{validationResponse}</FailedText>
+        <StyledFailedText>{validationResponse}</StyledFailedText>
       )}
       <Button
         buttonType="submit"
@@ -121,7 +124,7 @@ const EditPasswordForm = () => {
           editPasswordForm.repeatNewPassword.length < 8
         }
       />
-    </Form>
+    </StyledForm>
   );
 };
 

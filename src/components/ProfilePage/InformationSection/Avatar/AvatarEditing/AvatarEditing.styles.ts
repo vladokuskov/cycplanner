@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const AvatarEditingWindowWrapper = styled.div`
+const StyledAvatarEditingWindowWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -13,7 +13,7 @@ const AvatarEditingWindowWrapper = styled.div`
   z-index: 5000;
 `;
 
-const AvatarEditingWindow = styled.div`
+const StyledAvatarEditingWindow = styled.div`
   width: 100%;
   max-width: 30rem;
   background-color: #f7f7f7;
@@ -25,13 +25,13 @@ const AvatarEditingWindow = styled.div`
   }
 `;
 
-const AvatarEditingTitle = styled.h3`
+const StyledAvatarEditingTitle = styled.h3`
   font-family: 'Roboto';
   font-size: 0.9rem;
   color: #2c2c2c;
   font-weight: 400;
 `;
-const AvatarEditingHeader = styled.div`
+const StyledAvatarEditingHeader = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -39,7 +39,7 @@ const AvatarEditingHeader = styled.div`
   border-bottom: 0.015rem solid #e7e7e7;
 `;
 
-const AvatarEditingBody = styled.div`
+const StyledAvatarEditingBody = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -49,17 +49,17 @@ const AvatarEditingBody = styled.div`
   gap: 0.2rem;
 `;
 
-const AvatarEditingFooter = styled.div`
+const StyledAvatarEditingFooter = styled.div`
   width: 100%;
   height: 100%;
   border-top: 0.015rem solid #e7e7e7;
 `;
 
 export {
-  AvatarEditingFooter,
-  AvatarEditingBody,
-  AvatarEditingHeader,
-  AvatarEditingTitle,
-  AvatarEditingWindow,
-  AvatarEditingWindowWrapper,
+  StyledAvatarEditingBody,
+  StyledAvatarEditingFooter,
+  StyledAvatarEditingHeader,
+  StyledAvatarEditingTitle,
+  StyledAvatarEditingWindow,
+  StyledAvatarEditingWindowWrapper,
 };
