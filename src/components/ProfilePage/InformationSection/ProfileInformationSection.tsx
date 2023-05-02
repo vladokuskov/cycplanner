@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import { PhotoSection } from './Avatar/AvatarSection';
-import { EditProfileForm } from './EditProfileForm';
-import { ProfileSection, ProfileSubSection } from '../StyledProfileSection';
-import { EditPasswordForm } from './EditPasswordForm';
 
-const InformationSectionWrapper = styled.div`
+import { ProfileSection, ProfileSubSection } from '../StyledProfileSection';
+import { PhotoSection } from './Avatar/AvatarSection';
+import { EditPasswordForm } from './EditPasswordForm';
+import { EditProfileForm } from './EditProfileForm';
+
+const StyledInformationSectionWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column-reverse;
@@ -22,7 +23,7 @@ const InformationSectionWrapper = styled.div`
   }
 `;
 
-const InformationEditWrapper = styled.div`
+const StyledInformationEditWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -34,19 +35,19 @@ const InformationEditWrapper = styled.div`
 const ProfileInformationSection = () => {
   return (
     <ProfileSection title="Profile information">
-      <InformationSectionWrapper>
-        <InformationEditWrapper>
+      <StyledInformationSectionWrapper>
+        <StyledInformationEditWrapper>
           <ProfileSubSection title="Edit profile">
             <EditProfileForm />
           </ProfileSubSection>
           <ProfileSubSection title="Change password">
             <EditPasswordForm />
           </ProfileSubSection>
-        </InformationEditWrapper>
+        </StyledInformationEditWrapper>
         <ProfileSubSection title="Profile photo">
           <PhotoSection />
         </ProfileSubSection>
-      </InformationSectionWrapper>
+      </StyledInformationSectionWrapper>
     </ProfileSection>
   );
 };

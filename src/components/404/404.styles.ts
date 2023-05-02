@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const LayoutWrapper = styled.div`
+const StyledLayoutWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,14 +29,14 @@ const LayoutWrapper = styled.div`
   }
 `;
 
-const Title = styled.h1`
+const StyledTitle = styled.h1`
   color: #2c2c2c;
   font-family: 'Lato';
 `;
 
-const Description = styled.p`
+const StyledDescription = styled.p`
   color: #2c2c2c;
   font-family: 'Roboto';
 `;
 
-export { Title, Description, LayoutWrapper };
+export { StyledDescription, StyledLayoutWrapper, StyledTitle };

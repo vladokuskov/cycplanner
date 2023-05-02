@@ -1,26 +1,25 @@
 import { useRef, useState } from 'react';
 
-import { useClickOutside } from 'hooks/useClickOutside';
-
 import { useAuth } from '@/context/AuthContext';
 import { removeProfilePicture, uploadAvatar } from '@/firebase/profile';
+import { useClickOutside } from '@/hooks/useClickOutside';
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { Icon } from '../../../Icon/Icon';
 import { AvatarEditing } from './AvatarEditing/AvatarEditing';
 import {
-  Avatar,
-  AvatarChangingWrapper,
-  AvatarPlaceholder,
-  AvatarSectionWrapper,
-  AvatarUpload,
-  AvatarWrapper,
-  DetailsDropdown,
-  DropdownButton,
-  EditIcon,
-  ImageInput,
-} from './StyledAvatarSection';
+  StyledAvatar,
+  StyledAvatarChangingWrapper,
+  StyledAvatarPlaceholder,
+  StyledAvatarSectionWrapper,
+  StyledAvatarUpload,
+  StyledAvatarWrapper,
+  StyledDetailsDropdown,
+  StyledDropdownButton,
+  StyledEditIcon,
+  StyledImageInput,
+} from './AvatarSection.styles';
 
 const PhotoSection = () => {
   const { user } = useAuth();
@@ -82,10 +81,10 @@ const PhotoSection = () => {
   };
 
   return (
-    <AvatarSectionWrapper>
-      <AvatarChangingWrapper>
-        <AvatarWrapper ref={uploadAvatarRef}>
-          <AvatarUpload
+    <StyledAvatarSectionWrapper>
+      <StyledAvatarChangingWrapper>
+        <StyledAvatarWrapper ref={uploadAvatarRef}>
+          <StyledAvatarUpload
             isDropdownOpen={isDropdownOpen}
             role="button"
             onClick={handleDropdownOpen}
@@ -93,31 +92,31 @@ const PhotoSection = () => {
             tabIndex={0}
           >
             {user?.photoURL ? (
-              <Avatar
+              <StyledAvatar
                 src={user?.photoURL}
                 alt="User picture"
                 width={100}
                 height={100}
               />
             ) : (
-              <AvatarPlaceholder>
+              <StyledAvatarPlaceholder>
                 <Icon icon={faUser} />
-              </AvatarPlaceholder>
+              </StyledAvatarPlaceholder>
             )}
-            <EditIcon>
+            <StyledEditIcon>
               <Icon icon={faPenToSquare} />
-            </EditIcon>
-          </AvatarUpload>
+            </StyledEditIcon>
+          </StyledAvatarUpload>
           {isDropdownOpen && (
-            <DetailsDropdown>
-              <DropdownButton
+            <StyledDetailsDropdown>
+              <StyledDropdownButton
                 title="Upload a photo"
                 disabled={isAvatarEditing}
                 onClick={handleUploadButtonClick}
               >
                 Upload a photo
-              </DropdownButton>
-              <DropdownButton
+              </StyledDropdownButton>
+              <StyledDropdownButton
                 danger={true}
                 isDisabled={user?.photoURL === null}
                 title="Remove photo"
@@ -125,17 +124,17 @@ const PhotoSection = () => {
                 onClick={handleAvatarRemoving}
               >
                 Remove photo
-              </DropdownButton>
-            </DetailsDropdown>
+              </StyledDropdownButton>
+            </StyledDetailsDropdown>
           )}
-        </AvatarWrapper>
-        <ImageInput
+        </StyledAvatarWrapper>
+        <StyledImageInput
           ref={inputRef}
           type="file"
           accept="image/png, image/jpeg"
           onChange={handleFileUpload}
         />
-      </AvatarChangingWrapper>
+      </StyledAvatarChangingWrapper>
       {isAvatarEditing && (
         <AvatarEditing
           isUploading={isUploading}
@@ -144,7 +143,7 @@ const PhotoSection = () => {
           handleAvatarUpload={handleAvatarUpload}
         />
       )}
-    </AvatarSectionWrapper>
+    </StyledAvatarSectionWrapper>
   );
 };
 

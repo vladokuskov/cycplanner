@@ -1,4 +1,9 @@
+export enum SelectedSorting {
+  newest = 'newest',
+  oldest = 'oldest',
+}
+
 export type Sorting = {
-  changeSorting: (variant: 'newest' | 'oldest') => void;
-  selectedSorting: 'newest' | 'oldest';
+  changeSorting: (variant: SelectedSorting) => void;
+  selectedSorting: SelectedSorting;
 };

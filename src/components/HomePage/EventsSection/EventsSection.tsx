@@ -15,23 +15,23 @@ import Event from '../../Event/Event';
 import { SkeletonLoader } from '../../skeleton/Skeleton';
 import HomeInfo from '../HomeInfo/HomeInfo';
 import {
-  BodyEventsWrapper,
-  EventsSectionWrapper,
-  HeaderTitleWrapper,
-  HomeEventsBodyWrapper,
-  HomeEventsHeaderWrapper,
+  StyledBodyEventsWrapper,
+  StyledEventsSectionWrapper,
+  StyledHeaderTitleWrapper,
+  StyledHomeEventsBodyWrapper,
+  StyledHomeEventsHeaderWrapper,
 } from './EventsSection.styles';
 
 const EventsSection = () => {
   const [events, setEvents] = useState<IEvent[] | null>(null);
   const [loadingState, setLoadingState] = useState<Loading>(Loading.loading);
+  const [forceFetch, setForceFetch] = useState(false);
 
   const geoPoint = useAppSelector((state) => state.filterReducer.geoPoint);
   const selectedSorting = useAppSelector(
     (state) => state.filterReducer.sorting
   );
   const selectedRange = useAppSelector((state) => state.filterReducer.range);
-  const [forceFetch, setForceFetch] = useState(false);
 
   useEffect(() => {
     const getEvents = async () => {
@@ -41,7 +41,6 @@ const EventsSection = () => {
         setEvents(response);
         setLoadingState(Loading.success);
       } catch (err) {
-        console.log(err);
         setLoadingState(Loading.error);
       }
     };
@@ -54,22 +53,23 @@ const EventsSection = () => {
   };
 
   return (
-    <EventsSectionWrapper>
-      <HomeEventsHeaderWrapper>
-        <HeaderTitleWrapper>
+    <StyledEventsSectionWrapper>
+      <StyledHomeEventsHeaderWrapper>
+        <StyledHeaderTitleWrapper>
           <PageTitle title="EVENTS" />
           <HomeInfo />
-        </HeaderTitleWrapper>
+        </StyledHeaderTitleWrapper>
         <EventFilter />
-      </HomeEventsHeaderWrapper>
-      <HomeEventsBodyWrapper>
-        <BodyEventsWrapper>
+      </StyledHomeEventsHeaderWrapper>
+      <StyledHomeEventsBodyWrapper>
+        <StyledBodyEventsWrapper>
           {loadingState === Loading.loading ? (
             <SkeletonLoader variant="event-home" />
           ) : loadingState === Loading.success ? (
             <>
-              {!events && <ErrorMessage variant="no-events" />}
-              {events?.length === 0 && <ErrorMessage variant="no-events" />}
+              {(events?.length === 0 || !events) && (
+                <ErrorMessage variant="no-events" />
+              )}
               {events &&
                 sortEvents(events, selectedSorting).map((data) => (
                   <Event
@@ -82,14 +82,14 @@ const EventsSection = () => {
           ) : (
             <ErrorMessage variant="loading" />
           )}
-        </BodyEventsWrapper>
+        </StyledBodyEventsWrapper>
         {events && events.length > 0 && (
           <Link href="/events" title="See more events" className="more-link">
             See more ..
           </Link>
         )}
-      </HomeEventsBodyWrapper>
-    </EventsSectionWrapper>
+      </StyledHomeEventsBodyWrapper>
+    </StyledEventsSectionWrapper>
   );
 };
 

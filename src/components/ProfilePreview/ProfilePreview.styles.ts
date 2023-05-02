@@ -1,8 +1,9 @@
-import styled, { css } from 'styled-components';
-import { ProfilePreview } from './ProfilePreview.types';
 import Image from 'next/image';
+import styled, { css } from 'styled-components';
 
-const ProfilePreviewWrapper = styled.div<ProfilePreview>`
+import { ProfilePreview } from './ProfilePreview.types';
+
+const StyledProfilePreviewWrapper = styled.div<ProfilePreview>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -28,7 +29,7 @@ const ProfilePreviewWrapper = styled.div<ProfilePreview>`
           flex-direction: row;
         `}
 `;
-const PhotoWrapper = styled.div`
+const StyledPhotoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,14 +40,14 @@ const PhotoWrapper = styled.div`
   border: none;
   border-radius: 50%;
 `;
-const Photo = styled(Image)`
+const StyledPhoto = styled(Image)`
   width: 2.3rem;
   height: 2.3rem;
   border-radius: 50%;
   object-fit: cover;
 `;
 
-const PhotoPlaceholder = styled.div`
+const StyledPhotoPlaceholder = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,7 +59,7 @@ const PhotoPlaceholder = styled.div`
   border-radius: 50%;
   font-size: 1.2rem;
 `;
-const PreviewName = styled.p`
+const StyledPreviewName = styled.p`
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-size: 0.9rem;
@@ -70,10 +71,10 @@ const PreviewName = styled.p`
   }
 `;
 
-const PreviewInfoWrapper = styled.div`
+const StyledPreviewInfoWrapper = styled.div`
   display: grid;
 `;
-const PreviewDescription = styled.p`
+const StyledPreviewDescription = styled.p`
   font-family: 'Roboto';
   font-size: 0.8rem;
   line-height: 0.8rem;
@@ -83,15 +84,15 @@ const PreviewDescription = styled.p`
   margin-top: 0.1rem;
 `;
 
-const ProfilePreviewButton = styled.button``;
+const StyledProfilePreviewButton = styled.button``;
 
 export {
-  ProfilePreviewWrapper,
-  ProfilePreviewButton,
-  PreviewDescription,
-  PreviewInfoWrapper,
-  PreviewName,
-  PhotoPlaceholder,
-  Photo,
-  PhotoWrapper,
+  StyledPhoto,
+  StyledPhotoPlaceholder,
+  StyledPhotoWrapper,
+  StyledPreviewDescription,
+  StyledPreviewInfoWrapper,
+  StyledPreviewName,
+  StyledProfilePreviewButton,
+  StyledProfilePreviewWrapper,
 };

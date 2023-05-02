@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-const ErrorMessageWrapper = styled.div`
+const StyledErrorMessageWrapper = styled.div`
+  margin-top: 1.5rem;
   width: 100%;
   display: flex;
   align-items: center;
@@ -8,17 +9,17 @@ const ErrorMessageWrapper = styled.div`
   flex-direction: column;
 `;
 
-const Title = styled.h2`
+const StyledTitle = styled.h2`
   font-family: 'Lato';
   color: #525252;
   font-size: 1.2rem;
 `;
 
-const Description = styled.p`
+const StyledDescription = styled.p`
   font-family: 'Roboto';
   color: #929292;
   font-size: 1rem;
   margin-bottom: 1rem;
 `;
 
-export { ErrorMessageWrapper, Title, Description };
+export { StyledDescription, StyledErrorMessageWrapper, StyledTitle };

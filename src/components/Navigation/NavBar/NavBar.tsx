@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { useClickOutside } from 'hooks/useClickOutside';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useAuth } from '@/context/AuthContext';
+import { useClickOutside } from '@/hooks/useClickOutside';
 import { faBars, faClose } from '@fortawesome/free-solid-svg-icons';
 
 import { Button } from '../../Button/Button';
@@ -12,13 +12,13 @@ import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
 import NavMenu from '../NavMenu/NavMenu';
 import { ProfileMenu } from '../ProfileMenu/ProfileMenu';
 import {
-  LinksWrapper,
-  LogoImage,
-  LogoWrapper,
-  NavbarMainWrapper,
-  NavbarMenuWrapper,
-  NavbarWrapper,
-  SubLinksWrapper,
+  StyledLinksWrapper,
+  StyledLogoImage,
+  StyledLogoWrapper,
+  StyledNavbarMainWrapper,
+  StyledNavbarMenuWrapper,
+  StyledNavbarWrapper,
+  StyledSubLinksWrapper,
 } from './NavBar.styles';
 
 const Navbar = () => {
@@ -54,14 +54,14 @@ const Navbar = () => {
   };
 
   return (
-    <NavbarMainWrapper ref={ref}>
-      <NavbarWrapper sticky={isSticky}>
-        <LogoWrapper>
+    <StyledNavbarMainWrapper ref={ref}>
+      <StyledNavbarWrapper sticky={isSticky}>
+        <StyledLogoWrapper>
           <Link href="/">
-            <LogoImage src="/assets/logo.svg" alt="" />
+            <StyledLogoImage src="/assets/logo.svg" alt="" />
           </Link>
-        </LogoWrapper>
-        <LinksWrapper>
+        </StyledLogoWrapper>
+        <StyledLinksWrapper>
           <Link
             href="/"
             title="Go to Home"
@@ -86,8 +86,8 @@ const Navbar = () => {
           >
             CONTACT US
           </Link>
-        </LinksWrapper>
-        <NavbarMenuWrapper>
+        </StyledLinksWrapper>
+        <StyledNavbarMenuWrapper>
           <Button
             variant="icon"
             icon={!isMenuOpen ? faBars : faClose}
@@ -103,8 +103,8 @@ const Navbar = () => {
               handleMenuClick={handleMenuClick}
             />
           )}
-        </NavbarMenuWrapper>
-        <SubLinksWrapper>
+        </StyledNavbarMenuWrapper>
+        <StyledSubLinksWrapper>
           {user ? (
             <ProfilePreview
               variant="button"
@@ -126,9 +126,9 @@ const Navbar = () => {
               onClose={handleProfileMenuClose}
             />
           )}
-        </SubLinksWrapper>
-      </NavbarWrapper>
-    </NavbarMainWrapper>
+        </StyledSubLinksWrapper>
+      </StyledNavbarWrapper>
+    </StyledNavbarMainWrapper>
   );
 };
 

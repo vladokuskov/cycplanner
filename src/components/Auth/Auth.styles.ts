@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const AuthLayoutWrapper = styled.div`
+const StyledAuthLayoutWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +11,7 @@ export const AuthLayoutWrapper = styled.div`
   }
 `;
 
-export const AuthWrapper = styled.div`
+const StyledAuthWrapper = styled.div`
   position: relative;
   max-width: 950px;
   min-height: 32rem;
@@ -37,9 +37,8 @@ export const AuthWrapper = styled.div`
   }
 `;
 
-export const AuthContentWrapper = styled.div`
+const StyledAuthContentWrapper = styled.div`
   padding-top: 2rem;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,7 +50,7 @@ export const AuthContentWrapper = styled.div`
   }
 `;
 
-export const AuthBannerWrapper = styled.div`
+const StyledAuthBannerWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
@@ -64,7 +63,7 @@ export const AuthBannerWrapper = styled.div`
   }
 `;
 
-export const AuthBanner = styled.div`
+const StyledAuthBanner = styled.div`
   border-radius: 10px;
   width: 100%;
   height: 100%;
@@ -74,7 +73,7 @@ export const AuthBanner = styled.div`
   }
 `;
 
-export const AuthHeaderWrapper = styled.header`
+const StyledAuthHeaderWrapper = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,7 +85,7 @@ export const AuthHeaderWrapper = styled.header`
   }
 `;
 
-export const HeaderLogoWrapper = styled.div`
+const StyledHeaderLogoWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -103,7 +102,7 @@ export const HeaderLogoWrapper = styled.div`
     height: 100%;
   }
 `;
-export const HeaderInfoWrapper = styled.div`
+const StyledHeaderInfoWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -112,7 +111,7 @@ export const HeaderInfoWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
-export const HeaderTitle = styled.h2`
+const StyledHeaderTitle = styled.h2`
   font-family: 'Poppins', sans-serif;
   font-size: 1.8rem;
   line-height: 37px;
@@ -121,7 +120,7 @@ export const HeaderTitle = styled.h2`
   margin: 0;
 `;
 
-export const AuthFormWrapper = styled.form`
+const StyledAuthFormWrapper = styled.form`
   width: 90%;
   display: flex;
   justify-content: center;
@@ -130,7 +129,7 @@ export const AuthFormWrapper = styled.form`
   flex-direction: column;
 `;
 
-export const AuthLink = styled.span`
+const StyledAuthLink = styled.span`
   color: #999999;
   font-weight: 400;
   font-size: 0.9rem;
@@ -149,7 +148,7 @@ export const AuthLink = styled.span`
   }
 `;
 
-export const AuthAltSectionWrapper = styled.div`
+const StyledAuthAltSectionWrapper = styled.div`
   width: 100%;
   margin-top: 0.5rem;
   display: flex;
@@ -158,7 +157,7 @@ export const AuthAltSectionWrapper = styled.div`
   justify-content: center;
   gap: 1.5rem;
 `;
-export const AltHeaderWrapper = styled.div`
+const StyledAltHeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -166,7 +165,7 @@ export const AltHeaderWrapper = styled.div`
   width: 100%;
   max-width: 80%;
 `;
-export const AltTitle = styled.p`
+const StyledAltTitle = styled.p`
   text-align: center;
   position: relative;
   font-weight: 500;
@@ -200,7 +199,7 @@ export const AltTitle = styled.p`
   }
 `;
 
-export const AltButtonsWrapper = styled.div`
+const StyledAltButtonsWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -209,3 +208,21 @@ export const AltButtonsWrapper = styled.div`
   padding: 0 1rem;
   gap: 0.7rem;
 `;
+
+export {
+  StyledAltButtonsWrapper,
+  StyledAltHeaderWrapper,
+  StyledAltTitle,
+  StyledAuthAltSectionWrapper,
+  StyledAuthBanner,
+  StyledAuthBannerWrapper,
+  StyledAuthContentWrapper,
+  StyledAuthFormWrapper,
+  StyledAuthHeaderWrapper,
+  StyledAuthLayoutWrapper,
+  StyledAuthLink,
+  StyledAuthWrapper,
+  StyledHeaderInfoWrapper,
+  StyledHeaderLogoWrapper,
+  StyledHeaderTitle,
+};

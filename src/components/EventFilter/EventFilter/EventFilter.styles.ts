@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const FilterWrapper = styled.div`
+const StyledFilterWrapper = styled.div`
   margin-top: 0.5rem;
   width: 100%;
   display: flex;
@@ -13,7 +13,7 @@ const FilterWrapper = styled.div`
   }
 `;
 
-const FilterSelectorsWrapper = styled.div`
+const StyledFilterSelectorsWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -21,4 +21,4 @@ const FilterSelectorsWrapper = styled.div`
   align-items: flex-end;
 `;
 
-export { FilterWrapper, FilterSelectorsWrapper };
+export { StyledFilterSelectorsWrapper, StyledFilterWrapper };

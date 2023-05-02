@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-const FormSectionWrapper = styled.section`
+const StyledFormSectionWrapper = styled.section`
   width: 100%;
 `;
 
-const Title = styled.h1`
+const StyledTitle = styled.h1`
   width: 100%;
   text-align: center;
   padding: 1rem;
@@ -15,7 +15,7 @@ const Title = styled.h1`
   line-height: 3rem;
 `;
 
-const FormWrapper = styled.form`
+const StyledFormWrapper = styled.form`
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
@@ -26,4 +26,4 @@ const FormWrapper = styled.form`
   margin: 0 auto;
 `;
 
-export { FormSectionWrapper, Title, FormWrapper };
+export { StyledFormSectionWrapper, StyledFormWrapper, StyledTitle };

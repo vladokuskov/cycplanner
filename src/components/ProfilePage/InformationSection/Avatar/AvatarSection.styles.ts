@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-export const AvatarSectionWrapper = styled.section`
+const StyledAvatarSectionWrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,7 +11,7 @@ export const AvatarSectionWrapper = styled.section`
   margin-right: 2.5rem;
 `;
 
-export const AvatarChangingWrapper = styled.div`
+const StyledAvatarChangingWrapper = styled.div`
   widows: 100%;
   display: flex;
   flex-direction: column;
@@ -20,24 +20,24 @@ export const AvatarChangingWrapper = styled.div`
   gap: 0.5rem;
 `;
 
-export const AvatarWrapper = styled.div`
+const StyledAvatarWrapper = styled.div`
   border-radius: 50%;
   position: relative;
 `;
 
-export const AvatarUpload = styled.div<{ isDropdownOpen?: boolean }>`
+const StyledAvatarUpload = styled.div<{ isDropdownOpen?: boolean }>`
   cursor: ${({ isDropdownOpen }) => (isDropdownOpen ? 'default' : 'pointer')};
   position: relative;
   border-radius: 50%;
   -webkit-tap-highlight-color: none;
 `;
 
-export const Avatar = styled(Image)`
+const StyledAvatar = styled(Image)`
   border-radius: 50%;
   object-fit: cover;
 `;
 
-export const AvatarPlaceholder = styled.div`
+const StyledAvatarPlaceholder = styled.div`
   width: 6.626rem;
   height: 6.626rem;
   background-color: #d1d1d1;
@@ -49,11 +49,11 @@ export const AvatarPlaceholder = styled.div`
   font-size: 2rem;
 `;
 
-export const ImageInput = styled.input`
+const StyledImageInput = styled.input`
   display: none;
 `;
 
-export const EditIcon = styled.div`
+const StyledEditIcon = styled.div`
   position: absolute;
   display: flex;
   align-items: center;
@@ -68,7 +68,7 @@ export const EditIcon = styled.div`
   color: #292929;
 `;
 
-export const DetailsDropdown = styled.div`
+const StyledDetailsDropdown = styled.div`
   position: absolute;
   width: 10rem;
   height: 5.5rem;
@@ -94,7 +94,7 @@ export const DetailsDropdown = styled.div`
   }
 `;
 
-export const DropdownButton = styled.button<{
+const StyledDropdownButton = styled.button<{
   isDisabled?: boolean;
   danger?: boolean;
 }>`
@@ -115,3 +115,16 @@ export const DropdownButton = styled.button<{
       isDisabled ? 'transparent' : '#e9e9e9'};
   }
 `;
+
+export {
+  StyledAvatar,
+  StyledAvatarChangingWrapper,
+  StyledAvatarPlaceholder,
+  StyledAvatarSectionWrapper,
+  StyledAvatarUpload,
+  StyledAvatarWrapper,
+  StyledDetailsDropdown,
+  StyledDropdownButton,
+  StyledEditIcon,
+  StyledImageInput,
+};

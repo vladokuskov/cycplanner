@@ -1,8 +1,15 @@
-import { ErrorMessageWrapper, Title, Description } from './ErrorMessage.styles';
-import { Button } from '../Button/Button';
-import { faRefresh } from '@fortawesome/free-solid-svg-icons';
-import { ErrorMessage } from '../types/shared/errorMesssage.types';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
+
+import { faRefresh } from '@fortawesome/free-solid-svg-icons';
+
+import { Button } from '../Button/Button';
+import { ErrorMessage } from '../types/shared/errorMesssage.types';
+import {
+  StyledDescription,
+  StyledErrorMessageWrapper,
+  StyledTitle,
+} from './ErrorMessage.styles';
 
 const ErrorMessage = ({ variant }: ErrorMessage) => {
   const router = useRouter();
@@ -15,17 +22,25 @@ const ErrorMessage = ({ variant }: ErrorMessage) => {
     router.push('/create');
   };
   return (
-    <ErrorMessageWrapper>
-      <Title>
+    <StyledErrorMessageWrapper>
+      <Image
+        src={`/assets/error/${
+          variant === 'loading' ? 'loading.svg' : 'empty.svg'
+        }`}
+        alt=""
+        width={100}
+        height={50}
+      />
+      <StyledTitle>
         {variant === 'loading'
           ? 'Unable to load data'
           : variant === 'no-events' && 'There`s no events :c'}
-      </Title>
-      <Description>
+      </StyledTitle>
+      <StyledDescription>
         {variant === 'loading'
           ? 'Please try again later'
           : variant === 'no-events' && 'You can create your own event'}
-      </Description>
+      </StyledDescription>
       {variant === 'loading' ? (
         <Button
           text="Refresh page"
@@ -43,7 +58,7 @@ const ErrorMessage = ({ variant }: ErrorMessage) => {
           />
         )
       )}
-    </ErrorMessageWrapper>
+    </StyledErrorMessageWrapper>
   );
 };
 

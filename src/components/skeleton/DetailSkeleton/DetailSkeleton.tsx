@@ -1,20 +1,21 @@
 import StyledContainer from '@/components/StyledContainer/StyledContainer';
+
 import {
-  UsersList,
-  DetailsWrapper,
-  DescriptionWrapper,
-  ButtonSkeleton,
-  SmallTitle,
-  MediumTitle,
-  BigTitle,
-  AuthorTitle,
-  AuthorImagePlaceholder,
-  AuthorWrapper,
-  ButtonsWrapper,
-  SidebarSection,
-  MainSection,
-  MapSkeleton,
-  AuthorMainWrapper,
+  StyledAuthorImagePlaceholder,
+  StyledAuthorMainWrapper,
+  StyledAuthorTitle,
+  StyledAuthorWrapper,
+  StyledBigTitle,
+  StyledButtonSkeleton,
+  StyledButtonsWrapper,
+  StyledDescriptionWrapper,
+  StyledDetailsWrapper,
+  StyledMainSection,
+  StyledMapSkeleton,
+  StyledMediumTitle,
+  StyledSidebarSection,
+  StyledSmallTitle,
+  StyledUsersList,
 } from './DetailSkeleton.styles';
 
 const DetailSkeleton = () => {
@@ -25,45 +26,45 @@ const DetailSkeleton = () => {
 
   return (
     <StyledContainer variant="detail-page">
-      <MainSection>
-        <MapSkeleton />
-        <ButtonsWrapper>
+      <StyledMainSection>
+        <StyledMapSkeleton />
+        <StyledButtonsWrapper>
           {buttons.map((_, count) => (
-            <ButtonSkeleton key={count} />
+            <StyledButtonSkeleton key={count} />
           ))}
-        </ButtonsWrapper>
-        <AuthorMainWrapper>
-          <AuthorWrapper>
-            <AuthorImagePlaceholder />
-            <AuthorTitle />
-          </AuthorWrapper>
-        </AuthorMainWrapper>
+        </StyledButtonsWrapper>
+        <StyledAuthorMainWrapper>
+          <StyledAuthorWrapper>
+            <StyledAuthorImagePlaceholder />
+            <StyledAuthorTitle />
+          </StyledAuthorWrapper>
+        </StyledAuthorMainWrapper>
 
-        <BigTitle />
-        <DescriptionWrapper>
+        <StyledBigTitle />
+        <StyledDescriptionWrapper>
           {description.map((_, count) => (
-            <MediumTitle key={count} />
+            <StyledMediumTitle key={count} />
           ))}
-        </DescriptionWrapper>
+        </StyledDescriptionWrapper>
 
-        <DetailsWrapper>
+        <StyledDetailsWrapper>
           {details.map((_, count) => (
-            <SmallTitle key={count} />
+            <StyledSmallTitle key={count} />
           ))}
-        </DetailsWrapper>
-      </MainSection>
-      <SidebarSection>
-        <BigTitle />
-        <BigTitle />
-        <UsersList>
+        </StyledDetailsWrapper>
+      </StyledMainSection>
+      <StyledSidebarSection>
+        <StyledBigTitle />
+        <StyledBigTitle />
+        <StyledUsersList>
           {users.map((_, count) => (
-            <AuthorWrapper key={count}>
-              <AuthorImagePlaceholder />
-              <AuthorTitle />
-            </AuthorWrapper>
+            <StyledAuthorWrapper key={count}>
+              <StyledAuthorImagePlaceholder />
+              <StyledAuthorTitle />
+            </StyledAuthorWrapper>
           ))}
-        </UsersList>
-      </SidebarSection>
+        </StyledUsersList>
+      </StyledSidebarSection>
     </StyledContainer>
   );
 };

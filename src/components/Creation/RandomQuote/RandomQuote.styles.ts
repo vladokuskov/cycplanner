@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const RandowQuoteWrapper = styled.div`
+const StyledRandomQuoteWrapper = styled.div`
   width: 100%;
   padding: 6rem 1rem;
   position: relative;
@@ -8,7 +8,7 @@ const RandowQuoteWrapper = styled.div`
     max-width: 80%;
   }
 `;
-const QuoteText = styled.p`
+const StyledQuoteText = styled.p`
   font-size: 24px;
   font-weight: bold;
   text-align: center;
@@ -21,7 +21,7 @@ const QuoteText = styled.p`
   color: #585858;
 `;
 
-const QuoteImageWrapper = styled.div`
+const StyledQuoteImageWrapper = styled.div`
   width: 6rem;
   height: 6rem;
   @media (min-width: 680px) {
@@ -33,4 +33,4 @@ const QuoteImageWrapper = styled.div`
   }
 `;
 
-export { RandowQuoteWrapper, QuoteText, QuoteImageWrapper };
+export { StyledQuoteImageWrapper, StyledQuoteText, StyledRandomQuoteWrapper };

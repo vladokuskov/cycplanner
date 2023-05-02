@@ -9,7 +9,7 @@ const shimmer = keyframes`
   }
 `;
 
-const MainSkeletonWrapper = styled.div`
+const StyledMainSkeletonWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -41,7 +41,7 @@ const MainSkeletonWrapper = styled.div`
   }
 `;
 
-const EventSkeleton = styled.div`
+const StyledEventSkeleton = styled.div`
   width: 100%;
   max-width: 43rem;
   height: calc(16.5rem + 15rem);
@@ -56,10 +56,14 @@ const EventSkeleton = styled.div`
   }
 `;
 
-const EventSkeletonMap = styled.div`
+const StyledEventSkeletonMap = styled.div`
   width: 100%;
   height: 100%;
   background-color: #d6d6d6ab;
 `;
 
-export { MainSkeletonWrapper, EventSkeleton, EventSkeletonMap };
+export {
+  StyledEventSkeleton,
+  StyledEventSkeletonMap,
+  StyledMainSkeletonWrapper,
+};

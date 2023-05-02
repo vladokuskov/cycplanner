@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const PageTitle = styled.h2`
+const StyledPageTitle = styled.h2`
   color: rgba(32, 32, 32, 0.77);
   font-style: normal;
   font-weight: 600;
@@ -8,7 +8,7 @@ const PageTitle = styled.h2`
   line-height: 3rem;
 `;
 
-const EventSectionWrapper = styled.section`
+const StyledEventSectionWrapper = styled.section`
   width: 100%;
   height: 100%;
   display: flex;
@@ -22,7 +22,7 @@ const EventSectionWrapper = styled.section`
   }
 `;
 
-const EventsWrapper = styled.div`
+const StyledEventsWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -31,4 +31,4 @@ const EventsWrapper = styled.div`
   gap: 1rem;
 `;
 
-export { PageTitle, EventSectionWrapper, EventsWrapper };
+export { StyledEventSectionWrapper, StyledEventsWrapper, StyledPageTitle };

@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 
-const MapWrapper = styled.div`
+const StyledMapWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
 `;
-const MapOverlayWrapper = styled.div<{ isMapMaximized: boolean }>`
+const StyledMapOverlayWrapper = styled.div<{ isMapMaximized: boolean }>`
   position: absolute;
   display: flex;
   justify-content: space-between;
@@ -34,4 +34,4 @@ const MapOverlayWrapper = styled.div<{ isMapMaximized: boolean }>`
     `}
 `;
 
-export { MapOverlayWrapper, MapWrapper };
+export { StyledMapOverlayWrapper, StyledMapWrapper };

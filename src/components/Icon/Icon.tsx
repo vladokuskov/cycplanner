@@ -1,8 +1,10 @@
+import { StyledIcon } from './Icon.styles';
 import { Icon } from './Icon.types';
-import { AnimatedIcon } from './Icon.styles';
 
 const Icon = ({ icon, spinning = 'false' }: Icon) => {
-  return <AnimatedIcon icon={icon} spinning={spinning} />;
+  if (icon) {
+    return <StyledIcon icon={icon} spinning={spinning} />;
+  } else return <></>;
 };
 
 export { Icon };

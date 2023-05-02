@@ -13,7 +13,7 @@ from {
 
 `;
 
-const NavbarMainWrapper = styled.nav`
+const StyledNavbarMainWrapper = styled.nav`
   opacity: 1;
   width: 100%;
   border-bottom: 1px solid #d3d3d3;
@@ -24,7 +24,7 @@ const NavbarMainWrapper = styled.nav`
   justify-content: center;
 `;
 
-const NavbarWrapper = styled.div<{ sticky: boolean }>`
+const StyledNavbarWrapper = styled.div<{ sticky: boolean }>`
   width: 100%;
   display: flex;
   align-items: center;
@@ -47,7 +47,7 @@ const NavbarWrapper = styled.div<{ sticky: boolean }>`
     `}
 `;
 
-const LogoWrapper = styled.div`
+const StyledLogoWrapper = styled.div`
   max-width: 9rem;
   min-width: 9rem;
   height: 100%;
@@ -58,12 +58,12 @@ const LogoWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const LogoImage = styled.img`
+const StyledLogoImage = styled.img`
   width: 100%;
   height: 100%;
 `;
 
-const LinksWrapper = styled.div`
+const StyledLinksWrapper = styled.div`
   display: none;
   @media (min-width: 680px) {
     display: flex;
@@ -89,7 +89,7 @@ const LinksWrapper = styled.div`
   }
 `;
 
-const SubLinksWrapper = styled.div`
+const StyledSubLinksWrapper = styled.div`
   display: none;
   flex-direction: center;
   justify-content: center;
@@ -100,18 +100,18 @@ const SubLinksWrapper = styled.div`
   }
 `;
 
-const NavbarMenuWrapper = styled.div`
+const StyledNavbarMenuWrapper = styled.div`
   @media (min-width: 680px) {
     display: none;
   }
 `;
 
 export {
-  NavbarMainWrapper,
-  NavbarWrapper,
-  LogoWrapper,
-  LogoImage,
-  LinksWrapper,
-  SubLinksWrapper,
-  NavbarMenuWrapper,
+  StyledLinksWrapper,
+  StyledLogoImage,
+  StyledLogoWrapper,
+  StyledNavbarMainWrapper,
+  StyledNavbarMenuWrapper,
+  StyledNavbarWrapper,
+  StyledSubLinksWrapper,
 };

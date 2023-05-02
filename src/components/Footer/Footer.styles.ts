@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-const FooterMainWrapper = styled.div`
+const StyledFooterMainWrapper = styled.div`
   width: 100%;
   padding: 0.1rem 1rem;
   background-color: #e1e1e1;
   border-top: 1px solid #b4b4b4;
 `;
 
-const FooterWrapper = styled.div`
+const StyledFooterWrapper = styled.div`
   padding: 2rem 0;
   display: flex;
   align-items: center;
@@ -17,7 +17,7 @@ const FooterWrapper = styled.div`
   max-width: 600px;
 `;
 
-const FooterLinksWrapper = styled.div`
+const StyledFooterLinksWrapper = styled.div`
   @include flexCenter(column, 0.2rem);
   display: flex;
   align-items: flex-start;
@@ -39,14 +39,14 @@ const FooterLinksWrapper = styled.div`
   }
 `;
 
-const FooterLink = styled.a`
+const StyledFooterLink = styled.a`
   text-decoration: underline;
   text-underline-offset: 0.1rem;
   font-weight: 500;
   font-size: 0.9rem;
 `;
 
-const FooterDescription = styled.p`
+const StyledFooterDescription = styled.p`
   text-align: center;
   padding-bottom: 0.5rem;
   color: #818181;
@@ -56,9 +56,9 @@ const FooterDescription = styled.p`
 `;
 
 export {
-  FooterWrapper,
-  FooterDescription,
-  FooterMainWrapper,
-  FooterLinksWrapper,
-  FooterLink,
+  StyledFooterDescription,
+  StyledFooterLink,
+  StyledFooterLinksWrapper,
+  StyledFooterMainWrapper,
+  StyledFooterWrapper,
 };

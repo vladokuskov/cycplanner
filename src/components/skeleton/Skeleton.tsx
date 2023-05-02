@@ -1,51 +1,51 @@
-import { Skeleton } from './Skeleton.types';
-import {
-  MainSkeletonWrapper,
-  EventSkeleton,
-  EventSkeletonMap,
-} from './Skeleton.styles';
 import { DetailSkeleton } from './DetailSkeleton/DetailSkeleton';
 import {
-  AuthorTitle,
-  AuthorImagePlaceholder,
-  AuthorWrapper,
+  StyledAuthorImagePlaceholder,
+  StyledAuthorTitle,
+  StyledAuthorWrapper,
 } from './DetailSkeleton/DetailSkeleton.styles';
+import {
+  StyledEventSkeleton,
+  StyledEventSkeletonMap,
+  StyledMainSkeletonWrapper,
+} from './Skeleton.styles';
+import { Skeleton } from './Skeleton.types';
 
 const SkeletonLoader = ({ variant }: Skeleton) => {
   const homeSkeletons = Array.from({ length: 3 });
   const eventsSkeletons = Array.from({ length: 10 });
   const users = Array.from({ length: 15 });
   return (
-    <MainSkeletonWrapper>
+    <StyledMainSkeletonWrapper>
       {variant === 'event-home' ? (
         <>
           {homeSkeletons.map((_, count) => (
-            <EventSkeleton key={count} />
+            <StyledEventSkeleton key={count} />
           ))}
         </>
       ) : variant === 'event-events' ? (
         <>
           {eventsSkeletons.map((_, count) => (
-            <EventSkeleton key={count} />
+            <StyledEventSkeleton key={count} />
           ))}
         </>
       ) : variant === 'event-map' ? (
-        <EventSkeletonMap />
+        <StyledEventSkeletonMap />
       ) : variant === 'detail-page' ? (
         <DetailSkeleton />
       ) : (
         variant === 'users' && (
           <>
             {users.map((_, count) => (
-              <AuthorWrapper key={count}>
-                <AuthorImagePlaceholder />
-                <AuthorTitle />
-              </AuthorWrapper>
+              <StyledAuthorWrapper key={count}>
+                <StyledAuthorImagePlaceholder />
+                <StyledAuthorTitle />
+              </StyledAuthorWrapper>
             ))}
           </>
         )
       )}
-    </MainSkeletonWrapper>
+    </StyledMainSkeletonWrapper>
   );
 };
 

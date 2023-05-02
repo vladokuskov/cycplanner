@@ -1,9 +1,10 @@
-import { useAuth } from '@/context/AuthContext';
 import { deleteUser } from 'firebase/auth';
 import styled from 'styled-components';
-import { Button } from '@/components/Button/Button';
 
-const ProfileDeleteSectionWrapper = styled.section`
+import { Button } from '@/components/Button/Button';
+import { useAuth } from '@/context/AuthContext';
+
+const StyledProfileDeleteSectionWrapper = styled.section`
   width: 100%;
   height: 100%;
   display: flex;
@@ -32,7 +33,7 @@ const ProfileDeleteSection = () => {
   };
 
   return (
-    <ProfileDeleteSectionWrapper>
+    <StyledProfileDeleteSectionWrapper>
       <Button
         text="Delete account"
         variant="danger"
@@ -40,7 +41,7 @@ const ProfileDeleteSection = () => {
         size="sm2"
         onClick={handleAccountDelete}
       />
-    </ProfileDeleteSectionWrapper>
+    </StyledProfileDeleteSectionWrapper>
   );
 };
 

@@ -1,16 +1,15 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
-import { CopiedMessage } from '@/components/Event/Event.styles.ts';
+import { StyledCopiedMessage } from '@/components/Event/Event.styles.ts';
 import { Loading } from '@/components/types/shared/loadingState.types';
 import { useAuth } from '@/context/AuthContext';
-import {
-  deleteEvent,
-  updateEventParticipating,
-  updateFavoriteEvents,
-} from '@/firebase/events';
+import { deleteEvent } from '@/firebase/events';
+import { useCopyEventURL } from '@/hooks/useCopyEventURL';
+import { useEventStatus } from '@/hooks/useEventStatus';
+import { getHumanDate } from '@/utils/getHumanDate';
 import {
   faClockFour,
   faHeart as emptyHeart,
@@ -29,25 +28,25 @@ import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
 import { SkeletonLoader } from '../../skeleton/Skeleton';
 import { IEvent, Participating } from '../../types/shared/event.types';
 import {
-  ControlsWrapper,
-  Description,
-  DetailDescription,
-  DetailLocation,
-  DetailMainSectionWrapper,
-  DetailTitle,
-  InfoDetail,
-  InfoDetailsWrapper,
-  InfoWrapper,
-  MapWrapper,
-  Title,
+  StyledControlsWrapper,
+  StyledDescription,
+  StyledDetailDescription,
+  StyledDetailLocation,
+  StyledDetailMainSectionWrapper,
+  StyledDetailTitle,
+  StyledInfoDetail,
+  StyledInfoDetailsWrapper,
+  StyledInfoWrapper,
+  StyledMapWrapper,
+  StyledTitle,
 } from './DetailMainSection.styles';
-import { EditingEventForm } from './EditingForm/EditingEventForm';
+import { EditingEventForm } from './EventEditingForm/EditingEventForm';
 
 const DetailMainSection = ({
   event,
   handleLoadingChange,
 }: {
-  event: IEvent | null;
+  event: IEvent;
   handleLoadingChange: (e: Loading) => void;
 }) => {
   const Map = useMemo(
@@ -61,94 +60,33 @@ const DetailMainSection = ({
 
   const { user } = useAuth();
   const router = useRouter();
+
   const [isMapMaximized, setIsMapMaximized] = useState(false);
   const handleMapMaximizing = () => {
     setIsMapMaximized((prev) => !prev);
   };
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [participatingStatus, setParticipatingStatus] = useState<Participating>(
-    Participating.none
+  const {
+    participatingStatus,
+    isFavorite,
+    updateParticipatingStatus,
+    updateFavoriteStatus,
+  } = useEventStatus(user ? user : null, event);
+  const { copyToClipboard, isCopied } = useCopyEventURL(
+    event && event.id ? event.id : null
   );
-  const [isCopied, setIsCopied] = useState(false);
-
-  const humanDate =
-    event?.metadata.createdAt &&
-    new Date(event.metadata.createdAt).toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-
-  useEffect(() => {
-    const checkIsFavorite = async () => {
-      if (user && user.uid && event?.favoriteUsers) {
-        const isFavorite = event.favoriteUsers.includes(user.uid as never);
-        setIsFavorite(isFavorite);
-      }
-    };
-
-    const checkIsParticipated = async () => {
-      if (user && user.uid && event?.participating?.submitedUsers) {
-        const isParticipated = event.participating?.submitedUsers.includes(
-          user.uid as never
-        );
-        const isAwaiting = event.participating?.awaitingUsers.includes(
-          user.uid as never
-        );
-        if (isParticipated) {
-          setParticipatingStatus(Participating.participated);
-        } else if (isAwaiting) {
-          setParticipatingStatus(Participating.awaiting);
-        }
-      } else if (!user) {
-        setParticipatingStatus(Participating.none);
-      }
-    };
-
-    checkIsFavorite();
-
-    checkIsParticipated();
-  }, [user]);
 
   const handleFavorite = async () => {
-    if (user && event?.id) {
-      await updateFavoriteEvents(user?.uid, event.id);
-      setIsFavorite((prev) => !prev);
-    } else if (!user) {
-      router.push('/login');
-    }
+    await updateFavoriteStatus();
+  };
+
+  const handleParticipating = async () => {
+    await updateParticipatingStatus();
   };
 
   const handleEventEditing = () => {
     setIsEditing((prev) => !prev);
-  };
-
-  const handleParticipating = async () => {
-    if (user && event?.id) {
-      if (participatingStatus === Participating.none) {
-        await updateEventParticipating(user?.uid, event.id);
-        setParticipatingStatus(Participating.awaiting);
-      } else if (participatingStatus === Participating.awaiting) {
-        await updateEventParticipating(user?.uid, event.id);
-        setParticipatingStatus(Participating.none);
-      } else if (participatingStatus === Participating.participated) {
-        try {
-          const result = window.confirm(
-            'Are you sure you want to cancel participating?'
-          );
-          if (result && event && event.id) {
-            await updateEventParticipating(user?.uid, event.id);
-            setParticipatingStatus(Participating.none);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    } else if (!user) {
-      router.push('/login');
-    }
   };
 
   const handleEventDelete = async () => {
@@ -165,28 +103,16 @@ const DetailMainSection = ({
     }
   };
 
-  const copyEventDetailURL = async () => {
-    const baseURL = window.location.href;
-    if (baseURL) {
-      await navigator.clipboard.writeText(`${baseURL}${event && event.id}`);
-      setIsCopied(true);
-
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 2000);
-    }
-  };
-
   return (
-    <DetailMainSectionWrapper>
-      <MapWrapper isMapMaximized={isMapMaximized}>
+    <StyledDetailMainSectionWrapper>
+      <StyledMapWrapper isMapMaximized={isMapMaximized}>
         <Map
           route={event?.route}
           isMapMaximized={isMapMaximized}
           handleMapMaximizing={handleMapMaximizing}
         />
-      </MapWrapper>
-      <ControlsWrapper
+      </StyledMapWrapper>
+      <StyledControlsWrapper
         isFavorite={isFavorite}
         participated={participatingStatus}
       >
@@ -195,10 +121,10 @@ const DetailMainSection = ({
             variant="icon"
             icon={faShareNodes}
             size="md3"
-            onClick={copyEventDetailURL}
+            onClick={copyToClipboard}
           />
         ) : (
-          <CopiedMessage>Copied</CopiedMessage>
+          <StyledCopiedMessage>Copied</StyledCopiedMessage>
         )}
         <Button
           className="favoriteBtn"
@@ -251,11 +177,11 @@ const DetailMainSection = ({
             />
           </>
         )}
-      </ControlsWrapper>
-      <InfoWrapper>
+      </StyledControlsWrapper>
+      <StyledInfoWrapper>
         <ProfilePreview
           name={event?.metadata.author.username}
-          description={humanDate ? humanDate : ''}
+          description={getHumanDate(event.metadata.createdAt)}
           photoURL={event?.metadata.author.photoUrl}
           variant="no-link"
         />
@@ -266,34 +192,36 @@ const DetailMainSection = ({
             handleLoadingChange={handleLoadingChange}
           />
         )}
-        <Title>{event?.title}</Title>
-        <Description>{event?.description}</Description>
-        <InfoDetailsWrapper>
-          <InfoDetail>
-            <DetailTitle>Type:</DetailTitle>
-            <DetailDescription>{event?.type}</DetailDescription>
-          </InfoDetail>
-          <InfoDetail>
-            <DetailTitle>Distance:</DetailTitle>
-            <DetailDescription>{event?.distance} km</DetailDescription>
-          </InfoDetail>
-          <InfoDetail>
-            <DetailTitle>Start location:</DetailTitle>
-            <DetailLocation
+        <StyledTitle>{event?.title}</StyledTitle>
+        <StyledDescription>{event?.description}</StyledDescription>
+        <StyledInfoDetailsWrapper>
+          <StyledInfoDetail>
+            <StyledDetailTitle>Type:</StyledDetailTitle>
+            <StyledDetailDescription>{event?.type}</StyledDetailDescription>
+          </StyledInfoDetail>
+          <StyledInfoDetail>
+            <StyledDetailTitle>Distance:</StyledDetailTitle>
+            <StyledDetailDescription>
+              {event?.distance} km
+            </StyledDetailDescription>
+          </StyledInfoDetail>
+          <StyledInfoDetail>
+            <StyledDetailTitle>Start location:</StyledDetailTitle>
+            <StyledDetailLocation
               title="View on Google Maps"
               target="_blank"
               href={`https://www.google.com/maps/search/?api=1&query=${event?.location.geoPoint?.lat},${event?.location.geoPoint?.lon}`}
             >
-              <DetailDescription>{`${event?.location.geoPoint?.lat
+              <StyledDetailDescription>{`${event?.location.geoPoint?.lat
                 ?.toString()
                 .substring(0, 6)}, ${event?.location.geoPoint?.lon
                 ?.toString()
-                .substring(0, 6)}`}</DetailDescription>
-            </DetailLocation>
-          </InfoDetail>
-        </InfoDetailsWrapper>
-      </InfoWrapper>
-    </DetailMainSectionWrapper>
+                .substring(0, 6)}`}</StyledDetailDescription>
+            </StyledDetailLocation>
+          </StyledInfoDetail>
+        </StyledInfoDetailsWrapper>
+      </StyledInfoWrapper>
+    </StyledDetailMainSectionWrapper>
   );
 };
 

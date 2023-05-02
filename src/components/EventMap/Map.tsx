@@ -15,7 +15,7 @@ import {
 
 import { Button } from '../Button/Button';
 import { SkeletonLoader } from '../skeleton/Skeleton';
-import { MapOverlayWrapper, MapWrapper } from './Map.styles';
+import { StyledMapOverlayWrapper, StyledMapWrapper } from './Map.styles';
 
 const startMarker = new L.Icon({
   alt: '',
@@ -54,8 +54,8 @@ const Map = ({ route, isMapMaximized, handleMapMaximizing }: EventMap) => {
   }, [isMounted, route, map, isMapMaximized]);
 
   return isMounted ? (
-    <MapWrapper>
-      <MapOverlayWrapper isMapMaximized={isMapMaximized}>
+    <StyledMapWrapper>
+      <StyledMapOverlayWrapper isMapMaximized={isMapMaximized}>
         <Button
           variant="icon"
           icon={faCloudDownloadAlt}
@@ -73,7 +73,7 @@ const Map = ({ route, isMapMaximized, handleMapMaximizing }: EventMap) => {
           disabled={!route}
           onClick={() => handleMapMaximizing()}
         />
-      </MapOverlayWrapper>
+      </StyledMapOverlayWrapper>
       <MapContainer
         attributionControl={isMapMaximized}
         zoomControl={false}
@@ -111,7 +111,7 @@ const Map = ({ route, isMapMaximized, handleMapMaximizing }: EventMap) => {
           />
         )}
       </MapContainer>
-    </MapWrapper>
+    </StyledMapWrapper>
   ) : (
     <>
       <SkeletonLoader variant="event-map" />

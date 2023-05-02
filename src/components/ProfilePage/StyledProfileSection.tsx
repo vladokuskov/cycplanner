@@ -1,12 +1,16 @@
 import styled from 'styled-components';
-import { SectionSubTitle, SectionTitle } from './StyledProfile.styles';
 
-const SectionMainWrapper = styled.section`
+import {
+  StyledSectionSubTitle,
+  StyledSectionTitle,
+} from './StyledProfile.styles';
+
+const StyledSectionMainWrapper = styled.section`
   width: 100%;
   display: grid;
 `;
 
-const SubSectionMainWrapper = styled.div`
+const StyledSubSectionMainWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -23,10 +27,10 @@ export const ProfileSection = ({
   children: React.ReactNode;
 }) => {
   return (
-    <SectionMainWrapper>
-      <SectionTitle>{title}</SectionTitle>
+    <StyledSectionMainWrapper>
+      <StyledSectionTitle>{title}</StyledSectionTitle>
       {children}
-    </SectionMainWrapper>
+    </StyledSectionMainWrapper>
   );
 };
 
@@ -38,9 +42,9 @@ export const ProfileSubSection = ({
   children: React.ReactNode;
 }) => {
   return (
-    <SubSectionMainWrapper>
-      <SectionSubTitle>{title}</SectionSubTitle>
+    <StyledSubSectionMainWrapper>
+      <StyledSectionSubTitle>{title}</StyledSectionSubTitle>
       {children}
-    </SubSectionMainWrapper>
+    </StyledSubSectionMainWrapper>
   );
 };

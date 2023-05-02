@@ -1,39 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react';
-import {
-  RangeSelectorWrapper,
-  RangeOptionsWrapper,
-  RangeOption,
-  SelectorLabel,
-} from './RangePicker.styles';
-import { Button } from '../../Button/Button';
-import { Range } from '../../types/shared/RangeSelector.types';
+import React, { useRef } from 'react';
+
+import { useClickOutside } from '@/hooks/useClickOutside';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
+import { Button } from '../../Button/Button';
+import { Range } from '../../types/shared/RangeSelector.types';
+import { StyledSelectorLabel } from '../EventFilterShared.styles';
+import {
+  StyledRangeOption,
+  StyledRangeOptionsWrapper,
+  StyledRangeSelectorWrapper,
+} from './RangePicker.styles';
+
+const options = [15, 40, 70, 100, 200];
+
 const RangePicker = ({ changeRange, selectedRange }: Range) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useClickOutside(ref, false);
 
   const handleOptionClick = (option: number) => {
     changeRange(option);
     setIsOpen(false);
   };
-  const options = [15, 40, 70, 100, 200];
-
-  useEffect(() => {
-    const checkIfClickedOutside = (e: MouseEvent) => {
-      if (isOpen && ref.current && !ref.current.contains(e.target as Node)) {
-        setIsOpen((prevIsOpen) => !prevIsOpen);
-      }
-    };
-    document.addEventListener('mousedown', checkIfClickedOutside);
-    return () => {
-      document.removeEventListener('mousedown', checkIfClickedOutside);
-    };
-  }, [isOpen]);
 
   return (
-    <RangeSelectorWrapper ref={ref}>
-      <SelectorLabel>Range</SelectorLabel>
+    <StyledRangeSelectorWrapper ref={ref}>
+      <StyledSelectorLabel>Range</StyledSelectorLabel>
       <Button
         onClick={() => setIsOpen(!isOpen)}
         variant="text-icon"
@@ -42,22 +34,21 @@ const RangePicker = ({ changeRange, selectedRange }: Range) => {
         bold
         icon={isOpen ? faChevronUp : faChevronDown}
       />
-
       {isOpen && (
-        <RangeOptionsWrapper>
+        <StyledRangeOptionsWrapper>
           {options.map((option) => (
-            <RangeOption key={option}>
+            <StyledRangeOption key={option}>
               <Button
                 variant="default"
                 onClick={() => handleOptionClick(option)}
                 text={option + ` km`}
                 full
               />
-            </RangeOption>
+            </StyledRangeOption>
           ))}
-        </RangeOptionsWrapper>
+        </StyledRangeOptionsWrapper>
       )}
-    </RangeSelectorWrapper>
+    </StyledRangeSelectorWrapper>
   );
 };
 

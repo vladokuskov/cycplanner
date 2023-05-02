@@ -1,18 +1,19 @@
 import { EventsFilter } from '@/components/types/shared/eventsFilter.types';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GeoPoint } from '@/components/types/shared/geoPoint.types';
+import { SelectedSorting } from '@/components/types/shared/sorting.types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface FilterState {
   range: number;
   geoPoint: GeoPoint;
-  sorting: 'newest' | 'oldest';
+  sorting: SelectedSorting;
   eventsFilter: EventsFilter;
 }
 
 const initialState: FilterState = {
   range: 40,
   geoPoint: { lat: '51.509865', lon: '-0.118092' },
-  sorting: 'newest',
+  sorting: SelectedSorting.newest,
   eventsFilter: 'all',
 };
 
@@ -32,7 +33,7 @@ export const filterReducer = createSlice({
         geoPoint: action.payload,
       };
     },
-    updateSorting: (state, action: PayloadAction<'newest' | 'oldest'>) => {
+    updateSorting: (state, action: PayloadAction<SelectedSorting>) => {
       return {
         ...state,
         sorting: action.payload,

@@ -1,6 +1,10 @@
 import { Icon } from '../Icon/Icon';
-import { ButtonIcon, ButtonText, StyledButton } from './Button.styles';
-import { Button } from './IButton';
+import {
+  StyledButton,
+  StyledButtonIcon,
+  StyledButtonText,
+} from './Button.styles';
+import { Button } from './Button.types';
 
 const Button = ({
   text,
@@ -14,7 +18,7 @@ const Button = ({
   bold = false,
   disabled = false,
   status = 'default',
-  rotate,
+  rotate = false,
   wider = false,
 }: Button) => {
   return (
@@ -33,12 +37,12 @@ const Button = ({
       wider={wider}
     >
       {text && text?.length !== 0 && variant !== 'icon' && (
-        <ButtonText>{text}</ButtonText>
+        <StyledButtonText>{text}</StyledButtonText>
       )}
       {icon && (
-        <ButtonIcon variant={variant}>
+        <StyledButtonIcon variant={variant}>
           <Icon icon={icon} spinning={rotate ? 'true' : 'false'} />
-        </ButtonIcon>
+        </StyledButtonIcon>
       )}
     </StyledButton>
   );

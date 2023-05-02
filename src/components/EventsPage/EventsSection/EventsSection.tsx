@@ -17,9 +17,9 @@ import { EventFilter } from '../../EventFilter/EventFilter/EventFilter';
 import { SkeletonLoader } from '../../skeleton/Skeleton';
 import { Pagination } from '../Pagination/Pagination';
 import {
-  EventSectionWrapper,
-  EventsWrapper,
-  PageTitle,
+  StyledEventSectionWrapper,
+  StyledEventsWrapper,
+  StyledPageTitle,
 } from './EventsSection.styles';
 
 const EventsSection = () => {
@@ -102,10 +102,10 @@ const EventsSection = () => {
   };
 
   return (
-    <EventSectionWrapper>
-      <PageTitle>Events</PageTitle>
+    <StyledEventSectionWrapper>
+      <StyledPageTitle>Events</StyledPageTitle>
       <EventFilter />
-      <EventsWrapper>
+      <StyledEventsWrapper>
         {(allEvents || myEvents || participatedEvents || favoriteEvents) && (
           <Pagination
             itemsPerPage={10}
@@ -172,8 +172,8 @@ const EventsSection = () => {
         ) : (
           <ErrorMessage variant="loading" />
         )}
-      </EventsWrapper>
-    </EventSectionWrapper>
+      </StyledEventsWrapper>
+    </StyledEventSectionWrapper>
   );
 };
 

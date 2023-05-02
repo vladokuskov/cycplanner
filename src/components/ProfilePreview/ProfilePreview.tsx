@@ -4,14 +4,14 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { Icon } from '../Icon/Icon';
 import {
-  Photo,
-  PhotoPlaceholder,
-  PhotoWrapper,
-  PreviewDescription,
-  PreviewInfoWrapper,
-  PreviewName,
-  ProfilePreviewButton,
-  ProfilePreviewWrapper,
+  StyledPhoto,
+  StyledPhotoPlaceholder,
+  StyledPhotoWrapper,
+  StyledPreviewDescription,
+  StyledPreviewInfoWrapper,
+  StyledPreviewName,
+  StyledProfilePreviewButton,
+  StyledProfilePreviewWrapper,
 } from './ProfilePreview.styles';
 import { ProfilePreview } from './ProfilePreview.types';
 
@@ -23,10 +23,10 @@ const ProfilePreview = ({
   onClick,
 }: ProfilePreview) => {
   return variant === 'no-link' ? (
-    <ProfilePreviewWrapper variant={variant}>
-      <PhotoWrapper>
+    <StyledProfilePreviewWrapper variant={variant}>
+      <StyledPhotoWrapper>
         {photoURL && photoURL.length > 0 ? (
-          <Photo
+          <StyledPhoto
             src={photoURL}
             alt=""
             width={120}
@@ -37,24 +37,24 @@ const ProfilePreview = ({
             quality={90}
           />
         ) : (
-          <PhotoPlaceholder>
+          <StyledPhotoPlaceholder>
             <Icon icon={faUser} />
-          </PhotoPlaceholder>
+          </StyledPhotoPlaceholder>
         )}
-      </PhotoWrapper>
-      <PreviewInfoWrapper>
-        <PreviewName>{name}</PreviewName>
+      </StyledPhotoWrapper>
+      <StyledPreviewInfoWrapper>
+        <StyledPreviewName>{name}</StyledPreviewName>
         {description && description.length !== 0 && (
-          <PreviewDescription>{description}</PreviewDescription>
+          <StyledPreviewDescription>{description}</StyledPreviewDescription>
         )}
-      </PreviewInfoWrapper>
-    </ProfilePreviewWrapper>
+      </StyledPreviewInfoWrapper>
+    </StyledProfilePreviewWrapper>
   ) : variant === 'button' ? (
-    <ProfilePreviewButton onClick={onClick}>
-      <ProfilePreviewWrapper variant={variant}>
-        <PhotoWrapper>
+    <StyledProfilePreviewButton onClick={onClick}>
+      <StyledProfilePreviewWrapper variant={variant}>
+        <StyledPhotoWrapper>
           {photoURL && photoURL.length > 0 ? (
-            <Photo
+            <StyledPhoto
               src={photoURL}
               alt=""
               width={120}
@@ -65,19 +65,19 @@ const ProfilePreview = ({
               quality={90}
             />
           ) : (
-            <PhotoPlaceholder>
+            <StyledPhotoPlaceholder>
               <Icon icon={faUser} />
-            </PhotoPlaceholder>
+            </StyledPhotoPlaceholder>
           )}
-        </PhotoWrapper>
-      </ProfilePreviewWrapper>
-    </ProfilePreviewButton>
+        </StyledPhotoWrapper>
+      </StyledProfilePreviewWrapper>
+    </StyledProfilePreviewButton>
   ) : (
     <Link href="/profile" title="Open Profile">
-      <ProfilePreviewWrapper variant={variant}>
-        <PhotoWrapper>
+      <StyledProfilePreviewWrapper variant={variant}>
+        <StyledPhotoWrapper>
           {photoURL && photoURL.length > 0 ? (
-            <Photo
+            <StyledPhoto
               src={photoURL}
               alt=""
               width={120}
@@ -88,20 +88,20 @@ const ProfilePreview = ({
               quality={90}
             />
           ) : (
-            <PhotoPlaceholder>
+            <StyledPhotoPlaceholder>
               <Icon icon={faUser} />
-            </PhotoPlaceholder>
+            </StyledPhotoPlaceholder>
           )}
-        </PhotoWrapper>
+        </StyledPhotoWrapper>
         {(variant !== 'photo' || !name) && (
-          <PreviewInfoWrapper>
-            <PreviewName>{name}</PreviewName>
+          <StyledPreviewInfoWrapper>
+            <StyledPreviewName>{name}</StyledPreviewName>
             {description && description.length !== 0 && (
-              <PreviewDescription>{description}</PreviewDescription>
+              <StyledPreviewDescription>{description}</StyledPreviewDescription>
             )}
-          </PreviewInfoWrapper>
+          </StyledPreviewInfoWrapper>
         )}
-      </ProfilePreviewWrapper>
+      </StyledProfilePreviewWrapper>
     </Link>
   );
 };

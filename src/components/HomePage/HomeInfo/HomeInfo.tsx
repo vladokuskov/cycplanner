@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
-import {
-  InfoWrapper,
-  InfoTitleBolder,
-  InfoTitle,
-  InfoButton,
-} from './HomeInfo.styles';
+import { useEffect, useState } from 'react';
+
 import { useAppSelector } from '@/store/redux-hooks';
+
+import {
+  StyledInfoButton,
+  StyledInfoTitle,
+  StyledInfoTitleBolder,
+  StyledInfoWrapper,
+} from './HomeInfo.styles';
 
 const HomeInfo = () => {
   const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
@@ -29,21 +31,21 @@ const HomeInfo = () => {
   }, [isInfoOpen]);
 
   return (
-    <InfoWrapper>
-      <InfoButton
+    <StyledInfoWrapper>
+      <StyledInfoButton
         title="How it works?"
         onMouseEnter={handleHover}
         onTouchStart={handleHover}
       >
         ?
-      </InfoButton>
+      </StyledInfoButton>
       {isInfoOpen && (
-        <InfoTitle>
+        <StyledInfoTitle>
           The nearest events are within a radius of
-          <InfoTitleBolder> {selectedRange} km</InfoTitleBolder>
-        </InfoTitle>
+          <StyledInfoTitleBolder>{selectedRange} km</StyledInfoTitleBolder>
+        </StyledInfoTitle>
       )}
-    </InfoWrapper>
+    </StyledInfoWrapper>
   );
 };
 

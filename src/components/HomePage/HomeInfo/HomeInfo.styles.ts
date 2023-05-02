@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-const InfoWrapper = styled.div`
+const StyledInfoWrapper = styled.div`
   position: relative;
 `;
-const InfoButton = styled.button`
+const StyledInfoButton = styled.button`
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
   width: 1.2rem;
@@ -16,7 +16,7 @@ const InfoButton = styled.button`
   background-color: #e0e0e0;
   color: #2c2c2c;
 `;
-const InfoTitle = styled.p`
+const StyledInfoTitle = styled.p`
   z-index: 1001;
   position: absolute;
   top: 0;
@@ -32,8 +32,13 @@ const InfoTitle = styled.p`
   background-color: #e0e0e0;
   margin-right: 1rem;
 `;
-const InfoTitleBolder = styled.span`
+const StyledInfoTitleBolder = styled.span`
   font-weight: 600;
 `;
 
-export { InfoWrapper, InfoTitleBolder, InfoTitle, InfoButton };
+export {
+  StyledInfoButton,
+  StyledInfoTitle,
+  StyledInfoTitleBolder,
+  StyledInfoWrapper,
+};

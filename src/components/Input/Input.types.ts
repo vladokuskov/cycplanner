@@ -1,16 +1,19 @@
+type InputVariants =
+  | 'search'
+  | 'textarea'
+  | 'outlined'
+  | 'outlined-icon'
+  | 'auth';
+
+type FieldTypes = 'text' | 'email' | 'password' | 'number';
+
 export type Input = {
-  variant?:
-    | 'search'
-    | 'textarea'
-    | 'outlined'
-    | 'outlined-icon'
-    | 'auth'
-    | 'auth-pass';
+  variant?: InputVariants;
   danger?: boolean;
   label?: string;
   value?: string;
   required?: boolean;
-  fieldType?: 'text' | 'email' | 'password' | 'number';
+  fieldType?: FieldTypes;
   isPassShowed?: boolean;
   icon?: any;
   full?: boolean;
@@ -22,5 +25,5 @@ export type Input = {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  isloading?: boolean;
+  isLoading?: boolean;
 };

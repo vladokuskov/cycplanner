@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 import { ProfileMainSection } from '@/components/ProfilePage/ProfileMainSection';
-import { ProfileSidebar } from '@/components/ProfilePage/ProfileSidebar';
+import { ProfileSidebar } from '@/components/ProfilePage/ProfileSidebar/ProfileSidebar';
 import StyledContainer from '@/components/StyledContainer/StyledContainer';
 import PrivateRoute from '@/modules/PrivateRoute';
 

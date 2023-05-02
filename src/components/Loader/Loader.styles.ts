@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 
-const LoadingWrapper = styled.div`
+const StyledLoadingWrapper = styled.div`
   height: 100%;
   width: 100%;
   top: 0;
@@ -23,7 +23,7 @@ export const progress = keyframes`
   }
 `;
 
-const LogoImage = styled.img`
+const StyledLogoImage = styled.img`
   width: 100%;
   height: 100%;
   max-width: 13rem;
@@ -31,4 +31,4 @@ const LogoImage = styled.img`
   animation: ${progress} 1.3s infinite;
 `;
 
-export { LoadingWrapper, LogoImage };
+export { StyledLoadingWrapper, StyledLogoImage };

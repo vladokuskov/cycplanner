@@ -12,8 +12,8 @@ export interface IEvent {
     createdAt?: number;
     lastUpdatedAt?: number;
   };
-  participating?: { submitedUsers: string[]; awaitingUsers: string[] };
-  favoriteUsers?: [];
+  participating?: { submittedUsers: string[]; awaitingUsers: string[] };
+  favoriteUsers?: string[];
   title?: string;
   description?: string;
   distance?: string;

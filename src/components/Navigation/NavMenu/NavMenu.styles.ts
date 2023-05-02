@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
 
-const MenuMainWrapper = styled.aside`
+const StyledMenuMainWrapper = styled.aside`
   @media (min-width: 680px) {
     display: none;
   }
 `;
 
-const MenuWrapper = styled.div<{ sticky: boolean }>`
+const StyledMenuWrapper = styled.div<{ sticky: boolean }>`
   left: 0;
   top: 3.7rem;
   position: absolute;
@@ -33,7 +33,7 @@ const MenuWrapper = styled.div<{ sticky: boolean }>`
       z-index: 1005;
     `}
 `;
-const LinksWrapper = styled.div`
+const StyledLinksWrapper = styled.div`
   list-style: none;
   display: flex;
   align-items: center;
@@ -64,7 +64,7 @@ const LinksWrapper = styled.div`
     }
   }
 `;
-const MenuFooter = styled.div`
+const StyledMenuFooter = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -73,7 +73,9 @@ const MenuFooter = styled.div`
   gap: 2rem;
 `;
 
-const MenuFooterButtonsWrapper = styled.div<{ variant: 'logged' | 'guest' }>`
+const StyledMenuFooterButtonsWrapper = styled.div<{
+  variant: 'logged' | 'guest';
+}>`
   width: 100%;
   display: flex;
   align-items: center;
@@ -81,7 +83,7 @@ const MenuFooterButtonsWrapper = styled.div<{ variant: 'logged' | 'guest' }>`
     variant === 'guest' ? 'flex-start' : 'space-between'};
   gap: 0.5rem;
 `;
-const MenuFooterButtonsLabel = styled.p`
+const StyledMenuFooterButtonsLabel = styled.p`
   font-style: normal;
   font-weight: 500;
   font-size: 0.9rem;
@@ -90,10 +92,10 @@ const MenuFooterButtonsLabel = styled.p`
 `;
 
 export {
-  MenuFooterButtonsLabel,
-  MenuFooterButtonsWrapper,
-  MenuFooter,
-  LinksWrapper,
-  MenuWrapper,
-  MenuMainWrapper,
+  StyledLinksWrapper,
+  StyledMenuFooter,
+  StyledMenuFooterButtonsLabel,
+  StyledMenuFooterButtonsWrapper,
+  StyledMenuMainWrapper,
+  StyledMenuWrapper,
 };

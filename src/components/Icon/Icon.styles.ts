@@ -1,6 +1,10 @@
+import styled, {
+  css,
+  keyframes,
+} from 'styled-components';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import styled, { css, keyframes } from 'styled-components';
 import { Icon } from './Icon.types';
 
 const spin = keyframes`
@@ -8,7 +12,7 @@ const spin = keyframes`
   to { transform: rotate(360deg); }
 `;
 
-const AnimatedIcon = styled(FontAwesomeIcon)<Icon>`
+const StyledIcon = styled(FontAwesomeIcon)<Icon>`
   ${({ spinning }) =>
     spinning === 'true' &&
     css`
@@ -16,4 +20,4 @@ const AnimatedIcon = styled(FontAwesomeIcon)<Icon>`
     `}
 `;
 
-export { AnimatedIcon };
+export { StyledIcon };

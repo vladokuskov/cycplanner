@@ -15,12 +15,12 @@ import { IEvent } from '../../types/shared/event.types';
 import { GeoPoint } from '../../types/shared/geoPoint.types';
 import { EventType } from '../EventType/EventType';
 import {
-  EventFormWrapper,
-  EventTypesWrapper,
-  FormFooterWrapper,
-  FormMainWrapper,
-  InputsWrapper,
-  PageTitle,
+  StyledEventFormWrapper,
+  StyledEventTypesWrapper,
+  StyledFormFooterWrapper,
+  StyledFormMainWrapper,
+  StyledInputsWrapper,
+  StyledPageTitle,
 } from './EventCreationForm.styles';
 
 const EventCreationForm = () => {
@@ -33,7 +33,7 @@ const EventCreationForm = () => {
   });
   const { user } = useAuth();
 
-  const INITIAL_EVENT_FORM_STATE: IEvent = {
+  const initialFormState: IEvent = {
     id: nanoid(),
     metadata: {
       author: {
@@ -45,7 +45,10 @@ const EventCreationForm = () => {
       createdAt: Date.now(),
       lastUpdatedAt: Date.now(),
     },
-    participating: { submitedUsers: [user ? user.uid : ''], awaitingUsers: [] },
+    participating: {
+      submittedUsers: [user ? user.uid : ''],
+      awaitingUsers: [],
+    },
     favoriteUsers: [],
     title: '',
     description: '',
@@ -55,7 +58,7 @@ const EventCreationForm = () => {
     route: null,
   };
 
-  const [eventForm, setEventForm] = useState<IEvent>(INITIAL_EVENT_FORM_STATE);
+  const [eventForm, setEventForm] = useState<IEvent>(initialFormState);
 
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -79,7 +82,7 @@ const EventCreationForm = () => {
             console.error(err);
           } else {
             const points = result.gpx.trk[0].trkseg[0].trkpt;
-            // Use flatmap to get rid of nested Array
+            // Using flatMap to get rid of nested Array ->
             const newRoute = points.flatMap((point: { $: GeoPoint }) => ({
               lat: parseFloat(point.$.lat),
               lon: parseFloat(point.$.lon),
@@ -105,7 +108,7 @@ const EventCreationForm = () => {
   const resetForm = () => {
     setFile(null);
     setRoute(null);
-    setEventForm(INITIAL_EVENT_FORM_STATE);
+    setEventForm(initialFormState);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -130,10 +133,10 @@ const EventCreationForm = () => {
 
   return (
     <>
-      <PageTitle>Create Event</PageTitle>
-      <EventFormWrapper onSubmit={handleSubmit}>
-        <FormMainWrapper>
-          <InputsWrapper>
+      <StyledPageTitle>Create Event</StyledPageTitle>
+      <StyledEventFormWrapper onSubmit={handleSubmit}>
+        <StyledFormMainWrapper>
+          <StyledInputsWrapper>
             <Input
               full
               label="Title"
@@ -165,7 +168,7 @@ const EventCreationForm = () => {
               value={eventForm.distance}
               onChange={handleFormChange}
             />
-            <EventTypesWrapper>
+            <StyledEventTypesWrapper>
               <Input
                 full
                 label="Event type"
@@ -179,8 +182,8 @@ const EventCreationForm = () => {
               <EventType
                 handleTypeChange={(e: string) => handleTypeChange(e)}
               />
-            </EventTypesWrapper>
-          </InputsWrapper>
+            </StyledEventTypesWrapper>
+          </StyledInputsWrapper>
           <FileUploader
             handleChange={handleFileUpload}
             name="file"
@@ -188,19 +191,19 @@ const EventCreationForm = () => {
             multiple={false}
             required
           />
-        </FormMainWrapper>
-        <FormFooterWrapper>
+        </StyledFormMainWrapper>
+        <StyledFormFooterWrapper>
           <Button
             buttonType="submit"
-            text={isCreatingEvent ? undefined : 'Create event'}
+            text={isCreatingEvent ? 'Creating' : 'Create event'}
             icon={isCreatingEvent ? faCircleNotch : null}
             rotate={isCreatingEvent}
             disabled={isCreatingEvent}
             size="md1"
             full
           />
-        </FormFooterWrapper>
-      </EventFormWrapper>
+        </StyledFormFooterWrapper>
+      </StyledEventFormWrapper>
     </>
   );
 };

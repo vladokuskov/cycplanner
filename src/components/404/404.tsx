@@ -1,16 +1,23 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { Title, Description, LayoutWrapper } from './404.styles';
+
+import {
+  StyledDescription,
+  StyledLayoutWrapper,
+  StyledTitle,
+} from './404.styles';
 
 const FourOFour = () => {
   return (
-    <LayoutWrapper>
-      <Title>Oops, page not found :c</Title>
-      <Description>
+    <StyledLayoutWrapper>
+      <Image src="/assets/logo.svg" alt="" width={200} height={50} />
+      <StyledTitle>Oops, page not found :c</StyledTitle>
+      <StyledDescription>
         Go back to the homepage and navigate to the page you were trying to
         reach from there.
-      </Description>
+      </StyledDescription>
       <Link href="/">Go to Home page</Link>
-    </LayoutWrapper>
+    </StyledLayoutWrapper>
   );
 };
 

@@ -1,21 +1,23 @@
-import { Input } from './Input.types';
-import { Icon } from '../Icon/Icon';
-import {
-  faMagnifyingGlass,
-  faClose,
-  faCircleNotch,
-} from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
+
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import {
-  InputIcon,
-  InputButton,
-  InputWrapper,
-  InputMainWrapper,
-  StyledTextarea,
+  faCircleNotch,
+  faClose,
+  faMagnifyingGlass,
+} from '@fortawesome/free-solid-svg-icons';
+
+import { Icon } from '../Icon/Icon';
+import {
   StyledInput,
-  Label,
+  StyledInputButton,
+  StyledInputIcon,
+  StyledInputMainWrapper,
+  StyledInputWrapper,
+  StyledLabel,
+  StyledTextarea,
 } from './Input.styles';
-import { useState } from 'react';
+import { Input } from './Input.types';
 
 const Input = ({
   variant,
@@ -31,45 +33,36 @@ const Input = ({
   placeholder,
   name,
   fieldType = 'text',
-  isloading,
+  isLoading,
 }: Input) => {
-  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState(false); // Only for Auth variant
   return (
-    <InputMainWrapper variant={variant} full={full} danger={danger}>
+    <StyledInputMainWrapper variant={variant} full={full} danger={danger}>
       {(variant === 'auth' ||
-        variant === 'auth-pass' ||
         variant === 'outlined-icon' ||
         variant === 'search') && (
-        <InputIcon variant={variant} danger={danger} className="icon">
-          {variant === 'search' && isloading && (
+        <StyledInputIcon variant={variant} danger={danger} className="icon">
+          {variant === 'search' && isLoading && (
             <Icon
               icon={faCircleNotch}
-              spinning={isloading ? 'true' : 'false'}
+              spinning={isLoading ? 'true' : 'false'}
             />
           )}
-          {variant === 'search' && !isloading && value?.length === 0 && (
+          {variant === 'search' && !isLoading && value?.length === 0 && (
             <Icon icon={faMagnifyingGlass} />
           )}
           {variant !== 'search' && <Icon icon={icon} />}
-        </InputIcon>
+        </StyledInputIcon>
       )}
-      <InputWrapper>
-        {(variant === 'auth' ||
-          variant === 'auth-pass' ||
-          variant === 'outlined') && (
-          <Label
+      <StyledInputWrapper>
+        {(variant === 'auth' || variant === 'outlined') && (
+          <StyledLabel
             htmlFor={variant}
             variant={variant}
-            className={
-              isFocused
-                ? ''
-                : variant === 'auth' || variant === 'auth-pass'
-                ? 'center'
-                : ''
-            }
+            className={isFocused ? '' : variant === 'auth' ? 'center' : ''}
           >
             {label}
-          </Label>
+          </StyledLabel>
         )}
         {variant === 'textarea' ? (
           <StyledTextarea
@@ -86,7 +79,7 @@ const Input = ({
           />
         ) : (
           <StyledInput
-            isloading={isloading}
+            isLoading={isLoading}
             onFocus={() => setIsFocused(true)}
             onBlur={() => {
               if (value?.length !== 0) {
@@ -118,34 +111,42 @@ const Input = ({
             autoCorrect="off"
           />
         )}
-      </InputWrapper>
-      {((variant === 'search' && value?.length !== 0 && !isloading) ||
-        (variant === 'auth-pass' && value?.length !== 0)) && (
-        <InputButton
+      </StyledInputWrapper>
+      {((variant === 'search' && value?.length !== 0 && !isLoading) ||
+        (variant === 'auth' &&
+          value?.length !== 0 &&
+          fieldType === 'password')) && (
+        <StyledInputButton
           type="button"
           onClick={onClick}
           variant={variant}
           title={
             variant === 'search'
               ? 'Clear'
-              : !isPassShowed
+              : variant === 'auth' && fieldType === 'password' && !isPassShowed
               ? 'Show password'
-              : 'Hide password'
+              : variant === 'auth' && fieldType === 'password' && isPassShowed
+              ? 'Hide password'
+              : ''
           }
         >
           <Icon
             icon={
               variant === 'search'
                 ? faClose
-                : !isPassShowed
+                : variant === 'auth' &&
+                  fieldType === 'password' &&
+                  !isPassShowed
                 ? faEye
-                : faEyeSlash
+                : variant === 'auth' && fieldType === 'password' && isPassShowed
+                ? faEyeSlash
+                : undefined
             }
             spinning="false"
           />
-        </InputButton>
+        </StyledInputButton>
       )}
-    </InputMainWrapper>
+    </StyledInputMainWrapper>
   );
 };
 

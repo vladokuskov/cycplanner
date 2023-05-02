@@ -7,7 +7,7 @@ import { Loading } from '@/components/types/shared/loadingState.types';
 import { updateEvent } from '@/firebase/events';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
-import { EditingForm } from '../DetailMainSection.styles';
+import { StyledEditingForm } from '../DetailMainSection.styles';
 
 type IEditingEventForm = {
   event: IEvent | null;
@@ -62,7 +62,7 @@ const EditingEventForm = ({
   };
 
   return (
-    <EditingForm onSubmit={handleEditingSave}>
+    <StyledEditingForm onSubmit={handleEditingSave}>
       <Input
         onChange={handleFormChange}
         name="title"
@@ -113,7 +113,7 @@ const EditingEventForm = ({
         icon={isSaving ? faCircleNotch : null}
         rotate={isSaving}
       />
-    </EditingForm>
+    </StyledEditingForm>
   );
 };
 

@@ -1,8 +1,8 @@
-import { Title } from './PageTitle.styles';
+import { StyledTitle } from './PageTitle.styles';
 import { PageTitle } from './PageTitle.types';
 
 const PageTitle = ({ title }: PageTitle) => {
-  return <Title>{title}</Title>;
+  return <StyledTitle>{title}</StyledTitle>;
 };
 
 export default PageTitle;

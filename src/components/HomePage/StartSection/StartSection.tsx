@@ -1,32 +1,34 @@
+import { useRouter } from 'next/router';
+
+import Banner from '@/assets/home-banner.svg';
+import { useAuth } from '@/context/AuthContext';
+
 import { Button } from '../../Button/Button';
 import {
-  StartSectionWrapper,
-  StartDescription,
-  StartTitleBolder,
-  StartTitle,
-  StartBannerWrapper,
-  StartContentWrapper,
+  StyledStartBannerWrapper,
+  StyledStartContentWrapper,
+  StyledStartDescription,
+  StyledStartSectionWrapper,
+  StyledStartTitle,
+  StyledStartTitleBolder,
 } from './StartSection.styles';
-import { useAuth } from '@/context/AuthContext';
-import { useRouter } from 'next/router';
-import Banner from '@/assets/home-banner.svg';
 
 const StartSection = () => {
   const { user } = useAuth();
 
   const router = useRouter();
   return (
-    <StartSectionWrapper>
-      <StartContentWrapper>
+    <StyledStartSectionWrapper>
+      <StyledStartContentWrapper>
         <>
-          <StartTitle>
-            <StartTitleBolder>WELCOME to</StartTitleBolder>
+          <StyledStartTitle>
+            <StyledStartTitleBolder>WELCOME to</StyledStartTitleBolder>
             <br />
             cycplanner
-          </StartTitle>
-          <StartDescription>
+          </StyledStartTitle>
+          <StyledStartDescription>
             the ultimate platform for cycling enthusiasts and event organizers.
-          </StartDescription>
+          </StyledStartDescription>
         </>
         <Button
           disabled={user !== null}
@@ -36,11 +38,11 @@ const StartSection = () => {
           size="md1"
           onClick={() => router.replace('/login')}
         />
-      </StartContentWrapper>
-      <StartBannerWrapper>
+      </StyledStartContentWrapper>
+      <StyledStartBannerWrapper>
         <Banner />
-      </StartBannerWrapper>
-    </StartSectionWrapper>
+      </StyledStartBannerWrapper>
+    </StyledStartSectionWrapper>
   );
 };
 

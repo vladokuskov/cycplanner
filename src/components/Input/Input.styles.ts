@@ -1,7 +1,8 @@
-import { Input } from './Input.types';
 import styled, { css } from 'styled-components';
 
-const InputMainWrapper = styled.div<Input>`
+import { Input } from './Input.types';
+
+const StyledInputMainWrapper = styled.div<Input>`
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -29,7 +30,7 @@ const InputMainWrapper = styled.div<Input>`
     `}
 `;
 
-const InputWrapper = styled.div<Input>`
+const StyledInputWrapper = styled.div<Input>`
   position: relative;
   width: 100%;
   height: 100%;
@@ -39,18 +40,19 @@ const InputWrapper = styled.div<Input>`
     margin: 0;
   }
 
-  /* Works for Firefox */
   input[type='number'] {
+    appearance: textfield;
     -moz-appearance: textfield;
   }
 `;
-const Label = styled.label<Input>`
+
+const StyledLabel = styled.label<Input>`
   position: absolute;
   font-family: 'Inter';
   transition: 0.2s;
   pointer-events: none;
   ${({ variant }) =>
-    variant !== 'auth' && variant !== 'auth-pass'
+    variant !== 'auth'
       ? css`
           letter-spacing: -0.025em;
           font-weight: 400;
@@ -60,7 +62,7 @@ const Label = styled.label<Input>`
           top: -1.7rem;
           color: rgba(72, 72, 72, 0.67);
         `
-      : (variant === 'auth' || variant === 'auth-pass') &&
+      : variant === 'auth' &&
         css`
           top: 0.1rem;
           left: 2.5rem;
@@ -108,10 +110,6 @@ const StyledInput = styled.input<Input>`
       ? css`
           padding: 1.3rem 0.3rem 0.2rem 2.5rem;
           font-weight: 500;
-        `
-      : variant === 'auth-pass'
-      ? css`
-          padding: 1.3rem 3rem 0.2rem 2.5rem;
         `
       : variant === 'outlined'
       ? css`
@@ -205,7 +203,7 @@ const StyledTextarea = styled.textarea<Input>`
   }
 `;
 
-const InputButton = styled.button<Input>`
+const StyledInputButton = styled.button<Input>`
   position: absolute;
   padding: 0 0.5rem;
   border-radius: 0.25rem;
@@ -216,7 +214,7 @@ const InputButton = styled.button<Input>`
     `}
 `;
 
-const InputIcon = styled.span<Input>`
+const StyledInputIcon = styled.span<Input>`
   transition: 0.2s;
   position: absolute;
   left: 0.5rem;
@@ -227,9 +225,7 @@ const InputIcon = styled.span<Input>`
           right: 0.4rem;
           color: #5a5a5ab3;
         `
-      : (variant === 'auth' ||
-          variant === 'auth-pass' ||
-          variant === 'outlined-icon') &&
+      : (variant === 'auth' || variant === 'outlined-icon') &&
         css`
           color: #5a5a5ab3;
           font-size: 1.4rem;
@@ -237,11 +233,11 @@ const InputIcon = styled.span<Input>`
 `;
 
 export {
-  InputIcon,
-  InputButton,
-  InputWrapper,
-  InputMainWrapper,
-  StyledTextarea,
   StyledInput,
-  Label,
+  StyledInputButton,
+  StyledInputIcon,
+  StyledInputMainWrapper,
+  StyledInputWrapper,
+  StyledLabel,
+  StyledTextarea,
 };

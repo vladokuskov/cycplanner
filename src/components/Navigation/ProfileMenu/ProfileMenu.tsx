@@ -4,24 +4,29 @@ import { useRouter } from 'next/router';
 
 import { useAuth } from '@/context/AuthContext';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
-import { faPlus, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPlus,
+  faRightFromBracket,
+} from '@fortawesome/free-solid-svg-icons';
 
 import { Button } from '../../Button/Button';
 import {
-  AuthorTitle,
-  AuthorWrapper,
-  ProfileMenuFooter,
-  ProfileMenuHeader,
-  ProfileMenuListItem,
-  ProfileMenuListWrapper,
-  ProfileMenuWrapper,
+  StyledAuthorTitle,
+  StyledAuthorWrapper,
+  StyledProfileMenuFooter,
+  StyledProfileMenuHeader,
+  StyledProfileMenuListItem,
+  StyledProfileMenuListWrapper,
+  StyledProfileMenuWrapper,
 } from './ProfileMenu.styles';
 import { ProfileMenu } from './ProfileMenu.types';
 
 const ProfileMenu = ({ name, onClose }: ProfileMenu) => {
   const { logoutUser } = useAuth();
-  const dropdownRef = useRef<HTMLDivElement>(null);
+
   const router = useRouter();
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleSignOut = () => {
     router.push(`/login`);
@@ -36,14 +41,14 @@ const ProfileMenu = ({ name, onClose }: ProfileMenu) => {
   };
 
   return (
-    <ProfileMenuWrapper ref={dropdownRef}>
-      <ProfileMenuHeader>
-        <AuthorWrapper>
-          <AuthorTitle>{name ? name : 'Guest'}</AuthorTitle>
-        </AuthorWrapper>
-      </ProfileMenuHeader>
-      <ProfileMenuListWrapper>
-        <ProfileMenuListItem>
+    <StyledProfileMenuWrapper ref={dropdownRef}>
+      <StyledProfileMenuHeader>
+        <StyledAuthorWrapper>
+          <StyledAuthorTitle>{name ? name : 'Guest'}</StyledAuthorTitle>
+        </StyledAuthorWrapper>
+      </StyledProfileMenuHeader>
+      <StyledProfileMenuListWrapper>
+        <StyledProfileMenuListItem>
           <Button
             variant="filled"
             icon={faUser}
@@ -52,8 +57,8 @@ const ProfileMenu = ({ name, onClose }: ProfileMenu) => {
             text="My profile"
             onClick={() => handleRouteChange('profile')}
           />
-        </ProfileMenuListItem>
-        <ProfileMenuListItem>
+        </StyledProfileMenuListItem>
+        <StyledProfileMenuListItem>
           <Button
             variant="outlined"
             icon={faPlus}
@@ -62,9 +67,9 @@ const ProfileMenu = ({ name, onClose }: ProfileMenu) => {
             text="Create event"
             onClick={() => handleRouteChange('create')}
           />
-        </ProfileMenuListItem>
-      </ProfileMenuListWrapper>
-      <ProfileMenuFooter>
+        </StyledProfileMenuListItem>
+      </StyledProfileMenuListWrapper>
+      <StyledProfileMenuFooter>
         <Button
           variant="text-icon"
           size="sm2"
@@ -74,8 +79,8 @@ const ProfileMenu = ({ name, onClose }: ProfileMenu) => {
           bold
           onClick={handleSignOut}
         />
-      </ProfileMenuFooter>
-    </ProfileMenuWrapper>
+      </StyledProfileMenuFooter>
+    </StyledProfileMenuWrapper>
   );
 };
 

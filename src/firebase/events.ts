@@ -15,7 +15,9 @@ import {
   where,
 } from 'firebase/firestore';
 
-import { IEditingForm } from '@/components/EventDetail/DetailMain/EditingForm/EditingEventForm';
+import {
+  IEditingForm,
+} from '@/components/EventDetail/DetailMain/EventEditingForm/EditingEventForm';
 import { IEvent } from '@/components/types/shared/event.types';
 import { GeoPoint } from '@/components/types/shared/geoPoint.types';
 
@@ -75,7 +77,10 @@ export const approveUserParticipating = async (
           ...data,
           participating: {
             ...data.participating,
-            submitedUsers: [...data.participating.submitedUsers, participantId],
+            submittedUsers: [
+              ...data.participating.submittedUsers,
+              participantId,
+            ],
             awaitingUsers: data.participating.awaitingUsers.filter(
               (id: string) => id !== participantId
             ),
@@ -106,7 +111,7 @@ export const removeUserFromParticipating = async (
           ...data,
           participating: {
             ...data.participating,
-            submitedUsers: data.participating.submitedUsers.filter(
+            submittedUsers: data.participating.submittedUsers.filter(
               (id: string) => id !== participantId
             ),
 
@@ -134,7 +139,7 @@ export const updateEventParticipating = async (
     snapshot.forEach((event) => {
       const eventId = event.data().docID;
       const data = event.data().event;
-      const isParticipated = data.participating.submitedUsers.includes(userId);
+      const isParticipated = data.participating.submittedUsers.includes(userId);
       const isAwaiting = data.participating.awaitingUsers.includes(userId);
 
       updateDoc(doc(db, 'events', eventId), {
@@ -142,7 +147,7 @@ export const updateEventParticipating = async (
           ...data,
           participating: {
             ...data.participating,
-            submitedUsers: data.participating.submitedUsers.filter(
+            submittedUsers: data.participating.submittedUsers.filter(
               (id: string) => id !== userId
             ),
             awaitingUsers:
@@ -197,7 +202,7 @@ export const createEvent = async (event: IEvent) => {
 };
 
 export const getUsers = async (
-  submitedUsers: string[],
+  submittedUsers: string[],
   awaitingUsers: string[]
 ) => {
   let submitted: DocumentData[] = [];
@@ -205,7 +210,7 @@ export const getUsers = async (
   let q = collection(db, 'users');
 
   await Promise.all(
-    submitedUsers.map(async (userId) => {
+    submittedUsers.map(async (userId) => {
       const user = query(q, where('uid', '==', userId));
       const querySnapShot = await getDocs(user);
       const data = querySnapShot.docs.map((doc) => doc.data());
@@ -394,7 +399,7 @@ export const getParticipatedEvents = async (
   let eventsQuery = query(
     q,
     where(
-      `event.participating.submitedUsers`,
+      `event.participating.submittedUsers`,
       'array-contains',
       user && user.uid
     ),

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Title = styled.h2`
+const StyledTitle = styled.h2`
   color: rgba(32, 32, 32, 0.77);
   font-style: normal;
   font-weight: 600;
@@ -8,4 +8,4 @@ const Title = styled.h2`
   line-height: 48px;
 `;
 
-export { Title };
+export { StyledTitle };
