@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const PageTitle = styled.h2`
+const StyledPageTitle = styled.h2`
   margin-top: 2rem;
   color: rgba(32, 32, 32, 0.77);
   font-style: normal;
@@ -9,7 +9,7 @@ const PageTitle = styled.h2`
   line-height: 3rem;
 `;
 
-const EventFormWrapper = styled.form`
+const StyledEventFormWrapper = styled.form`
   width: 100%;
   padding: 3rem 1rem;
   display: flex;
@@ -19,7 +19,7 @@ const EventFormWrapper = styled.form`
   gap: 1.5rem;
 `;
 
-const FormMainWrapper = styled.div`
+const StyledFormMainWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -33,7 +33,7 @@ const FormMainWrapper = styled.div`
   }
 `;
 
-const FormFooterWrapper = styled.div`
+const StyledFormFooterWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -44,7 +44,7 @@ const FormFooterWrapper = styled.div`
   }
 `;
 
-const InputsWrapper = styled.div`
+const StyledInputsWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -53,7 +53,7 @@ const InputsWrapper = styled.div`
   gap: 0.5rem;
 `;
 
-const EventTypesWrapper = styled.div`
+const StyledEventTypesWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -63,10 +63,10 @@ const EventTypesWrapper = styled.div`
 `;
 
 export {
-  EventTypesWrapper,
-  InputsWrapper,
-  FormFooterWrapper,
-  FormMainWrapper,
-  EventFormWrapper,
-  PageTitle,
+  StyledEventFormWrapper,
+  StyledEventTypesWrapper,
+  StyledFormFooterWrapper,
+  StyledFormMainWrapper,
+  StyledInputsWrapper,
+  StyledPageTitle,
 };

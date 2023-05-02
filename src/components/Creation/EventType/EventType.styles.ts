@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const EventTypeWrapper = styled.div`
+const StyledEventTypeWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -15,10 +15,9 @@ const StyledTypeButton = styled.button`
   padding: 0.3rem;
   background-color: #d6d6d6;
   border-radius: 5px;
-  color: #1d1d1d;
+  color: #717171;
   flex: 1;
   white-space: nowrap;
-
   transition: 0.1s;
   width: 100%;
   &:hover,
@@ -30,4 +29,4 @@ const StyledTypeButton = styled.button`
   }
 `;
 
-export { EventTypeWrapper, StyledTypeButton };
+export { StyledEventTypeWrapper, StyledTypeButton };

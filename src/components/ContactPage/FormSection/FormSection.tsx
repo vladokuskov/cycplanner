@@ -1,8 +1,17 @@
-import { Input } from '../../Input/Input';
-import { FormSectionWrapper, Title, FormWrapper } from './FormSection.styles';
-import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
 import { useState } from 'react';
+
+import {
+  faEnvelope,
+  faUser,
+} from '@fortawesome/free-regular-svg-icons';
+
 import { Button } from '../../Button/Button';
+import { Input } from '../../Input/Input';
+import {
+  StyledFormSectionWrapper,
+  StyledFormWrapper,
+  StyledTitle,
+} from './FormSection.styles';
 
 const FormSection = () => {
   const [contactForm, setContactForm] = useState({
@@ -25,7 +34,7 @@ const FormSection = () => {
 
     setIsSending(true);
 
-    // Imitating API
+    // Imitating API, replace later with EmailJS or similar
     const newTimer = setTimeout(() => {
       setContactForm({ name: '', email: '', message: '' });
       setIsSending(false);
@@ -39,9 +48,9 @@ const FormSection = () => {
   };
 
   return (
-    <FormSectionWrapper>
-      <Title>Contact us</Title>
-      <FormWrapper onSubmit={handleSubmit}>
+    <StyledFormSectionWrapper>
+      <StyledTitle>Contact us</StyledTitle>
+      <StyledFormWrapper onSubmit={handleSubmit}>
         <Input
           fieldType="text"
           name="name"
@@ -68,7 +77,7 @@ const FormSection = () => {
           name="message"
           variant="textarea"
           icon={faUser}
-          placeholder="Your messasge"
+          placeholder="Your message"
           value={contactForm.message}
           onChange={handleFormChange}
           required
@@ -79,8 +88,8 @@ const FormSection = () => {
           text={isSending ? 'Sending' : 'Send'}
           disabled={isSending}
         />
-      </FormWrapper>
-    </FormSectionWrapper>
+      </StyledFormWrapper>
+    </StyledFormSectionWrapper>
   );
 };
 

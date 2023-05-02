@@ -18,7 +18,7 @@ const Button = ({
   bold = false,
   disabled = false,
   status = 'default',
-  rotate,
+  rotate = false,
   wider = false,
 }: Button) => {
   return (

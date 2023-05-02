@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const StyledErrorMessageWrapper = styled.div`
+  margin-top: 1.5rem;
   width: 100%;
   display: flex;
   align-items: center;

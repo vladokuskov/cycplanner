@@ -1,9 +1,13 @@
-import { useEffect, useMemo, useState } from 'react';
+import {
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
-import { CopiedMessage } from '@/components/Event/Event.styles.ts';
+import { StyledCopiedMessage } from '@/components/Event/Event.styles.ts';
 import { Loading } from '@/components/types/shared/loadingState.types';
 import { useAuth } from '@/context/AuthContext';
 import {
@@ -27,7 +31,10 @@ import {
 import { Button } from '../../Button/Button';
 import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
 import { SkeletonLoader } from '../../skeleton/Skeleton';
-import { IEvent, Participating } from '../../types/shared/event.types';
+import {
+  IEvent,
+  Participating,
+} from '../../types/shared/event.types';
 import {
   ControlsWrapper,
   Description,
@@ -90,8 +97,8 @@ const DetailMainSection = ({
     };
 
     const checkIsParticipated = async () => {
-      if (user && user.uid && event?.participating?.submitedUsers) {
-        const isParticipated = event.participating?.submitedUsers.includes(
+      if (user && user.uid && event?.participating?.submittedUsers) {
+        const isParticipated = event.participating?.submittedUsers.includes(
           user.uid as never
         );
         const isAwaiting = event.participating?.awaitingUsers.includes(
@@ -198,7 +205,7 @@ const DetailMainSection = ({
             onClick={copyEventDetailURL}
           />
         ) : (
-          <CopiedMessage>Copied</CopiedMessage>
+          <StyledCopiedMessage>Copied</StyledCopiedMessage>
         )}
         <Button
           className="favoriteBtn"

@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { Participating } from '@/components/types/shared/event.types';
 
-const EventWrapper = styled.div`
+const StyledEventWrapper = styled.div`
   position: relative;
   max-width: 43rem;
   min-width: 16rem;
@@ -19,7 +19,7 @@ const EventWrapper = styled.div`
   }
 `;
 
-const HeaderButtonsWrapper = styled.div`
+const StyledHeaderButtonsWrapper = styled.div`
   display: flex;
   gap: 2rem;
   align-items: center;
@@ -27,7 +27,7 @@ const HeaderButtonsWrapper = styled.div`
   position: relative;
 `;
 
-const EventMenu = styled.div`
+const StyledEventMenu = styled.div`
   position: absolute;
   width: 10rem;
   background-color: #f7f7f7;
@@ -53,7 +53,7 @@ const EventMenu = styled.div`
   }
 `;
 
-const EventMenuButton = styled.button<{
+const StyledEventMenuButton = styled.button<{
   isDisabled?: boolean;
   danger?: boolean;
 }>`
@@ -75,7 +75,7 @@ const EventMenuButton = styled.button<{
   }
 `;
 
-const CopiedMessage = styled.p`
+const StyledCopiedMessage = styled.p`
   transition: 0.2s;
   background-color: #d0d0d0;
   color: #fff;
@@ -87,7 +87,7 @@ const CopiedMessage = styled.p`
   border-radius: 8px;
   pointer-events: none;
 `;
-const EventHeaderWrapper = styled.div`
+const StyledEventHeaderWrapper = styled.div`
   width: 100%;
   padding: 1rem 0.9rem;
   display: flex;
@@ -95,7 +95,7 @@ const EventHeaderWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const EventMainWrapper = styled.div`
+const StyledEventMainWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -108,7 +108,7 @@ const EventMainWrapper = styled.div`
   }
 `;
 
-const EventContentWrapper = styled.div`
+const StyledEventContentWrapper = styled.div`
   width: 100%;
   padding: 0.1rem 0.9rem 0.1rem 0.9rem;
   display: flex;
@@ -118,14 +118,14 @@ const EventContentWrapper = styled.div`
   gap: 0.5rem;
 `;
 
-const MapPlaceholder = styled.div`
+const StyledMapPlaceholder = styled.div`
   width: 100%;
   padding: 0 1rem 1rem 1rem;
   height: 13rem;
   border-radius: 8px;
 `;
 
-const EventMapWrapper = styled.div<{ isMapMaximized: boolean }>`
+const StyledEventMapWrapper = styled.div<{ isMapMaximized: boolean }>`
   width: 100%;
   padding: 0 1rem 1rem 1rem;
   height: 13rem;
@@ -143,7 +143,7 @@ const EventMapWrapper = styled.div<{ isMapMaximized: boolean }>`
     `}
 `;
 
-const ContentInfoWrapper = styled.div`
+const StyledContentInfoWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -152,7 +152,7 @@ const ContentInfoWrapper = styled.div`
   gap: 0.4rem;
 `;
 
-const ContentButtonsWrapper = styled.div<{
+const StyledContentButtonsWrapper = styled.div<{
   isFavorite: boolean;
   participated: Participating;
 }>`
@@ -206,7 +206,7 @@ const ContentButtonsWrapper = styled.div<{
   }
 `;
 
-const EventTitle = styled.h3`
+const StyledEventTitle = styled.h3`
   font-weight: 500;
   font-size: 1.3rem;
   line-height: 23px;
@@ -214,34 +214,34 @@ const EventTitle = styled.h3`
   color: #2c2c2c;
 `;
 
-const EventDescription = styled.p`
+const StyledEventDescription = styled.p`
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.2rem;
   color: #656565;
 `;
 
-const EventDetailWrapper = styled.div`
+const StyledEventDetailWrapper = styled.div`
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
   gap: 0.2rem;
 `;
 
-const DetailTitle = styled.h4`
+const StyledDetailTitle = styled.h4`
   font-weight: 500;
   font-size: 1rem;
   line-height: 1.2rem;
   color: #454545;
 `;
-const DetailDescription = styled.p`
+const StyledDetailDescription = styled.p`
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.2rem;
   color: #656565;
 `;
 
-const ButtonWrapper = styled.div`
+const StyledButtonWrapper = styled.div`
   position: relative;
   p {
     position: absolute;
@@ -255,7 +255,7 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const DetailLocation = styled.a`
+const StyledDetailLocation = styled.a`
   cursor: pointer;
   text-decoration: underline;
   text-decoration-color: #656565;
@@ -270,23 +270,23 @@ const DetailLocation = styled.a`
 `;
 
 export {
-  ButtonWrapper,
-  ContentButtonsWrapper,
-  ContentInfoWrapper,
-  CopiedMessage,
-  DetailDescription,
-  DetailLocation,
-  DetailTitle,
-  EventContentWrapper,
-  EventDescription,
-  EventDetailWrapper,
-  EventHeaderWrapper,
-  EventMainWrapper,
-  EventMapWrapper,
-  EventMenu,
-  EventMenuButton,
-  EventTitle,
-  EventWrapper,
-  HeaderButtonsWrapper,
-  MapPlaceholder,
+  StyledButtonWrapper,
+  StyledContentButtonsWrapper,
+  StyledContentInfoWrapper,
+  StyledCopiedMessage,
+  StyledDetailDescription,
+  StyledDetailLocation,
+  StyledDetailTitle,
+  StyledEventContentWrapper,
+  StyledEventDescription,
+  StyledEventDetailWrapper,
+  StyledEventHeaderWrapper,
+  StyledEventMainWrapper,
+  StyledEventMapWrapper,
+  StyledEventMenu,
+  StyledEventMenuButton,
+  StyledEventTitle,
+  StyledEventWrapper,
+  StyledHeaderButtonsWrapper,
+  StyledMapPlaceholder,
 };

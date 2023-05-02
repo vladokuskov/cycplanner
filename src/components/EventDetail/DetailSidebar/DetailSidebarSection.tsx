@@ -1,3 +1,11 @@
+import {
+  useEffect,
+  useState,
+} from 'react';
+
+import { DocumentData } from 'firebase/firestore';
+
+import { SkeletonLoader } from '@/components/skeleton/Skeleton';
 import { useAuth } from '@/context/AuthContext';
 import {
   approveUserParticipating,
@@ -5,22 +13,23 @@ import {
   removeUserFromParticipating,
 } from '@/firebase/events';
 import {
-  UserControlButtonsWrapper,
-  UserControlWrapper,
-  ParticipantsList,
-  SwitchButton,
-  SwitcherWrapper,
-  SectionTiitle,
-  DetailSidebarSectionWrapper,
-} from './DetailSidebarSection.styles';
-import { DocumentData } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+  faCheckCircle,
+  faTrashAlt,
+} from '@fortawesome/free-regular-svg-icons';
+
+import { Button } from '../../Button/Button';
 import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
 import { IEvent } from '../../types/shared/event.types';
 import { Loading } from '../../types/shared/loadingState.types';
-import { faCheckCircle, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
-import { Button } from '../../Button/Button';
-import { SkeletonLoader } from '@/components/skeleton/Skeleton';
+import {
+  DetailSidebarSectionWrapper,
+  ParticipantsList,
+  SectionTiitle,
+  SwitchButton,
+  SwitcherWrapper,
+  UserControlButtonsWrapper,
+  UserControlWrapper,
+} from './DetailSidebarSection.styles';
 
 const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
   const [eventUsers, setEventUsers] = useState({
@@ -42,7 +51,7 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
   useEffect(() => {
     if (event && event.participating) {
       setEventUsers({
-        submitted: event.participating?.submitedUsers,
+        submitted: event.participating?.submittedUsers,
         awaiting: event.participating?.awaitingUsers,
       });
     }
@@ -127,11 +136,11 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
     if (
       event &&
       event.participating &&
-      event.participating.submitedUsers &&
+      event.participating.submittedUsers &&
       event.participating.awaitingUsers
     ) {
       fetchData(
-        event.participating.submitedUsers,
+        event.participating.submittedUsers,
         event.participating.awaitingUsers
       );
     }

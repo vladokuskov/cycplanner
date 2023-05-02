@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-const BannerSectionMainWrapper = styled.section`
+const StyledBannerSectionMainWrapper = styled.section`
   width: 100%;
 `;
 
-const Title = styled.h2`
+const StyledTitle = styled.h2`
   font-family: 'Lato';
   font-style: normal;
   font-weight: 600;
@@ -18,7 +18,7 @@ const Title = styled.h2`
   width: 100%;
   margin: 0 auto;
 `;
-const BannerImageWrapper = styled.div`
+const StyledBannerImageWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 19rem;
@@ -27,9 +27,14 @@ const BannerImageWrapper = styled.div`
   font-size: 0.9rem;
   margin-top: 1rem;
 `;
-const BannerImage = styled(Image)`
+const StyledBannerImage = styled(Image)`
   object-fit: cover;
   object-position: left;
 `;
 
-export { BannerSectionMainWrapper, BannerImageWrapper, BannerImage, Title };
+export {
+  StyledBannerImage,
+  StyledBannerImageWrapper,
+  StyledBannerSectionMainWrapper,
+  StyledTitle,
+};

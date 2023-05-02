@@ -1,10 +1,20 @@
 import { IEventType } from '@/components/types/shared/eventType';
-import { EventTypeWrapper, StyledTypeButton } from './EventType.styles';
+
+import {
+  StyledEventTypeWrapper,
+  StyledTypeButton,
+} from './EventType.styles';
 
 const EventType = ({ handleTypeChange }: IEventType) => {
-  const eventTypes = ['Ride', 'Gravel Ride', 'Race', 'Dirt', 'Chill ride'];
+  const eventTypes = [
+    'Ride',
+    'Gravel Ride',
+    'Race',
+    'High tempo',
+    'Chill ride',
+  ];
   return (
-    <EventTypeWrapper>
+    <StyledEventTypeWrapper>
       {eventTypes.map((type) => (
         <StyledTypeButton
           onClick={() => handleTypeChange(type)}
@@ -14,7 +24,7 @@ const EventType = ({ handleTypeChange }: IEventType) => {
           {type}
         </StyledTypeButton>
       ))}
-    </EventTypeWrapper>
+    </StyledEventTypeWrapper>
   );
 };
 

@@ -12,8 +12,14 @@ import {
 import { convertFirebaseError } from '@/utils/convertFirebaseError';
 import { validateAuth } from '@/utils/validateAuth';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
-import { faArrowLeftLong, faKey } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEnvelope,
+  faUser,
+} from '@fortawesome/free-regular-svg-icons';
+import {
+  faArrowLeftLong,
+  faKey,
+} from '@fortawesome/free-solid-svg-icons';
 
 import { Button } from '../Button/Button';
 import { Input } from '../Input/Input';
@@ -53,35 +59,25 @@ const Auth = ({ variant }: Auth) => {
     setShowPassword((prevState) => !prevState);
   };
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleForm = async (
+    e: React.FormEvent<HTMLFormElement>,
+    isLogin: boolean
+  ) => {
     e.preventDefault();
 
     try {
-      const isValid = await validateAuth({ email, password });
+      const isValid = await validateAuth(
+        isLogin ? { email, password } : { email, username, password }
+      );
       if (isValid) {
-        await logInWithEmailAndPassword(email, password);
-
-        setEmail('');
-        setPassword('');
-
-        router.push('/');
-      }
-    } catch (err: any) {
-      setValidationResponse(convertFirebaseError(err.code));
-      setIsFormValidated(false);
-    }
-  };
-
-  const handleRegistration = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    try {
-      const isValid = await validateAuth({ email, username, password });
-      if (isValid && confirmationPassword !== password) {
-        setValidationResponse('Passwords do not match');
-        return null;
-      } else if (isValid) {
-        await registerWithEmailAndPassword(username, email, password);
+        if (isLogin) {
+          await logInWithEmailAndPassword(email, password);
+        } else if (confirmationPassword !== password) {
+          setValidationResponse('Passwords do not match');
+          return null;
+        } else {
+          await registerWithEmailAndPassword(username, email, password);
+        }
 
         setEmail('');
         setPassword('');
@@ -94,6 +90,14 @@ const Auth = ({ variant }: Auth) => {
       setIsFormValidated(false);
     }
   };
+
+  // Boolean value in handleForm indicate whether the form being handled is a login or a registration form.
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) =>
+    handleForm(e, true);
+
+  const handleRegistration = async (e: React.FormEvent<HTMLFormElement>) =>
+    handleForm(e, false);
 
   const handleSignWithGoogle = async () => {
     await signInWithGoogle();

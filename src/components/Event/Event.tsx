@@ -1,4 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { useClickOutside } from 'hooks/useClickOutside';
 import dynamic from 'next/dynamic';
@@ -10,6 +15,7 @@ import {
   updateEventParticipating,
   updateFavoriteEvents,
 } from '@/firebase/events';
+import { getHumanDate } from '@/utils/getHumanDate';
 import {
   faClockFour,
   faComment,
@@ -26,27 +32,30 @@ import {
 import { Button } from '../Button/Button';
 import { ProfilePreview } from '../ProfilePreview/ProfilePreview';
 import { SkeletonLoader } from '../skeleton/Skeleton';
-import { IEvent, Participating } from '../types/shared/event.types';
 import {
-  ButtonWrapper,
-  ContentButtonsWrapper,
-  ContentInfoWrapper,
-  CopiedMessage,
-  DetailDescription,
-  DetailLocation,
-  DetailTitle,
-  EventContentWrapper,
-  EventDescription,
-  EventDetailWrapper,
-  EventHeaderWrapper,
-  EventMainWrapper,
-  EventMapWrapper,
-  EventMenu,
-  EventMenuButton,
-  EventTitle,
-  EventWrapper,
-  HeaderButtonsWrapper,
-  MapPlaceholder,
+  IEvent,
+  Participating,
+} from '../types/shared/event.types';
+import {
+  StyledButtonWrapper,
+  StyledContentButtonsWrapper,
+  StyledContentInfoWrapper,
+  StyledCopiedMessage,
+  StyledDetailDescription,
+  StyledDetailLocation,
+  StyledDetailTitle,
+  StyledEventContentWrapper,
+  StyledEventDescription,
+  StyledEventDetailWrapper,
+  StyledEventHeaderWrapper,
+  StyledEventMainWrapper,
+  StyledEventMapWrapper,
+  StyledEventMenu,
+  StyledEventMenuButton,
+  StyledEventTitle,
+  StyledEventWrapper,
+  StyledHeaderButtonsWrapper,
+  StyledMapPlaceholder,
 } from './Event.styles.ts';
 
 const Event = ({
@@ -71,14 +80,6 @@ const Event = ({
   const [isMapMaximized, setIsMapMaximized] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState(false);
 
-  const humanDate =
-    event.metadata.createdAt &&
-    new Date(event.metadata.createdAt).toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-
   const Map = useMemo(
     () =>
       dynamic(() => import('../EventMap/Map'), {
@@ -89,34 +90,21 @@ const Event = ({
   );
 
   useEffect(() => {
-    const checkIsFavorite = async () => {
-      if (user && user.uid && event.favoriteUsers) {
-        const isFavorite = event.favoriteUsers.includes(user.uid as never);
-        setIsFavorite(isFavorite);
+    if (!user) {
+      setParticipatingStatus(Participating.none);
+      return;
+    } else if (user && user.uid && event.favoriteUsers) {
+      const isFavorite = event.favoriteUsers.includes(user.uid);
+      setIsFavorite(!!isFavorite);
+
+      const submittedUsers = event.participating?.submittedUsers;
+      const awaitingUsers = event.participating?.awaitingUsers;
+      if (submittedUsers?.includes(user.uid)) {
+        setParticipatingStatus(Participating.participated);
+      } else if (awaitingUsers?.includes(user.uid)) {
+        setParticipatingStatus(Participating.awaiting);
       }
-    };
-
-    const checkIsParticipated = async () => {
-      if (user && user.uid && event.participating?.submitedUsers) {
-        const isParticipated = event.participating?.submitedUsers.includes(
-          user.uid as never
-        );
-        const isAwaiting = event.participating?.awaitingUsers.includes(
-          user.uid as never
-        );
-        if (isParticipated) {
-          setParticipatingStatus(Participating.participated);
-        } else if (isAwaiting) {
-          setParticipatingStatus(Participating.awaiting);
-        }
-      } else if (!user) {
-        setParticipatingStatus(Participating.none);
-      }
-    };
-
-    checkIsFavorite();
-
-    checkIsParticipated();
+    }
   }, [user]);
 
   const handleMapMaximizing = () => {
@@ -204,15 +192,15 @@ const Event = ({
   };
 
   return (
-    <EventWrapper ref={eventContentRef}>
-      <EventHeaderWrapper>
+    <StyledEventWrapper ref={eventContentRef}>
+      <StyledEventHeaderWrapper>
         <ProfilePreview
           name={event.metadata.author.username}
-          description={humanDate ? humanDate : ''}
+          description={getHumanDate(event.metadata.createdAt)}
           photoURL={event.metadata.author.photoUrl}
           variant="no-link"
         />
-        <HeaderButtonsWrapper ref={eventHeaderRef}>
+        <StyledHeaderButtonsWrapper ref={eventHeaderRef}>
           {!isCopied ? (
             <Button
               variant="icon"
@@ -221,7 +209,7 @@ const Event = ({
               onClick={copyEventDetailURL}
             />
           ) : (
-            <CopiedMessage>Copied</CopiedMessage>
+            <StyledCopiedMessage>Copied</StyledCopiedMessage>
           )}
           {user?.uid === event?.metadata.author.uid && (
             <Button
@@ -233,43 +221,45 @@ const Event = ({
             />
           )}
           {isEventMenuOpen && user?.uid === event?.metadata.author.uid && (
-            <EventMenu>
-              <EventMenuButton danger onClick={handleEventDelete}>
+            <StyledEventMenu>
+              <StyledEventMenuButton danger onClick={handleEventDelete}>
                 Delete event
-              </EventMenuButton>
-            </EventMenu>
+              </StyledEventMenuButton>
+            </StyledEventMenu>
           )}
-        </HeaderButtonsWrapper>
-      </EventHeaderWrapper>
-      <EventMainWrapper>
-        <EventContentWrapper>
-          <ContentInfoWrapper>
-            <EventTitle>{event.title}</EventTitle>
-            <EventDescription>{event.description}</EventDescription>
-            <EventDetailWrapper>
-              <DetailTitle>Type:</DetailTitle>
-              <DetailDescription>{event.type}</DetailDescription>
-            </EventDetailWrapper>
-            <EventDetailWrapper>
-              <DetailTitle>Distance:</DetailTitle>
-              <DetailDescription>{event.distance} km</DetailDescription>
-            </EventDetailWrapper>
-            <EventDetailWrapper>
-              <DetailTitle>Start location:</DetailTitle>
-              <DetailLocation
+        </StyledHeaderButtonsWrapper>
+      </StyledEventHeaderWrapper>
+      <StyledEventMainWrapper>
+        <StyledEventContentWrapper>
+          <StyledContentInfoWrapper>
+            <StyledEventTitle>{event.title}</StyledEventTitle>
+            <StyledEventDescription>{event.description}</StyledEventDescription>
+            <StyledEventDetailWrapper>
+              <StyledDetailTitle>Type:</StyledDetailTitle>
+              <StyledDetailDescription>{event.type}</StyledDetailDescription>
+            </StyledEventDetailWrapper>
+            <StyledEventDetailWrapper>
+              <StyledDetailTitle>Distance:</StyledDetailTitle>
+              <StyledDetailDescription>
+                {event.distance} km
+              </StyledDetailDescription>
+            </StyledEventDetailWrapper>
+            <StyledEventDetailWrapper>
+              <StyledDetailTitle>Start location:</StyledDetailTitle>
+              <StyledDetailLocation
                 title="View on Google Maps"
                 target="_blank"
                 href={`https://www.google.com/maps/search/?api=1&query=${event.location.geoPoint?.lat},${event.location.geoPoint?.lon}`}
               >
-                <DetailDescription>{`${event.location.geoPoint?.lat
+                <StyledDetailDescription>{`${event.location.geoPoint?.lat
                   ?.toString()
                   .substring(0, 6)}, ${event.location.geoPoint?.lon
                   ?.toString()
-                  .substring(0, 6)}`}</DetailDescription>
-              </DetailLocation>
-            </EventDetailWrapper>
-          </ContentInfoWrapper>
-          <ContentButtonsWrapper
+                  .substring(0, 6)}`}</StyledDetailDescription>
+              </StyledDetailLocation>
+            </StyledEventDetailWrapper>
+          </StyledContentInfoWrapper>
+          <StyledContentButtonsWrapper
             isFavorite={isFavorite}
             participated={participatingStatus}
           >
@@ -286,15 +276,15 @@ const Event = ({
               size="xl2"
               onClick={handleRedirectToDetail}
             />
-            <ButtonWrapper>
-              <p>{event.participating?.submitedUsers.length}</p>
+            <StyledButtonWrapper>
+              <p>{event.participating?.submittedUsers.length}</p>
               <Button
                 variant="icon"
                 icon={faUserCircle}
                 size="xl2"
                 onClick={handleRedirectToDetail}
               />
-            </ButtonWrapper>
+            </StyledButtonWrapper>
 
             {user?.uid !== event.metadata.author.uid && (
               <Button
@@ -318,18 +308,18 @@ const Event = ({
                 onClick={handleParticipating}
               />
             )}
-          </ContentButtonsWrapper>
-        </EventContentWrapper>
-        <EventMapWrapper isMapMaximized={isMapMaximized}>
+          </StyledContentButtonsWrapper>
+        </StyledEventContentWrapper>
+        <StyledEventMapWrapper isMapMaximized={isMapMaximized}>
           <Map
             route={event.route}
             isMapMaximized={isMapMaximized}
             handleMapMaximizing={handleMapMaximizing}
           />
-        </EventMapWrapper>
-        {isMapMaximized && <MapPlaceholder />}
-      </EventMainWrapper>
-    </EventWrapper>
+        </StyledEventMapWrapper>
+        {isMapMaximized && <StyledMapPlaceholder />}
+      </StyledEventMainWrapper>
+    </StyledEventWrapper>
   );
 };
 
