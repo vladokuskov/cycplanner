@@ -22,13 +22,13 @@ import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
 import { IEvent } from '../../types/shared/event.types';
 import { Loading } from '../../types/shared/loadingState.types';
 import {
-  DetailSidebarSectionWrapper,
-  ParticipantsList,
-  SectionTiitle,
-  SwitchButton,
-  SwitcherWrapper,
-  UserControlButtonsWrapper,
-  UserControlWrapper,
+  StyledDetailSidebarSectionWrapper,
+  StyledParticipantsList,
+  StyledSectionTitle,
+  StyledSwitchButton,
+  StyledSwitcherWrapper,
+  StyledUserControlButtonsWrapper,
+  StyledUserControlWrapper,
 } from './DetailSidebarSection.styles';
 
 const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
@@ -109,7 +109,7 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
     }
   };
 
-  const handleParticipantAprrove = async (participantId: string) => {
+  const handleParticipantApprove = async (participantId: string) => {
     if (event && event?.id && event.participating) {
       try {
         await approveUserParticipating(event?.id, participantId);
@@ -147,27 +147,27 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
   }, []);
 
   return (
-    <DetailSidebarSectionWrapper>
-      <SectionTiitle>Participants</SectionTiitle>
+    <StyledDetailSidebarSectionWrapper>
+      <StyledSectionTitle>Participants</StyledSectionTitle>
       {user?.uid === event?.metadata.author.uid && (
-        <SwitcherWrapper>
-          <SwitchButton
+        <StyledSwitcherWrapper>
+          <StyledSwitchButton
             onClick={() => handleFilterChange('submitted')}
             disabled={selectedFilter === 'submitted'}
             title="Participants"
           >
             Participants
-          </SwitchButton>
-          <SwitchButton
+          </StyledSwitchButton>
+          <StyledSwitchButton
             onClick={() => handleFilterChange('awaiting')}
             disabled={selectedFilter === 'awaiting'}
             title="Awaiting participants"
           >
             Awaiting
-          </SwitchButton>
-        </SwitcherWrapper>
+          </StyledSwitchButton>
+        </StyledSwitcherWrapper>
       )}
-      <ParticipantsList>
+      <StyledParticipantsList>
         {loadingState === Loading.loading ? (
           <SkeletonLoader variant="users" />
         ) : loadingState === Loading.success ? (
@@ -175,7 +175,7 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
             {selectedFilter === 'submitted'
               ? submittedUsers?.map((participant: any, i) => {
                   return (
-                    <UserControlWrapper key={i}>
+                    <StyledUserControlWrapper key={i}>
                       <ProfilePreview
                         variant="no-link"
                         name={participant.name}
@@ -188,7 +188,7 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
                       />
                       {user?.uid === event?.metadata.author.uid &&
                         user?.uid !== participant.uid && (
-                          <UserControlButtonsWrapper>
+                          <StyledUserControlButtonsWrapper>
                             <Button
                               variant="icon"
                               status="error"
@@ -200,14 +200,14 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
                                 handleParticipantRemove(participant.uid)
                               }
                             />
-                          </UserControlButtonsWrapper>
+                          </StyledUserControlButtonsWrapper>
                         )}
-                    </UserControlWrapper>
+                    </StyledUserControlWrapper>
                   );
                 })
               : awaitingUsers?.map((participant: any, i) => {
                   return (
-                    <UserControlWrapper key={i}>
+                    <StyledUserControlWrapper key={i}>
                       <ProfilePreview
                         variant="no-link"
                         name={participant.name}
@@ -220,7 +220,7 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
                       />
                       {user?.uid === event?.metadata.author.uid &&
                         user?.uid !== participant.uid && (
-                          <UserControlButtonsWrapper>
+                          <StyledUserControlButtonsWrapper>
                             <Button
                               variant="icon"
                               status="success"
@@ -229,7 +229,7 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
                               size="md3"
                               bold
                               onClick={() =>
-                                handleParticipantAprrove(participant.uid)
+                                handleParticipantApprove(participant.uid)
                               }
                             />
                             <Button
@@ -243,17 +243,17 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
                                 handleParticipantRemove(participant.uid)
                               }
                             />
-                          </UserControlButtonsWrapper>
+                          </StyledUserControlButtonsWrapper>
                         )}
-                    </UserControlWrapper>
+                    </StyledUserControlWrapper>
                   );
                 })}
           </>
         ) : (
           <p>Error</p>
         )}
-      </ParticipantsList>
-    </DetailSidebarSectionWrapper>
+      </StyledParticipantsList>
+    </StyledDetailSidebarSectionWrapper>
   );
 };
 

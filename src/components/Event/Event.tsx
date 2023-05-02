@@ -5,16 +5,14 @@ import {
   useState,
 } from 'react';
 
-import { useClickOutside } from 'hooks/useClickOutside';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
 import { useAuth } from '@/context/AuthContext';
-import {
-  deleteEvent,
-  updateEventParticipating,
-  updateFavoriteEvents,
-} from '@/firebase/events';
+import { deleteEvent } from '@/firebase/events';
+import { useClickOutside } from '@/hooks/useClickOutside';
+import { useCopyEventURL } from '@/hooks/useCopyEventUrl';
+import { useEventStatus } from '@/hooks/useEventStatus';
 import { getHumanDate } from '@/utils/getHumanDate';
 import {
   faClockFour,
@@ -65,21 +63,6 @@ const Event = ({
   event: IEvent;
   handleForceFetch: () => void;
 }) => {
-  const router = useRouter();
-  const { user } = useAuth();
-  const eventContentRef = useRef<HTMLDivElement>(null);
-  const eventHeaderRef = useRef<HTMLDivElement>(null);
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [participatingStatus, setParticipatingStatus] = useState<Participating>(
-    Participating.none
-  );
-  const [isEventMenuOpen, setIsEventMenuOpen] = useClickOutside(
-    eventHeaderRef,
-    false
-  );
-  const [isMapMaximized, setIsMapMaximized] = useState<boolean>(false);
-  const [isCopied, setIsCopied] = useState(false);
-
   const Map = useMemo(
     () =>
       dynamic(() => import('../EventMap/Map'), {
@@ -88,39 +71,30 @@ const Event = ({
       }),
     []
   );
+  const { user } = useAuth();
+  const router = useRouter();
 
-  useEffect(() => {
-    if (!user) {
-      setParticipatingStatus(Participating.none);
-      return;
-    } else if (user && user.uid && event.favoriteUsers) {
-      const isFavorite = event.favoriteUsers.includes(user.uid);
-      setIsFavorite(!!isFavorite);
+  const eventContentRef = useRef<HTMLDivElement>(null);
+  const eventHeaderRef = useRef<HTMLDivElement>(null);
+  const {
+    participatingStatus,
+    isFavorite,
+    updateParticipatingStatus,
+    updateFavoriteStatus,
+  } = useEventStatus(user ? user : null, event);
 
-      const submittedUsers = event.participating?.submittedUsers;
-      const awaitingUsers = event.participating?.awaitingUsers;
-      if (submittedUsers?.includes(user.uid)) {
-        setParticipatingStatus(Participating.participated);
-      } else if (awaitingUsers?.includes(user.uid)) {
-        setParticipatingStatus(Participating.awaiting);
-      }
-    }
-  }, [user]);
+  const [isEventMenuOpen, setIsEventMenuOpen] = useClickOutside(
+    eventHeaderRef,
+    false
+  );
+  const [isMapMaximized, setIsMapMaximized] = useState<boolean>(false);
+  const { copyToClipboard, isCopied } = useCopyEventURL(
+    event && event.id ? event.id : null,
+    'event'
+  );
 
   const handleMapMaximizing = () => {
     setIsMapMaximized((prev) => !prev);
-  };
-
-  const copyEventDetailURL = async () => {
-    const baseURL = window.location.href;
-    if (baseURL) {
-      await navigator.clipboard.writeText(`${baseURL}event/${event.id}`);
-      setIsCopied(true);
-
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 2000);
-    }
   };
 
   const handleRedirectToDetail = () => {
@@ -128,38 +102,11 @@ const Event = ({
   };
 
   const handleFavorite = async () => {
-    if (user && event.id) {
-      await updateFavoriteEvents(user?.uid, event.id);
-      setIsFavorite((prev) => !prev);
-    } else if (!user) {
-      router.push('/login');
-    }
+    await updateFavoriteStatus();
   };
 
   const handleParticipating = async () => {
-    if (user && event.id) {
-      if (participatingStatus === Participating.none) {
-        await updateEventParticipating(user?.uid, event.id);
-        setParticipatingStatus(Participating.awaiting);
-      } else if (participatingStatus === Participating.awaiting) {
-        await updateEventParticipating(user?.uid, event.id);
-        setParticipatingStatus(Participating.none);
-      } else if (participatingStatus === Participating.participated) {
-        try {
-          const result = window.confirm(
-            'Are you sure you want to cancel participating?'
-          );
-          if (result && event && event.id) {
-            await updateEventParticipating(user?.uid, event.id);
-            setParticipatingStatus(Participating.none);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    } else if (!user) {
-      router.push('/login');
-    }
+    await updateParticipatingStatus();
   };
 
   useEffect(() => {
@@ -206,7 +153,7 @@ const Event = ({
               variant="icon"
               icon={faShareNodes}
               size="md3"
-              onClick={copyEventDetailURL}
+              onClick={copyToClipboard}
             />
           ) : (
             <StyledCopiedMessage>Copied</StyledCopiedMessage>

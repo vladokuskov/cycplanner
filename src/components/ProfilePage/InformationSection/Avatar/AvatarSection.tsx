@@ -1,9 +1,14 @@
-import { useRef, useState } from 'react';
-
-import { useClickOutside } from 'hooks/useClickOutside';
+import {
+  useRef,
+  useState,
+} from 'react';
 
 import { useAuth } from '@/context/AuthContext';
-import { removeProfilePicture, uploadAvatar } from '@/firebase/profile';
+import {
+  removeProfilePicture,
+  uploadAvatar,
+} from '@/firebase/profile';
+import { useClickOutside } from '@/hooks/useClickOutside';
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 

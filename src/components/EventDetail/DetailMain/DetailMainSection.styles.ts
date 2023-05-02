@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { Participating } from '@/components/types/shared/event.types';
 
-const DetailMainSectionWrapper = styled.section`
+const StyledDetailMainSectionWrapper = styled.section`
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -17,7 +17,7 @@ const DetailMainSectionWrapper = styled.section`
   }
 `;
 
-const MapWrapper = styled.div<{ isMapMaximized: boolean }>`
+const StyledMapWrapper = styled.div<{ isMapMaximized: boolean }>`
   width: 100%;
   height: ${({ isMapMaximized }) => (isMapMaximized ? '20rem' : '15rem')};
   @media (min-width: 680px) {
@@ -25,7 +25,7 @@ const MapWrapper = styled.div<{ isMapMaximized: boolean }>`
   }
 `;
 
-const EditingForm = styled.form`
+const StyledEditingForm = styled.form`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -39,7 +39,7 @@ const EditingForm = styled.form`
   margin: 0.5rem 0;
 `;
 
-const EditingContainer = styled.div`
+const StyledEditingContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -50,7 +50,7 @@ const EditingContainer = styled.div`
   }
 `;
 
-const InfoWrapper = styled.div`
+const StyledInfoWrapper = styled.div`
   width: 100%;
   padding: 1rem 0;
   display: flex;
@@ -59,14 +59,14 @@ const InfoWrapper = styled.div`
   flex-direction: column;
 `;
 
-const Title = styled.h2`
+const StyledTitle = styled.h2`
   letter-spacing: 0.01em;
   font-weight: 600;
   color: #2c2c2c;
   margin-top: 0.5rem;
 `;
 
-const Description = styled.p`
+const StyledDescription = styled.p`
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
@@ -76,20 +76,20 @@ const Description = styled.p`
   margin-top: 1rem;
 `;
 
-const DetailTitle = styled.h4`
+const StyledDetailTitle = styled.h4`
   font-weight: 500;
   font-size: 1rem;
   line-height: 1.2rem;
   color: #454545;
 `;
-const DetailDescription = styled.p`
+const StyledDetailDescription = styled.p`
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.2rem;
   color: #656565;
 `;
 
-const InfoDetailsWrapper = styled.div`
+const StyledInfoDetailsWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -99,7 +99,7 @@ const InfoDetailsWrapper = styled.div`
   margin-top: 0.7rem;
 `;
 
-const InfoDetail = styled.div`
+const StyledInfoDetail = styled.div`
   width: 100%;
   gap: 0.3rem;
   display: inline-flex;
@@ -107,7 +107,7 @@ const InfoDetail = styled.div`
   justify-content: flex-start;
 `;
 
-const ControlsWrapper = styled.div<{
+const StyledControlsWrapper = styled.div<{
   isFavorite: boolean;
   participated: Participating;
 }>`
@@ -160,7 +160,7 @@ const ControlsWrapper = styled.div<{
   }
 `;
 
-const DetailLocation = styled.a`
+const StyledDetailLocation = styled.a`
   cursor: pointer;
   text-decoration: underline;
   text-decoration-color: #656565;
@@ -175,17 +175,17 @@ const DetailLocation = styled.a`
 `;
 
 export {
-  ControlsWrapper,
-  Description,
-  DetailDescription,
-  DetailLocation,
-  DetailMainSectionWrapper,
-  DetailTitle,
-  EditingContainer,
-  EditingForm,
-  InfoDetail,
-  InfoDetailsWrapper,
-  InfoWrapper,
-  MapWrapper,
-  Title,
+  StyledControlsWrapper,
+  StyledDescription,
+  StyledDetailDescription,
+  StyledDetailLocation,
+  StyledDetailMainSectionWrapper,
+  StyledDetailTitle,
+  StyledEditingContainer,
+  StyledEditingForm,
+  StyledInfoDetail,
+  StyledInfoDetailsWrapper,
+  StyledInfoWrapper,
+  StyledMapWrapper,
+  StyledTitle,
 };

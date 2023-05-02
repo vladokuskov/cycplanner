@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const DetailSidebarSectionWrapper = styled.section`
+const StyledDetailSidebarSectionWrapper = styled.section`
   width: 100%;
   height: 100%;
   border-top: 1px solid #dfdfdf;
@@ -17,14 +17,14 @@ const DetailSidebarSectionWrapper = styled.section`
   }
 `;
 
-const SectionTiitle = styled.h2`
+const StyledSectionTitle = styled.h2`
   font-family: 'Lato';
   letter-spacing: 0.01em;
   font-weight: 600;
   color: #777777;
 `;
 
-const SwitcherWrapper = styled.div`
+const StyledSwitcherWrapper = styled.div`
   width: 100%;
   background-color: #d9d9d9;
   border-radius: 8px;
@@ -38,7 +38,7 @@ const SwitcherWrapper = styled.div`
   gap: 0.3rem;
 `;
 
-const SwitchButton = styled.button`
+const StyledSwitchButton = styled.button`
   font-family: 'Roboto';
   font-size: 0.9rem;
   font-weight: 500;
@@ -59,7 +59,7 @@ const SwitchButton = styled.button`
   }
 `;
 
-const ParticipantsList = styled.div`
+const StyledParticipantsList = styled.div`
   padding-top: 1rem;
   width: 100%;
   display: flex;
@@ -69,7 +69,7 @@ const ParticipantsList = styled.div`
   gap: 0.9rem;
 `;
 
-const UserControlWrapper = styled.div`
+const StyledUserControlWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -77,7 +77,7 @@ const UserControlWrapper = styled.div`
   gap: 0.2rem;
 `;
 
-const UserControlButtonsWrapper = styled.div`
+const StyledUserControlButtonsWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -85,11 +85,11 @@ const UserControlButtonsWrapper = styled.div`
 `;
 
 export {
-  UserControlButtonsWrapper,
-  UserControlWrapper,
-  ParticipantsList,
-  SwitchButton,
-  SwitcherWrapper,
-  SectionTiitle,
-  DetailSidebarSectionWrapper,
+  StyledDetailSidebarSectionWrapper,
+  StyledParticipantsList,
+  StyledSectionTitle,
+  StyledSwitchButton,
+  StyledSwitcherWrapper,
+  StyledUserControlButtonsWrapper,
+  StyledUserControlWrapper,
 };

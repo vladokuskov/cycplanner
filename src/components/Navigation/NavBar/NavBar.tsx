@@ -1,11 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
-import { useClickOutside } from 'hooks/useClickOutside';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useAuth } from '@/context/AuthContext';
-import { faBars, faClose } from '@fortawesome/free-solid-svg-icons';
+import { useClickOutside } from '@/hooks/useClickOutside';
+import {
+  faBars,
+  faClose,
+} from '@fortawesome/free-solid-svg-icons';
 
 import { Button } from '../../Button/Button';
 import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';

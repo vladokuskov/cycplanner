@@ -17,7 +17,7 @@ import {
 
 import {
   IEditingForm,
-} from '@/components/EventDetail/DetailMain/EditingForm/EditingEventForm';
+} from '@/components/EventDetail/DetailMain/EventEditingForm/EditingEventForm';
 import { IEvent } from '@/components/types/shared/event.types';
 import { GeoPoint } from '@/components/types/shared/geoPoint.types';
 
