@@ -1,21 +1,22 @@
-import { SortingPickerWrapper } from './SortingPicker.styles';
-import { SelectorLabel } from '../RangePicker/RangePicker.styles';
-import { Button } from '../../Button/Button';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
-import { Sorting } from '../../types/shared/sorting.types';
+
+import { Button } from '../../Button/Button';
+import { SelectedSorting, Sorting } from '../../types/shared/sorting.types';
+import { StyledSelectorLabel } from '../EventFilterShared.styles';
+import { StyledSortingPickerWrapper } from './SortingPicker.styles';
 
 const SortingPicker = ({ changeSorting, selectedSorting }: Sorting) => {
   const handleSorting = () => {
-    if (selectedSorting === 'newest') {
-      changeSorting('oldest');
+    if (selectedSorting === SelectedSorting.newest) {
+      changeSorting(SelectedSorting.oldest);
     } else {
-      changeSorting('newest');
+      changeSorting(SelectedSorting.newest);
     }
   };
 
   return (
-    <SortingPickerWrapper>
-      <SelectorLabel>Sorting</SelectorLabel>
+    <StyledSortingPickerWrapper>
+      <StyledSelectorLabel>Sorting</StyledSelectorLabel>
       <Button
         variant="text-icon"
         icon={faSort}
@@ -24,7 +25,7 @@ const SortingPicker = ({ changeSorting, selectedSorting }: Sorting) => {
         size="sm2"
         onClick={handleSorting}
       />
-    </SortingPickerWrapper>
+    </StyledSortingPickerWrapper>
   );
 };
 

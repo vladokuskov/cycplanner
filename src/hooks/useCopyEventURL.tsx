@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useCopyEventURL = (eventId: string | null, slug: string | null) => {
+const useCopyEventURL = (eventId: string | null, slug?: string | null) => {
   const [isCopied, setIsCopied] = useState(false);
   const baseURL = window.location.href;
 

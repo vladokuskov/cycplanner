@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const EventsSidebarWrapper = styled.aside`
+const StyledEventsSidebarWrapper = styled.aside`
   width: 100%;
   border-radius: 8px;
   border: 0.2rem solid #b8b8b8;
@@ -18,4 +18,4 @@ const EventsSidebarWrapper = styled.aside`
     max-width: 16rem;
   }
 `;
-export { EventsSidebarWrapper };
+export { StyledEventsSidebarWrapper };

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const RangeSelectorWrapper = styled.div`
+const StyledRangeSelectorWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -9,16 +9,7 @@ const RangeSelectorWrapper = styled.div`
   gap: 0.3rem;
 `;
 
-const SelectorLabel = styled.label`
-  font-family: 'Lato', sans-serif;
-  color: rgba(46, 46, 46, 0.53);
-  font-weight: 400;
-  font-size: 0.8rem;
-  line-height: 12px;
-  margin-left: 0.5rem;
-`;
-
-const RangeOptionsWrapper = styled.ul`
+const StyledRangeOptionsWrapper = styled.ul`
   z-index: 2;
   position: absolute;
   top: 3.6rem;
@@ -33,7 +24,7 @@ const RangeOptionsWrapper = styled.ul`
   box-shadow: 0px 5px 15px -1px rgba(0, 0, 0, 0.09);
 `;
 
-const RangeOption = styled.li`
+const StyledRangeOption = styled.li`
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   text-align: center;
@@ -50,8 +41,7 @@ const RangeOption = styled.li`
 `;
 
 export {
-  RangeSelectorWrapper,
-  RangeOptionsWrapper,
-  RangeOption,
-  SelectorLabel,
+  StyledRangeOption,
+  StyledRangeOptionsWrapper,
+  StyledRangeSelectorWrapper,
 };

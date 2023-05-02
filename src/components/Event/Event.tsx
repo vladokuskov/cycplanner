@@ -1,9 +1,4 @@
-import {
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -11,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useAuth } from '@/context/AuthContext';
 import { deleteEvent } from '@/firebase/events';
 import { useClickOutside } from '@/hooks/useClickOutside';
-import { useCopyEventURL } from '@/hooks/useCopyEventUrl';
+import { useCopyEventURL } from '@/hooks/useCopyEventURL';
 import { useEventStatus } from '@/hooks/useEventStatus';
 import { getHumanDate } from '@/utils/getHumanDate';
 import {
@@ -30,10 +25,7 @@ import {
 import { Button } from '../Button/Button';
 import { ProfilePreview } from '../ProfilePreview/ProfilePreview';
 import { SkeletonLoader } from '../skeleton/Skeleton';
-import {
-  IEvent,
-  Participating,
-} from '../types/shared/event.types';
+import { IEvent, Participating } from '../types/shared/event.types';
 import {
   StyledButtonWrapper,
   StyledContentButtonsWrapper,

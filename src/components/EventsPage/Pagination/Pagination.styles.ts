@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const PaginationContainer = styled.div`
+const StyledPaginationContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -8,7 +8,7 @@ const PaginationContainer = styled.div`
   gap: 0.8rem;
 `;
 
-const PageButton = styled.button<{ isActive: boolean }>`
+const StyledPageButton = styled.button<{ isActive: boolean }>`
   font-family: 'Roboto';
   background-color: ${({ isActive }) => (isActive ? '#A3D168' : '#d4d4d4')};
   color: ${({ isActive }) => (isActive ? '#FBFBFB' : '#7a7a7a')};
@@ -25,4 +25,4 @@ const PageButton = styled.button<{ isActive: boolean }>`
   }
 `;
 
-export { PaginationContainer, PageButton };
+export { StyledPageButton, StyledPaginationContainer };

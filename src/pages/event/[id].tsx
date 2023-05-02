@@ -19,7 +19,6 @@ export default function Web() {
   });
 
   const router = useRouter();
-
   const [loading, setLoading] = useState<Loading>(Loading.loading);
   const [event, setEvent] = useState<IEvent | null>(null);
 
@@ -56,7 +55,7 @@ export default function Web() {
         <StyledContainer variant="page">
           {loading === Loading.loading ? (
             <SkeletonLoader variant="detail-page" />
-          ) : loading === Loading.success ? (
+          ) : loading === Loading.success && event ? (
             <StyledContainer variant="detail-page">
               <DetailMainSection
                 event={event}

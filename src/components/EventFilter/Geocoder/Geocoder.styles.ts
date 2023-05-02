@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const GeocoderMainWrapper = styled.div`
+const StyledGeocoderMainWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -8,17 +8,17 @@ const GeocoderMainWrapper = styled.div`
   justify-content: center;
   gap: 0.3rem;
 `;
-const GeocoderWrapper = styled.div`
+const StyledGeocoderWrapper = styled.div`
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
 `;
-const GeocoderInputWrapper = styled.div`
+const StyledGeocoderInputWrapper = styled.div`
   width: 100%;
   position: relative;
 `;
-const GeocoderResultsWrapper = styled.ul`
+const StyledGeocoderResultsWrapper = styled.ul`
   position: absolute;
   top: 2.2rem;
   width: 100%;
@@ -28,7 +28,7 @@ const GeocoderResultsWrapper = styled.ul`
   z-index: 2;
 `;
 
-const ResultWrapper = styled.li`
+const StyledResultWrapper = styled.li`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -41,9 +41,9 @@ const ResultWrapper = styled.li`
 `;
 
 export {
-  GeocoderMainWrapper,
-  GeocoderWrapper,
-  GeocoderInputWrapper,
-  GeocoderResultsWrapper,
-  ResultWrapper,
+  StyledGeocoderInputWrapper,
+  StyledGeocoderMainWrapper,
+  StyledGeocoderResultsWrapper,
+  StyledGeocoderWrapper,
+  StyledResultWrapper,
 };

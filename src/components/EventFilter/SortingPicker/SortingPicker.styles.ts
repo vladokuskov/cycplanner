@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SortingPickerWrapper = styled.div`
+const StyledSortingPickerWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: flex-start;
@@ -10,4 +10,4 @@ const SortingPickerWrapper = styled.div`
   gap: 0.3rem;
 `;
 
-export { SortingPickerWrapper };
+export { StyledSortingPickerWrapper };

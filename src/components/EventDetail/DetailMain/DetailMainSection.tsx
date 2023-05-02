@@ -1,7 +1,4 @@
-import {
-  useMemo,
-  useState,
-} from 'react';
+import { useMemo, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -10,7 +7,7 @@ import { StyledCopiedMessage } from '@/components/Event/Event.styles.ts';
 import { Loading } from '@/components/types/shared/loadingState.types';
 import { useAuth } from '@/context/AuthContext';
 import { deleteEvent } from '@/firebase/events';
-import { useCopyEventURL } from '@/hooks/useCopyEventUrl';
+import { useCopyEventURL } from '@/hooks/useCopyEventURL';
 import { useEventStatus } from '@/hooks/useEventStatus';
 import { getHumanDate } from '@/utils/getHumanDate';
 import {
@@ -29,10 +26,7 @@ import {
 import { Button } from '../../Button/Button';
 import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
 import { SkeletonLoader } from '../../skeleton/Skeleton';
-import {
-  IEvent,
-  Participating,
-} from '../../types/shared/event.types';
+import { IEvent, Participating } from '../../types/shared/event.types';
 import {
   StyledControlsWrapper,
   StyledDescription,
@@ -80,8 +74,7 @@ const DetailMainSection = ({
     updateFavoriteStatus,
   } = useEventStatus(user ? user : null, event);
   const { copyToClipboard, isCopied } = useCopyEventURL(
-    event && event.id ? event.id : null,
-    'event'
+    event && event.id ? event.id : null
   );
 
   const handleFavorite = async () => {

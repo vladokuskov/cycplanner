@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { PaginationContainer, PageButton } from './Pagination.styles';
+
+import {
+  StyledPageButton,
+  StyledPaginationContainer,
+} from './Pagination.styles';
 import { PaginationProps } from './Pagination.types';
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -20,20 +24,22 @@ const Pagination: React.FC<PaginationProps> = ({
     const buttons = [];
     for (let i = 1; i <= totalPages; i++) {
       buttons.push(
-        <PageButton
+        <StyledPageButton
           disabled={activePage === i}
           key={i}
           isActive={activePage === i}
           onClick={() => handlePageClick(i)}
         >
           {i}
-        </PageButton>
+        </StyledPageButton>
       );
     }
     return buttons;
   };
 
-  return <PaginationContainer>{getPageButtons()}</PaginationContainer>;
+  return (
+    <StyledPaginationContainer>{getPageButtons()}</StyledPaginationContainer>
+  );
 };
 
 export { Pagination };

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const EventsSectionWrapper = styled.section`
+const StyledEventsSectionWrapper = styled.section`
   width: 100%;
   padding: 1rem;
   display: flex;
@@ -12,7 +12,7 @@ const EventsSectionWrapper = styled.section`
   }
 `;
 
-const HomeEventsHeaderWrapper = styled.div`
+const StyledHomeEventsHeaderWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -24,7 +24,7 @@ const HomeEventsHeaderWrapper = styled.div`
     justify-content: space-between;
   }
 `;
-const HeaderTitleWrapper = styled.div`
+const StyledHeaderTitleWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -37,7 +37,7 @@ const HeaderTitleWrapper = styled.div`
   }
 `;
 
-const HomeEventsBodyWrapper = styled.div`
+const StyledHomeEventsBodyWrapper = styled.div`
   padding: 1.5rem 0;
   display: flex;
   align-items: flex-start;
@@ -65,7 +65,7 @@ const HomeEventsBodyWrapper = styled.div`
   }
 `;
 
-const BodyEventsWrapper = styled.div`
+const StyledBodyEventsWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -75,9 +75,9 @@ const BodyEventsWrapper = styled.div`
 `;
 
 export {
-  BodyEventsWrapper,
-  HomeEventsBodyWrapper,
-  HeaderTitleWrapper,
-  HomeEventsHeaderWrapper,
-  EventsSectionWrapper,
+  StyledBodyEventsWrapper,
+  StyledEventsSectionWrapper,
+  StyledHeaderTitleWrapper,
+  StyledHomeEventsBodyWrapper,
+  StyledHomeEventsHeaderWrapper,
 };

@@ -1,31 +1,45 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
-import { faCircleNotch, faLocation } from '@fortawesome/free-solid-svg-icons';
+import { useClickOutside } from '@/hooks/useClickOutside';
+import {
+  faCircleNotch,
+  faLocation,
+} from '@fortawesome/free-solid-svg-icons';
 
 import { Button } from '../../Button/Button';
 import { Input } from '../../Input/Input';
-import { Geocoder, LocationStatus } from '../../types/shared/geocoder.types';
-import { GeoPoint } from '../../types/shared/geoPoint.types';
-import { SelectorLabel } from '../RangePicker/RangePicker.styles';
 import {
-  GeocoderInputWrapper,
-  GeocoderMainWrapper,
-  GeocoderResultsWrapper,
-  GeocoderWrapper,
-  ResultWrapper,
+  Geocoder,
+  LocationStatus,
+} from '../../types/shared/geocoder.types';
+import { GeoPoint } from '../../types/shared/geoPoint.types';
+import { StyledSelectorLabel } from '../EventFilterShared.styles';
+import {
+  StyledGeocoderInputWrapper,
+  StyledGeocoderMainWrapper,
+  StyledGeocoderResultsWrapper,
+  StyledGeocoderWrapper,
+  StyledResultWrapper,
 } from './Geocoder.styles';
 
 const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
+  const ref = useRef<HTMLDivElement>(null);
   const [reversedLocation, setReversedLocation] = useState<string>('London');
   const [geocoderValue, setGeocoderValue] = useState<string>(reversedLocation);
   const [isGeocoderLoading, setIsGeocoderLoading] = useState<boolean>(false);
   const [geocoderResponse, setGeocoderResponse] = useState<any>(null);
-  const [isResultsOpen, setIsResultsOpen] = useState<boolean>(false);
+  const [isResultsOpen, setIsResultsOpen] = useClickOutside(ref, false);
   const [hasUserTyped, setHasUserTyped] = useState(false);
 
   const [locationStatus, setLocationStatus] = useState<LocationStatus>(
     LocationStatus.idle
   );
+
+  let geoResult;
 
   const fetchGeoData = async () => {
     try {
@@ -46,7 +60,6 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
   };
 
   const handleClear = () => {
-    // Clear/reset input
     setGeocoderValue('');
     setGeocoderResponse([]);
   };
@@ -83,8 +96,6 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
     }
   }, [reversedLocation]);
 
-  let geoResult;
-
   const handleResult = (point: {
     lat: number;
     lon: number;
@@ -105,7 +116,7 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
           properties: { lat: number; lon: number; formatted: string };
         }) => {
           return (
-            <ResultWrapper key={item.properties.lon}>
+            <StyledResultWrapper key={item.properties.lon}>
               <Button
                 variant="default"
                 full
@@ -118,30 +129,11 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
                 }
                 text={item.properties.formatted}
               />
-            </ResultWrapper>
+            </StyledResultWrapper>
           );
         }
       );
   }
-
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    //Close results windows if user click outside
-    const checkIfClickedOutside = (e: MouseEvent): void => {
-      if (
-        isResultsOpen &&
-        ref.current &&
-        !ref.current.contains(e.target as Node)
-      ) {
-        setIsResultsOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', checkIfClickedOutside);
-    return () => {
-      document.removeEventListener('mousedown', checkIfClickedOutside);
-    };
-  }, [isResultsOpen, ref]);
 
   const getLocation = async () => {
     try {
@@ -178,7 +170,9 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
       const data = await response.json();
       const city = data.features[0].properties.city;
       const district = data.features[0].properties.district;
-      const address = `${district}, ${city}`;
+      const address = `${district !== undefined ? district : ''}, ${
+        city !== undefined ? city : ''
+      }`;
       setReversedLocation(address);
       return null;
     } catch (error) {
@@ -194,10 +188,10 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
   }, [locationStatus]);
 
   return (
-    <GeocoderMainWrapper>
-      <SelectorLabel>Location</SelectorLabel>
-      <GeocoderWrapper>
-        <GeocoderInputWrapper ref={ref}>
+    <StyledGeocoderMainWrapper>
+      <StyledSelectorLabel>Location</StyledSelectorLabel>
+      <StyledGeocoderWrapper>
+        <StyledGeocoderInputWrapper ref={ref}>
           <Input
             isLoading={isGeocoderLoading}
             variant="search"
@@ -207,9 +201,11 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
             placeholder="Enter location"
           />
           {isResultsOpen && (
-            <GeocoderResultsWrapper>{geoResult}</GeocoderResultsWrapper>
+            <StyledGeocoderResultsWrapper>
+              {geoResult}
+            </StyledGeocoderResultsWrapper>
           )}
-        </GeocoderInputWrapper>
+        </StyledGeocoderInputWrapper>
         <Button
           variant="icon-bg"
           icon={
@@ -228,8 +224,8 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
           disabled={locationStatus === LocationStatus.fetching}
           onClick={getLocation}
         />
-      </GeocoderWrapper>
-    </GeocoderMainWrapper>
+      </StyledGeocoderWrapper>
+    </StyledGeocoderMainWrapper>
   );
 };
 

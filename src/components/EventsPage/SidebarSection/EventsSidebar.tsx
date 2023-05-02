@@ -11,7 +11,7 @@ import {
 import { faBarsStaggered } from '@fortawesome/free-solid-svg-icons';
 
 import { Button } from '../../Button/Button';
-import { EventsSidebarWrapper } from './EventsSidebar.styles';
+import { StyledEventsSidebarWrapper } from './EventsSidebar.styles';
 
 const EventsSidebar = () => {
   const router = useRouter();
@@ -27,7 +27,7 @@ const EventsSidebar = () => {
   };
 
   return (
-    <EventsSidebarWrapper>
+    <StyledEventsSidebarWrapper>
       <Button
         variant="filled"
         text="Create event"
@@ -66,7 +66,7 @@ const EventsSidebar = () => {
         disabled={selectedFilter === 'favorite'}
         onClick={() => changeFilter('favorite')}
       />
-    </EventsSidebarWrapper>
+    </StyledEventsSidebarWrapper>
   );
 };
 
