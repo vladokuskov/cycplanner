@@ -39,17 +39,20 @@ import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 
 const Auth = ({ variant }: Auth) => {
   const router = useRouter();
-  const [username, setUsername] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [confirmationPassword, setConfirmationPassword] = useState<string>('');
+  const [authForm, setAuthForm] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmationPassword: '',
+  });
   const [errorStatus, setErrorStatus] = useState({
     isError: false,
     errorText: '',
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const isPasswordsEqual = () => confirmationPassword === password;
+  const isPasswordsEqual = () =>
+    authForm.confirmationPassword === authForm.password;
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
@@ -63,20 +66,33 @@ const Auth = ({ variant }: Auth) => {
     e.preventDefault();
 
     try {
-      const isValid = await validateAuth(
-        isLogin ? { email, password } : { email, username, password }
-      );
+      const authData = isLogin
+        ? {
+            email: authForm.email,
+            password: authForm.password,
+          }
+        : {
+            email: authForm.email,
+            username: authForm.username,
+            password: authForm.password,
+          };
+
+      const isValid = await validateAuth(isLogin ? authData : authData);
       if (isValid) {
         if (isLogin) {
-          await logInWithEmailAndPassword(email, password);
-        } else if (confirmationPassword !== password) {
+          await logInWithEmailAndPassword(authForm.email, authForm.password);
+        } else if (authForm.confirmationPassword !== authForm.password) {
           setErrorStatus({
             isError: true,
             errorText: 'Passwords do not match.',
           });
           return null;
         } else {
-          await registerWithEmailAndPassword(username, email, password);
+          await registerWithEmailAndPassword(
+            authForm.username,
+            authForm.email,
+            authForm.password
+          );
         }
 
         if (errorStatus.isError) {
@@ -86,9 +102,12 @@ const Auth = ({ variant }: Auth) => {
           });
         }
 
-        setEmail('');
-        setPassword('');
-        setUsername('');
+        setAuthForm({
+          username: '',
+          email: '',
+          password: '',
+          confirmationPassword: '',
+        });
 
         router.push('/');
       }
@@ -126,6 +145,14 @@ const Auth = ({ variant }: Auth) => {
     }
   };
 
+  const handleAuthFormChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setAuthForm((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
     <StyledAuthLayoutWrapper>
       <StyledAuthWrapper>
@@ -160,12 +187,11 @@ const Auth = ({ variant }: Auth) => {
           >
             {variant === 'signup' && (
               <Input
-                value={username}
+                name="username"
+                value={authForm.username}
                 variant="auth"
                 icon={faUser}
-                onChange={(
-                  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-                ) => setUsername(e.target.value)}
+                onChange={handleAuthFormChange}
                 label="Username"
                 full
                 required
@@ -173,27 +199,25 @@ const Auth = ({ variant }: Auth) => {
               />
             )}
             <Input
+              name="email"
               fieldType="email"
-              value={email}
+              value={authForm.email}
               variant="auth"
               icon={faEnvelope}
-              onChange={(
-                e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ) => setEmail(e.target.value)}
+              onChange={handleAuthFormChange}
               label="Email"
               full
               required
               danger={errorStatus.isError}
             />
             <Input
+              name="password"
               fieldType="password"
               isPassShowed={showPassword}
-              value={password}
+              value={authForm.password}
               variant="auth"
               icon={faKey}
-              onChange={(
-                e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ) => setPassword(e.target.value)}
+              onChange={handleAuthFormChange}
               onClick={handleTogglePasswordVisibility}
               label="Password"
               full
@@ -202,14 +226,13 @@ const Auth = ({ variant }: Auth) => {
             />
             {variant === 'signup' && (
               <Input
+                name="confirmationPassword"
                 fieldType="password"
                 isPassShowed={showPassword}
-                value={confirmationPassword}
+                value={authForm.confirmationPassword}
                 variant="auth"
                 icon={faKey}
-                onChange={(
-                  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-                ) => setConfirmationPassword(e.target.value)}
+                onChange={handleAuthFormChange}
                 onClick={handleTogglePasswordVisibility}
                 label="Repeat password"
                 full
