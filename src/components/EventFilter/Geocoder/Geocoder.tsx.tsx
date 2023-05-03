@@ -1,21 +1,11 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useClickOutside } from '@/hooks/useClickOutside';
-import {
-  faCircleNotch,
-  faLocation,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCircleNotch, faLocation } from '@fortawesome/free-solid-svg-icons';
 
 import { Button } from '../../Button/Button';
 import { Input } from '../../Input/Input';
-import {
-  Geocoder,
-  LocationStatus,
-} from '../../types/shared/geocoder.types';
+import { Geocoder, LocationStatus } from '../../types/shared/geocoder.types';
 import { GeoPoint } from '../../types/shared/geoPoint.types';
 import { StyledSelectorLabel } from '../EventFilterShared.styles';
 import {
@@ -170,9 +160,9 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
       const data = await response.json();
       const city = data.features[0].properties.city;
       const district = data.features[0].properties.district;
-      const address = `${district !== undefined ? district : ''}, ${
-        city !== undefined ? city : ''
-      }`;
+      const address = `${district !== undefined ? `${district}` : ''}${
+        district && ', '
+      }${city !== undefined ? city : ''}`;
       setReversedLocation(address);
       return null;
     } catch (error) {
