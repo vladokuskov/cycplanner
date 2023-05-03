@@ -8,6 +8,7 @@ import { updateEvent } from '@/firebase/events';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
 import { StyledEditingForm } from '../DetailMainSection.styles';
+import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
 
 type IEditingEventForm = {
   event: IEvent | null;
@@ -36,6 +37,11 @@ const EditingEventForm = ({
 
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
+  const [errorStatus, setErrorStatus] = useState({
+    isError: false,
+    errorText: '',
+  });
+
   const handleEditingSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
@@ -46,10 +52,21 @@ const EditingEventForm = ({
         handleEventEditing();
         setIsSaving(false);
         handleLoadingChange(Loading.loading);
+
+        if (errorStatus.isError) {
+          setErrorStatus({
+            isError: false,
+            errorText: '',
+          });
+        }
       }
     } catch (err) {
       setIsSaving(false);
-      console.error(err);
+
+      setErrorStatus({
+        isError: true,
+        errorText: 'An error occurred while saving',
+      });
     }
   };
 
@@ -71,6 +88,7 @@ const EditingEventForm = ({
         label="Title"
         required
         value={editingForm.title}
+        danger={errorStatus.isError}
       />
 
       <Input
@@ -81,6 +99,7 @@ const EditingEventForm = ({
         label="Description"
         required
         value={editingForm.description}
+        danger={errorStatus.isError}
       />
 
       <Input
@@ -91,6 +110,7 @@ const EditingEventForm = ({
         label="Type"
         required
         value={editingForm.type}
+        danger={errorStatus.isError}
       />
 
       <Input
@@ -102,7 +122,12 @@ const EditingEventForm = ({
         required
         fieldType="number"
         value={editingForm.distance}
+        danger={errorStatus.isError}
       />
+
+      {errorStatus.isError && (
+        <ErrorMessage variant="basic" errorText={errorStatus.errorText} />
+      )}
 
       <Button
         text={isSaving ? 'Saving' : 'Save'}

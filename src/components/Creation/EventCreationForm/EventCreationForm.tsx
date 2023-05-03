@@ -22,16 +22,18 @@ import {
   StyledInputsWrapper,
   StyledPageTitle,
 } from './EventCreationForm.styles';
+import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
 
 const EventCreationForm = () => {
+  const { user } = useAuth();
+
   const [file, setFile] = useState<null | File>(null);
   const [route, setRoute] = useState<null | GeoPoint[]>(null);
   const [isCreatingEvent, setIsCreatingEvent] = useState(false);
-  const [eventCreationStatus, setEventCreationStatus] = useState({
+  const [errorStatus, setErrorStatus] = useState({
     isError: false,
-    error: '',
+    errorText: '',
   });
-  const { user } = useAuth();
 
   const initialFormState: IEvent = {
     id: nanoid(),
@@ -119,8 +121,18 @@ const EventCreationForm = () => {
         await createEvent(eventForm);
 
         resetForm();
-      } catch (err: any) {
-        setEventCreationStatus({ isError: true, error: err });
+
+        if (errorStatus.isError) {
+          setErrorStatus({
+            isError: false,
+            errorText: '',
+          });
+        }
+      } catch (err) {
+        setErrorStatus({
+          isError: true,
+          errorText: 'An error occurred while creating the event',
+        });
       }
     }
 
@@ -182,6 +194,12 @@ const EventCreationForm = () => {
               <EventType
                 handleTypeChange={(e: string) => handleTypeChange(e)}
               />
+              {errorStatus.isError && (
+                <ErrorMessage
+                  variant="basic"
+                  errorText={errorStatus.errorText}
+                />
+              )}
             </StyledEventTypesWrapper>
           </StyledInputsWrapper>
           <FileUploader

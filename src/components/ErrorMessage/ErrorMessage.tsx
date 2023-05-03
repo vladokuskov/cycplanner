@@ -1,7 +1,10 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import { faRefresh } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircleExclamation,
+  faRefresh,
+} from '@fortawesome/free-solid-svg-icons';
 
 import { Button } from '../Button/Button';
 import { ErrorMessage } from '../types/shared/errorMesssage.types';
@@ -9,9 +12,11 @@ import {
   StyledDescription,
   StyledErrorMessageWrapper,
   StyledTitle,
+  StyledBasicErrorWrapper,
 } from './ErrorMessage.styles';
+import { Icon } from '../Icon/Icon';
 
-const ErrorMessage = ({ variant }: ErrorMessage) => {
+const ErrorMessage = ({ variant, errorText }: ErrorMessage) => {
   const router = useRouter();
 
   const refreshPage = () => {
@@ -21,7 +26,7 @@ const ErrorMessage = ({ variant }: ErrorMessage) => {
   const redirectToCreate = () => {
     router.push('/create');
   };
-  return (
+  return variant === 'loading' || variant === 'no-events' ? (
     <StyledErrorMessageWrapper>
       <Image
         src={`/assets/error/${
@@ -59,6 +64,11 @@ const ErrorMessage = ({ variant }: ErrorMessage) => {
         )
       )}
     </StyledErrorMessageWrapper>
+  ) : (
+    <StyledBasicErrorWrapper>
+      <Icon icon={faCircleExclamation} />
+      <p>{errorText}</p>
+    </StyledBasicErrorWrapper>
   );
 };
 

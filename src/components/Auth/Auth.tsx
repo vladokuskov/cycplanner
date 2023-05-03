@@ -17,7 +17,6 @@ import { faArrowLeftLong, faKey } from '@fortawesome/free-solid-svg-icons';
 
 import { Button } from '../Button/Button';
 import { Input } from '../Input/Input';
-import { StyledFailedText } from '../ProfilePage/StyledProfile.styles';
 import {
   StyledAltButtonsWrapper,
   StyledAltHeaderWrapper,
@@ -36,6 +35,7 @@ import {
   StyledHeaderTitle,
 } from './Auth.styles';
 import { Auth } from './Auth.types';
+import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 
 const Auth = ({ variant }: Auth) => {
   const router = useRouter();
@@ -43,8 +43,10 @@ const Auth = ({ variant }: Auth) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmationPassword, setConfirmationPassword] = useState<string>('');
-  const [isFormValidated, setIsFormValidated] = useState<boolean>(true);
-  const [validationResponse, setValidationResponse] = useState<string>('');
+  const [errorStatus, setErrorStatus] = useState({
+    isError: false,
+    errorText: '',
+  });
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const isPasswordsEqual = () => confirmationPassword === password;
@@ -55,6 +57,7 @@ const Auth = ({ variant }: Auth) => {
 
   const handleForm = async (
     e: React.FormEvent<HTMLFormElement>,
+    // Boolean value (isLogin) in handleForm indicate whether the form being handled is a login or a registration form.
     isLogin: boolean
   ) => {
     e.preventDefault();
@@ -67,10 +70,20 @@ const Auth = ({ variant }: Auth) => {
         if (isLogin) {
           await logInWithEmailAndPassword(email, password);
         } else if (confirmationPassword !== password) {
-          setValidationResponse('Passwords do not match');
+          setErrorStatus({
+            isError: true,
+            errorText: 'Passwords do not match.',
+          });
           return null;
         } else {
           await registerWithEmailAndPassword(username, email, password);
+        }
+
+        if (errorStatus.isError) {
+          setErrorStatus({
+            isError: false,
+            errorText: '',
+          });
         }
 
         setEmail('');
@@ -80,12 +93,12 @@ const Auth = ({ variant }: Auth) => {
         router.push('/');
       }
     } catch (err: any) {
-      setValidationResponse(convertFirebaseError(err.code));
-      setIsFormValidated(false);
+      setErrorStatus({
+        isError: true,
+        errorText: convertFirebaseError(err.code),
+      });
     }
   };
-
-  // Boolean value in handleForm indicate whether the form being handled is a login or a registration form.
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) =>
     handleForm(e, true);
@@ -94,12 +107,22 @@ const Auth = ({ variant }: Auth) => {
     handleForm(e, false);
 
   const handleSignWithGoogle = async () => {
-    await signInWithGoogle();
-
-    router.push('/');
     try {
+      await signInWithGoogle();
+
+      if (errorStatus.isError) {
+        setErrorStatus({
+          isError: false,
+          errorText: '',
+        });
+      }
+
+      router.push('/');
     } catch (err: any) {
-      setValidationResponse(convertFirebaseError(err.code));
+      setErrorStatus({
+        isError: true,
+        errorText: convertFirebaseError(err.code),
+      });
     }
   };
 
@@ -146,7 +169,7 @@ const Auth = ({ variant }: Auth) => {
                 label="Username"
                 full
                 required
-                danger={!isFormValidated}
+                danger={errorStatus.isError}
               />
             )}
             <Input
@@ -160,7 +183,7 @@ const Auth = ({ variant }: Auth) => {
               label="Email"
               full
               required
-              danger={!isFormValidated}
+              danger={errorStatus.isError}
             />
             <Input
               fieldType="password"
@@ -175,7 +198,7 @@ const Auth = ({ variant }: Auth) => {
               label="Password"
               full
               required
-              danger={!isFormValidated}
+              danger={errorStatus.isError}
             />
             {variant === 'signup' && (
               <Input
@@ -191,11 +214,11 @@ const Auth = ({ variant }: Auth) => {
                 label="Repeat password"
                 full
                 required
-                danger={!isFormValidated || !isPasswordsEqual()}
+                danger={errorStatus.isError || !isPasswordsEqual()}
               />
             )}
-            {validationResponse.length > 0 && (
-              <StyledFailedText>{validationResponse}</StyledFailedText>
+            {errorStatus.isError && (
+              <ErrorMessage variant="basic" errorText={errorStatus.errorText} />
             )}
             <Button
               text={variant === 'login' ? 'Log in' : 'Sign up'}

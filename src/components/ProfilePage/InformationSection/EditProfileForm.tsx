@@ -8,7 +8,8 @@ import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
 import { Button } from '../../Button/Button';
 import { Input } from '../../Input/Input';
-import { StyledFailedText } from '../StyledProfile.styles';
+import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
+import { convertFirebaseError } from '@/utils/convertFirebaseError';
 
 const StyledForm = styled.form`
   width: 100%;
@@ -32,7 +33,10 @@ type EditProfileForm = {
 
 const EditProfileForm = () => {
   const [isSaving, setIsSaving] = useState<boolean>(false);
-  const [validationResponse, setValidationResponse] = useState<string>('');
+  const [errorStatus, setErrorStatus] = useState({
+    isError: false,
+    errorText: '',
+  });
   const { user } = useAuth();
 
   const [editProfileForm, setEditProfileForm] = useState<EditProfileForm>({
@@ -46,13 +50,26 @@ const EditProfileForm = () => {
     setIsSaving(true);
 
     if (name.length === 0) {
-      setValidationResponse('Enter name to update');
+      setErrorStatus({
+        isError: true,
+        errorText: 'Enter name to update',
+      });
     }
 
     try {
       await updateProfileName(name);
+
+      if (errorStatus.isError) {
+        setErrorStatus({
+          isError: false,
+          errorText: '',
+        });
+      }
     } catch (err: any) {
-      setValidationResponse(err);
+      setErrorStatus({
+        isError: true,
+        errorText: convertFirebaseError(err.code),
+      });
     }
 
     setIsSaving(false);
@@ -81,9 +98,10 @@ const EditProfileForm = () => {
         label="Name"
         placeholder="Edit name"
         full
+        danger={errorStatus.isError}
       />
-      {validationResponse.length > 0 && (
-        <StyledFailedText>{validationResponse}</StyledFailedText>
+      {errorStatus.isError && (
+        <ErrorMessage variant="basic" errorText={errorStatus.errorText} />
       )}
       <Button
         buttonType="submit"
