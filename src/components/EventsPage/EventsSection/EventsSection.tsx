@@ -104,9 +104,15 @@ const EventsSection = () => {
   return (
     <StyledEventSectionWrapper>
       <StyledPageTitle>Events</StyledPageTitle>
-      <EventFilter />
+      {selectedFilter !== 'favorite' &&
+        selectedFilter !== 'participated' &&
+        selectedFilter !== 'my-events' && <EventFilter />}
       <StyledEventsWrapper>
-        {(allEvents || myEvents || participatedEvents || favoriteEvents) && (
+        {((allEvents?.length !== 0 && selectedFilter === 'all') ||
+          (myEvents?.length !== 0 && selectedFilter === 'my-events') ||
+          (participatedEvents?.length !== 0 &&
+            selectedFilter === 'participated') ||
+          (favoriteEvents?.length !== 0 && selectedFilter === 'favorite')) && (
           <Pagination
             itemsPerPage={10}
             totalItems={totalEvents}
