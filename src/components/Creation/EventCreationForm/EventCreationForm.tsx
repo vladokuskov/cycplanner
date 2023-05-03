@@ -6,12 +6,15 @@ import { parseString } from 'xml2js';
 
 import { useAuth } from '@/context/AuthContext';
 import { createEvent } from '@/firebase/events';
-import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircleNotch,
+  faExternalLink,
+} from '@fortawesome/free-solid-svg-icons';
 import { nanoid } from '@reduxjs/toolkit';
 
 import { Button } from '../../Button/Button';
 import { Input } from '../../Input/Input';
-import { IEvent } from '../../types/shared/event.types';
+import { Difficulty, IEvent } from '../../types/shared/event.types';
 import { GeoPoint } from '../../types/shared/geoPoint.types';
 import { EventType } from '../EventType/EventType';
 import {
@@ -21,8 +24,13 @@ import {
   StyledFormMainWrapper,
   StyledInputsWrapper,
   StyledPageTitle,
+  StyledExternalLink,
+  StyledCreationOptionWrapper,
+  StyledLabel,
 } from './EventCreationForm.styles';
 import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
+import { Icon } from '@/components/Icon/Icon';
+import { SwitchButton } from '@/components/SwitchButton/SwitchButton';
 
 const EventCreationForm = () => {
   const { user } = useAuth();
@@ -54,6 +62,7 @@ const EventCreationForm = () => {
     favoriteUsers: [],
     title: '',
     description: '',
+    difficulty: 'Easy',
     distance: '',
     type: '',
     location: { geoPoint: { lat: null, lon: null } },
@@ -143,12 +152,24 @@ const EventCreationForm = () => {
     setEventForm((prev) => ({ ...prev, type: e }));
   };
 
+  const handleDifficultyChange = (e: Difficulty | string) => {
+    setEventForm((prev) => ({ ...prev, difficulty: e }));
+  };
+
   return (
     <>
       <StyledPageTitle>Create Event</StyledPageTitle>
       <StyledEventFormWrapper onSubmit={handleSubmit}>
         <StyledFormMainWrapper>
           <StyledInputsWrapper>
+            <StyledExternalLink
+              title="Open route builder (cycroute)"
+              target="_blank"
+              href="https://cycroute.netlify.app/"
+            >
+              <span>Route builder</span>
+              <Icon icon={faExternalLink} />
+            </StyledExternalLink>
             <Input
               full
               label="Title"
@@ -169,6 +190,14 @@ const EventCreationForm = () => {
               value={eventForm.description}
               onChange={handleFormChange}
             />
+            <StyledCreationOptionWrapper>
+              <StyledLabel>Difficulty</StyledLabel>
+              <SwitchButton
+                onClick={handleDifficultyChange}
+                labels={['Easy', 'Medium', 'Hard', 'Expert']}
+              />
+            </StyledCreationOptionWrapper>
+
             <Input
               full
               fieldType="number"

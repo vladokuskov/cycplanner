@@ -24,41 +24,6 @@ const StyledSectionTitle = styled.h2`
   color: #777777;
 `;
 
-const StyledSwitcherWrapper = styled.div`
-  width: 100%;
-  background-color: #d9d9d9;
-  border-radius: 8px;
-  padding: 0.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 100%;
-  margin: 0 auto;
-  margin-top: 0.5rem;
-  gap: 0.3rem;
-`;
-
-const StyledSwitchButton = styled.button`
-  font-family: 'Roboto';
-  font-size: 0.9rem;
-  font-weight: 500;
-  width: 50%;
-  padding: 0.3rem 0.3rem;
-  border-radius: 8px;
-  background-color: #e7e7e7;
-  transition: 0.2s;
-  color: #2c2c2c;
-  &:hover,
-  &:focus {
-    background-color: #f1f1f1;
-  }
-  :disabled {
-    background-color: #d9d9d9;
-    color: #9b9b9b;
-    cursor: default;
-  }
-`;
-
 const StyledParticipantsList = styled.div`
   padding-top: 1rem;
   width: 100%;
@@ -88,8 +53,6 @@ export {
   StyledDetailSidebarSectionWrapper,
   StyledParticipantsList,
   StyledSectionTitle,
-  StyledSwitchButton,
-  StyledSwitcherWrapper,
   StyledUserControlButtonsWrapper,
   StyledUserControlWrapper,
 };

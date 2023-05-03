@@ -14,6 +14,7 @@ import {
   StyledFilterSelectorsWrapper,
   StyledFilterWrapper,
 } from './EventFilter.styles';
+import { useEffect } from 'react';
 
 const EventFilter = () => {
   const dispatch = useAppDispatch();
