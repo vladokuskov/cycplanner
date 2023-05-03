@@ -7,7 +7,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@/store/redux-hooks';
 
 import { GeoPoint } from '../../types/shared/geoPoint.types';
-import Geocoder from '../Geocoder/Geocoder.tsx';
+import Geocoder from '../Geocoder/Geocoder';
 import RangePicker from '../RangePicker/RangePicker';
 import { SortingPicker } from '../SortingPicker/SortingPicker';
 import {
