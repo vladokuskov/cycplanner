@@ -15,6 +15,7 @@ const StyledSectionSubTitle = styled.h3`
   color: #2c2c2c50;
   padding-bottom: 1rem;
 `;
+
 const StyledFailedText = styled.p`
   color: #df3737;
   font-weight: 400;

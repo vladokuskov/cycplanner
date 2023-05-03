@@ -20,6 +20,8 @@ import {
   StyledEditIcon,
   StyledImageInput,
 } from './AvatarSection.styles';
+import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
+import { convertFirebaseError } from '@/utils/convertFirebaseError';
 
 const PhotoSection = () => {
   const { user } = useAuth();
@@ -32,6 +34,10 @@ const PhotoSection = () => {
   );
   const [isAvatarEditing, setIsAvatarEditing] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [errorStatus, setErrorStatus] = useState({
+    isError: false,
+    errorText: '',
+  });
 
   const handleAvatarRemoving = async () => {
     try {
@@ -71,17 +77,27 @@ const PhotoSection = () => {
 
   const handleAvatarUpload = async (changedImage: File) => {
     setIsUploading(true);
-    if (initialImage) {
-      await uploadAvatar(changedImage);
+    try {
+      if (initialImage) {
+        await uploadAvatar(changedImage);
+      }
+      setIsUploading(false);
+      setIsAvatarEditing(false);
+      setInitialImage(null);
+      window.location.reload();
+    } catch (err: any) {
+      setErrorStatus({
+        isError: true,
+        errorText: convertFirebaseError(err.code),
+      });
     }
-    setIsUploading(false);
-    setIsAvatarEditing(false);
-    setInitialImage(null);
-    window.location.reload();
   };
 
   return (
     <StyledAvatarSectionWrapper>
+      {errorStatus.isError && (
+        <ErrorMessage variant="basic" errorText={errorStatus.errorText} />
+      )}
       <StyledAvatarChangingWrapper>
         <StyledAvatarWrapper ref={uploadAvatarRef}>
           <StyledAvatarUpload

@@ -1,3 +1,4 @@
 export type ErrorMessage = {
-  variant: 'loading' | 'no-events';
+  variant: 'loading' | 'no-events' | 'basic';
+  errorText?: string;
 };

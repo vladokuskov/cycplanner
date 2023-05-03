@@ -22,4 +22,23 @@ const StyledDescription = styled.p`
   margin-bottom: 1rem;
 `;
 
-export { StyledDescription, StyledErrorMessageWrapper, StyledTitle };
+const StyledBasicErrorWrapper = styled.div`
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.3rem;
+  width: 100%;
+  color: #c73e1d;
+  p {
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+`;
+
+export {
+  StyledDescription,
+  StyledErrorMessageWrapper,
+  StyledTitle,
+  StyledBasicErrorWrapper,
+};

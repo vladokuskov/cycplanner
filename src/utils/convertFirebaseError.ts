@@ -21,7 +21,7 @@ const convertFirebaseError = (errorCode: string): string => {
     case 'auth/popup-closed-by-user':
       return 'You closed the sign-in popup window';
     default:
-      return 'An unknown error occurred.';
+      return 'An unknown error occurred. Please try again.';
   }
 };
 

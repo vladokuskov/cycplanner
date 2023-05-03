@@ -1,7 +1,4 @@
-import {
-  useEffect,
-  useState,
-} from 'react';
+import { useEffect, useState } from 'react';
 
 import QuoteIcon from '../../../assets/quote.svg';
 import {
@@ -36,10 +33,10 @@ const RandomQuote = () => {
 
   return (
     <StyledRandomQuoteWrapper>
-      <StyledQuoteText>
+      <StyledQuoteImageWrapper>
         <QuoteIcon />
-      </StyledQuoteText>
-      <StyledQuoteImageWrapper>{quote}</StyledQuoteImageWrapper>
+      </StyledQuoteImageWrapper>
+      <StyledQuoteText>{quote}</StyledQuoteText>
     </StyledRandomQuoteWrapper>
   );
 };

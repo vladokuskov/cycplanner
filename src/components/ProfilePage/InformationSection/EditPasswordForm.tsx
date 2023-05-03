@@ -8,7 +8,7 @@ import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
 import { Button } from '../../Button/Button';
 import { Input } from '../../Input/Input';
-import { StyledFailedText } from '../StyledProfile.styles';
+import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
 
 const StyledForm = styled.form`
   width: 100%;
@@ -34,7 +34,10 @@ type EditPasswordForm = {
 
 const EditPasswordForm = () => {
   const [isSaving, setIsSaving] = useState<boolean>(false);
-  const [validationResponse, setValidationResponse] = useState<any>('');
+  const [errorStatus, setErrorStatus] = useState({
+    isError: false,
+    errorText: '',
+  });
 
   const [editPasswordForm, setEditPasswordForm] = useState<EditPasswordForm>({
     oldPassword: '',
@@ -49,16 +52,35 @@ const EditPasswordForm = () => {
     setIsSaving(true);
 
     if (oldPassword.length === 0) {
-      setValidationResponse('Please, enter old password');
+      setErrorStatus({
+        isError: true,
+        errorText: 'Please, enter old password',
+      });
     } else if (newPassword.length === 0) {
-      setValidationResponse('Please, enter new password');
+      setErrorStatus({
+        isError: true,
+        errorText: 'Please, enter new password',
+      });
     } else if (newPassword !== repeatNewPassword) {
-      setValidationResponse('Passwords do not match');
+      setErrorStatus({
+        isError: true,
+        errorText: 'Please, enter old password',
+      });
     } else
       try {
         await updateUserPassword(oldPassword, newPassword);
+
+        if (errorStatus.isError) {
+          setErrorStatus({
+            isError: false,
+            errorText: '',
+          });
+        }
       } catch (err: any) {
-        setValidationResponse(convertFirebaseError(err.code));
+        setErrorStatus({
+          isError: true,
+          errorText: convertFirebaseError(err.code),
+        });
       }
 
     setIsSaving(false);
@@ -84,6 +106,7 @@ const EditPasswordForm = () => {
         placeholder="Enter old password"
         required
         full
+        danger={errorStatus.isError}
       />
       <Input
         fieldType="text"
@@ -95,6 +118,7 @@ const EditPasswordForm = () => {
         placeholder="Enter new password"
         required
         full
+        danger={errorStatus.isError}
       />
       <Input
         fieldType="text"
@@ -106,9 +130,10 @@ const EditPasswordForm = () => {
         placeholder="Repeat new password"
         required
         full
+        danger={errorStatus.isError}
       />
-      {validationResponse.length > 0 && (
-        <StyledFailedText>{validationResponse}</StyledFailedText>
+      {errorStatus.isError && (
+        <ErrorMessage variant="basic" errorText={errorStatus.errorText} />
       )}
       <Button
         buttonType="submit"

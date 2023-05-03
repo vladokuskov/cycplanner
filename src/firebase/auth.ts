@@ -93,7 +93,6 @@ export const sendPasswordReset = async (email: string) => {
   try {
     await sendPasswordResetEmail(auth, email);
   } catch (err) {
-    console.log(err);
     throw err;
   }
 };
