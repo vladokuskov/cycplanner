@@ -184,6 +184,12 @@ const Event = ({
               </StyledDetailDescription>
             </StyledEventDetailWrapper>
             <StyledEventDetailWrapper>
+              <StyledDetailTitle>Difficulty:</StyledDetailTitle>
+              <StyledDetailDescription>
+                {event.difficulty}
+              </StyledDetailDescription>
+            </StyledEventDetailWrapper>
+            <StyledEventDetailWrapper>
               <StyledDetailTitle>Start location:</StyledDetailTitle>
               <StyledDetailLocation
                 title="View on Google Maps"

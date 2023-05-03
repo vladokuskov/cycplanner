@@ -206,6 +206,12 @@ const DetailMainSection = ({
             </StyledDetailDescription>
           </StyledInfoDetail>
           <StyledInfoDetail>
+            <StyledDetailTitle>Difficulty:</StyledDetailTitle>
+            <StyledDetailDescription>
+              {event?.difficulty}
+            </StyledDetailDescription>
+          </StyledInfoDetail>
+          <StyledInfoDetail>
             <StyledDetailTitle>Start location:</StyledDetailTitle>
             <StyledDetailLocation
               title="View on Google Maps"
