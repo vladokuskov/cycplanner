@@ -24,8 +24,11 @@ import {
   StyledUserControlButtonsWrapper,
   StyledUserControlWrapper,
 } from './DetailSidebarSection.styles';
+import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
 
 const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
+  const { user } = useAuth();
+
   const [eventUsers, setEventUsers] = useState({
     submitted: [] as string[],
     awaiting: [] as string[],
@@ -40,7 +43,10 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
     null
   );
 
-  const { user } = useAuth();
+  const [errorStatus, setErrorStatus] = useState({
+    isError: false,
+    errorText: '',
+  });
 
   useEffect(() => {
     if (event && event.participating) {
@@ -67,6 +73,11 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
       setLoadingState(Loading.success);
     } catch (err) {
       setLoadingState(Loading.error);
+
+      setErrorStatus({
+        isError: true,
+        errorText: 'An error occurred while loading Participants.',
+      });
     }
   };
 
@@ -166,85 +177,105 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
           <SkeletonLoader variant="users" />
         ) : loadingState === Loading.success ? (
           <>
-            {selectedFilter === 'submitted'
-              ? submittedUsers?.map((participant: any, i) => {
-                  return (
-                    <StyledUserControlWrapper key={i}>
-                      <ProfilePreview
-                        variant="no-link"
-                        name={participant.name}
-                        photoURL={participant.photoUrl}
-                        description={
-                          event?.metadata.author.uid === participant.uid
-                            ? 'Event organizator'
-                            : ''
-                        }
-                      />
-                      {user?.uid === event?.metadata.author.uid &&
-                        user?.uid !== participant.uid && (
-                          <StyledUserControlButtonsWrapper>
-                            <Button
-                              variant="icon"
-                              status="error"
-                              text="Remove user"
-                              icon={faTrashAlt}
-                              size="md3"
-                              bold
-                              onClick={() =>
-                                handleParticipantRemove(participant.uid)
-                              }
-                            />
-                          </StyledUserControlButtonsWrapper>
-                        )}
-                    </StyledUserControlWrapper>
+            {selectedFilter === 'submitted' && submittedUsers
+              ? (() => {
+                  const sortedParticipants = submittedUsers
+                    .filter(
+                      (participant: any) =>
+                        participant.uid !== event?.metadata.author.uid
+                    )
+                    .sort((a: any, b: any) => a.name.localeCompare(b.name));
+                  const participantsWithAuthorOnTop = [
+                    submittedUsers.find(
+                      (participant: any) =>
+                        participant.uid === event?.metadata.author.uid
+                    ),
+                    ...sortedParticipants,
+                  ];
+                  return participantsWithAuthorOnTop.map(
+                    (participant: any, i) => {
+                      return (
+                        <StyledUserControlWrapper key={i}>
+                          <ProfilePreview
+                            variant="no-link"
+                            name={participant.name}
+                            photoURL={participant.photoUrl}
+                            description={
+                              event?.metadata.author.uid === participant.uid
+                                ? 'Event organizer'
+                                : ''
+                            }
+                          />
+                          {user?.uid === event?.metadata.author.uid &&
+                            user?.uid !== participant.uid && (
+                              <StyledUserControlButtonsWrapper>
+                                <Button
+                                  variant="icon"
+                                  status="error"
+                                  text="Remove user"
+                                  icon={faTrashAlt}
+                                  size="md3"
+                                  bold
+                                  onClick={() =>
+                                    handleParticipantRemove(participant.uid)
+                                  }
+                                />
+                              </StyledUserControlButtonsWrapper>
+                            )}
+                        </StyledUserControlWrapper>
+                      );
+                    }
                   );
-                })
-              : awaitingUsers?.map((participant: any, i) => {
-                  return (
-                    <StyledUserControlWrapper key={i}>
-                      <ProfilePreview
-                        variant="no-link"
-                        name={participant.name}
-                        photoURL={participant.photoUrl}
-                        description={
-                          event?.metadata.author.uid === participant.uid
-                            ? 'Event organizator'
-                            : ''
-                        }
-                      />
-                      {user?.uid === event?.metadata.author.uid &&
-                        user?.uid !== participant.uid && (
-                          <StyledUserControlButtonsWrapper>
-                            <Button
-                              variant="icon"
-                              status="success"
-                              text="Approve user"
-                              icon={faCheckCircle}
-                              size="md3"
-                              bold
-                              onClick={() =>
-                                handleParticipantApprove(participant.uid)
-                              }
-                            />
-                            <Button
-                              variant="icon"
-                              status="error"
-                              text="Remove user"
-                              icon={faTrashAlt}
-                              size="md3"
-                              bold
-                              onClick={() =>
-                                handleParticipantRemove(participant.uid)
-                              }
-                            />
-                          </StyledUserControlButtonsWrapper>
-                        )}
-                    </StyledUserControlWrapper>
-                  );
-                })}
+                })()
+              : awaitingUsers &&
+                awaitingUsers
+                  .sort((a: any, b: any) => a.name.localeCompare(b.name))
+                  .map((participant: any, i) => {
+                    return (
+                      <StyledUserControlWrapper key={i}>
+                        <ProfilePreview
+                          variant="no-link"
+                          name={participant.name}
+                          photoURL={participant.photoUrl}
+                          description={
+                            event?.metadata.author.uid === participant.uid
+                              ? 'Event organizer'
+                              : ''
+                          }
+                        />
+                        {user?.uid === event?.metadata.author.uid &&
+                          user?.uid !== participant.uid && (
+                            <StyledUserControlButtonsWrapper>
+                              <Button
+                                variant="icon"
+                                status="success"
+                                text="Approve user"
+                                icon={faCheckCircle}
+                                size="md3"
+                                bold
+                                onClick={() =>
+                                  handleParticipantApprove(participant.uid)
+                                }
+                              />
+                              <Button
+                                variant="icon"
+                                status="error"
+                                text="Remove user"
+                                icon={faTrashAlt}
+                                size="md3"
+                                bold
+                                onClick={() =>
+                                  handleParticipantRemove(participant.uid)
+                                }
+                              />
+                            </StyledUserControlButtonsWrapper>
+                          )}
+                      </StyledUserControlWrapper>
+                    );
+                  })}
           </>
         ) : (
-          <p>Error</p>
+          <ErrorMessage variant="basic" errorText={errorStatus.errorText} />
         )}
       </StyledParticipantsList>
     </StyledDetailSidebarSectionWrapper>
