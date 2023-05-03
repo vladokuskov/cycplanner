@@ -161,7 +161,7 @@ const Geocoder = ({ changeGeoPoint, geoPoint }: Geocoder) => {
       const city = data.features[0].properties.city;
       const district = data.features[0].properties.district;
       const address = `${district !== undefined ? `${district}` : ''}${
-        district && ', '
+        district !== undefined && ', '
       }${city !== undefined ? city : ''}`;
       setReversedLocation(address);
       return null;
