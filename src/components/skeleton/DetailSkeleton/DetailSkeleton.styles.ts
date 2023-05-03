@@ -66,6 +66,9 @@ const StyledAuthorWrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: 0.3rem;
+  div {
+    background-color: #d6d6d6ab;
+  }
 `;
 const StyledAuthorImagePlaceholder = styled.div`
   width: 2.3rem;

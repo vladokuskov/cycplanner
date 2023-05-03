@@ -1,7 +1,4 @@
-import {
-  useEffect,
-  useState,
-} from 'react';
+import { useEffect, useState } from 'react';
 
 import { DocumentData } from 'firebase/firestore';
 
@@ -12,10 +9,7 @@ import {
   getUsers,
   removeUserFromParticipating,
 } from '@/firebase/events';
-import {
-  faCheckCircle,
-  faTrashAlt,
-} from '@fortawesome/free-regular-svg-icons';
+import { faCheckCircle, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 import { Button } from '../../Button/Button';
 import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
