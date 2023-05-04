@@ -261,10 +261,10 @@ const EventCreationForm = () => {
               />
             </StyledCreationOptionWrapper>
             <StyledCreationOptionWrapper>
-              <StyledLabel>{'Is paid'}</StyledLabel>
+              <StyledLabel>{'Event cost'}</StyledLabel>
               <SwitchButton
                 onClick={handlePaidChange}
-                labels={['Yes', 'No']}
+                labels={['Paid', 'Free']}
                 indexActive={1}
               />
             </StyledCreationOptionWrapper>
