@@ -27,8 +27,6 @@ const AvatarEditing = ({
     : undefined;
   const editorRef = useRef<AvatarEditor | null>(null);
   const [scale, setScale] = useState<number>(1);
-  const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
-
   const saveChanges = () => {
     if (editorRef.current && initialImage) {
       const canvas = editorRef.current.getImageScaledToCanvas();
@@ -45,10 +43,6 @@ const AvatarEditing = ({
 
   const handleScaleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setScale(+e.target.value);
-  };
-
-  const handlePositionChange = (position: { x: number; y: number }) => {
-    setPosition(position);
   };
 
   return (
@@ -77,8 +71,6 @@ const AvatarEditing = ({
               color={[255, 255, 255, 0.6]}
               scale={scale}
               rotate={0}
-              position={position}
-              onPositionChange={handlePositionChange}
             />
           )}
           <RangeSlider
