@@ -5,4 +5,5 @@ export type SwitchButton = {
   onClick: (e: string) => void;
   className?: string;
   active?: boolean;
+  indexActive?: number;
 };

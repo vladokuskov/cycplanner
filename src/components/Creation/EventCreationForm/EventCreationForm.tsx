@@ -65,6 +65,7 @@ const EventCreationForm = () => {
     description: '',
     difficulty: Difficulty.easy,
     duration: Duration.short,
+    ageRestriction: false,
     distance: '',
     type: '',
     location: { geoPoint: { lat: null, lon: null } },
@@ -186,6 +187,14 @@ const EventCreationForm = () => {
     }
   };
 
+  const handleAgeRestrictionChange = (e: string) => {
+    if (e === 'Yes') {
+      setEventForm((prev) => ({ ...prev, ageRestriction: true }));
+    } else if (e === 'No') {
+      setEventForm((prev) => ({ ...prev, ageRestriction: false }));
+    }
+  };
+
   return (
     <>
       <StyledPageTitle>Create Event</StyledPageTitle>
@@ -225,6 +234,14 @@ const EventCreationForm = () => {
               <SwitchButton
                 onClick={handleDifficultyChange}
                 labels={['Easy', 'Medium', 'Hard', 'Expert']}
+              />
+            </StyledCreationOptionWrapper>
+            <StyledCreationOptionWrapper>
+              <StyledLabel>{'Age restriction (>18)'}</StyledLabel>
+              <SwitchButton
+                onClick={handleAgeRestrictionChange}
+                labels={['Yes', 'No']}
+                indexActive={1}
               />
             </StyledCreationOptionWrapper>
             <StyledCreationOptionWrapper>

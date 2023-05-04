@@ -2,8 +2,13 @@ import { useState } from 'react';
 import { StyledButton, StyledButtonGroupWrapper } from './SwitchButton.styles';
 import { SwitchButton } from './SwitchButton.types';
 
-const SwitchButton = ({ labels = [], onClick, className }: SwitchButton) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+const SwitchButton = ({
+  labels = [],
+  onClick,
+  className,
+  indexActive,
+}: SwitchButton) => {
+  const [activeIndex, setActiveIndex] = useState(indexActive ? indexActive : 0);
 
   const handleClick = (label: string, index: number) => {
     setActiveIndex(index);

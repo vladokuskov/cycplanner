@@ -18,6 +18,7 @@ export interface IEvent {
   description?: string;
   difficulty?: Difficulty;
   duration?: Duration;
+  ageRestriction?: boolean;
   distance?: string;
   type?: string;
   location: {

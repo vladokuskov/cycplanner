@@ -199,11 +199,6 @@ const Event = ({
         <StyledEventContentWrapper>
           <StyledContentInfoWrapper>
             <StyledEventTitle>{event.title}</StyledEventTitle>
-            <StyledEventDescription>{event.description}</StyledEventDescription>
-            <StyledEventDetailWrapper>
-              <StyledDetailTitle>Type:</StyledDetailTitle>
-              <StyledDetailDescription>{event.type}</StyledDetailDescription>
-            </StyledEventDetailWrapper>
             <StyledEventDetailWrapper>
               <StyledDetailTitle>Duration:</StyledDetailTitle>
               <StyledDetailDescription>{eventDuration}</StyledDetailDescription>
