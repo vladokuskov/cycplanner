@@ -19,12 +19,11 @@ import {
   StyledDetailSidebarSectionWrapper,
   StyledParticipantsList,
   StyledSectionTitle,
-  StyledSwitchButton,
-  StyledSwitcherWrapper,
   StyledUserControlButtonsWrapper,
   StyledUserControlWrapper,
 } from './DetailSidebarSection.styles';
 import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
+import { SwitchButton } from '@/components/SwitchButton/SwitchButton';
 
 const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
   const { user } = useAuth();
@@ -82,7 +81,11 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
   };
 
   const handleFilterChange = (filter: string) => {
-    setSelectedFilter(filter);
+    if (filter === 'Submitted') {
+      setSelectedFilter('submitted');
+    } else if (filter === 'Awaiting') {
+      setSelectedFilter('awaiting');
+    }
   };
 
   const handleParticipantRemove = async (participantId: string) => {
@@ -155,22 +158,10 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
     <StyledDetailSidebarSectionWrapper>
       <StyledSectionTitle>Participants</StyledSectionTitle>
       {user?.uid === event?.metadata.author.uid && (
-        <StyledSwitcherWrapper>
-          <StyledSwitchButton
-            onClick={() => handleFilterChange('submitted')}
-            disabled={selectedFilter === 'submitted'}
-            title="Participants"
-          >
-            Participants
-          </StyledSwitchButton>
-          <StyledSwitchButton
-            onClick={() => handleFilterChange('awaiting')}
-            disabled={selectedFilter === 'awaiting'}
-            title="Awaiting participants"
-          >
-            Awaiting
-          </StyledSwitchButton>
-        </StyledSwitcherWrapper>
+        <SwitchButton
+          onClick={handleFilterChange}
+          labels={['Submitted', 'Awaiting']}
+        />
       )}
       <StyledParticipantsList>
         {loadingState === Loading.loading ? (

@@ -13,7 +13,7 @@ const StyledTypeButton = styled.button`
   font-size: 0.9rem;
   font-weight: 500;
   padding: 0.3rem;
-  background-color: #d6d6d6;
+  background-color: #e7e7e7;
   border-radius: 5px;
   color: #717171;
   flex: 1;

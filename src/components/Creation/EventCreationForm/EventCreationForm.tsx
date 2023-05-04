@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import geohash from 'ngeohash';
 import { FileUploader } from 'react-drag-drop-files';
@@ -6,12 +6,15 @@ import { parseString } from 'xml2js';
 
 import { useAuth } from '@/context/AuthContext';
 import { createEvent } from '@/firebase/events';
-import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircleNotch,
+  faExternalLink,
+} from '@fortawesome/free-solid-svg-icons';
 import { nanoid } from '@reduxjs/toolkit';
 
 import { Button } from '../../Button/Button';
 import { Input } from '../../Input/Input';
-import { IEvent } from '../../types/shared/event.types';
+import { Difficulty, Duration, IEvent } from '../../types/shared/event.types';
 import { GeoPoint } from '../../types/shared/geoPoint.types';
 import { EventType } from '../EventType/EventType';
 import {
@@ -21,8 +24,14 @@ import {
   StyledFormMainWrapper,
   StyledInputsWrapper,
   StyledPageTitle,
+  StyledExternalLink,
+  StyledCreationOptionWrapper,
+  StyledLabel,
 } from './EventCreationForm.styles';
 import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
+import { Icon } from '@/components/Icon/Icon';
+import { SwitchButton } from '@/components/SwitchButton/SwitchButton';
+import { calculateRouteDistance } from '@/utils/getDistance';
 
 const EventCreationForm = () => {
   const { user } = useAuth();
@@ -54,6 +63,10 @@ const EventCreationForm = () => {
     favoriteUsers: [],
     title: '',
     description: '',
+    difficulty: Difficulty.easy,
+    duration: Duration.short,
+    ageRestriction: false,
+    isPaid: false,
     distance: '',
     type: '',
     location: { geoPoint: { lat: null, lon: null } },
@@ -69,6 +82,13 @@ const EventCreationForm = () => {
 
     setEventForm((prev) => ({ ...prev, [name]: value }));
   };
+
+  useEffect(() => {
+    setEventForm((prev) => ({
+      ...prev,
+      distance: route ? calculateRouteDistance(route).toFixed(2) : '',
+    }));
+  }, [route]);
 
   const handleFileUpload = (file: File) => {
     setFile(file);
@@ -98,6 +118,7 @@ const EventCreationForm = () => {
                 geoPoint: newRoute[0],
                 hash: geohash.encode(newRoute[0].lat, newRoute[0].lon),
               },
+              distance: route ? calculateRouteDistance(route).toFixed(2) : '',
             }));
           }
         });
@@ -105,6 +126,50 @@ const EventCreationForm = () => {
     };
 
     reader.readAsText(file);
+  };
+
+  const handleTypeChange = (e: string) => {
+    setEventForm((prev) => ({ ...prev, type: e }));
+  };
+
+  const handleDifficultyChange = (e: string) => {
+    if (e === 'Easy') {
+      setEventForm((prev) => ({ ...prev, difficulty: Difficulty.easy }));
+    } else if (e === 'Medium') {
+      setEventForm((prev) => ({ ...prev, difficulty: Difficulty.medium }));
+    } else if (e === 'Hard') {
+      setEventForm((prev) => ({ ...prev, difficulty: Difficulty.hard }));
+    } else if (e === 'Expert') {
+      setEventForm((prev) => ({ ...prev, difficulty: Difficulty.expert }));
+    }
+  };
+
+  const handleDurationChange = (e: string) => {
+    if (e === '<1 hour') {
+      setEventForm((prev) => ({ ...prev, duration: Duration.short }));
+    } else if (e === '1-2 hours') {
+      setEventForm((prev) => ({ ...prev, duration: Duration.medium }));
+    } else if (e === '2-4 hours') {
+      setEventForm((prev) => ({ ...prev, duration: Duration.long }));
+    } else if (e === '>4 hours') {
+      setEventForm((prev) => ({ ...prev, duration: Duration.endurance }));
+    }
+  };
+
+  const handleAgeRestrictionChange = (e: string) => {
+    if (e === 'Yes') {
+      setEventForm((prev) => ({ ...prev, ageRestriction: true }));
+    } else if (e === 'No') {
+      setEventForm((prev) => ({ ...prev, ageRestriction: false }));
+    }
+  };
+
+  const handlePaidChange = (e: string) => {
+    if (e === 'Yes') {
+      setEventForm((prev) => ({ ...prev, isPaid: true }));
+    } else if (e === 'No') {
+      setEventForm((prev) => ({ ...prev, isPaid: false }));
+    }
   };
 
   const resetForm = () => {
@@ -139,16 +204,20 @@ const EventCreationForm = () => {
     setIsCreatingEvent(false);
   };
 
-  const handleTypeChange = (e: string) => {
-    setEventForm((prev) => ({ ...prev, type: e }));
-  };
-
   return (
     <>
       <StyledPageTitle>Create Event</StyledPageTitle>
       <StyledEventFormWrapper onSubmit={handleSubmit}>
         <StyledFormMainWrapper>
           <StyledInputsWrapper>
+            <StyledExternalLink
+              title="Open route builder (cycroute)"
+              target="_blank"
+              href="https://cycroute.netlify.app/"
+            >
+              <span>Route builder</span>
+              <Icon icon={faExternalLink} />
+            </StyledExternalLink>
             <Input
               full
               label="Title"
@@ -169,6 +238,36 @@ const EventCreationForm = () => {
               value={eventForm.description}
               onChange={handleFormChange}
             />
+            <StyledCreationOptionWrapper>
+              <StyledLabel>Difficulty</StyledLabel>
+              <SwitchButton
+                onClick={handleDifficultyChange}
+                labels={['Easy', 'Medium', 'Hard', 'Expert']}
+              />
+            </StyledCreationOptionWrapper>
+            <StyledCreationOptionWrapper>
+              <StyledLabel>{'Age restriction (>18)'}</StyledLabel>
+              <SwitchButton
+                onClick={handleAgeRestrictionChange}
+                labels={['Yes', 'No']}
+                indexActive={1}
+              />
+            </StyledCreationOptionWrapper>
+            <StyledCreationOptionWrapper>
+              <StyledLabel>Approximate duration</StyledLabel>
+              <SwitchButton
+                onClick={handleDurationChange}
+                labels={['<1 hour', '1-2 hours', '2-4 hours', '>4 hours']}
+              />
+            </StyledCreationOptionWrapper>
+            <StyledCreationOptionWrapper>
+              <StyledLabel>{'Event cost'}</StyledLabel>
+              <SwitchButton
+                onClick={handlePaidChange}
+                labels={['Paid', 'Free']}
+                indexActive={1}
+              />
+            </StyledCreationOptionWrapper>
             <Input
               full
               fieldType="number"

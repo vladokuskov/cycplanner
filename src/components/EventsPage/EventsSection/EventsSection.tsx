@@ -103,10 +103,16 @@ const EventsSection = () => {
 
   return (
     <StyledEventSectionWrapper>
-      <StyledPageTitle>Events</StyledPageTitle>
-      {selectedFilter !== 'favorite' &&
-        selectedFilter !== 'participated' &&
-        selectedFilter !== 'my-events' && <EventFilter />}
+      <StyledPageTitle>
+        {selectedFilter === 'favorite'
+          ? 'Favorite'
+          : selectedFilter === 'participated'
+          ? 'Participated'
+          : selectedFilter === 'my-events'
+          ? 'My events'
+          : 'All events'}
+      </StyledPageTitle>
+
       <StyledEventsWrapper>
         {((allEvents?.length !== 0 && selectedFilter === 'all') ||
           (myEvents?.length !== 0 && selectedFilter === 'my-events') ||
