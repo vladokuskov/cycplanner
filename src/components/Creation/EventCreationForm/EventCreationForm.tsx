@@ -165,9 +165,9 @@ const EventCreationForm = () => {
   };
 
   const handlePaidChange = (e: string) => {
-    if (e === 'Yes') {
+    if (e === 'Paid') {
       setEventForm((prev) => ({ ...prev, isPaid: true }));
-    } else if (e === 'No') {
+    } else if (e === 'Free') {
       setEventForm((prev) => ({ ...prev, isPaid: false }));
     }
   };
@@ -243,6 +243,17 @@ const EventCreationForm = () => {
               <SwitchButton
                 onClick={handleDifficultyChange}
                 labels={['Easy', 'Medium', 'Hard', 'Expert']}
+                indexActive={
+                  eventForm.difficulty === 0
+                    ? 0
+                    : eventForm.difficulty === 1
+                    ? 1
+                    : eventForm.difficulty === 2
+                    ? 2
+                    : eventForm.difficulty === 3
+                    ? 3
+                    : 0
+                }
               />
             </StyledCreationOptionWrapper>
             <StyledCreationOptionWrapper>
@@ -250,7 +261,7 @@ const EventCreationForm = () => {
               <SwitchButton
                 onClick={handleAgeRestrictionChange}
                 labels={['Yes', 'No']}
-                indexActive={1}
+                indexActive={eventForm.ageRestriction === true ? 0 : 1}
               />
             </StyledCreationOptionWrapper>
             <StyledCreationOptionWrapper>
@@ -258,6 +269,17 @@ const EventCreationForm = () => {
               <SwitchButton
                 onClick={handleDurationChange}
                 labels={['<1 hour', '1-2 hours', '2-4 hours', '>4 hours']}
+                indexActive={
+                  eventForm.duration === 0
+                    ? 0
+                    : eventForm.duration === 1
+                    ? 1
+                    : eventForm.duration === 2
+                    ? 2
+                    : eventForm.duration === 3
+                    ? 3
+                    : 0
+                }
               />
             </StyledCreationOptionWrapper>
             <StyledCreationOptionWrapper>
@@ -265,7 +287,13 @@ const EventCreationForm = () => {
               <SwitchButton
                 onClick={handlePaidChange}
                 labels={['Paid', 'Free']}
-                indexActive={1}
+                indexActive={
+                  eventForm.isPaid === true
+                    ? 0
+                    : eventForm.isPaid === false
+                    ? 1
+                    : 0
+                }
               />
             </StyledCreationOptionWrapper>
             <Input

@@ -161,6 +161,7 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
         <SwitchButton
           onClick={handleFilterChange}
           labels={['Submitted', 'Awaiting']}
+          indexActive={selectedFilter === 'submitted' ? 0 : 1}
         />
       )}
       <StyledParticipantsList>

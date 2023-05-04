@@ -8,10 +8,7 @@ const SwitchButton = ({
   className,
   indexActive,
 }: SwitchButton) => {
-  const [activeIndex, setActiveIndex] = useState(indexActive ? indexActive : 0);
-
   const handleClick = (label: string, index: number) => {
-    setActiveIndex(index);
     onClick(label);
   };
 
@@ -21,8 +18,8 @@ const SwitchButton = ({
         <StyledButton
           className={className}
           key={index}
-          active={index === activeIndex}
-          disabled={index === activeIndex}
+          active={index === indexActive}
+          disabled={index === indexActive}
           onClick={() => handleClick(label, index)}
           type="button"
           title={label}
