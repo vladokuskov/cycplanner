@@ -66,6 +66,7 @@ const EventCreationForm = () => {
     difficulty: Difficulty.easy,
     duration: Duration.short,
     ageRestriction: false,
+    isPaid: false,
     distance: '',
     type: '',
     location: { geoPoint: { lat: null, lon: null } },
@@ -127,38 +128,6 @@ const EventCreationForm = () => {
     reader.readAsText(file);
   };
 
-  const resetForm = () => {
-    setFile(null);
-    setRoute(null);
-    setEventForm(initialFormState);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsCreatingEvent(true);
-    if (route) {
-      try {
-        await createEvent(eventForm);
-
-        resetForm();
-
-        if (errorStatus.isError) {
-          setErrorStatus({
-            isError: false,
-            errorText: '',
-          });
-        }
-      } catch (err) {
-        setErrorStatus({
-          isError: true,
-          errorText: 'An error occurred while creating the event',
-        });
-      }
-    }
-
-    setIsCreatingEvent(false);
-  };
-
   const handleTypeChange = (e: string) => {
     setEventForm((prev) => ({ ...prev, type: e }));
   };
@@ -193,6 +162,46 @@ const EventCreationForm = () => {
     } else if (e === 'No') {
       setEventForm((prev) => ({ ...prev, ageRestriction: false }));
     }
+  };
+
+  const handlePaidChange = (e: string) => {
+    if (e === 'Yes') {
+      setEventForm((prev) => ({ ...prev, isPaid: true }));
+    } else if (e === 'No') {
+      setEventForm((prev) => ({ ...prev, isPaid: false }));
+    }
+  };
+
+  const resetForm = () => {
+    setFile(null);
+    setRoute(null);
+    setEventForm(initialFormState);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsCreatingEvent(true);
+    if (route) {
+      try {
+        await createEvent(eventForm);
+
+        resetForm();
+
+        if (errorStatus.isError) {
+          setErrorStatus({
+            isError: false,
+            errorText: '',
+          });
+        }
+      } catch (err) {
+        setErrorStatus({
+          isError: true,
+          errorText: 'An error occurred while creating the event',
+        });
+      }
+    }
+
+    setIsCreatingEvent(false);
   };
 
   return (
@@ -249,6 +258,14 @@ const EventCreationForm = () => {
               <SwitchButton
                 onClick={handleDurationChange}
                 labels={['<1 hour', '1-2 hours', '2-4 hours', '>4 hours']}
+              />
+            </StyledCreationOptionWrapper>
+            <StyledCreationOptionWrapper>
+              <StyledLabel>{'Is paid'}</StyledLabel>
+              <SwitchButton
+                onClick={handlePaidChange}
+                labels={['Yes', 'No']}
+                indexActive={1}
               />
             </StyledCreationOptionWrapper>
             <Input

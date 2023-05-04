@@ -19,6 +19,7 @@ export interface IEvent {
   difficulty?: Difficulty;
   duration?: Duration;
   ageRestriction?: boolean;
+  isPaid?: boolean;
   distance?: string;
   type?: string;
   location: {
