@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import geohash from 'ngeohash';
 import { FileUploader } from 'react-drag-drop-files';
@@ -14,7 +14,7 @@ import { nanoid } from '@reduxjs/toolkit';
 
 import { Button } from '../../Button/Button';
 import { Input } from '../../Input/Input';
-import { Difficulty, IEvent } from '../../types/shared/event.types';
+import { Difficulty, Duration, IEvent } from '../../types/shared/event.types';
 import { GeoPoint } from '../../types/shared/geoPoint.types';
 import { EventType } from '../EventType/EventType';
 import {
@@ -31,6 +31,7 @@ import {
 import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
 import { Icon } from '@/components/Icon/Icon';
 import { SwitchButton } from '@/components/SwitchButton/SwitchButton';
+import { calculateRouteDistance } from '@/utils/getDistance';
 
 const EventCreationForm = () => {
   const { user } = useAuth();
@@ -62,7 +63,8 @@ const EventCreationForm = () => {
     favoriteUsers: [],
     title: '',
     description: '',
-    difficulty: 'Easy',
+    difficulty: Difficulty.easy,
+    duration: Duration.short,
     distance: '',
     type: '',
     location: { geoPoint: { lat: null, lon: null } },
@@ -78,6 +80,13 @@ const EventCreationForm = () => {
 
     setEventForm((prev) => ({ ...prev, [name]: value }));
   };
+
+  useEffect(() => {
+    setEventForm((prev) => ({
+      ...prev,
+      distance: route ? calculateRouteDistance(route).toFixed(2) : '',
+    }));
+  }, [route]);
 
   const handleFileUpload = (file: File) => {
     setFile(file);
@@ -107,6 +116,7 @@ const EventCreationForm = () => {
                 geoPoint: newRoute[0],
                 hash: geohash.encode(newRoute[0].lat, newRoute[0].lon),
               },
+              distance: route ? calculateRouteDistance(route).toFixed(2) : '',
             }));
           }
         });
@@ -152,8 +162,28 @@ const EventCreationForm = () => {
     setEventForm((prev) => ({ ...prev, type: e }));
   };
 
-  const handleDifficultyChange = (e: Difficulty | string) => {
-    setEventForm((prev) => ({ ...prev, difficulty: e }));
+  const handleDifficultyChange = (e: string) => {
+    if (e === 'Easy') {
+      setEventForm((prev) => ({ ...prev, difficulty: Difficulty.easy }));
+    } else if (e === 'Medium') {
+      setEventForm((prev) => ({ ...prev, difficulty: Difficulty.medium }));
+    } else if (e === 'Hard') {
+      setEventForm((prev) => ({ ...prev, difficulty: Difficulty.hard }));
+    } else if (e === 'Expert') {
+      setEventForm((prev) => ({ ...prev, difficulty: Difficulty.expert }));
+    }
+  };
+
+  const handleDurationChange = (e: string) => {
+    if (e === '<1 hour') {
+      setEventForm((prev) => ({ ...prev, duration: Duration.short }));
+    } else if (e === '1-2 hours') {
+      setEventForm((prev) => ({ ...prev, duration: Duration.medium }));
+    } else if (e === '2-4 hours') {
+      setEventForm((prev) => ({ ...prev, duration: Duration.long }));
+    } else if (e === '>4 hours') {
+      setEventForm((prev) => ({ ...prev, duration: Duration.endurance }));
+    }
   };
 
   return (
@@ -197,7 +227,13 @@ const EventCreationForm = () => {
                 labels={['Easy', 'Medium', 'Hard', 'Expert']}
               />
             </StyledCreationOptionWrapper>
-
+            <StyledCreationOptionWrapper>
+              <StyledLabel>Approximate duration</StyledLabel>
+              <SwitchButton
+                onClick={handleDurationChange}
+                labels={['<1 hour', '1-2 hours', '2-4 hours', '>4 hours']}
+              />
+            </StyledCreationOptionWrapper>
             <Input
               full
               fieldType="number"

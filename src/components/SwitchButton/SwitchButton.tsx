@@ -20,6 +20,7 @@ const SwitchButton = ({ labels = [], onClick, className }: SwitchButton) => {
           disabled={index === activeIndex}
           onClick={() => handleClick(label, index)}
           type="button"
+          title={label}
         >
           {labels && labels?.length !== 0 && <span>{label}</span>}
         </StyledButton>

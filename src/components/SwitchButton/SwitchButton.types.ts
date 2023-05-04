@@ -1,10 +1,8 @@
 import { Difficulty } from '../types/shared/event.types';
 
-type ClickEvent = string | Difficulty;
-
 export type SwitchButton = {
   labels?: string[];
-  onClick: (e: ClickEvent) => void;
+  onClick: (e: string) => void;
   className?: string;
   active?: boolean;
 };

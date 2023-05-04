@@ -25,7 +25,12 @@ import {
 import { Button } from '../Button/Button';
 import { ProfilePreview } from '../ProfilePreview/ProfilePreview';
 import { SkeletonLoader } from '../skeleton/Skeleton';
-import { IEvent, Participating } from '../types/shared/event.types';
+import {
+  Difficulty,
+  Duration,
+  IEvent,
+  Participating,
+} from '../types/shared/event.types';
 import {
   StyledButtonWrapper,
   StyledContentButtonsWrapper,
@@ -84,6 +89,28 @@ const Event = ({
     event && event.id ? event.id : null,
     'event'
   );
+
+  const eventDifficulty =
+    event.difficulty === Difficulty.easy
+      ? 'Easy'
+      : event.difficulty === Difficulty.medium
+      ? 'Medium'
+      : event.difficulty === Difficulty.hard
+      ? 'Hard'
+      : event.difficulty === Difficulty.expert
+      ? 'Expert'
+      : '';
+
+  const eventDuration =
+    event.duration === Duration.short
+      ? 'Short'
+      : event.duration === Duration.medium
+      ? 'Medium'
+      : event.duration === Duration.long
+      ? 'Long'
+      : event.duration === Duration.endurance
+      ? 'Endurance'
+      : '';
 
   const handleMapMaximizing = () => {
     setIsMapMaximized((prev) => !prev);
@@ -178,6 +205,10 @@ const Event = ({
               <StyledDetailDescription>{event.type}</StyledDetailDescription>
             </StyledEventDetailWrapper>
             <StyledEventDetailWrapper>
+              <StyledDetailTitle>Duration:</StyledDetailTitle>
+              <StyledDetailDescription>{eventDuration}</StyledDetailDescription>
+            </StyledEventDetailWrapper>
+            <StyledEventDetailWrapper>
               <StyledDetailTitle>Distance:</StyledDetailTitle>
               <StyledDetailDescription>
                 {event.distance} km
@@ -186,9 +217,10 @@ const Event = ({
             <StyledEventDetailWrapper>
               <StyledDetailTitle>Difficulty:</StyledDetailTitle>
               <StyledDetailDescription>
-                {event.difficulty}
+                {eventDifficulty}
               </StyledDetailDescription>
             </StyledEventDetailWrapper>
+
             <StyledEventDetailWrapper>
               <StyledDetailTitle>Start location:</StyledDetailTitle>
               <StyledDetailLocation

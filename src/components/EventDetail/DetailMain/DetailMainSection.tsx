@@ -26,7 +26,12 @@ import {
 import { Button } from '../../Button/Button';
 import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
 import { SkeletonLoader } from '../../skeleton/Skeleton';
-import { IEvent, Participating } from '../../types/shared/event.types';
+import {
+  Difficulty,
+  Duration,
+  IEvent,
+  Participating,
+} from '../../types/shared/event.types';
 import {
   StyledControlsWrapper,
   StyledDescription,
@@ -76,6 +81,28 @@ const DetailMainSection = ({
   const { copyToClipboard, isCopied } = useCopyEventURL(
     event && event.id ? event.id : null
   );
+
+  const eventDifficulty =
+    event.difficulty === Difficulty.easy
+      ? 'Easy'
+      : event.difficulty === Difficulty.medium
+      ? 'Medium'
+      : event.difficulty === Difficulty.hard
+      ? 'Hard'
+      : event.difficulty === Difficulty.expert
+      ? 'Expert'
+      : '';
+
+  const eventDuration =
+    event.duration === Duration.short
+      ? 'Short'
+      : event.duration === Duration.medium
+      ? 'Medium'
+      : event.duration === Duration.long
+      ? 'Long'
+      : event.duration === Duration.endurance
+      ? 'Endurance'
+      : '';
 
   const handleFavorite = async () => {
     await updateFavoriteStatus();
@@ -200,6 +227,10 @@ const DetailMainSection = ({
             <StyledDetailDescription>{event?.type}</StyledDetailDescription>
           </StyledInfoDetail>
           <StyledInfoDetail>
+            <StyledDetailTitle>Duration:</StyledDetailTitle>
+            <StyledDetailDescription>{eventDuration}</StyledDetailDescription>
+          </StyledInfoDetail>
+          <StyledInfoDetail>
             <StyledDetailTitle>Distance:</StyledDetailTitle>
             <StyledDetailDescription>
               {event?.distance} km
@@ -207,9 +238,7 @@ const DetailMainSection = ({
           </StyledInfoDetail>
           <StyledInfoDetail>
             <StyledDetailTitle>Difficulty:</StyledDetailTitle>
-            <StyledDetailDescription>
-              {event?.difficulty}
-            </StyledDetailDescription>
+            <StyledDetailDescription>{eventDifficulty}</StyledDetailDescription>
           </StyledInfoDetail>
           <StyledInfoDetail>
             <StyledDetailTitle>Start location:</StyledDetailTitle>

@@ -16,7 +16,8 @@ export interface IEvent {
   favoriteUsers?: string[];
   title?: string;
   description?: string;
-  difficulty?: Difficulty | string;
+  difficulty?: Difficulty;
+  duration?: Duration;
   distance?: string;
   type?: string;
   location: {
@@ -32,4 +33,16 @@ export enum Participating {
   participated,
 }
 
-export type Difficulty = 'Easy' | 'Medium' | 'Hard' | 'Expert';
+export enum Duration {
+  short,
+  medium,
+  long,
+  endurance,
+}
+
+export enum Difficulty {
+  easy,
+  medium,
+  hard,
+  expert,
+}
