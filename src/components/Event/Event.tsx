@@ -103,13 +103,13 @@ const Event = ({
 
   const eventDuration =
     event.duration === Duration.short
-      ? 'Short'
+      ? '<1 hour'
       : event.duration === Duration.medium
-      ? 'Medium'
+      ? '1-2 hours'
       : event.duration === Duration.long
-      ? 'Long'
+      ? '2-4 hours'
       : event.duration === Duration.endurance
-      ? 'Endurance'
+      ? '>4 hours'
       : '';
 
   const handleMapMaximizing = () => {
