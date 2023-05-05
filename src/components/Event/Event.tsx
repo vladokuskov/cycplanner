@@ -51,7 +51,7 @@ import {
   StyledEventWrapper,
   StyledHeaderButtonsWrapper,
   StyledMapPlaceholder,
-} from './Event.styles.ts';
+} from './Event.styles';
 
 const Event = ({
   event,

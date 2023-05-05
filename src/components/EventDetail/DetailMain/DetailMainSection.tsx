@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
-import { StyledCopiedMessage } from '@/components/Event/Event.styles.ts';
+import { StyledCopiedMessage } from '@/components/Event/Event.styles';
 import { Loading } from '@/components/types/shared/loadingState.types';
 import { useAuth } from '@/context/AuthContext';
 import { deleteEvent } from '@/firebase/events';
