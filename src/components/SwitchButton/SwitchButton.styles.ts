@@ -12,24 +12,29 @@ const StyledButtonGroupWrapper = styled.div`
 `;
 
 const StyledButton = styled.button<SwitchButton>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
   font-family: 'Roboto', sans-serif;
   border: none;
   margin: 0;
   padding: 0.3rem 0.5rem;
-  border-radius: 6px;
   width: 100%;
   font-weight: 500;
+
   :disabled {
     cursor: default;
   }
   ${({ active }) =>
     active
       ? css`
-          color: #717171;
-          background-color: #e7e7e7;
+          border-radius: 6px;
+          color: rgb(68, 68, 68);
+          background-color: rgb(236, 236, 236);
         `
       : css`
-          color: #8e8e8e;
+          color: #888;
           background-color: transparent;
         `}
 `;

@@ -9,7 +9,11 @@ import {
   getUsers,
   removeUserFromParticipating,
 } from '@/firebase/events';
-import { faCheckCircle, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import {
+  faCheckCircle,
+  faHourglass,
+  faTrashAlt,
+} from '@fortawesome/free-regular-svg-icons';
 
 import { Button } from '../../Button/Button';
 import { ProfilePreview } from '../../ProfilePreview/ProfilePreview';
@@ -24,6 +28,7 @@ import {
 } from './DetailSidebarSection.styles';
 import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
 import { SwitchButton } from '@/components/SwitchButton/SwitchButton';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
   const { user } = useAuth();
@@ -161,6 +166,7 @@ const DetailSidebarSection = ({ event }: { event: IEvent | null }) => {
         <SwitchButton
           onClick={handleFilterChange}
           labels={['Submitted', 'Awaiting']}
+          icon={[faCheck, faHourglass]}
           indexActive={selectedFilter === 'submitted' ? 0 : 1}
         />
       )}

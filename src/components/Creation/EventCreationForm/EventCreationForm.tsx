@@ -9,6 +9,11 @@ import { createEvent } from '@/firebase/events';
 import {
   faCircleNotch,
   faExternalLink,
+  faPersonBiking,
+  faPersonBreastfeeding,
+  faPersonRunning,
+  faPersonWalking,
+  faPersonWalkingLuggage,
 } from '@fortawesome/free-solid-svg-icons';
 import { nanoid } from '@reduxjs/toolkit';
 
@@ -32,6 +37,7 @@ import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
 import { Icon } from '@/components/Icon/Icon';
 import { SwitchButton } from '@/components/SwitchButton/SwitchButton';
 import { calculateRouteDistance } from '@/utils/getDistance';
+import { faMoneyBill1 } from '@fortawesome/free-regular-svg-icons';
 
 const EventCreationForm = () => {
   const { user } = useAuth();
@@ -243,6 +249,12 @@ const EventCreationForm = () => {
               <SwitchButton
                 onClick={handleDifficultyChange}
                 labels={['Easy', 'Medium', 'Hard', 'Expert']}
+                icon={[
+                  faPersonWalking,
+                  faPersonWalkingLuggage,
+                  faPersonRunning,
+                  faPersonBiking,
+                ]}
                 indexActive={
                   eventForm.difficulty === 0
                     ? 0
@@ -287,6 +299,7 @@ const EventCreationForm = () => {
               <SwitchButton
                 onClick={handlePaidChange}
                 labels={['Paid', 'Free']}
+                icon={[faMoneyBill1]}
                 indexActive={
                   eventForm.isPaid === true
                     ? 0
