@@ -31,6 +31,8 @@ export default function Web() {
           if (data) {
             setEvent(data);
             setLoading(Loading.success);
+          } else {
+            router.push('/404');
           }
         }
       } catch (err) {
