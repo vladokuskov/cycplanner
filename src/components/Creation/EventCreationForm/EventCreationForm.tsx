@@ -219,7 +219,7 @@ const EventCreationForm = () => {
             <StyledExternalLink
               title="Open route builder (cycroute)"
               target="_blank"
-              href="https://cycroute.netlify.app/"
+              href="https://cycroute.vercel.app/"
             >
               <span>Route builder</span>
               <Icon icon={faExternalLink} />
