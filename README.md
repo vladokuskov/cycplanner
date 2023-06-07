@@ -23,6 +23,13 @@ Live - https://cycplanner.vercel.app/
     Firebase
     Styled Components
     TypeScript
+
+<div style="display: flex; justify-content: center;">
+    <img src="public/previews/1.png" width="200px">
+    <img src="public/previews/2.png" width="200px">
+    <img src="public/previews/3.png" width="200px">
+    <img src="public/previews/4.png" width="200px">
+</div>    
     
 ### How to start?
 
